@@ -6,7 +6,8 @@ import { DEFAULT_SCAN, SEARCH_PROFILES } from "./config.js";
 import { cleanEmails, cleanForms, hasDirectOutboundPath } from "./contact-cleaner.js";
 import { runScan } from "./engine.js";
 import { filterAndDedupeLeads } from "./exporter.js";
-import { getRootDir, listLeads, readDb, updateLead } from "./store.js";
+import { countBySource, sourceBucket } from "./mql5-limit.js";
+import { getRootDir, readDb, updateLead } from "./store.js";
 import { platformFromUrl, sleep, toCsvCell } from "./utils.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -15,24 +16,71 @@ const rootDir = getRootDir();
 const publicDir = path.join(rootDir, "public");
 const PORT = Number(process.env.PORT || 8787);
 
+const SCAN_PRESETS = {
+  quality: {
+    maxQueries: 90,
+    limitPerQuery: 8,
+    deepEnrich: true,
+    fetchPages: true,
+    searchContacts: true,
+    maxContactPages: 8,
+    maxExternalWebsites: 6,
+    maxTrailQueries: 24,
+    trailLimit: 8,
+    exportEvery: 3
+  },
+  volume: {
+    maxQueries: 220,
+    limitPerQuery: 15,
+    deepEnrich: true,
+    fetchPages: true,
+    searchContacts: true,
+    maxContactPages: 5,
+    maxExternalWebsites: 4,
+    maxTrailQueries: 16,
+    trailLimit: 6,
+    exportEvery: 5
+  },
+  social: {
+    maxQueries: 160,
+    limitPerQuery: 12,
+    deepEnrich: true,
+    fetchPages: true,
+    searchContacts: true,
+    maxContactPages: 6,
+    maxExternalWebsites: 5,
+    maxTrailQueries: 18,
+    trailLimit: 7,
+    includePartners: false,
+    includeRecruitment: false,
+    includeIntentPosts: true,
+    includeEcosystem: false,
+    includeSocialProfiles: true,
+    includeForums: true,
+    includeSpecialistSources: false,
+    exportEvery: 4
+  },
+  latam: {
+    regionSet: "latam",
+    maxQueries: 180,
+    limitPerQuery: 12,
+    deepEnrich: true,
+    fetchPages: true,
+    searchContacts: true,
+    maxContactPages: 7,
+    maxExternalWebsites: 5,
+    maxTrailQueries: 22,
+    trailLimit: 8,
+    exportEvery: 4
+  }
+};
+
 const app = express();
 app.use(express.json({ limit: "1mb" }));
 app.use(express.static(publicDir));
 
-let activeRun = {
-  status: "idle",
-  message: "Ready",
-  events: []
-};
-
-let continuous = {
-  status: "idle",
-  stopRequested: false,
-  cycles: 0,
-  startedAt: null,
-  lastCycleAt: null,
-  options: null
-};
+let activeRun = { status: "idle", message: "Ready", events: [] };
+let continuous = { status: "idle", stopRequested: false, cycles: 0, startedAt: null, lastCycleAt: null, options: null };
 
 function pushRunEvent(event) {
   activeRun = {
@@ -43,7 +91,8 @@ function pushRunEvent(event) {
         at: new Date().toISOString(),
         message: event.message,
         status: event.status,
-        latestLead: event.latestLead
+        latestLead: event.latestLead,
+        sourceStats: event.sourceStats
       },
       ...(activeRun.events || [])
     ].slice(0, 80)
@@ -60,21 +109,21 @@ function platformMatchesFilter(lead, filter) {
   const platform = platformForLead(lead);
   const platformLower = platform.toLowerCase();
   const url = String(lead.url || "").toLowerCase();
-  const text = `${platformLower} ${url}`;
+  const text = `${platformLower} ${url} ${sourceBucket(lead)}`;
   if (value === "social") return /linkedin|instagram|x\/twitter|twitter|telegram|discord|tiktok|facebook|threads|reddit/.test(text);
   if (value === "specialist") return /mql5|myfxbook|fxblue|zulutrade|darwinex|signalstart|collective2|tradingview|forexfactory|babypips/.test(text);
   if (value === "non-mql5") return !/mql5|mql5\.com/.test(text);
-  return platformLower === value || url.includes(value);
+  return platformLower === value || url.includes(value) || sourceBucket(lead) === value;
 }
 
 function uiPlatformRank(lead) {
-  const text = `${platformForLead(lead)} ${lead.url || ""}`.toLowerCase();
+  const text = `${platformForLead(lead)} ${lead.url || ""} ${sourceBucket(lead)}`.toLowerCase();
   if (/linkedin/.test(text)) return 0;
   if (/instagram/.test(text)) return 1;
   if (/x\/twitter|x\.com|twitter/.test(text)) return 2;
   if (/telegram|discord|tiktok|facebook|threads|reddit/.test(text)) return 3;
   if (/myfxbook|fxblue|zulutrade|darwinex|signalstart|collective2|tradingview|forexfactory|babypips/.test(text)) return 4;
-  if (/regulatory registry|company registry|adviserinfo|opencorporates|company-information/.test(text)) return 5;
+  if (/ecosystem|regulatory registry|company registry|adviserinfo|opencorporates|company-information/.test(text)) return 5;
   if (/web/.test(text)) return 6;
   if (/mql5/.test(text)) return 12;
   if (/youtube/.test(text)) return 30;
@@ -90,12 +139,48 @@ function contactRank(lead) {
 
 function sortForUi(leads) {
   return [...leads].sort(
-    (a, b) =>
-      uiPlatformRank(a) - uiPlatformRank(b) ||
+    (a, b) => uiPlatformRank(a) - uiPlatformRank(b) ||
       contactRank(b) - contactRank(a) ||
       (b.score || 0) - (a.score || 0) ||
       String(b.lastSeen || "").localeCompare(String(a.lastSeen || ""))
   );
+}
+
+function buildDiagnostics(db, visibleLeads = []) {
+  const rawLeads = db.leads || [];
+  const latestRun = db.runs?.[0] || null;
+  const qualifiedBySource = countBySource(visibleLeads);
+  const rawBySource = countBySource(rawLeads);
+  const contactableBySource = countBySource(rawLeads.filter((lead) => cleanEmails(lead.emails || []).length || cleanForms(lead.forms || []).length || hasDirectOutboundPath(lead)));
+  const bySource = Object.keys({ ...rawBySource, ...qualifiedBySource, ...contactableBySource }).sort().map((bucket) => ({
+    bucket,
+    raw: rawBySource[bucket] || 0,
+    qualified: qualifiedBySource[bucket] || 0,
+    contactable: contactableBySource[bucket] || 0,
+    lastRun: latestRun?.sourceStats?.[bucket] || null
+  }));
+  return {
+    updatedAt: new Date().toISOString(),
+    totals: {
+      raw: rawLeads.length,
+      qualified: visibleLeads.length,
+      contactable: visibleLeads.filter((lead) => cleanEmails(lead.emails || []).length || cleanForms(lead.forms || []).length || hasDirectOutboundPath(lead)).length
+    },
+    bySource,
+    lastRun: latestRun ? {
+      id: latestRun.id,
+      startedAt: latestRun.startedAt,
+      finishedAt: latestRun.finishedAt,
+      totalQueries: latestRun.totalQueries,
+      rawResults: latestRun.rawResults,
+      leadsFound: latestRun.leadsFound,
+      created: latestRun.created,
+      updated: latestRun.updated,
+      sourceStats: latestRun.sourceStats || {},
+      qualifiedBySource: latestRun.qualifiedBySource || {}
+    } : null,
+    activeRun: { ...activeRun, continuous }
+  };
 }
 
 function summarize(leads, db) {
@@ -108,11 +193,8 @@ function summarize(leads, db) {
     institutions: leads.filter((lead) => lead.leadType === "institution").length,
     new: leads.filter((lead) => lead.stage === "new").length,
     contacted: leads.filter((lead) => lead.stage === "contacted").length,
-    booked: leads.filter((lead) => lead.stage === "meeting_booked").length
-    ,
-    contactable: leads.filter(
-      (lead) => cleanEmails(lead.emails || []).length || cleanForms(lead.forms || []).length || hasDirectOutboundPath(lead)
-    ).length,
+    booked: leads.filter((lead) => lead.stage === "meeting_booked").length,
+    contactable: leads.filter((lead) => cleanEmails(lead.emails || []).length || cleanForms(lead.forms || []).length || hasDirectOutboundPath(lead)).length,
     emails: leads.filter((lead) => cleanEmails(lead.emails || []).length).length,
     forms: leads.filter((lead) => cleanForms(lead.forms || []).length).length,
     directLinks: leads.filter(hasDirectOutboundPath).length
@@ -136,12 +218,11 @@ function summarize(leads, db) {
     bySegment,
     byCountry,
     byPlatform,
+    bySource: countBySource(leads),
+    diagnostics: buildDiagnostics(db, leads),
     rawTotal: db.leads?.length || leads.length,
     lastRun: db.runs?.[0] || null,
-    activeRun: {
-      ...activeRun,
-      continuous
-    }
+    activeRun: { ...activeRun, continuous }
   };
 }
 
@@ -149,24 +230,19 @@ function applyLeadFilters(leads, filters = {}) {
   let filtered = [...leads];
   const q = String(filters.q || "").trim().toLowerCase();
   if (q) {
-    filtered = filtered.filter((lead) =>
-      [
-        lead.name,
-        lead.title,
-        lead.snippet,
-        lead.url,
-        lead.domain,
-        lead.country,
-        lead.leadType,
-        lead.segment,
-        ...(lead.languages || []),
-        ...(lead.evidence || [])
-      ]
-        .filter(Boolean)
-        .join(" ")
-        .toLowerCase()
-        .includes(q)
-    );
+    filtered = filtered.filter((lead) => [
+      lead.name,
+      lead.title,
+      lead.snippet,
+      lead.url,
+      lead.domain,
+      lead.country,
+      lead.leadType,
+      lead.segment,
+      sourceBucket(lead),
+      ...(lead.languages || []),
+      ...(lead.evidence || [])
+    ].filter(Boolean).join(" ").toLowerCase().includes(q));
   }
   if (filters.priority) filtered = filtered.filter((lead) => lead.priority === filters.priority);
   if (filters.leadType) filtered = filtered.filter((lead) => lead.leadType === filters.leadType);
@@ -187,7 +263,7 @@ function buildScanOptions(body = {}, overrides = {}) {
     ...DEFAULT_SCAN,
     ...body,
     ...overrides,
-    maxQueries: Math.min(Number(body.maxQueries || overrides.maxQueries || DEFAULT_SCAN.maxQueries), 240),
+    maxQueries: Math.min(Number(body.maxQueries || overrides.maxQueries || DEFAULT_SCAN.maxQueries), 400),
     limitPerQuery: Math.min(Number(body.limitPerQuery || overrides.limitPerQuery || DEFAULT_SCAN.limitPerQuery), 25),
     fetchPages: body.fetchPages !== false,
     deepEnrich: Boolean(body.deepEnrich || overrides.deepEnrich),
@@ -209,78 +285,36 @@ function buildScanOptions(body = {}, overrides = {}) {
   };
 }
 
-async function continuousLoop(options) {
-  continuous = {
-    status: "running",
-    stopRequested: false,
-    cycles: 0,
-    startedAt: new Date().toISOString(),
-    lastCycleAt: null,
-    options
-  };
+function startRun(options, label = "scan") {
+  activeRun = { status: "running", message: `Starting ${label}`, events: [] };
+  runScan(options, pushRunEvent).catch((error) => {
+    pushRunEvent({ status: "failed", message: error.message, error: error.stack });
+  });
+}
 
+async function continuousLoop(options) {
+  continuous = { status: "running", stopRequested: false, cycles: 0, startedAt: new Date().toISOString(), lastCycleAt: null, options };
   while (!continuous.stopRequested) {
     const cycle = continuous.cycles + 1;
-    const cycleOptions = {
-      ...options,
-      queryOffset: continuous.cycles * Number(options.maxQueries || DEFAULT_SCAN.maxQueries),
-      deepEnrich: true,
-      fetchPages: true,
-      searchContacts: true
-    };
-    activeRun = {
-      status: "running",
-      message: `Continuous deep scan cycle ${cycle}`,
-      events: activeRun.events || []
-    };
-
+    const cycleOptions = { ...options, queryOffset: continuous.cycles * Number(options.maxQueries || DEFAULT_SCAN.maxQueries), deepEnrich: true, fetchPages: true, searchContacts: true };
+    activeRun = { status: "running", message: `Continuous deep scan cycle ${cycle}`, events: activeRun.events || [] };
     try {
-      await runScan(cycleOptions, (event) => {
-        pushRunEvent({
-          ...event,
-          status: event.status === "completed" && !continuous.stopRequested ? "running" : event.status,
-          message: `[continuous ${cycle}] ${event.message}`
-        });
-      });
-      continuous = {
-        ...continuous,
-        cycles: cycle,
-        lastCycleAt: new Date().toISOString()
-      };
+      await runScan(cycleOptions, (event) => pushRunEvent({ ...event, status: event.status === "completed" && !continuous.stopRequested ? "running" : event.status, message: `[continuous ${cycle}] ${event.message}` }));
+      continuous = { ...continuous, cycles: cycle, lastCycleAt: new Date().toISOString() };
     } catch (error) {
-      pushRunEvent({
-        status: "failed",
-        message: `[continuous ${cycle}] ${error.message}`,
-        error: error.stack
-      });
+      pushRunEvent({ status: "failed", message: `[continuous ${cycle}] ${error.message}`, error: error.stack });
     }
-
     if (!continuous.stopRequested) {
-      pushRunEvent({
-        status: "running",
-        message: `Continuous deep scan waiting before cycle ${cycle + 1}`
-      });
+      pushRunEvent({ status: "running", message: `Continuous deep scan waiting before cycle ${cycle + 1}` });
       await sleep(Number(options.delayMs || 8000));
     }
   }
-
-  continuous = {
-    ...continuous,
-    status: "stopped",
-    stoppedAt: new Date().toISOString()
-  };
-  activeRun = {
-    ...activeRun,
-    status: "idle",
-    message: "Continuous deep scan stopped"
-  };
+  continuous = { ...continuous, status: "stopped", stoppedAt: new Date().toISOString() };
+  activeRun = { ...activeRun, status: "idle", message: "Continuous deep scan stopped" };
 }
 
 app.get("/api/config", (_req, res) => {
-  res.json({
-    defaultScan: DEFAULT_SCAN,
-    searchProfiles: SEARCH_PROFILES
-  });
+  res.json({ defaultScan: DEFAULT_SCAN, searchProfiles: SEARCH_PROFILES, scanPresets: SCAN_PRESETS });
 });
 
 app.get("/api/summary", async (req, res, next) => {
@@ -292,16 +326,22 @@ app.get("/api/summary", async (req, res, next) => {
   }
 });
 
+app.get("/api/diagnostics", async (req, res, next) => {
+  try {
+    const db = await readDb();
+    res.json(buildDiagnostics(db, leadsForUi(db, req.query)));
+  } catch (error) {
+    next(error);
+  }
+});
+
 app.get("/api/leads", async (req, res, next) => {
   try {
     const db = await readDb();
     const leads = leadsForUi(db, req.query);
     const limit = Math.min(Number(req.query.limit || 250), 1000);
     const offset = Math.max(Number(req.query.offset || 0), 0);
-    res.json({
-      total: leads.length,
-      leads: leads.slice(offset, offset + limit)
-    });
+    res.json({ total: leads.length, leads: leads.slice(offset, offset + limit) });
   } catch (error) {
     next(error);
   }
@@ -321,73 +361,37 @@ app.patch("/api/leads/:id", async (req, res, next) => {
 });
 
 app.post("/api/scan", async (req, res) => {
-  if (activeRun.status === "running") {
-    return res.status(409).json({ error: "A scan is already running", activeRun });
-  }
-
+  if (activeRun.status === "running") return res.status(409).json({ error: "A scan is already running", activeRun });
   const options = buildScanOptions(req.body);
-
-  activeRun = {
-    status: "running",
-    message: "Starting scan",
-    events: []
-  };
-
-  runScan(options, pushRunEvent).catch((error) => {
-    pushRunEvent({
-      status: "failed",
-      message: error.message,
-      error: error.stack
-    });
-  });
-
-  res.json({ ok: true, activeRun });
+  startRun(options, "scan");
+  res.json({ ok: true, activeRun, options });
 });
 
-app.get("/api/run", (_req, res) => {
-  res.json({
-    ...activeRun,
-    continuous
-  });
+app.post("/api/scan/preset/:preset", async (req, res) => {
+  if (activeRun.status === "running") return res.status(409).json({ error: "A scan is already running", activeRun });
+  const preset = SCAN_PRESETS[req.params.preset];
+  if (!preset) return res.status(404).json({ error: "Unknown preset", available: Object.keys(SCAN_PRESETS) });
+  const options = buildScanOptions({ ...preset, ...(req.body || {}) }, preset);
+  startRun(options, `${req.params.preset} preset`);
+  res.json({ ok: true, preset: req.params.preset, activeRun, options });
 });
+
+app.get("/api/run", (_req, res) => res.json({ ...activeRun, continuous }));
 
 app.post("/api/continuous/start", async (req, res) => {
-  if (activeRun.status === "running" || continuous.status === "running") {
-    return res.status(409).json({ error: "A scan is already running", activeRun, continuous });
-  }
-  const options = buildScanOptions(req.body, {
-    maxQueries: 80,
-    limitPerQuery: 10,
-    deepEnrich: true
-  });
+  if (activeRun.status === "running" || continuous.status === "running") return res.status(409).json({ error: "A scan is already running", activeRun, continuous });
+  const options = buildScanOptions(req.body, { maxQueries: 120, limitPerQuery: 10, deepEnrich: true, maxContactPages: 6, maxExternalWebsites: 5, maxTrailQueries: 18, trailLimit: 7 });
   continuousLoop(options).catch((error) => {
-    continuous = {
-      ...continuous,
-      status: "failed",
-      error: error.message
-    };
-    pushRunEvent({
-      status: "failed",
-      message: error.message,
-      error: error.stack
-    });
+    continuous = { ...continuous, status: "failed", error: error.message };
+    pushRunEvent({ status: "failed", message: error.message, error: error.stack });
   });
-  res.json({ ok: true, continuous });
+  res.json({ ok: true, continuous, options });
 });
 
 app.post("/api/continuous/stop", (_req, res) => {
-  if (continuous.status !== "running") {
-    return res.json({ ok: true, continuous });
-  }
-  continuous = {
-    ...continuous,
-    stopRequested: true,
-    status: "stopping"
-  };
-  pushRunEvent({
-    status: "running",
-    message: "Stop requested. Finishing current cycle."
-  });
+  if (continuous.status !== "running") return res.json({ ok: true, continuous });
+  continuous = { ...continuous, stopRequested: true, status: "stopping" };
+  pushRunEvent({ status: "running", message: "Stop requested. Finishing current cycle." });
   res.json({ ok: true, continuous });
 });
 
@@ -407,62 +411,10 @@ app.get("/api/export.csv", async (req, res, next) => {
   try {
     const db = await readDb();
     const leads = leadsForUi(db, req.query);
-    const columns = [
-      "priority",
-      "score",
-      "leadType",
-      "segment",
-      "stage",
-      "name",
-      "country",
-      "languages",
-      "url",
-      "domain",
-      "emails",
-      "socialLinks",
-      "contactLinks",
-      "websiteLinks",
-      "phoneNumbers",
-      "forms",
-      "contactQuality",
-      "contactConfidence",
-      "contactSources",
-      "evidence",
-      "outboundDm",
-      "followUp",
-      "snippet"
-    ];
+    const columns = ["priority", "score", "leadType", "segment", "stage", "name", "country", "languages", "url", "domain", "emails", "socialLinks", "contactLinks", "websiteLinks", "phoneNumbers", "forms", "contactQuality", "contactConfidence", "contactSources", "evidence", "outboundDm", "followUp", "snippet"];
     const rows = [
       columns.join(","),
-      ...leads.map((lead) =>
-        [
-          lead.priority,
-          lead.score,
-          lead.leadType,
-          lead.segment,
-          lead.stage,
-          lead.name,
-          lead.country,
-          lead.languages,
-          lead.url,
-          lead.domain,
-          lead.emails,
-          lead.socialLinks,
-          lead.contactLinks,
-          lead.websiteLinks,
-          lead.phoneNumbers,
-          (lead.forms || []).map((form) => `${form.pageUrl} -> ${form.action} (${(form.fields || []).join("; ")})`),
-          lead.contactQuality,
-          lead.contactConfidence,
-          lead.contactSources,
-          lead.evidence,
-          lead.outbound?.dm,
-          lead.outbound?.followUp,
-          lead.snippet
-        ]
-          .map(toCsvCell)
-          .join(",")
-      )
+      ...leads.map((lead) => [lead.priority, lead.score, lead.leadType, lead.segment, lead.stage, lead.name, lead.country, lead.languages, lead.url, lead.domain, lead.emails, lead.socialLinks, lead.contactLinks, lead.websiteLinks, lead.phoneNumbers, (lead.forms || []).map((form) => `${form.pageUrl} -> ${form.action} (${(form.fields || []).join("; ")})`), lead.contactQuality, lead.contactConfidence, lead.contactSources, lead.evidence, lead.outbound?.dm, lead.outbound?.followUp, lead.snippet].map(toCsvCell).join(","))
     ];
     res.setHeader("content-type", "text/csv; charset=utf-8");
     res.setHeader("content-disposition", "attachment; filename=bd-leads.csv");
@@ -483,75 +435,27 @@ app.get("/api/autopilot/status", async (_req, res, next) => {
   }
 });
 
-app.get("/autopilot-leads.csv", (_req, res) => {
-  res.sendFile(path.join(rootDir, "autopilot-leads.csv"));
-});
+app.get("/autopilot-leads.csv", (_req, res) => res.sendFile(path.join(rootDir, "autopilot-leads.csv")));
+app.get("/autopilot-leads.json", (_req, res) => res.sendFile(path.join(rootDir, "autopilot-leads.json")));
+app.get("/autopilot-contactable-leads.csv", (_req, res) => res.sendFile(path.join(rootDir, "autopilot-contactable-leads.csv")));
+app.get("/autopilot-contactable-leads.json", (_req, res) => res.sendFile(path.join(rootDir, "autopilot-contactable-leads.json")));
+app.get("/autopilot-qualified-leads.csv", (_req, res) => res.sendFile(path.join(rootDir, "autopilot-qualified-leads.csv")));
+app.get("/autopilot-qualified-leads.json", (_req, res) => res.sendFile(path.join(rootDir, "autopilot-qualified-leads.json")));
+app.get("/autopilot-qualified-contactable-leads.csv", (_req, res) => res.sendFile(path.join(rootDir, "autopilot-qualified-contactable-leads.csv")));
+app.get("/autopilot-qualified-contactable-leads.json", (_req, res) => res.sendFile(path.join(rootDir, "autopilot-qualified-contactable-leads.json")));
+app.get("/autopilot-hot-leads.csv", (_req, res) => res.sendFile(path.join(rootDir, "autopilot-hot-leads.csv")));
+app.get("/autopilot-hot-leads.json", (_req, res) => res.sendFile(path.join(rootDir, "autopilot-hot-leads.json")));
+app.get("/autopilot-social-leads.csv", (_req, res) => res.sendFile(path.join(rootDir, "autopilot-social-leads.csv")));
+app.get("/autopilot-social-leads.json", (_req, res) => res.sendFile(path.join(rootDir, "autopilot-social-leads.json")));
+app.get("/autopilot-instagram-leads.csv", (_req, res) => res.sendFile(path.join(rootDir, "autopilot-instagram-leads.csv")));
+app.get("/autopilot-linkedin-leads.csv", (_req, res) => res.sendFile(path.join(rootDir, "autopilot-linkedin-leads.csv")));
+app.get("/autopilot-x-leads.csv", (_req, res) => res.sendFile(path.join(rootDir, "autopilot-x-leads.csv")));
 
-app.get("/autopilot-leads.json", (_req, res) => {
-  res.sendFile(path.join(rootDir, "autopilot-leads.json"));
-});
-
-app.get("/autopilot-contactable-leads.csv", (_req, res) => {
-  res.sendFile(path.join(rootDir, "autopilot-contactable-leads.csv"));
-});
-
-app.get("/autopilot-contactable-leads.json", (_req, res) => {
-  res.sendFile(path.join(rootDir, "autopilot-contactable-leads.json"));
-});
-
-app.get("/autopilot-qualified-leads.csv", (_req, res) => {
-  res.sendFile(path.join(rootDir, "autopilot-qualified-leads.csv"));
-});
-
-app.get("/autopilot-qualified-leads.json", (_req, res) => {
-  res.sendFile(path.join(rootDir, "autopilot-qualified-leads.json"));
-});
-
-app.get("/autopilot-qualified-contactable-leads.csv", (_req, res) => {
-  res.sendFile(path.join(rootDir, "autopilot-qualified-contactable-leads.csv"));
-});
-
-app.get("/autopilot-qualified-contactable-leads.json", (_req, res) => {
-  res.sendFile(path.join(rootDir, "autopilot-qualified-contactable-leads.json"));
-});
-
-app.get("/autopilot-hot-leads.csv", (_req, res) => {
-  res.sendFile(path.join(rootDir, "autopilot-hot-leads.csv"));
-});
-
-app.get("/autopilot-hot-leads.json", (_req, res) => {
-  res.sendFile(path.join(rootDir, "autopilot-hot-leads.json"));
-});
-
-app.get("/autopilot-social-leads.csv", (_req, res) => {
-  res.sendFile(path.join(rootDir, "autopilot-social-leads.csv"));
-});
-
-app.get("/autopilot-social-leads.json", (_req, res) => {
-  res.sendFile(path.join(rootDir, "autopilot-social-leads.json"));
-});
-
-app.get("/autopilot-instagram-leads.csv", (_req, res) => {
-  res.sendFile(path.join(rootDir, "autopilot-instagram-leads.csv"));
-});
-
-app.get("/autopilot-linkedin-leads.csv", (_req, res) => {
-  res.sendFile(path.join(rootDir, "autopilot-linkedin-leads.csv"));
-});
-
-app.get("/autopilot-x-leads.csv", (_req, res) => {
-  res.sendFile(path.join(rootDir, "autopilot-x-leads.csv"));
-});
-
-app.get("*", (_req, res) => {
-  res.sendFile(path.join(publicDir, "index.html"));
-});
+app.get("*", (_req, res) => res.sendFile(path.join(publicDir, "index.html")));
 
 app.use((error, _req, res, _next) => {
   console.error(error);
   res.status(500).json({ error: error.message });
 });
 
-app.listen(PORT, () => {
-  console.log(`BD Lead Engine running at http://localhost:${PORT}`);
-});
+app.listen(PORT, () => console.log(`BD Lead Engine running at http://localhost:${PORT}`));
