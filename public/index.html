@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BD Lead Engine</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script defer src="/app.js"></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Sales Sourcing</p>
+          <h1>BD Lead Engine</h1>
+        </div>
+        <div class="topbar-actions">
+          <a class="icon-link" href="/autopilot-qualified-leads.csv" title="Qualified CSV">
+            <i data-lucide="file-spreadsheet"></i>
+            Qualified
+          </a>
+          <a class="icon-link" href="/autopilot-qualified-contactable-leads.csv" title="Qualified contactable CSV">
+            <i data-lucide="mail-check"></i>
+            Contactable
+          </a>
+          <a class="icon-link" href="/api/export.csv" title="Export CSV">
+            <i data-lucide="download"></i>
+            CSV
+          </a>
+          <a class="icon-link" href="/api/export.csv?raw=true" title="Raw database CSV">
+            <i data-lucide="database"></i>
+            Raw
+          </a>
+          <a class="icon-link" href="/api/export.json" title="Export JSON">
+            <i data-lucide="braces"></i>
+            JSON
+          </a>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <aside class="control-panel">
+          <div class="panel-title">
+            <h2>Scan</h2>
+            <span id="runBadge" class="badge muted">Ready</span>
+          </div>
+
+          <label class="field">
+            <span>Region</span>
+            <select id="regionSet">
+              <option value="global">Global PT/ES/EN</option>
+              <option value="latam">LatAm + Brazil</option>
+              <option value="english">English speaking</option>
+            </select>
+          </label>
+
+          <div class="field-grid">
+            <label class="field">
+              <span>Queries</span>
+              <input id="maxQueries" type="number" min="4" max="120" value="32" />
+            </label>
+            <label class="field">
+              <span>Results</span>
+              <input id="limitPerQuery" type="number" min="3" max="20" value="8" />
+            </label>
+          </div>
+
+          <label class="check-row">
+            <input id="includePartners" type="checkbox" checked />
+            <span>Partners</span>
+          </label>
+          <label class="check-row">
+            <input id="includeRecruitment" type="checkbox" checked />
+            <span>Recruitment</span>
+          </label>
+          <label class="check-row">
+            <input id="fetchPages" type="checkbox" checked />
+            <span>Enrich pages</span>
+          </label>
+          <label class="check-row">
+            <input id="deepEnrich" type="checkbox" checked />
+            <span>Deep contact hunt</span>
+          </label>
+
+          <button id="scanButton" class="primary-button">
+            <i data-lucide="radar"></i>
+            Start scan
+          </button>
+          <div class="dual-actions">
+            <button id="continuousButton" class="ghost-button">
+              <i data-lucide="infinity"></i>
+              Deep continuous
+            </button>
+            <button id="stopButton" class="ghost-button danger">
+              <i data-lucide="square"></i>
+              Stop
+            </button>
+          </div>
+
+          <div class="run-box">
+            <div class="progress-track">
+              <div id="progressBar" class="progress-bar"></div>
+            </div>
+            <p id="runMessage">Ready.</p>
+          </div>
+
+          <div class="event-list" id="eventList"></div>
+        </aside>
+
+        <section class="main-panel">
+          <div class="metric-strip">
+            <div class="metric">
+              <span id="metricTotalLabel">Qualified</span>
+              <strong id="metricTotal">0</strong>
+            </div>
+            <div class="metric raw">
+              <span>Raw saved</span>
+              <strong id="metricRawTotal">0</strong>
+            </div>
+            <div class="metric hot">
+              <span>A leads</span>
+              <strong id="metricA">0</strong>
+            </div>
+            <div class="metric">
+              <span>Partners</span>
+              <strong id="metricPartners">0</strong>
+            </div>
+            <div class="metric">
+              <span>Recruit</span>
+              <strong id="metricRecruitment">0</strong>
+            </div>
+            <div class="metric booked">
+              <span>Booked</span>
+              <strong id="metricBooked">0</strong>
+            </div>
+            <div class="metric contact">
+              <span>Contactable</span>
+              <strong id="metricContactable">0</strong>
+            </div>
+            <div class="metric">
+              <span>Email/Form</span>
+              <strong id="metricEmailForm">0</strong>
+            </div>
+          </div>
+
+          <div class="toolbar">
+            <div class="search-box">
+              <i data-lucide="search"></i>
+              <input id="searchInput" placeholder="Search leads, countries, segments..." />
+            </div>
+            <select id="viewModeFilter" title="Lead view mode">
+              <option value="qualified">Qualified worklist</option>
+              <option value="raw">Raw database</option>
+            </select>
+            <select id="platformFilter" title="Source filter">
+              <option value="">All sources</option>
+              <option value="non-mql5">Non-MQL5 first</option>
+              <option value="social">Social/DM sources</option>
+              <option value="LinkedIn">LinkedIn</option>
+              <option value="Instagram">Instagram</option>
+              <option value="X/Twitter">X / Twitter</option>
+              <option value="Telegram">Telegram</option>
+              <option value="Discord">Discord</option>
+              <option value="TikTok">TikTok</option>
+              <option value="Myfxbook">Myfxbook</option>
+              <option value="MQL5">MQL5</option>
+              <option value="Web">Web</option>
+            </select>
+            <select id="priorityFilter">
+              <option value="">All priorities</option>
+              <option value="A">A priority</option>
+              <option value="B">B priority</option>
+              <option value="C">C priority</option>
+              <option value="D">D priority</option>
+            </select>
+            <select id="typeFilter">
+              <option value="">All types</option>
+              <option value="partner">Partners</option>
+              <option value="recruitment">Recruitment</option>
+              <option value="institution">Institution</option>
+              <option value="research">Research</option>
+            </select>
+            <select id="stageFilter">
+              <option value="">All stages</option>
+              <option value="new">New</option>
+              <option value="contacted">Contacted</option>
+              <option value="replied">Replied</option>
+              <option value="meeting_booked">Meeting booked</option>
+              <option value="won">Won</option>
+              <option value="lost">Lost</option>
+            </select>
+          </div>
+
+          <div class="source-strip" id="platformStrip"></div>
+
+          <div class="split-view">
+            <div class="lead-table-wrap">
+              <table class="lead-table">
+                <thead>
+                  <tr>
+                    <th>Lead</th>
+                    <th>Source</th>
+                    <th>Type</th>
+                    <th>Score</th>
+                    <th>Country</th>
+                    <th>Stage</th>
+                  </tr>
+                </thead>
+                <tbody id="leadRows"></tbody>
+              </table>
+            </div>
+
+            <aside class="detail-panel" id="detailPanel">
+              <div class="empty-state">
+                <i data-lucide="target"></i>
+                <p>Select a lead.</p>
+              </div>
+            </aside>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

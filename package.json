@@ -1,0 +1,20 @@
+{
+  "name": "bd-lead-engine",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Public web lead discovery, scoring, and outbound cockpit for business development.",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "scan": "node src/scan-cli.js",
+    "deep": "node src/deep-enrich-cli.js",
+    "autopilot": "node src/autopilot.js",
+    "harvest": "node src/source-harvester.js",
+    "enrich": "node src/enrichment-worker.js",
+    "qualified-exporter": "node src/qualified-exporter.js"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "express": "^4.19.2"
+  }
+}
