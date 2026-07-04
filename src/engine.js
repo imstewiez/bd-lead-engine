@@ -150,7 +150,7 @@ function bumpReason(stats, reason) {
 }
 
 function valuableSource(classified = {}, query = {}) {
-  const text = `${classified.url} ${classified.platform} ${classified.title} ${classified.snippet} ${query.text} ${query.intent} ${query.channel}`.toLowerCase();
+  const text = `${classified.url} ${classified.platform} ${classified.title} ${classified.snippet}`.toLowerCase();
   return /linkedin\.com\/in|linkedin\.com\/company|instagram\.com\/[^/]+|x\.com\/[^/]+|twitter\.com\/[^/]+|t\.me\/[^/]+|discord\.gg\/[^/]+|myfxbook\.com|mql5\.com|tradingview\.com|forexfactory\.com|babypips\.com|forex|xauusd|copy trading|signals|introducing broker|affiliate|partnership|fund manager|portfolio manager|trading academy|forex academy|mentor/.test(text);
 }
 

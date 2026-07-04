@@ -24,19 +24,17 @@ function launch(name, args) {
 const serverPid = launch("server", ["src/server.js"]);
 const sourceHarvesterPid = launch("source-harvester", [
   "src/source-harvester.js",
-  "--concurrency=1",
-  "--batchSize=80",
-  "--limitPerQuery=8",
-  "--delayMs=12000",
+  "--maxQueries=180",
+  "--limitPerQuery=12",
+  "--delayMs=7000",
   "--fetchPages=true",
-  "--deepPerLead=true",
-  "--storePerLead=true",
-  "--maxContactPages=5",
-  "--maxExternalWebsites=3",
-  "--maxTrailQueries=12",
-  "--trailLimit=5",
-  "--exportEveryCycle=true",
-  "--minScore=38"
+  "--deepEnrich=true",
+  "--searchContacts=true",
+  "--maxContactPages=8",
+  "--maxExternalWebsites=6",
+  "--maxTrailQueries=24",
+  "--trailLimit=8",
+  "--exportEvery=3"
 ]);
 const enrichmentWorkerPid = launch("enrichment-worker", [
   "src/enrichment-worker.js",

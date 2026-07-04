@@ -108,7 +108,7 @@ function searchUrl(engine, query, limit) {
 
 function junk(result) {
   const text = `${result.title} ${result.snippet} ${result.url}`.toLowerCase();
-  return /wikipedia|dictionary|definition|investopedia|marketwatch|ishares|msci|weather|currency exchange|google maps|tripadvisor|computational fluid dynamics|forex\.com\/?$/.test(text);
+  return /w3\.org|schema\.org|xmlns|xhtml|wikipedia|dictionary|definition|investopedia|marketwatch|ishares|msci|weather|currency exchange|google maps|tripadvisor|computational fluid dynamics|forex\.com\/?$/.test(text);
 }
 
 function hasLeadSignal(result, query) {
@@ -120,6 +120,15 @@ function platformBoost(result) {
   const url = String(result.url || "").toLowerCase();
   if (/linkedin\.com\/in|linkedin\.com\/company|instagram\.com\/[^/]+|x\.com\/[^/]+|twitter\.com\/[^/]+|t\.me\/[^/]+|discord\.gg\/[^/]+|myfxbook\.com|mql5\.com|tradingview\.com/.test(url)) return true;
   return false;
+}
+
+function isSyntheticResult(result = {}) {
+  return /^Extracted candidate for/i.test(String(result.snippet || ""));
+}
+
+function hasActualLeadSignal(result) {
+  const text = `${result.title} ${isSyntheticResult(result) ? "" : result.snippet} ${result.url}`.toLowerCase();
+  return /forex|\bfx\b|xauusd|gold trader|trading|trader|broker|cfd|cfds|pamm|mam|copy trading|signals|sinais|senales|telegram|whatsapp|discord|linkedin|instagram|myfxbook|mql5|tradingview|introducing broker|affiliate|partnership|academy|mentor|fund manager|portfolio manager|asset manager|prop firm|funded trader|business development/.test(text);
 }
 
 async function runEngine(engine, query, intent, limit) {
@@ -142,13 +151,13 @@ export async function searchOne(query, intent = "partner", limit = 10) {
   for (const result of all) {
     if (!matchesSiteConstraint(result, query)) continue;
     if (junk(result)) continue;
-    if (!hasLeadSignal(result, query) && !platformBoost(result)) continue;
+    if (!hasActualLeadSignal(result) && !(platformBoost(result) && !isSyntheticResult(result))) continue;
     const key = result.url.replace(/\/$/, "").toLowerCase();
     if (seen.has(key)) continue;
     seen.add(key);
     candidates.push(result);
   }
 
-  const strong = candidates.filter((result) => hasLeadSignal(result, query) || platformBoost(result));
+  const strong = candidates.filter((result) => hasActualLeadSignal(result) || (platformBoost(result) && !isSyntheticResult(result)));
   return { results: unique(strong).slice(0, limit), errors };
 }

@@ -9,9 +9,9 @@ import {
   isUsefulDirectContactUrl
 } from "./contact-cleaner.js";
 import { getRootDir, readDb } from "./store.js";
-import { hasSearchableLeadSignal, hasStrictTradingIcp, isHardRejectedLead } from "./lead-quality.js";
+import { hasSearchableLeadSignal, hasStrictTradingIcp, isHardRejectedLead, leadRejectionReasons } from "./lead-quality.js";
 import { isHotLead, qualifyLead } from "./qualification.js";
-import { limitMql5Share } from "./mql5-limit.js";
+import { limitMql5Share, sourceBucket } from "./mql5-limit.js";
 import { platformFromUrl, toCsvCell, unique } from "./utils.js";
 
 const rootDir = getRootDir();
@@ -112,6 +112,56 @@ export function isExportQualified(lead) {
   return true;
 }
 
+function rawLeadText(lead = {}) {
+  return [
+    lead.name,
+    lead.title,
+    lead.snippet,
+    lead.url,
+    lead.platform,
+    lead.source,
+    lead.segment,
+    lead.leadType,
+    lead.audience,
+    ...(lead.socialLinks || []),
+    ...(lead.contactLinks || []),
+    ...(lead.websiteLinks || []),
+    ...(lead.relatedLinks || [])
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+}
+
+export function isWorkingLead(lead) {
+  const url = String(lead.url || "");
+  const platform = lead.platform || platformFromUrl(url);
+  if (!url || !platform) return false;
+  if (platform === "YouTube" || /youtube\.com|youtu\.be/i.test(url)) return false;
+  if (lead.segment === "Broker Site") return false;
+  if (lead.priority === "D" && Number(lead.score || 0) < 45) return false;
+  if (!["partner", "recruitment", "institution"].includes(lead.leadType) && lead.qualificationStatus !== "research_candidate") return false;
+
+  const hardReasons = leadRejectionReasons(lead).filter((reason) => reason !== "missing strict forex/CFD/trading ICP signal");
+  if (hardReasons.length) return false;
+
+  const bucket = sourceBucket(lead);
+  const syntheticSnippet = /^(?:Extracted candidate|Qwant extracted URL)/i.test(String(lead.snippet || ""));
+  const text = rawLeadText(syntheticSnippet ? { ...lead, snippet: "" } : lead);
+  const actualTradingSignal = /\b(?:forex|fx trader|xauusd|gold trader|cfds?|copy trading|signals?|sinais|señales|senales|pamm|mam|mt4|mt5|metatrader|introducing broker|forex affiliate|broker partnership|cpa deal|revshare|trading academy|forex academy|prop firm|funded trader|portfolio manager|fund manager|money manager|asset manager|trading community)\b/i.test(text);
+  if (syntheticSnippet && !actualTradingSignal) return false;
+  const trustedSource = /linkedin|instagram|x|telegram|discord|tiktok|facebook_threads|reddit|myfxbook|mql5|tradingview|forum|specialist|ecosystem/.test(bucket);
+  const tradingSignal =
+    hasStrictTradingIcp(lead) ||
+    hasSearchableLeadSignal(lead) ||
+    actualTradingSignal;
+  if (!tradingSignal) return false;
+
+  const score = Number(lead.commercialScore || 0) || Number(lead.score || 0);
+  if (score < 35 && !trustedSource) return false;
+  return true;
+}
+
 function sortLeads(a, b) {
   const contactA = Number(a.contactConfidence || 0);
   const contactB = Number(b.contactConfidence || 0);
@@ -175,6 +225,15 @@ export function filterAndDedupeLeads(leads, options = {}) {
   return limitMql5Share(filtered, {
     maxMql5Share: Number(options.maxMql5Share ?? process.env.MAX_MQL5_SHARE ?? 0.22),
     minMql5Keep: Number(options.minMql5Keep ?? 15),
+    limit: Number(options.limit || filtered.length)
+  });
+}
+
+export function filterWorkingLeads(leads, options = {}) {
+  const filtered = dedupeLeads(leads.filter(isWorkingLead).sort(sortLeads));
+  return limitMql5Share(filtered, {
+    maxMql5Share: Number(options.maxMql5Share ?? process.env.MAX_MQL5_WORKING_SHARE ?? 0.35),
+    minMql5Keep: Number(options.minMql5Keep ?? 60),
     limit: Number(options.limit || filtered.length)
   });
 }
@@ -316,6 +375,7 @@ export function leadToExportRow(lead) {
 export async function exportLeads(options = {}) {
   const db = await readDb();
   const leads = filterAndDedupeLeads(db.leads, options);
+  const workingLeads = filterWorkingLeads(db.leads, options);
   const contactableLeads = leads.filter(hasActionableContact);
   const hotLeads = leads.filter(isHotLead);
   const socialLeads = leads.filter((lead) => socialProfileLinks(lead).length || /linkedin|instagram|x\/twitter|facebook|tiktok|threads|reddit|telegram|tradingview/i.test(lead.platform || ""));
@@ -407,6 +467,8 @@ export async function exportLeads(options = {}) {
   const linkedinJsonPath = path.join(rootDir, options.linkedinJsonName || "autopilot-linkedin-leads.json");
   const xCsvPath = path.join(rootDir, options.xCsvName || "autopilot-x-leads.csv");
   const xJsonPath = path.join(rootDir, options.xJsonName || "autopilot-x-leads.json");
+  const workingCsvPath = path.join(rootDir, options.workingCsvName || "autopilot-working-leads.csv");
+  const workingJsonPath = path.join(rootDir, options.workingJsonName || "autopilot-working-leads.json");
   await writeFileWithRetry(csvPath, `﻿${rows.join("\n")}\n`);
   await writeFileWithRetry(jsonPath, `${JSON.stringify(leads.map(leadToExportRow), null, 2)}\n`);
   await writeFileWithRetry(contactCsvPath, `﻿${contactRows.join("\n")}\n`);
@@ -421,6 +483,8 @@ export async function exportLeads(options = {}) {
   await writeFileWithRetry(linkedinJsonPath, `${JSON.stringify(linkedinLeads.map(leadToExportRow), null, 2)}\n`);
   await writeFileWithRetry(xCsvPath, `﻿${rowsFor(xLeads).join("\n")}\n`);
   await writeFileWithRetry(xJsonPath, `${JSON.stringify(xLeads.map(leadToExportRow), null, 2)}\n`);
+  await writeFileWithRetry(workingCsvPath, `﻿${rowsFor(workingLeads).join("\n")}\n`);
+  await writeFileWithRetry(workingJsonPath, `${JSON.stringify(workingLeads.map(leadToExportRow), null, 2)}\n`);
 
   return {
     csvPath,
@@ -437,7 +501,10 @@ export async function exportLeads(options = {}) {
     linkedinJsonPath,
     xCsvPath,
     xJsonPath,
+    workingCsvPath,
+    workingJsonPath,
     exported: leads.length,
+    working: workingLeads.length,
     contactable: contactableLeads.length,
     hot: hotLeads.length,
     social: socialLeads.length,

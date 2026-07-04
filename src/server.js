@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 import { DEFAULT_SCAN, SEARCH_PROFILES } from "./config.js";
 import { cleanEmails, cleanForms, hasDirectOutboundPath } from "./contact-cleaner.js";
 import { runScan } from "./engine.js";
-import { filterAndDedupeLeads } from "./exporter.js";
+import { filterAndDedupeLeads, filterWorkingLeads } from "./exporter.js";
 import { clusterLeads, rankLeadsCommercially } from "./intelligence.js";
 import { countBySource, sourceBucket } from "./mql5-limit.js";
 import { getRootDir, readDb, updateLead } from "./store.js";
@@ -134,9 +134,11 @@ function fallbackWorklist(rawLeads = []) {
 
 function leadsForUi(db, query = {}) {
   const includeRaw = String(query.raw || "") === "true";
+  const mode = String(query.mode || "").toLowerCase();
   const raw = [...(db.leads || [])].sort((a, b) => Number(b.score || 0) - Number(a.score || 0));
   const qualified = filterAndDedupeLeads(db.leads || []);
-  const source = includeRaw ? raw : (qualified.length ? qualified : fallbackWorklist(raw));
+  const working = filterWorkingLeads(db.leads || []);
+  const source = includeRaw || mode === "raw" ? raw : mode === "strict" || mode === "qualified" ? qualified : (working.length ? working : (qualified.length ? qualified : fallbackWorklist(raw)));
   return sortForUi(applyLeadFilters(source, query));
 }
 
@@ -197,6 +199,8 @@ app.get("/autopilot-social-leads.json", (_req, res) => res.sendFile(path.join(ro
 app.get("/autopilot-instagram-leads.csv", (_req, res) => res.sendFile(path.join(rootDir, "autopilot-instagram-leads.csv")));
 app.get("/autopilot-linkedin-leads.csv", (_req, res) => res.sendFile(path.join(rootDir, "autopilot-linkedin-leads.csv")));
 app.get("/autopilot-x-leads.csv", (_req, res) => res.sendFile(path.join(rootDir, "autopilot-x-leads.csv")));
+app.get("/autopilot-working-leads.csv", (_req, res) => res.sendFile(path.join(rootDir, "autopilot-working-leads.csv")));
+app.get("/autopilot-working-leads.json", (_req, res) => res.sendFile(path.join(rootDir, "autopilot-working-leads.json")));
 app.get("*", (_req, res) => res.sendFile(path.join(publicDir, "index.html")));
 app.use((error, _req, res, _next) => { console.error(error); res.status(500).json({ error: error.message }); });
 
