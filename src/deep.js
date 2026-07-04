@@ -10,6 +10,13 @@ import {
   isShortenerUrl,
   isUsefulDirectContactUrl
 } from "./contact-cleaner.js";
+import {
+  bareWebsiteUrls,
+  isGenericContactTrailName,
+  isPlatformProfileDomain,
+  isPlatformProfileUrl,
+  pickBestContact
+} from "./platform-enrichment.js";
 import { domainOf, normalizeWhitespace, safeUrl, sleep, unique } from "./utils.js";
 import { extractEmails, fetchHtml, resolveFinalUrl, searchOne } from "./search.js";
 
@@ -131,7 +138,7 @@ function cleanExternalUrl(value, baseUrl) {
 function extractUrls(text, baseUrl = "") {
   const decoded = decodeLoose(text);
   const baseDomain = domainOf(baseUrl);
-  const matches = decoded.match(/https?:\/\/[^\s"'<>)}\]]+/gi) || [];
+  const matches = unique([...(decoded.match(/https?:\/\/[^\s"'<>)}\]]+/gi) || []), ...bareWebsiteUrls(decoded)]);
   return unique(
     matches
       .map((url) => cleanExternalUrl(url.replace(/[.,;]+$/, ""), baseUrl))
@@ -140,6 +147,7 @@ function extractUrls(text, baseUrl = "") {
         const domain = domainOf(url);
         if (!domain || isBlockedLinkUrl(url) || isBrokerOrReferralUrl(url)) return false;
         if (IGNORE_DOMAINS.some((ignored) => domain === ignored || domain.endsWith(`.${ignored}`))) return false;
+        if (baseDomain && isPlatformProfileDomain(baseDomain) && domain === baseDomain) return false;
         if (
           (baseDomain === "youtube.com" || baseDomain.endsWith(".youtube.com")) &&
           (domain === "youtube.com" || domain.endsWith(".youtube.com"))
@@ -197,13 +205,16 @@ function isLinkedInDecisionUrl(url) {
   }
 }
 
-function splitLinkTypes(urls) {
+function splitLinkTypes(urls, sourceUrl = "") {
   const socialLinks = [];
   const contactLinks = [];
   const websiteLinks = [];
+  const sourceDomain = domainOf(sourceUrl);
+  const sourceIsPlatform = isPlatformProfileDomain(sourceDomain);
   for (const url of urls) {
     if (isBlockedLinkUrl(url) || isBrokerOrReferralUrl(url)) continue;
     const domain = domainOf(url);
+    if (sourceIsPlatform && domain === sourceDomain) continue;
     if (domain === "youtube.com" || domain.endsWith(".youtube.com")) {
       try {
         const path = new URL(url).pathname;
@@ -219,6 +230,7 @@ function splitLinkTypes(urls) {
       continue;
     }
     if (isUsefulDirectContactUrl(url)) socialLinks.push(url);
+    if (isUsefulDirectContactUrl(url)) contactLinks.push(url);
     if (isSocialUrl(url)) socialLinks.push(url);
     if (isContactUrl(url)) contactLinks.push(url);
     if (!isSocialUrl(url) && !isContactUrl(url)) websiteLinks.push(url);
@@ -286,7 +298,7 @@ async function readContactPage(url) {
     });
     const textToMine = `${html} ${rawText} ${pageText}`;
     const urls = unique([...hrefs, ...extractUrls(textToMine, finalUrl)]);
-    const types = splitLinkTypes(urls);
+    const types = splitLinkTypes(urls, finalUrl);
     return {
       ok: true,
       url: finalUrl,
@@ -310,6 +322,7 @@ async function readContactPage(url) {
 function guessedContactUrls(url) {
   try {
     const parsed = new URL(url);
+    if (isPlatformProfileUrl(url)) return [];
     if (isSocialUrl(url) && !isLinkHubUrl(url)) return [];
     return CONTACT_PATHS.map((pathname) => `${parsed.origin}${pathname}`);
   } catch {
@@ -321,6 +334,7 @@ function isCrawlableExternalWebsite(url) {
   const domain = domainOf(url);
   if (!domain) return false;
   if (isBlockedLinkUrl(url) || isBrokerOrReferralUrl(url)) return false;
+  if (isPlatformProfileDomain(domain)) return false;
   if (isSocialUrl(url) && !isLinkHubUrl(url)) return false;
   if (IGNORE_DOMAINS.some((ignored) => domain === ignored || domain.endsWith(`.${ignored}`))) return false;
   if (/googlevideo|googleusercontent|ytimg|youtubei|initplayback|favicon|\.jpg|\.jpeg|\.png|\.gif|\.webp|\.svg|\.css|\.js/i.test(url)) {
@@ -356,7 +370,11 @@ async function enrichExternalWebsites(result, options = {}) {
   for (const candidate of rawCandidates) {
     const resolved = isShortenerUrl(candidate) ? await resolveFinalUrl(candidate) : candidate;
     if (!resolved) continue;
-    if (isUsefulDirectContactUrl(resolved)) directLinks.push(resolved);
+    if (isUsefulDirectContactUrl(resolved)) {
+      directLinks.push(resolved);
+      await sleep(80);
+      continue;
+    }
     if (isCrawlableExternalWebsite(resolved)) resolvedCandidates.push(resolved);
     await sleep(80);
   }
@@ -421,18 +439,27 @@ function mergeLeadData(base, additions) {
 function scoreContactability(lead) {
   const emails = cleanEmails(lead.emails || []);
   const forms = cleanForms(lead.forms || []);
+  const phones = cleanPhoneNumbers(lead.phoneNumbers || []);
   const direct = cleanLinks([lead.url, ...(lead.socialLinks || []), ...(lead.contactLinks || [])], {
-    allowYouTubeChannels: false
+    allowYouTubeChannels: false,
+    allowShorteners: true
   }).filter(isUsefulDirectContactUrl);
   if (emails.length) return { contactConfidence: 100, contactQuality: "email" };
+  if (direct.some((url) => /wa\.me|whatsapp/i.test(url))) return { contactConfidence: 94, contactQuality: "whatsapp" };
+  if (phones.length) return { contactConfidence: 90, contactQuality: "phone" };
   if (forms.length) return { contactConfidence: 88, contactQuality: "form" };
-  if (direct.some((url) => /wa\.me|whatsapp|calendly|t\.me|telegram/i.test(url))) {
-    return { contactConfidence: 82, contactQuality: "direct-link" };
-  }
+  if (direct.some((url) => /calendly|t\.me|telegram/i.test(url))) return { contactConfidence: 82, contactQuality: "direct-link" };
   if (direct.length) return { contactConfidence: 74, contactQuality: "social" };
   if (cleanLinks(lead.contactLinks || [], { allowYouTubeChannels: false }).length) return { contactConfidence: 65, contactQuality: "contact-page" };
   if (cleanLinks(lead.websiteLinks || [], { allowYouTubeChannels: false }).length) return { contactConfidence: 45, contactQuality: "website" };
   return { contactConfidence: 15, contactQuality: "no-contact-yet" };
+}
+
+function shouldSearchContactTrail(lead, quality) {
+  const name = normalizeWhitespace((lead.name || lead.title || "").replace(/^@/, ""));
+  if (quality.contactConfidence >= 90) return false;
+  if (isGenericContactTrailName(name) && ((lead.websiteLinks || []).length || isPlatformProfileUrl(lead.url))) return false;
+  return true;
 }
 
 function parseYouTubeInfo(text) {
@@ -469,7 +496,7 @@ async function enrichYouTubeLead(result) {
         emails: extractEmails(textToMine),
         phoneNumbers: extractPhoneNumbers(textToMine),
         forms: [],
-        ...splitLinkTypes(urls),
+        ...splitLinkTypes(urls, pageUrl),
         ...info
       });
       await sleep(250);
@@ -507,7 +534,7 @@ async function enrichWebsiteLead(result, options) {
 
 async function searchForContactTrail(result, options = {}) {
   const name = normalizeWhitespace((result.name || result.title || "").replace(/^@/, ""));
-  if (!name || name.length < 3) return {};
+  if (!name || name.length < 3 || isGenericContactTrailName(name)) return {};
   const queries = [
     `"${name}" contact`,
     `"${name}" email`,
@@ -560,7 +587,7 @@ async function searchForContactTrail(result, options = {}) {
       const text = `${item.title} ${item.snippet} ${item.url}`.toLowerCase();
       if (text.includes(name.toLowerCase()) || text.includes(result.url.toLowerCase())) {
         related.push(item.url);
-        if (!isSocialUrl(item.url) && !isBrokerOrReferralUrl(item.url) && !isBlockedLinkUrl(item.url)) {
+        if (!isSocialUrl(item.url) && !isBrokerOrReferralUrl(item.url) && !isBlockedLinkUrl(item.url) && !isPlatformProfileUrl(item.url)) {
           contactPages.push(await readContactPage(item.url));
           await sleep(250);
         }
@@ -618,13 +645,13 @@ export async function deepEnrichResult(result, options = {}) {
   }
 
   const currentQuality = scoreContactability(enriched);
-  if (options.searchContacts && currentQuality.contactConfidence < 70) {
+  if (options.searchContacts && currentQuality.contactConfidence < 70 && shouldSearchContactTrail(enriched, currentQuality)) {
     const trail = await searchForContactTrail(enriched, options);
     enriched = mergeLeadData({ ...enriched, relatedLinks: trail.relatedLinks || [] }, [trail]);
     if ((enriched.websiteLinks || []).some(isCrawlableExternalWebsite)) {
       enriched = await enrichExternalWebsites(enriched, options);
     }
-  } else if (options.searchContacts) {
+  } else if (options.searchContacts && shouldSearchContactTrail(enriched, currentQuality)) {
     const trail = await searchForContactTrail(enriched, {
       ...options,
       maxTrailQueries: Math.min(Number(options.maxTrailQueries || 10), 5),
@@ -633,9 +660,14 @@ export async function deepEnrichResult(result, options = {}) {
     enriched = mergeLeadData({ ...enriched, relatedLinks: trail.relatedLinks || [] }, [trail]);
   }
 
-  return {
+  const finalLead = {
     ...enriched,
     ...scoreContactability(enriched),
     lastDeepEnrichedAt: new Date().toISOString()
+  };
+
+  return {
+    ...finalLead,
+    ...pickBestContact(finalLead)
   };
 }
