@@ -32,9 +32,9 @@
             <i data-lucide="database"></i>
             Raw
           </a>
-          <a class="icon-link" href="/api/export.json" title="Export JSON">
-            <i data-lucide="braces"></i>
-            JSON
+          <a class="icon-link" href="/api/diagnostics" title="Source diagnostics">
+            <i data-lucide="activity"></i>
+            Diagnostics
           </a>
         </div>
       </header>
@@ -58,11 +58,11 @@
           <div class="field-grid">
             <label class="field">
               <span>Queries</span>
-              <input id="maxQueries" type="number" min="4" max="120" value="32" />
+              <input id="maxQueries" type="number" min="4" max="400" value="120" />
             </label>
             <label class="field">
               <span>Results</span>
-              <input id="limitPerQuery" type="number" min="3" max="20" value="8" />
+              <input id="limitPerQuery" type="number" min="3" max="25" value="10" />
             </label>
           </div>
 
@@ -83,9 +83,13 @@
             <span>Deep contact hunt</span>
           </label>
 
-          <button id="scanButton" class="primary-button">
+          <button id="superButton" class="primary-button super-button">
+            <i data-lucide="rocket"></i>
+            Super autopilot
+          </button>
+          <button id="scanButton" class="ghost-button full-width">
             <i data-lucide="radar"></i>
-            Start scan
+            Custom scan
           </button>
           <div class="dual-actions">
             <button id="continuousButton" class="ghost-button">
@@ -96,6 +100,13 @@
               <i data-lucide="square"></i>
               Stop
             </button>
+          </div>
+
+          <div class="preset-grid">
+            <button class="ghost-button preset-button" data-preset="quality">Quality</button>
+            <button class="ghost-button preset-button" data-preset="volume">Volume</button>
+            <button class="ghost-button preset-button" data-preset="social">Social</button>
+            <button class="ghost-button preset-button" data-preset="latam">LatAm</button>
           </div>
 
           <div class="run-box">
@@ -157,15 +168,18 @@
               <option value="">All sources</option>
               <option value="non-mql5">Non-MQL5 first</option>
               <option value="social">Social/DM sources</option>
-              <option value="LinkedIn">LinkedIn</option>
-              <option value="Instagram">Instagram</option>
-              <option value="X/Twitter">X / Twitter</option>
-              <option value="Telegram">Telegram</option>
-              <option value="Discord">Discord</option>
-              <option value="TikTok">TikTok</option>
-              <option value="Myfxbook">Myfxbook</option>
-              <option value="MQL5">MQL5</option>
-              <option value="Web">Web</option>
+              <option value="linkedin">LinkedIn</option>
+              <option value="instagram">Instagram</option>
+              <option value="x">X / Twitter</option>
+              <option value="telegram">Telegram</option>
+              <option value="discord">Discord</option>
+              <option value="tiktok">TikTok</option>
+              <option value="myfxbook">Myfxbook</option>
+              <option value="tradingview">TradingView</option>
+              <option value="forum">Forums</option>
+              <option value="ecosystem">Ecosystem</option>
+              <option value="mql5">MQL5</option>
+              <option value="web">Web</option>
             </select>
             <select id="priorityFilter">
               <option value="">All priorities</option>
@@ -193,6 +207,7 @@
           </div>
 
           <div class="source-strip" id="platformStrip"></div>
+          <div class="diagnostics-panel" id="sourceDiagnostics"></div>
 
           <div class="split-view">
             <div class="lead-table-wrap">
