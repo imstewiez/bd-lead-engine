@@ -7,6 +7,7 @@ import {
   isUsefulDirectContactUrl
 } from "./contact-cleaner.js";
 import { leadRejectionReasons } from "./lead-quality.js";
+import { sourceBucket } from "./mql5-limit.js";
 import { domainOf, normalizeWhitespace, titleFromUrl, unique } from "./utils.js";
 
 const HOT_SEGMENTS = new Set([
@@ -167,6 +168,20 @@ function tierFor({ baseScore, contactBonus, decisionBonus, segmentBonus, intentB
   return "C Research";
 }
 
+function capTier(tier, maxTier) {
+  const order = ["C Research", "B Nurture", "A2 Strong", "A1 Hot"];
+  return order[Math.min(order.indexOf(tier), order.indexOf(maxTier))] || tier;
+}
+
+function externalContactStrength(lead, { emails, phones, forms, directLinks, decisionMakerLinks }) {
+  const bucket = sourceBucket(lead);
+  if (emails.length || phones.length || forms.length || decisionMakerLinks.length) return "strong";
+  const directText = directLinks.join(" ").toLowerCase();
+  if (/linkedin\.com\/in|linkedin\.com\/company|instagram\.com\/[a-z0-9_.-]+\/?$|x\.com\/[a-z0-9_.-]+\/?$|twitter\.com\/[a-z0-9_.-]+\/?$|t\.me\/[a-z0-9_.-]+\/?$|wa\.me\/\d|calendly\.com\/[a-z0-9_.-]+/i.test(directText)) return "direct";
+  if (["mql5", "myfxbook", "forum", "ecosystem", "web"].includes(bucket)) return "source-only";
+  return directLinks.length ? "direct" : "none";
+}
+
 export function qualifyLead(lead) {
   const emails = cleanEmails(lead.emails || []);
   const phones = cleanPhoneNumbers(lead.phoneNumbers || []);
@@ -207,7 +222,7 @@ export function qualifyLead(lead) {
   const segmentBonus = HOT_SEGMENTS.has(lead.segment) ? 12 : RECRUITMENT_SEGMENTS.has(lead.segment) ? 8 : 0;
   const intentBonus = INTENT_TERMS.test(text) ? 12 : 0;
   const redFlagPenalty = redFlags.length * 6;
-  const icpTier = tierFor({
+  let icpTier = tierFor({
     baseScore: Number(lead.score || 0),
     contactBonus,
     decisionBonus,
@@ -215,6 +230,15 @@ export function qualifyLead(lead) {
     intentBonus,
     redFlagPenalty
   });
+  const contactStrength = externalContactStrength(lead, { emails, phones, forms, directLinks, decisionMakerLinks });
+  const bucket = sourceBucket(lead);
+  if (contactStrength === "none") icpTier = capTier(icpTier, "B Nurture");
+  if (contactStrength === "source-only") icpTier = capTier(icpTier, "B Nurture");
+  if (bucket === "mql5" && contactStrength !== "strong") icpTier = capTier(icpTier, "B Nurture");
+  if (bucket === "forum" && contactStrength !== "strong") icpTier = capTier(icpTier, "B Nurture");
+  if (bestChannelFor({ emails, phones, forms, directLinks, decisionMakerLinks, lead }) === "Source URL" && contactStrength !== "strong") {
+    icpTier = capTier(icpTier, "B Nurture");
+  }
   const meetingPriority = icpTier === "A1 Hot" ? "High" : icpTier === "A2 Strong" ? "Medium-High" : icpTier === "B Nurture" ? "Medium" : "Low";
   const opportunityPlay = opportunityPlayFor(lead);
   const bestChannel = bestChannelFor({ emails, phones, forms, directLinks, decisionMakerLinks, lead });

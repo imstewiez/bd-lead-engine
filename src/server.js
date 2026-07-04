@@ -8,6 +8,7 @@ import { runScan } from "./engine.js";
 import { filterAndDedupeLeads, filterWorkingLeads } from "./exporter.js";
 import { clusterLeads, rankLeadsCommercially } from "./intelligence.js";
 import { countBySource, sourceBucket } from "./mql5-limit.js";
+import { qualifyLead } from "./qualification.js";
 import { getRootDir, readDb, updateLead } from "./store.js";
 import { platformFromUrl, sleep, toCsvCell } from "./utils.js";
 
@@ -90,10 +91,11 @@ function buildDiagnostics(db, visibleLeads = []) {
 }
 
 function summarize(leads, db) {
+  const qualified = leads.map((lead) => ({ lead, qualification: qualifyLead(lead) }));
   const counts = {
     total: leads.length,
-    priorityA: leads.filter((lead) => lead.priority === "A").length,
-    priorityB: leads.filter((lead) => lead.priority === "B").length,
+    priorityA: qualified.filter(({ qualification }) => ["A1 Hot", "A2 Strong"].includes(qualification.icpTier)).length,
+    priorityB: qualified.filter(({ qualification }) => qualification.icpTier === "B Nurture").length,
     partners: leads.filter((lead) => lead.leadType === "partner").length,
     recruitment: leads.filter((lead) => lead.leadType === "recruitment").length,
     institutions: leads.filter((lead) => lead.leadType === "institution").length,

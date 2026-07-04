@@ -16,6 +16,17 @@ import { platformFromUrl, toCsvCell, unique } from "./utils.js";
 
 const rootDir = getRootDir();
 
+const GENERIC_WORKING_DOMAINS = [
+  "trading212.com",
+  "tipranks.com",
+  "valueresearchonline.com",
+  "cryptonews.com",
+  "literaciafinanceira.pt",
+  "oxfordlearnersdictionaries.com",
+  "investopedia.com",
+  "wikipedia.org"
+];
+
 async function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -139,9 +150,22 @@ export function isWorkingLead(lead) {
   const platform = lead.platform || platformFromUrl(url);
   if (!url || !platform) return false;
   const lowerUrl = url.toLowerCase();
+  let parsed = null;
+  try {
+    parsed = new URL(url);
+  } catch {
+    return false;
+  }
+  const domain = parsed.hostname.replace(/^www\./, "").toLowerCase();
+  const pathParts = parsed.pathname.split("/").filter(Boolean);
+  if (GENERIC_WORKING_DOMAINS.some((blocked) => domain === blocked || domain.endsWith(`.${blocked}`))) return false;
   if (platform === "YouTube" || /youtube\.com|youtu\.be/i.test(url)) return false;
   if (/oxfordlearnersdictionaries|merriam-webster|cambridge\.org\/dictionary|collinsdictionary|vocabulary\.com|thesaurus\.com|investopedia|wikipedia|literaciafinanceira\.pt/.test(lowerUrl)) return false;
   if (/forexfactory\.com\/(?:calendar|news|market|scanner)|tradingview\.com\/(?:chart|markets|symbols)\b|cryptonews\.com\/news\/.*(?:fed|payments|stablecoin|crypto)/i.test(lowerUrl)) return false;
+  if ((domain === "forexfactory.com" || domain.endsWith(".forexfactory.com")) && pathParts.length === 0) return false;
+  if ((domain === "reddit.com" || domain.endsWith(".reddit.com")) && !["user", "u"].includes((pathParts[0] || "").toLowerCase())) return false;
+  if ((domain === "instagram.com" || domain.endsWith(".instagram.com")) && ["p", "reel", "reels", "stories", "explore"].includes((pathParts[0] || "").toLowerCase())) return false;
+  if ((domain === "x.com" || domain === "twitter.com") && ["i", "share", "intent", "search", "home"].includes((pathParts[0] || "").toLowerCase())) return false;
   if (lead.segment === "Broker Site") return false;
   if (lead.priority === "D" && Number(lead.score || 0) < 45) return false;
   if (!["partner", "recruitment", "institution"].includes(lead.leadType) && lead.qualificationStatus !== "research_candidate") return false;
@@ -152,6 +176,9 @@ export function isWorkingLead(lead) {
   const bucket = sourceBucket(lead);
   const syntheticSnippet = /^(?:Extracted candidate|Qwant extracted URL)/i.test(String(lead.snippet || ""));
   const text = rawLeadText(syntheticSnippet ? { ...lead, snippet: "" } : lead);
+  const malformedSocialTitle = /^\)?\s*(?:[\/•-]?\s*)?(?:instagram photos and videos|posts?\s*\/\s*x(?:\s*-\s*twitter)?|x\s*-\s*twitter)/i;
+  if (malformedSocialTitle.test(String(lead.name || "").trim())) return false;
+  if (malformedSocialTitle.test(String(lead.title || "").trim())) return false;
   const brokerOfficialNoise = /\b(?:oanda|admiralmarkets|admirals|exness|xm\.com|xmtrading|octafx|octa|fbs|hfm|hotforex|tickmill|icmarkets|ic markets|pepperstone|avatrade|deriv|fxtm|roboforex|vantage|fpmarkets|fp markets|axi\.com|capital\.com|etoro|plus500|cmcmarkets|cmc markets|ig\.com|markets\.com|blackbull|multibank|forex\.com)\b/i.test(text);
   if (brokerOfficialNoise && !/\b(?:introducing broker|affiliate manager|partnership manager|business development|country manager|former|ex-)\b/i.test(text)) return false;
   const actualTradingSignal = /\b(?:forex|fx trader|fx portfolio|xauusd|gold trader|currency trader|currency trading|cfds?|copy trading|signals?|sinais|señales|senales|pamm|mam|mt4|mt5|metatrader|introducing broker|forex affiliate|broker partnership|cpa deal|revshare|trading academy|forex academy|prop firm|funded trader|portfolio manager|fund manager|money manager|asset manager|trading community|algo trader|ea developer)\b/i.test(text);
