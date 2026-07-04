@@ -102,6 +102,32 @@ h2 { font-size: 19px; margin-bottom: 0; }
 .hero-row h2 { max-width: 920px; font-size: clamp(28px, 4.2vw, 52px); line-height: 1; margin: 0 0 12px; letter-spacing: -0.06em; color: #11202a; }
 .hero-copy { color: var(--muted); max-width: 900px; font-size: 14px; margin: 0; }
 .hero-progress { margin-top: 18px; height: 9px; position: relative; z-index: 1; }
+.health-strip {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.health-strip span {
+  min-height: 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .86);
+  color: var(--muted);
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: 820;
+}
+.health-strip strong { color: var(--ink); }
+.health-strip svg { width: 15px; height: 15px; }
+.health-pill.ok { border-color: #bfe4dc; background: var(--brand-soft); color: var(--brand-dark); }
+.health-pill.bad { border-color: #ffd0d4; background: var(--red-soft); color: var(--red); }
 
 .badge, .priority-pill, .stage-pill, .type-pill, .source-pill {
   display: inline-flex;

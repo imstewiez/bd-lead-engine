@@ -2,6 +2,7 @@ const state = {
   leads: [],
   selectedId: null,
   summary: null,
+  health: null,
   filters: {
     q: "",
     priority: "",
@@ -78,6 +79,11 @@ async function loadRun() {
   renderRun(run);
 }
 
+async function loadHealth() {
+  state.health = await api("/api/health");
+  renderHealth();
+}
+
 function renderSummary() {
   const counts = state.summary?.counts || {};
   $("#metricTotalLabel").textContent = state.filters.viewMode === "raw" ? "Raw DB" : "Qualified";
@@ -90,6 +96,32 @@ function renderSummary() {
   $("#metricContactable").textContent = counts.contactable || 0;
   $("#metricEmailForm").textContent = Number(counts.emails || 0) + Number(counts.forms || 0);
   renderPlatformStrip();
+}
+
+function compactNumber(value) {
+  return Number(value || 0).toLocaleString("en-US");
+}
+
+function renderHealth() {
+  const health = state.health;
+  if (!health) return;
+  const tasks = health.tasks || {};
+  const runningCount = Object.values(tasks).filter((task) => task.running).length;
+  const taskCount = Object.keys(tasks).length;
+  const issueCount = (health.issues || []).length;
+  const statusClass = health.ok ? "ok" : "bad";
+  $("#systemHealth").innerHTML = `
+    <span class="health-pill ${statusClass}">
+      <i data-lucide="${health.ok ? "check-circle-2" : "alert-triangle"}"></i>
+      ${health.ok ? "Healthy" : "Needs attention"}
+    </span>
+    <span><strong>${runningCount}/${taskCount}</strong> tasks</span>
+    <span><strong>${compactNumber(health.counts?.working)}</strong> working</span>
+    <span><strong>${compactNumber(health.counts?.aLeads)}</strong> A leads</span>
+    <span><strong>${compactNumber(health.enrichmentQueue?.contactless)}</strong> contactless</span>
+    <span><strong>${compactNumber(issueCount)}</strong> alerts</span>
+  `;
+  iconRefresh();
 }
 
 function platformLabel(value = "") {
@@ -474,14 +506,14 @@ function bindControls() {
 }
 
 async function tick() {
-  await Promise.all([loadSummary(), loadRun()]);
+  await Promise.all([loadSummary(), loadRun(), loadHealth()]);
   await loadLeads();
 }
 
 bindControls();
 tick().catch((error) => console.error(error));
 setInterval(() => {
-  Promise.all([loadSummary(), loadRun()])
+  Promise.all([loadSummary(), loadRun(), loadHealth()])
     .then(() => {
       const running = state.summary?.activeRun?.status === "running";
       if (running) return loadLeads();

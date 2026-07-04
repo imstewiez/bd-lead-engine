@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { spawn } from "node:child_process";
+import { ensureBackgroundTasks } from "./process-manager.js";
 import { getRootDir } from "./store.js";
 
 const rootDir = getRootDir();
@@ -22,39 +23,9 @@ function launch(name, args) {
 }
 
 const serverPid = launch("server", ["src/server.js"]);
-const sourceHarvesterPid = launch("source-harvester", [
-  "src/source-harvester.js",
-  "--maxQueries=180",
-  "--limitPerQuery=12",
-  "--delayMs=7000",
-  "--fetchPages=true",
-  "--deepEnrich=true",
-  "--searchContacts=true",
-  "--maxContactPages=8",
-  "--maxExternalWebsites=6",
-  "--maxTrailQueries=24",
-  "--trailLimit=8",
-  "--exportEvery=3"
-]);
-const enrichmentWorkerPid = launch("enrichment-worker", [
-  "src/enrichment-worker.js",
-  "--delayMs=2500",
-  "--idleMs=12000",
-  "--staleHours=48",
-  "--hotStaleHours=10",
-  "--contactlessStaleHours=14",
-  "--maxAttempts=10",
-  "--maxContactPages=8",
-  "--maxExternalWebsites=6",
-  "--maxTrailQueries=24",
-  "--trailLimit=8"
-]);
-const qualifiedExporterPid = launch("qualified-exporter", [
-  "src/qualified-exporter.js",
-  "--intervalMs=45000"
-]);
+const managed = await ensureBackgroundTasks(["source-harvester", "enrichment-worker", "qualified-exporter", "supervisor"]);
 
 console.log(`serverPid=${serverPid}`);
-console.log(`sourceHarvesterPid=${sourceHarvesterPid}`);
-console.log(`enrichmentWorkerPid=${enrichmentWorkerPid}`);
-console.log(`qualifiedExporterPid=${qualifiedExporterPid}`);
+for (const task of managed) {
+  console.log(`${task.name}=${task.pid} (${task.status})`);
+}

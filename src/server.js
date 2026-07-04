@@ -5,9 +5,12 @@ import { fileURLToPath } from "node:url";
 import { DEFAULT_SCAN, SEARCH_PROFILES } from "./config.js";
 import { cleanEmails, cleanForms, hasDirectOutboundPath } from "./contact-cleaner.js";
 import { runScan } from "./engine.js";
+import { exportLeads } from "./exporter.js";
 import { filterAndDedupeLeads, filterWorkingLeads } from "./exporter.js";
+import { healthSnapshot } from "./health.js";
 import { clusterLeads, rankLeadsCommercially } from "./intelligence.js";
 import { countBySource, sourceBucket } from "./mql5-limit.js";
+import { ensureBackgroundTasks } from "./process-manager.js";
 import { qualifyLead } from "./qualification.js";
 import { getRootDir, readDb, updateLead } from "./store.js";
 import { platformFromUrl, sleep, toCsvCell } from "./utils.js";
@@ -171,6 +174,11 @@ function autoStartSuper() {
   continuousLoop(options).catch((error) => { continuous = { ...continuous, status: "failed", error: error.message }; pushRunEvent({ status: "failed", message: error.message, error: error.stack }); });
 }
 
+async function autoStartBackgroundTasks() {
+  if (process.env.AUTO_START_SOURCING === "false") return [];
+  return ensureBackgroundTasks(["source-harvester", "enrichment-worker", "qualified-exporter", "supervisor"]);
+}
+
 app.get("/api/config", (_req, res) => res.json({ defaultScan: DEFAULT_SCAN, searchProfiles: SEARCH_PROFILES, scanPresets: SCAN_PRESETS, autoStart: process.env.AUTO_START_SOURCING !== "false" }));
 app.get("/api/summary", async (req, res, next) => { try { const db = await readDb(); res.json(summarize(leadsForUi(db, req.query), db)); } catch (error) { next(error); } });
 app.get("/api/diagnostics", async (req, res, next) => { try { const db = await readDb(); res.json(buildDiagnostics(db, leadsForUi(db, req.query))); } catch (error) { next(error); } });
@@ -180,6 +188,23 @@ app.patch("/api/leads/:id", async (req, res, next) => { try { const patch = {}; 
 app.post("/api/scan", async (req, res) => { if (activeRun.status === "running") return res.status(409).json({ error: "A scan is already running", activeRun }); const options = buildScanOptions(req.body); startRun(options, "scan"); res.json({ ok: true, activeRun, options }); });
 app.post("/api/scan/preset/:preset", async (req, res) => { if (activeRun.status === "running") return res.status(409).json({ error: "A scan is already running", activeRun }); const preset = SCAN_PRESETS[req.params.preset]; if (!preset) return res.status(404).json({ error: "Unknown preset", available: Object.keys(SCAN_PRESETS) }); const options = buildScanOptions({ ...preset, ...(req.body || {}) }, preset); startRun(options, `${req.params.preset} preset`); res.json({ ok: true, preset: req.params.preset, activeRun, options }); });
 app.get("/api/run", (_req, res) => res.json({ ...activeRun, continuous }));
+app.get("/api/health", async (_req, res, next) => { try { res.json(await healthSnapshot()); } catch (error) { next(error); } });
+app.post("/api/repair", async (_req, res, next) => {
+  try {
+    const ensured = await autoStartBackgroundTasks();
+    const exported = await exportLeads({
+      csvName: "autopilot-qualified-leads.csv",
+      jsonName: "autopilot-qualified-leads.json",
+      contactCsvName: "autopilot-qualified-contactable-leads.csv",
+      contactJsonName: "autopilot-qualified-contactable-leads.json",
+      hotCsvName: "autopilot-hot-leads.csv",
+      hotJsonName: "autopilot-hot-leads.json"
+    });
+    res.json({ ok: true, ensured, exported, health: await healthSnapshot() });
+  } catch (error) {
+    next(error);
+  }
+});
 app.post("/api/continuous/start", async (req, res) => { if (activeRun.status === "running" || continuous.status === "running") return res.status(409).json({ error: "A scan is already running", activeRun, continuous }); const options = buildScanOptions(req.body, SCAN_PRESETS.super); continuousLoop(options).catch((error) => { continuous = { ...continuous, status: "failed", error: error.message }; pushRunEvent({ status: "failed", message: error.message, error: error.stack }); }); res.json({ ok: true, continuous, options }); });
 app.post("/api/continuous/stop", (_req, res) => { if (continuous.status !== "running") return res.json({ ok: true, continuous }); continuous = { ...continuous, stopRequested: true, status: "stopping" }; pushRunEvent({ status: "running", message: "Stop requested. Finishing current cycle." }); res.json({ ok: true, continuous }); });
 app.get("/api/export.json", async (req, res, next) => { try { const db = await readDb(); const leads = leadsForUi(db, req.query); res.setHeader("content-type", "application/json"); res.setHeader("content-disposition", "attachment; filename=bd-leads.json"); res.send(JSON.stringify(leads, null, 2)); } catch (error) { next(error); } });
@@ -206,4 +231,11 @@ app.get("/autopilot-working-leads.json", (_req, res) => res.sendFile(path.join(r
 app.get("*", (_req, res) => res.sendFile(path.join(publicDir, "index.html")));
 app.use((error, _req, res, _next) => { console.error(error); res.status(500).json({ error: error.message }); });
 
-app.listen(PORT, () => { console.log(`BD Lead Engine running at http://localhost:${PORT}`); console.log(process.env.AUTO_START_SOURCING === "false" ? "Auto sourcing disabled." : "Auto sourcing enabled: super continuous mode will start automatically."); setTimeout(autoStartSuper, 1200); });
+app.listen(PORT, () => {
+  console.log(`BD Lead Engine running at http://localhost:${PORT}`);
+  console.log(process.env.AUTO_START_SOURCING === "false" ? "Auto sourcing disabled." : "Auto sourcing enabled: background workers and super continuous mode will start automatically.");
+  setTimeout(() => {
+    autoStartBackgroundTasks().catch((error) => console.error(`[background] ${error.stack || error.message}`));
+    autoStartSuper();
+  }, 1200);
+});
