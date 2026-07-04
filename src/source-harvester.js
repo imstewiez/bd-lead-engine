@@ -69,15 +69,37 @@ await writeStatus({ status: "running", workerName, phase: "started", cycle, opti
 while (!(await stopRequested())) {
   cycle += 1;
   const cycleOptions = { ...options, queryOffset: options.queryOffsetBase + (cycle - 1) * options.maxQueries };
+  let lastHeartbeatAt = 0;
+  let lastProgress = null;
   await writeStatus({ status: "running", workerName, phase: "scan", cycle, options: cycleOptions, totals });
   try {
     const run = await runScan(cycleOptions, (progress) => {
       if (progress.message) console.log(`[${workerName} cycle ${cycle}] ${progress.message}`);
+      const now = Date.now();
+      lastProgress = {
+        message: progress.message || "scan progress",
+        status: progress.status || "running",
+        latestLead: progress.latestLead || null,
+        sourceStats: progress.sourceStats || null
+      };
+      if (now - lastHeartbeatAt > 30000) {
+        lastHeartbeatAt = now;
+        writeStatus({
+          status: "running",
+          workerName,
+          phase: "scan",
+          cycle,
+          options: cycleOptions,
+          totals,
+          heartbeatAt: nowIso(),
+          progress: lastProgress
+        }).catch((error) => console.error(`[${workerName}] heartbeat failed: ${error.message}`));
+      }
     });
     totals = await exportLeads({ csvName: "autopilot-leads.csv", jsonName: "autopilot-leads.json" });
-    await writeStatus({ status: "running", workerName, phase: "waiting", cycle, options: cycleOptions, lastRun: run, totals });
+    await writeStatus({ status: "running", workerName, phase: "waiting", cycle, options: cycleOptions, lastRun: run, totals, progress: lastProgress });
   } catch (error) {
-    await writeStatus({ status: "error", workerName, phase: "error", cycle, options: cycleOptions, error: error.message, totals });
+    await writeStatus({ status: "error", workerName, phase: "error", cycle, options: cycleOptions, error: error.message, totals, progress: lastProgress });
   }
   if (options.maxCycles > 0 && cycle >= options.maxCycles) break;
   if (!(await stopRequested())) await sleep(options.delayMs);
