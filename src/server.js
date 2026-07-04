@@ -86,13 +86,7 @@ function buildDiagnostics(db, visibleLeads = []) {
   const rawBySource = countBySource(rawLeads);
   const contactableBySource = countBySource(rawLeads.filter((lead) => cleanEmails(lead.emails || []).length || cleanForms(lead.forms || []).length || hasDirectOutboundPath(lead)));
   const bySource = Object.keys({ ...rawBySource, ...qualifiedBySource, ...contactableBySource }).sort().map((bucket) => ({ bucket, raw: rawBySource[bucket] || 0, qualified: qualifiedBySource[bucket] || 0, contactable: contactableBySource[bucket] || 0, lastRun: latestRun?.sourceStats?.[bucket] || null }));
-  return {
-    updatedAt: new Date().toISOString(),
-    totals: { raw: rawLeads.length, qualified: visibleLeads.length, contactable: visibleLeads.filter((lead) => cleanEmails(lead.emails || []).length || cleanForms(lead.forms || []).length || hasDirectOutboundPath(lead)).length, clusters: clusterLeads(visibleLeads).length },
-    bySource,
-    lastRun: latestRun ? { id: latestRun.id, startedAt: latestRun.startedAt, finishedAt: latestRun.finishedAt, totalQueries: latestRun.totalQueries, rawResults: latestRun.rawResults, leadsFound: latestRun.leadsFound, created: latestRun.created, updated: latestRun.updated, sourceStats: latestRun.sourceStats || {}, qualifiedBySource: latestRun.qualifiedBySource || {} } : null,
-    activeRun: { ...activeRun, continuous }
-  };
+  return { updatedAt: new Date().toISOString(), totals: { raw: rawLeads.length, qualified: visibleLeads.length, contactable: visibleLeads.filter((lead) => cleanEmails(lead.emails || []).length || cleanForms(lead.forms || []).length || hasDirectOutboundPath(lead)).length, clusters: clusterLeads(visibleLeads).length }, bySource, lastRun: latestRun ? { id: latestRun.id, startedAt: latestRun.startedAt, finishedAt: latestRun.finishedAt, totalQueries: latestRun.totalQueries, rawResults: latestRun.rawResults, leadsFound: latestRun.leadsFound, created: latestRun.created, updated: latestRun.updated, sourceStats: latestRun.sourceStats || {}, qualifiedBySource: latestRun.qualifiedBySource || {} } : null, activeRun: { ...activeRun, continuous } };
 }
 
 function summarize(leads, db) {
@@ -130,43 +124,27 @@ function applyLeadFilters(leads, filters = {}) {
   return filtered;
 }
 
+function fallbackWorklist(rawLeads = []) {
+  return rawLeads.filter((lead) => {
+    if (lead.segment === "Broker Site") return false;
+    if (lead.priority === "D" && Number(lead.score || 0) < 35) return false;
+    return Number(lead.score || 0) >= 35 || lead.qualificationStatus === "research_candidate";
+  });
+}
+
 function leadsForUi(db, query = {}) {
   const includeRaw = String(query.raw || "") === "true";
-  const source = includeRaw ? [...db.leads].sort((a, b) => Number(b.score || 0) - Number(a.score || 0)) : filterAndDedupeLeads(db.leads);
+  const raw = [...(db.leads || [])].sort((a, b) => Number(b.score || 0) - Number(a.score || 0));
+  const qualified = filterAndDedupeLeads(db.leads || []);
+  const source = includeRaw ? raw : (qualified.length ? qualified : fallbackWorklist(raw));
   return sortForUi(applyLeadFilters(source, query));
 }
 
 function buildScanOptions(body = {}, overrides = {}) {
-  return {
-    ...DEFAULT_SCAN,
-    ...body,
-    ...overrides,
-    maxQueries: Math.min(Number(body.maxQueries || overrides.maxQueries || DEFAULT_SCAN.maxQueries), 400),
-    limitPerQuery: Math.min(Number(body.limitPerQuery || overrides.limitPerQuery || DEFAULT_SCAN.limitPerQuery), 25),
-    fetchPages: body.fetchPages !== false,
-    deepEnrich: Boolean(body.deepEnrich || overrides.deepEnrich),
-    searchContacts: body.searchContacts !== false,
-    maxContactPages: Number(body.maxContactPages || overrides.maxContactPages || 4),
-    maxExternalWebsites: Number(body.maxExternalWebsites || overrides.maxExternalWebsites || 3),
-    maxTrailQueries: Number(body.maxTrailQueries || overrides.maxTrailQueries || 14),
-    trailLimit: Number(body.trailLimit || overrides.trailLimit || 5),
-    exportEvery: Number(body.exportEvery || overrides.exportEvery || 5),
-    incremental: true,
-    includePartners: body.includePartners !== false,
-    includeRecruitment: body.includeRecruitment !== false,
-    includeIntentPosts: body.includeIntentPosts !== false,
-    includeEcosystem: body.includeEcosystem !== false,
-    includeSocialProfiles: body.includeSocialProfiles !== false,
-    includeForums: body.includeForums !== false,
-    includeSpecialistSources: body.includeSpecialistSources !== false,
-    includeYouTube: body.includeYouTube === true || overrides.includeYouTube === true
-  };
+  return { ...DEFAULT_SCAN, ...body, ...overrides, maxQueries: Math.min(Number(body.maxQueries || overrides.maxQueries || DEFAULT_SCAN.maxQueries), 400), limitPerQuery: Math.min(Number(body.limitPerQuery || overrides.limitPerQuery || DEFAULT_SCAN.limitPerQuery), 25), fetchPages: body.fetchPages !== false, deepEnrich: Boolean(body.deepEnrich || overrides.deepEnrich), searchContacts: body.searchContacts !== false, maxContactPages: Number(body.maxContactPages || overrides.maxContactPages || 4), maxExternalWebsites: Number(body.maxExternalWebsites || overrides.maxExternalWebsites || 3), maxTrailQueries: Number(body.maxTrailQueries || overrides.maxTrailQueries || 14), trailLimit: Number(body.trailLimit || overrides.trailLimit || 5), exportEvery: Number(body.exportEvery || overrides.exportEvery || 5), incremental: true, includePartners: body.includePartners !== false, includeRecruitment: body.includeRecruitment !== false, includeIntentPosts: body.includeIntentPosts !== false, includeEcosystem: body.includeEcosystem !== false, includeSocialProfiles: body.includeSocialProfiles !== false, includeForums: body.includeForums !== false, includeSpecialistSources: body.includeSpecialistSources !== false, includeYouTube: body.includeYouTube === true || overrides.includeYouTube === true };
 }
 
-function startRun(options, label = "scan") {
-  activeRun = { status: "running", message: `Starting ${label}`, events: [] };
-  runScan(options, pushRunEvent).catch((error) => pushRunEvent({ status: "failed", message: error.message, error: error.stack }));
-}
+function startRun(options, label = "scan") { activeRun = { status: "running", message: `Starting ${label}`, events: [] }; runScan(options, pushRunEvent).catch((error) => pushRunEvent({ status: "failed", message: error.message, error: error.stack })); }
 
 async function continuousLoop(options) {
   continuous = { status: "running", stopRequested: false, cycles: 0, startedAt: new Date().toISOString(), lastCycleAt: null, options };
@@ -174,16 +152,9 @@ async function continuousLoop(options) {
     const cycle = continuous.cycles + 1;
     const cycleOptions = { ...options, queryOffset: continuous.cycles * Number(options.maxQueries || DEFAULT_SCAN.maxQueries), deepEnrich: true, fetchPages: true, searchContacts: true };
     activeRun = { status: "running", message: `Continuous deep scan cycle ${cycle}`, events: activeRun.events || [] };
-    try {
-      await runScan(cycleOptions, (event) => pushRunEvent({ ...event, status: event.status === "completed" && !continuous.stopRequested ? "running" : event.status, message: `[continuous ${cycle}] ${event.message}` }));
-      continuous = { ...continuous, cycles: cycle, lastCycleAt: new Date().toISOString() };
-    } catch (error) {
-      pushRunEvent({ status: "failed", message: `[continuous ${cycle}] ${error.message}`, error: error.stack });
-    }
-    if (!continuous.stopRequested) {
-      pushRunEvent({ status: "running", message: `Continuous deep scan waiting before cycle ${cycle + 1}` });
-      await sleep(Number(options.delayMs || 8000));
-    }
+    try { await runScan(cycleOptions, (event) => pushRunEvent({ ...event, status: event.status === "completed" && !continuous.stopRequested ? "running" : event.status, message: `[continuous ${cycle}] ${event.message}` })); continuous = { ...continuous, cycles: cycle, lastCycleAt: new Date().toISOString() }; }
+    catch (error) { pushRunEvent({ status: "failed", message: `[continuous ${cycle}] ${error.message}`, error: error.stack }); }
+    if (!continuous.stopRequested) { pushRunEvent({ status: "running", message: `Continuous deep scan waiting before cycle ${cycle + 1}` }); await sleep(Number(options.delayMs || 8000)); }
   }
   continuous = { ...continuous, status: "stopped", stoppedAt: new Date().toISOString() };
   activeRun = { ...activeRun, status: "idle", message: "Continuous deep scan stopped" };
@@ -193,10 +164,7 @@ function autoStartSuper() {
   if (process.env.AUTO_START_SOURCING === "false") return;
   if (activeRun.status === "running" || continuous.status === "running") return;
   const options = buildScanOptions(SCAN_PRESETS.super, SCAN_PRESETS.super);
-  continuousLoop(options).catch((error) => {
-    continuous = { ...continuous, status: "failed", error: error.message };
-    pushRunEvent({ status: "failed", message: error.message, error: error.stack });
-  });
+  continuousLoop(options).catch((error) => { continuous = { ...continuous, status: "failed", error: error.message }; pushRunEvent({ status: "failed", message: error.message, error: error.stack }); });
 }
 
 app.get("/api/config", (_req, res) => res.json({ defaultScan: DEFAULT_SCAN, searchProfiles: SEARCH_PROFILES, scanPresets: SCAN_PRESETS, autoStart: process.env.AUTO_START_SOURCING !== "false" }));
@@ -232,8 +200,4 @@ app.get("/autopilot-x-leads.csv", (_req, res) => res.sendFile(path.join(rootDir,
 app.get("*", (_req, res) => res.sendFile(path.join(publicDir, "index.html")));
 app.use((error, _req, res, _next) => { console.error(error); res.status(500).json({ error: error.message }); });
 
-app.listen(PORT, () => {
-  console.log(`BD Lead Engine running at http://localhost:${PORT}`);
-  console.log(process.env.AUTO_START_SOURCING === "false" ? "Auto sourcing disabled." : "Auto sourcing enabled: super continuous mode will start automatically.");
-  setTimeout(autoStartSuper, 1200);
-});
+app.listen(PORT, () => { console.log(`BD Lead Engine running at http://localhost:${PORT}`); console.log(process.env.AUTO_START_SOURCING === "false" ? "Auto sourcing disabled." : "Auto sourcing enabled: super continuous mode will start automatically."); setTimeout(autoStartSuper, 1200); });
