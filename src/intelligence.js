@@ -49,8 +49,30 @@ function unique(values = []) {
   return [...new Set(values.filter(Boolean))];
 }
 
+export function commercialScoreForLead(lead = {}) {
+  let score = 0;
+  const bucket = sourceBucket(lead);
+  const emails = cleanEmails(lead.emails || []);
+  const forms = cleanForms(lead.forms || []);
+  if (lead.leadType === "partner") score += 25;
+  if (lead.leadType === "institution") score += 22;
+  if (lead.leadType === "recruitment") score += 14;
+  if (["linkedin", "instagram", "x", "telegram", "myfxbook", "tradingview"].includes(bucket)) score += 18;
+  if (emails.length) score += 20;
+  if (forms.length) score += 12;
+  if (hasDirectOutboundPath(lead)) score += 12;
+  if ((lead.decisionMakers || []).length) score += 12;
+  if (/latam|brazil|brasil|mexico|colombia|chile|peru|portugal|spain|espanha/i.test(`${lead.country} ${lead.snippet} ${lead.name}`)) score += 8;
+  score += Math.min(25, Number(lead.score || 0) / 4);
+  if (bucket === "mql5") score -= 8;
+  if (lead.priority === "A") score += 10;
+  if (lead.priority === "D") score -= 20;
+  return Math.max(0, Math.min(100, Math.round(score)));
+}
+
 function mergeLeadCluster(leads = []) {
-  const sorted = [...leads].sort((a, b) => Number(b.score || 0) - Number(a.score || 0));
+  const scored = leads.map((lead) => ({ ...lead, commercialScore: commercialScoreForLead(lead) }));
+  const sorted = scored.sort((a, b) => Number(b.commercialScore || 0) - Number(a.commercialScore || 0) || Number(b.score || 0) - Number(a.score || 0));
   const primary = sorted[0] || {};
   const allUrls = unique(sorted.flatMap((lead) => [lead.url, ...(lead.socialLinks || []), ...(lead.websiteLinks || []), ...(lead.contactLinks || []), ...(lead.relatedLinks || [])]));
   const emails = unique(sorted.flatMap((lead) => cleanEmails(lead.emails || [])));
@@ -58,6 +80,8 @@ function mergeLeadCluster(leads = []) {
   const forms = sorted.flatMap((lead) => cleanForms(lead.forms || []));
   const sources = unique(sorted.map(sourceBucket));
   const evidence = unique(sorted.flatMap((lead) => lead.evidence || [])).slice(0, 20);
+  const score = Math.max(...sorted.map((lead) => Number(lead.score || 0)), 0);
+  const commercialScore = Math.max(...sorted.map((lead) => Number(lead.commercialScore || 0)), 0);
   return {
     id: entityKeyForLead(primary),
     name: primary.name || primary.title || "Unknown lead",
@@ -73,7 +97,8 @@ function mergeLeadCluster(leads = []) {
     segment: primary.segment || "Unclear",
     leadType: primary.leadType || "research",
     priority: primary.priority || "C",
-    score: Math.max(...sorted.map((lead) => Number(lead.score || 0)), 0),
+    score,
+    commercialScore,
     contactConfidence: Math.max(...sorted.map((lead) => Number(lead.contactConfidence || 0)), 0),
     lastSeen: sorted.map((lead) => lead.lastSeen).filter(Boolean).sort().pop() || "",
     rawCount: sorted.length
@@ -87,7 +112,7 @@ export function clusterLeads(leads = []) {
     if (!groups.has(key)) groups.set(key, []);
     groups.get(key).push(lead);
   }
-  return [...groups.values()].map(mergeLeadCluster).sort((a, b) => b.commercialScore - a.commercialScore || b.score - a.score);
+  return [...groups.values()].map(mergeLeadCluster).sort((a, b) => Number(b.commercialScore || 0) - Number(a.commercialScore || 0) || Number(b.score || 0) - Number(a.score || 0));
 }
 
 export async function hasMx(domain = "") {
@@ -119,30 +144,9 @@ export async function emailQuality(email = "", lead = {}) {
   return { email: value, domain, mx, score: Math.max(0, Math.min(100, score)) };
 }
 
-export function commercialScoreForLead(lead = {}) {
-  let score = 0;
-  const bucket = sourceBucket(lead);
-  const emails = cleanEmails(lead.emails || []);
-  const forms = cleanForms(lead.forms || []);
-  if (lead.leadType === "partner") score += 25;
-  if (lead.leadType === "institution") score += 22;
-  if (lead.leadType === "recruitment") score += 14;
-  if (["linkedin", "instagram", "x", "telegram", "myfxbook", "tradingview"].includes(bucket)) score += 18;
-  if (emails.length) score += 20;
-  if (forms.length) score += 12;
-  if (hasDirectOutboundPath(lead)) score += 12;
-  if ((lead.decisionMakers || []).length) score += 12;
-  if (/latam|brazil|brasil|mexico|colombia|chile|peru|portugal|spain|espanha/i.test(`${lead.country} ${lead.snippet} ${lead.name}`)) score += 8;
-  score += Math.min(25, Number(lead.score || 0) / 4);
-  if (bucket === "mql5") score -= 8;
-  if (lead.priority === "A") score += 10;
-  if (lead.priority === "D") score -= 20;
-  return Math.max(0, Math.min(100, Math.round(score)));
-}
-
 export function rankLeadsCommercially(leads = []) {
   return [...leads]
-    .map((lead) => ({ ...lead, commercialScore: commercialScoreForLead(lead), sourceBucket: lead.sourceBucket || sourceBucket(lead) }))
+    .map((lead) => ({ ...lead, commercialScore: commercialScoreForLead(lead), sourceBucket: lead.sourceBucket || sourceBucket(lead), entityKey: entityKeyForLead(lead) }))
     .sort((a, b) => Number(b.commercialScore || 0) - Number(a.commercialScore || 0) || Number(b.score || 0) - Number(a.score || 0));
 }
 
@@ -150,11 +154,5 @@ export async function enrichLeadIntelligence(lead = {}) {
   const emails = cleanEmails(lead.emails || []);
   const emailQualityChecks = [];
   for (const email of emails.slice(0, 5)) emailQualityChecks.push(await emailQuality(email, lead));
-  return {
-    ...lead,
-    sourceBucket: lead.sourceBucket || sourceBucket(lead),
-    commercialScore: commercialScoreForLead(lead),
-    entityKey: entityKeyForLead(lead),
-    emailQualityChecks
-  };
+  return { ...lead, sourceBucket: lead.sourceBucket || sourceBucket(lead), commercialScore: commercialScoreForLead(lead), entityKey: entityKeyForLead(lead), emailQualityChecks };
 }
