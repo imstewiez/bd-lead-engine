@@ -4,23 +4,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>BD Lead Engine</title>
-    <link rel="stylesheet" href="/styles.css?v=cockpit-2" />
+    <link rel="stylesheet" href="/styles.css?v=clean-3" />
     <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-    <script defer src="/app.js?v=cockpit-2"></script>
+    <script defer src="/app.js?v=clean-3"></script>
   </head>
   <body>
     <div class="app-shell">
       <header class="topbar">
         <div>
-          <p class="eyebrow">Automatic Lead Intelligence</p>
+          <p class="eyebrow">Sales intelligence</p>
           <h1>BD Lead Engine</h1>
-        </div>
-        <div class="topbar-actions">
-          <a class="icon-link" href="/api/export.csv" title="Export current worklist"><i data-lucide="download"></i>CSV</a>
-          <a class="icon-link" href="/autopilot-contactable-leads.csv" title="Contactable CSV"><i data-lucide="mail-check"></i>Contactable</a>
-          <a class="icon-link" href="/api/health" title="System health" target="_blank"><i data-lucide="heart-pulse"></i>Health</a>
-          <a class="icon-link" href="/api/diagnostics" title="Source diagnostics" target="_blank"><i data-lucide="activity"></i>Diagnostics</a>
-          <a class="icon-link" href="/api/clusters" title="Lead clusters" target="_blank"><i data-lucide="network"></i>Clusters</a>
         </div>
       </header>
 
@@ -28,11 +21,11 @@
         <section class="main-panel hero-panel">
           <div class="hero-row">
             <div>
-              <p class="eyebrow">Live cockpit</p>
-              <h2>Lead pipeline, sourcing health and outbound priorities.</h2>
-              <p id="runMessage" class="hero-copy">Starting automatic sourcing...</p>
+              <p class="eyebrow">Pipeline ativo</p>
+              <h2>Leads qualificadas para outbound.</h2>
+              <p id="runMessage" class="hero-copy">A procurar e enriquecer oportunidades automaticamente.</p>
             </div>
-            <span id="runBadge" class="badge muted">Ready</span>
+            <span id="runBadge" class="badge muted">Ativo</span>
           </div>
           <div class="progress-track hero-progress"><div id="progressBar" class="progress-bar"></div></div>
           <div id="systemHealth" class="health-strip"></div>
@@ -42,17 +35,17 @@
         <section class="main-panel">
           <div class="metric-strip">
             <div class="metric"><span id="metricTotalLabel">Qualified</span><strong id="metricTotal">0</strong></div>
-            <div class="metric raw"><span>Raw saved</span><strong id="metricRawTotal">0</strong></div>
+            <div class="metric raw"><span>Guardadas</span><strong id="metricRawTotal">0</strong></div>
             <div class="metric hot"><span>A leads</span><strong id="metricA">0</strong></div>
-            <div class="metric"><span>Partners</span><strong id="metricPartners">0</strong></div>
-            <div class="metric"><span>Recruit</span><strong id="metricRecruitment">0</strong></div>
-            <div class="metric booked"><span>Booked</span><strong id="metricBooked">0</strong></div>
-            <div class="metric contact"><span>Contactable</span><strong id="metricContactable">0</strong></div>
-            <div class="metric"><span>Email/Form</span><strong id="metricEmailForm">0</strong></div>
+            <div class="metric"><span>Parceiros</span><strong id="metricPartners">0</strong></div>
+            <div class="metric"><span>Recruta</span><strong id="metricRecruitment">0</strong></div>
+            <div class="metric booked"><span>Reuniões</span><strong id="metricBooked">0</strong></div>
+            <div class="metric contact"><span>Contactáveis</span><strong id="metricContactable">0</strong></div>
+            <div class="metric"><span>Contacto</span><strong id="metricEmailForm">0</strong></div>
           </div>
 
           <div class="toolbar single-search">
-            <div class="search-box"><i data-lucide="search"></i><input id="searchInput" placeholder="Search qualified leads..." /></div>
+            <div class="search-box"><i data-lucide="search"></i><input id="searchInput" placeholder="Pesquisar leads qualificadas..." /></div>
           </div>
 
           <div class="source-strip" id="platformStrip"></div>
@@ -60,11 +53,11 @@
           <div class="split-view">
             <div class="lead-table-wrap">
               <table class="lead-table">
-                <thead><tr><th>Lead</th><th>Source</th><th>Type</th><th>Score</th><th>Country</th><th>Stage</th></tr></thead>
+                <thead><tr><th>Lead</th><th>Origem</th><th>Tipo</th><th>Nota</th><th>País</th><th>Estado</th></tr></thead>
                 <tbody id="leadRows"></tbody>
               </table>
             </div>
-            <aside class="detail-panel" id="detailPanel"><div class="empty-state"><i data-lucide="target"></i><p>Select a lead.</p></div></aside>
+            <aside class="detail-panel" id="detailPanel"><div class="empty-state"><i data-lucide="target"></i><p>Seleciona uma lead.</p></div></aside>
           </div>
         </section>
       </main>

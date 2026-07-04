@@ -86,7 +86,7 @@ async function loadHealth() {
 
 function renderSummary() {
   const counts = state.summary?.counts || {};
-  $("#metricTotalLabel").textContent = state.filters.viewMode === "raw" ? "Raw DB" : "Qualified";
+  $("#metricTotalLabel").textContent = state.filters.viewMode === "raw" ? "Base total" : "Qualificadas";
   $("#metricTotal").textContent = counts.total || 0;
   $("#metricRawTotal").textContent = state.summary?.rawTotal || counts.total || 0;
   $("#metricA").textContent = counts.priorityA || 0;
@@ -105,27 +105,20 @@ function compactNumber(value) {
 function renderHealth() {
   const health = state.health;
   if (!health) return;
-  const tasks = health.tasks || {};
-  const runningCount = Object.values(tasks).filter((task) => task.running).length;
-  const taskCount = Object.keys(tasks).length;
-  const issueCount = (health.issues || []).length;
   const statusClass = health.ok ? "ok" : "bad";
   $("#systemHealth").innerHTML = `
     <span class="health-pill ${statusClass}">
-      <i data-lucide="${health.ok ? "check-circle-2" : "alert-triangle"}"></i>
-      ${health.ok ? "Healthy" : "Needs attention"}
+      <i data-lucide="${health.ok ? "sparkles" : "alert-triangle"}"></i>
+      ${health.ok ? "Motor ativo" : "A rever"}
     </span>
-    <span><strong>${runningCount}/${taskCount}</strong> tasks</span>
-    <span><strong>${compactNumber(health.counts?.working)}</strong> working</span>
-    <span><strong>${compactNumber(health.counts?.aLeads)}</strong> A leads</span>
-    <span><strong>${compactNumber(health.enrichmentQueue?.contactless)}</strong> contactless</span>
-    <span><strong>${compactNumber(issueCount)}</strong> alerts</span>
+    <span><strong>${compactNumber(health.counts?.working)}</strong> leads úteis</span>
+    <span><strong>${compactNumber(health.counts?.contactable)}</strong> contactáveis</span>
   `;
   iconRefresh();
 }
 
 function platformLabel(value = "") {
-  return value || "Unknown";
+  return value || "Web";
 }
 
 function platformClass(value = "") {
@@ -133,7 +126,11 @@ function platformClass(value = "") {
 }
 
 function platformForLead(lead = {}) {
-  return lead.platform || "Unknown";
+  return lead.platform || "Web";
+}
+
+function countryLabel(value = "") {
+  return value || "Global";
 }
 
 function renderPlatformStrip() {
@@ -177,24 +174,62 @@ function renderRun(run) {
   const badge = $("#runBadge");
   const continuous = run.continuous || {};
   const isRunning = run.status === "running" || continuous.status === "running" || continuous.status === "stopping";
-  badge.textContent = continuous.status === "running" ? `cycle ${continuous.cycles || 0}` : run.status || "Ready";
+  badge.textContent = isRunning ? "Ativo" : "Pronto";
   badge.className = isRunning ? "badge" : "badge muted";
   $("#scanButton").disabled = isRunning;
   $("#continuousButton").disabled = isRunning;
   $("#stopButton").disabled = continuous.status !== "running" && continuous.status !== "stopping";
-  const cycleText = continuous.status === "running" ? ` Continuous cycles: ${continuous.cycles || 0}.` : "";
-  $("#runMessage").textContent = `${run.message || "Ready."}${cycleText}`;
+  $("#runMessage").textContent = isRunning
+    ? "A procurar, qualificar e enriquecer novas oportunidades."
+    : "Pipeline pronto para continuar a gerar leads.";
   const completed = Number(run.completedQueries || 0);
   const total = Number(run.totalQueries || 0);
   const pct = total ? Math.round((completed / total) * 100) : run.status === "completed" ? 100 : 0;
   $("#progressBar").style.width = `${Math.min(100, pct)}%`;
 
-  const events = run.events || [];
-  $("#eventList").innerHTML = events
-    .slice(0, 16)
-    .map((event) => `<div class="event">${escapeHtml(event.message || "")}</div>`)
-    .join("");
+  $("#eventList").innerHTML = "";
   iconRefresh();
+}
+
+function typeLabel(value = "") {
+  const labels = {
+    partner: "Parceiro",
+    institution: "Instituição",
+    recruitment: "Recruta",
+    research: "Pesquisa"
+  };
+  return labels[String(value).toLowerCase()] || value || "Pesquisa";
+}
+
+function stageLabel(value = "") {
+  const labels = {
+    new: "Novo",
+    contacted: "Contactado",
+    replied: "Respondeu",
+    meeting_booked: "Reunião",
+    no_show: "No-show",
+    negotiating: "Negociação",
+    won: "Ganho",
+    lost: "Perdido"
+  };
+  return labels[String(value).toLowerCase()] || String(value || "new").replace(/_/g, " ");
+}
+
+function segmentLabel(value = "") {
+  const labels = {
+    "Fund / Asset Manager": "Fundos / Asset Manager",
+    "Event / Expo": "Eventos",
+    "Prop / Funded Trading": "Prop / Funded",
+    "IB / Partner": "IB / Parceiro",
+    "High-Calibre Trader": "Trader Pro",
+    "Trading Education": "Educação",
+    Affiliate: "Afiliado",
+    Community: "Comunidade",
+    "Creator / Influencer": "Criador",
+    "Broker-Seeking / Intent Post": "Procura corretora",
+    "Broker Talent": "Talento broker"
+  };
+  return labels[value] || value || "";
 }
 
 function priorityClass(priority) {
@@ -219,15 +254,15 @@ function renderLeads() {
             <div class="mini-gap">${escapeHtml(lead.sourcePack || lead.discoverySource || lead.source || "")}</div>
           </td>
           <td>
-            <span class="type-pill ${escapeHtml(lead.leadType || "")}">${escapeHtml(lead.leadType || "research")}</span>
-            <div class="mini-gap">${escapeHtml(lead.segment || "")}</div>
+            <span class="type-pill ${escapeHtml(lead.leadType || "")}">${escapeHtml(typeLabel(lead.leadType))}</span>
+            <div class="mini-gap">${escapeHtml(segmentLabel(lead.segment))}</div>
           </td>
           <td>
             <span class="priority-pill ${priorityClass(lead.priority)}">${escapeHtml(lead.priority || "D")}</span>
             <div class="score">${Number(lead.score || 0)}</div>
           </td>
-          <td>${escapeHtml(lead.country || "Unknown")}</td>
-          <td><span class="stage-pill">${escapeHtml((lead.stage || "new").replace(/_/g, " "))}</span></td>
+          <td>${escapeHtml(countryLabel(lead.country))}</td>
+          <td><span class="stage-pill">${escapeHtml(stageLabel(lead.stage))}</span></td>
         </tr>
       `;
     })
@@ -268,14 +303,14 @@ function renderForms(forms = []) {
   if (!forms.length) return "";
   return `
     <div class="detail-section">
-      <h3>Forms</h3>
+      <h3>Formulários</h3>
       ${forms
         .map(
           (form) => `
             <div class="message-box">
               <p><strong>${escapeHtml(form.method || "GET")}</strong> ${escapeHtml(shortUrl(form.action || form.pageUrl || ""))}</p>
               <p>${escapeHtml((form.fields || []).join(", ") || form.label || "Contact form")}</p>
-              <a class="mini-chip" href="${escapeHtml(form.pageUrl || form.action || "")}" target="_blank" rel="noreferrer">Open form page</a>
+              <a class="mini-chip" href="${escapeHtml(form.pageUrl || form.action || "")}" target="_blank" rel="noreferrer">Abrir formulário</a>
             </div>
           `
         )
@@ -288,7 +323,7 @@ function renderDetail() {
   const lead = state.leads.find((item) => item.id === state.selectedId);
   const panel = $("#detailPanel");
   if (!lead) {
-    panel.innerHTML = `<div class="empty-state"><i data-lucide="target"></i><p>Select a lead.</p></div>`;
+    panel.innerHTML = `<div class="empty-state"><i data-lucide="target"></i><p>Seleciona uma lead.</p></div>`;
     iconRefresh();
     return;
   }
@@ -305,36 +340,36 @@ function renderDetail() {
   panel.innerHTML = `
     <div class="detail-header">
       <div class="detail-meta">
-        <span class="priority-pill ${priorityClass(lead.priority)}">${escapeHtml(lead.priority || "D")} priority</span>
-        <span class="type-pill ${escapeHtml(lead.leadType || "")}">${escapeHtml(lead.leadType || "research")}</span>
+        <span class="priority-pill ${priorityClass(lead.priority)}">Lead ${escapeHtml(lead.priority || "D")}</span>
+        <span class="type-pill ${escapeHtml(lead.leadType || "")}">${escapeHtml(typeLabel(lead.leadType))}</span>
         <span class="source-pill ${platformClass(platformForLead(lead))}">${escapeHtml(platformForLead(lead))}</span>
-        <span class="mini-chip">Score ${Number(lead.score || 0)}</span>
-        <span class="mini-chip">${escapeHtml(lead.contactQuality || "contact unknown")} ${lead.contactConfidence || 0}%</span>
+        <span class="mini-chip">Nota ${Number(lead.score || 0)}</span>
+        <span class="mini-chip">Contacto ${lead.contactConfidence || 0}%</span>
       </div>
       <h2>${escapeHtml(lead.name || lead.title || "Untitled")}</h2>
       <a href="${escapeHtml(lead.url)}" target="_blank" rel="noreferrer">${escapeHtml(shortUrl(lead.url))}</a>
     </div>
 
     <div class="detail-meta">
-      <span class="mini-chip">${escapeHtml(lead.segment || "Unclear")}</span>
-      <span class="mini-chip">${escapeHtml(lead.country || "Unknown")}</span>
+      <span class="mini-chip">${escapeHtml(segmentLabel(lead.segment) || "Pesquisa")}</span>
+      <span class="mini-chip">${escapeHtml(countryLabel(lead.country))}</span>
       ${languages.map((language) => `<span class="mini-chip">${escapeHtml(language)}</span>`).join("")}
     </div>
 
     <label class="field stage-select">
-      <span>Stage</span>
+      <span>Estado</span>
       <select id="detailStage">
         ${["new", "contacted", "replied", "meeting_booked", "no_show", "negotiating", "won", "lost"]
           .map(
             (stage) =>
-              `<option value="${stage}" ${stage === lead.stage ? "selected" : ""}>${stage.replace(/_/g, " ")}</option>`
+              `<option value="${stage}" ${stage === lead.stage ? "selected" : ""}>${stageLabel(stage)}</option>`
           )
           .join("")}
       </select>
     </label>
 
     <div class="detail-section">
-      <h3>Evidence</h3>
+      <h3>Sinais</h3>
       <div class="evidence-list">
         ${(evidence.length ? evidence : ["Needs review"])
           .map((item) => `<span class="mini-chip">${escapeHtml(item)}</span>`)
@@ -343,7 +378,7 @@ function renderDetail() {
     </div>
 
     <div class="detail-section">
-      <h3>Context</h3>
+      <h3>Contexto</h3>
       <p>${escapeHtml(lead.snippet || "No snippet captured.")}</p>
     </div>
 
@@ -375,7 +410,7 @@ function renderDetail() {
 
     ${
       phoneNumbers.length
-        ? `<div class="detail-section"><h3>Phones</h3><div class="link-list">${phoneNumbers
+        ? `<div class="detail-section"><h3>Telefones</h3><div class="link-list">${phoneNumbers
             .map((phone) => `<span class="mini-chip">${escapeHtml(phone)}</span>`)
             .join("")}</div></div>`
         : ""
