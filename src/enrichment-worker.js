@@ -7,6 +7,7 @@ import { exportLeads, isWorkingLead } from "./exporter.js";
 import { hasStrictTradingIcp, leadRejectionReasons } from "./lead-quality.js";
 import { commercialScoreForLead } from "./intelligence.js";
 import { sourceBucket } from "./mql5-limit.js";
+import { isPlatformProfileUrl } from "./platform-enrichment.js";
 import { getRootDir, readDb, updateLead, upsertLeads } from "./store.js";
 import { normalizeWhitespace, nowIso, platformFromUrl, sleep, unique } from "./utils.js";
 
@@ -135,7 +136,12 @@ function pickNextLead(leads) {
     })[0];
 }
 
+function maybeBaseValues(base, resetPlatformContacts, key) {
+  return resetPlatformContacts ? [] : base[key] || [];
+}
+
 function mergeLeadEnrichment(base, enriched) {
+  const resetPlatformContacts = isPlatformProfileUrl(base.url);
   return {
     ...base,
     ...enriched,
@@ -144,28 +150,31 @@ function mergeLeadEnrichment(base, enriched) {
       enriched.snippet,
       enriched.pageDescription
     ].filter(Boolean).join(" ")).slice(0, 1400),
-    emails: cleanEmails([...(base.emails || []), ...(enriched.emails || [])]),
-    phoneNumbers: cleanPhoneNumbers([...(base.phoneNumbers || []), ...(enriched.phoneNumbers || [])]),
-    forms: cleanForms([...(base.forms || []), ...(enriched.forms || [])]),
-    contactLinks: cleanLinks([...(base.contactLinks || []), ...(enriched.contactLinks || [])], {
+    emails: cleanEmails([...maybeBaseValues(base, resetPlatformContacts, "emails"), ...(enriched.emails || [])]),
+    phoneNumbers: cleanPhoneNumbers([...maybeBaseValues(base, resetPlatformContacts, "phoneNumbers"), ...(enriched.phoneNumbers || [])]),
+    forms: cleanForms([...maybeBaseValues(base, resetPlatformContacts, "forms"), ...(enriched.forms || [])]),
+    contactLinks: cleanLinks([...maybeBaseValues(base, resetPlatformContacts, "contactLinks"), ...(enriched.contactLinks || [])], {
       allowYouTubeChannels: false,
       allowShorteners: true
     }),
-    socialLinks: cleanLinks([base.url, ...(base.socialLinks || []), ...(enriched.socialLinks || [])], {
+    socialLinks: cleanLinks([base.url, ...maybeBaseValues(base, resetPlatformContacts, "socialLinks"), ...(enriched.socialLinks || [])], {
       allowYouTubeChannels: false,
       allowShorteners: true
     }),
-    websiteLinks: cleanLinks([...(base.websiteLinks || []), ...(enriched.websiteLinks || [])], {
+    websiteLinks: cleanLinks([...maybeBaseValues(base, resetPlatformContacts, "websiteLinks"), ...(enriched.websiteLinks || [])], {
       allowYouTubeChannels: false,
       allowShorteners: true
     }),
-    relatedLinks: unique([...(base.relatedLinks || []), ...(enriched.relatedLinks || [])]).slice(0, 35),
-    contactSources: unique([...(base.contactSources || []), ...(enriched.contactSources || [])]).slice(0, 25),
+    relatedLinks: unique([...maybeBaseValues(base, resetPlatformContacts, "relatedLinks"), ...(enriched.relatedLinks || [])]).slice(0, 35),
+    contactSources: unique([...maybeBaseValues(base, resetPlatformContacts, "contactSources"), ...(enriched.contactSources || [])]).slice(0, 25),
     decisionMakerLinks: unique([...(base.decisionMakerLinks || []), ...(enriched.decisionMakerLinks || [])]).slice(0, 12),
     decisionMakers: [...(base.decisionMakers || []), ...(enriched.decisionMakers || [])].slice(0, 10),
-    contactConfidence: Math.max(Number(base.contactConfidence || 0), Number(enriched.contactConfidence || 0)),
-    bestContact: enriched.bestContact || base.bestContact || "",
-    bestContactType: enriched.bestContactType || base.bestContactType || "",
+    contactConfidence: resetPlatformContacts
+      ? Number(enriched.contactConfidence || 0)
+      : Math.max(Number(base.contactConfidence || 0), Number(enriched.contactConfidence || 0)),
+    bestContact: enriched.bestContact || (resetPlatformContacts ? "" : base.bestContact || ""),
+    bestContactType: enriched.bestContactType || (resetPlatformContacts ? "" : base.bestContactType || ""),
+    bestContactSource: enriched.bestContactSource || (resetPlatformContacts ? "" : base.bestContactSource || ""),
     platform: enriched.platform || base.platform || platformFromUrl(base.url)
   };
 }
