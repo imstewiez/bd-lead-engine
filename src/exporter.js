@@ -11,6 +11,7 @@ import {
 import { getRootDir, readDb } from "./store.js";
 import { hasSearchableLeadSignal, hasStrictTradingIcp, isHardRejectedLead } from "./lead-quality.js";
 import { isHotLead, qualifyLead } from "./qualification.js";
+import { limitMql5Share } from "./mql5-limit.js";
 import { platformFromUrl, toCsvCell, unique } from "./utils.js";
 
 const rootDir = getRootDir();
@@ -70,7 +71,7 @@ export function isExportQualified(lead) {
   const platform = lead.platform || platformFromUrl(url);
   if (!url || !platform) return false;
   if (platform === "YouTube" || /youtube\.com|youtu\.be/i.test(url)) return false;
-  if ((lead.score || 0) < 58) return false;
+  if ((lead.score || 0) < 50) return false;
   if (lead.priority === "D") return false;
   if (lead.segment === "Broker Site") return false;
   if (isHardRejectedLead(lead)) return false;
@@ -167,9 +168,15 @@ export function dedupeLeads(leads) {
 }
 
 export function filterAndDedupeLeads(leads, options = {}) {
-  return dedupeLeads(leads
+  const filtered = dedupeLeads(leads
     .filter(options.includeRaw ? () => true : isExportQualified)
     .sort(sortLeads));
+  if (options.includeRaw) return filtered;
+  return limitMql5Share(filtered, {
+    maxMql5Share: Number(options.maxMql5Share ?? process.env.MAX_MQL5_SHARE ?? 0.22),
+    minMql5Keep: Number(options.minMql5Keep ?? 15),
+    limit: Number(options.limit || filtered.length)
+  });
 }
 
 function formatDecisionMakers(decisionMakers = []) {
@@ -400,19 +407,19 @@ export async function exportLeads(options = {}) {
   const linkedinJsonPath = path.join(rootDir, options.linkedinJsonName || "autopilot-linkedin-leads.json");
   const xCsvPath = path.join(rootDir, options.xCsvName || "autopilot-x-leads.csv");
   const xJsonPath = path.join(rootDir, options.xJsonName || "autopilot-x-leads.json");
-  await writeFileWithRetry(csvPath, `\ufeff${rows.join("\n")}\n`);
+  await writeFileWithRetry(csvPath, `﻿${rows.join("\n")}\n`);
   await writeFileWithRetry(jsonPath, `${JSON.stringify(leads.map(leadToExportRow), null, 2)}\n`);
-  await writeFileWithRetry(contactCsvPath, `\ufeff${contactRows.join("\n")}\n`);
+  await writeFileWithRetry(contactCsvPath, `﻿${contactRows.join("\n")}\n`);
   await writeFileWithRetry(contactJsonPath, `${JSON.stringify(contactableLeads.map(leadToExportRow), null, 2)}\n`);
-  await writeFileWithRetry(hotCsvPath, `\ufeff${hotRows.join("\n")}\n`);
+  await writeFileWithRetry(hotCsvPath, `﻿${hotRows.join("\n")}\n`);
   await writeFileWithRetry(hotJsonPath, `${JSON.stringify(hotLeads.map(leadToExportRow), null, 2)}\n`);
-  await writeFileWithRetry(socialCsvPath, `\ufeff${rowsFor(socialLeads).join("\n")}\n`);
+  await writeFileWithRetry(socialCsvPath, `﻿${rowsFor(socialLeads).join("\n")}\n`);
   await writeFileWithRetry(socialJsonPath, `${JSON.stringify(socialLeads.map(leadToExportRow), null, 2)}\n`);
-  await writeFileWithRetry(instagramCsvPath, `\ufeff${rowsFor(instagramLeads).join("\n")}\n`);
+  await writeFileWithRetry(instagramCsvPath, `﻿${rowsFor(instagramLeads).join("\n")}\n`);
   await writeFileWithRetry(instagramJsonPath, `${JSON.stringify(instagramLeads.map(leadToExportRow), null, 2)}\n`);
-  await writeFileWithRetry(linkedinCsvPath, `\ufeff${rowsFor(linkedinLeads).join("\n")}\n`);
+  await writeFileWithRetry(linkedinCsvPath, `﻿${rowsFor(linkedinLeads).join("\n")}\n`);
   await writeFileWithRetry(linkedinJsonPath, `${JSON.stringify(linkedinLeads.map(leadToExportRow), null, 2)}\n`);
-  await writeFileWithRetry(xCsvPath, `\ufeff${rowsFor(xLeads).join("\n")}\n`);
+  await writeFileWithRetry(xCsvPath, `﻿${rowsFor(xLeads).join("\n")}\n`);
   await writeFileWithRetry(xJsonPath, `${JSON.stringify(xLeads.map(leadToExportRow), null, 2)}\n`);
 
   return {
