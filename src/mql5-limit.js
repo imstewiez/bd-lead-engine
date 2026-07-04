@@ -2,6 +2,7 @@
 export function sourceText(item = {}) {
   return [
     item.channel,
+    item.sourceBucket,
     item.platform,
     item.source,
     item.sourcePack,
