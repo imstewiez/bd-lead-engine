@@ -10,12 +10,7 @@ import { domainOf, nowIso } from "./utils.js";
 const rootDir = getRootDir();
 const dataDir = path.join(rootDir, "data");
 
-const STATUS_FILES = {
-  "source-harvester": "source-harvester-status.json",
-  "enrichment-worker": "enrichment-worker-status.json",
-  "qualified-exporter": "qualified-exporter-status.json",
-  supervisor: "supervisor-status.json"
-};
+const STATUS_FILES = Object.fromEntries(Object.keys(BACKGROUND_TASKS).map((name) => [name, `${name}-status.json`]));
 
 const EXPORT_FILES = [
   "autopilot-qualified-leads.csv",
@@ -148,10 +143,10 @@ export async function healthSnapshot() {
   for (const [name, task] of Object.entries(tasks)) {
     if (!task.running) issues.push({ severity: name === "supervisor" ? "warning" : "critical", code: `${name}_not_running`, message: `${name} is not running.` });
   }
-  for (const name of ["source-harvester", "enrichment-worker", "qualified-exporter"]) {
+  for (const name of Object.keys(BACKGROUND_TASKS).filter((taskName) => taskName !== "supervisor")) {
     const status = statuses[name];
     if (!status.exists) issues.push({ severity: "warning", code: `${name}_no_status`, message: `${name} has not written a status file yet.` });
-    else if (status.ageMs != null && status.ageMs > 12 * 60 * 1000) issues.push({ severity: "warning", code: `${name}_stale_status`, message: `${name} status is stale.` });
+    else if (status.ageMs != null && status.ageMs > 20 * 60 * 1000) issues.push({ severity: "warning", code: `${name}_stale_status`, message: `${name} status is stale.` });
   }
   for (const [file, info] of Object.entries(exports)) {
     if (!info.exists) issues.push({ severity: "warning", code: "missing_export", message: `${file} is missing.` });

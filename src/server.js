@@ -176,7 +176,15 @@ function autoStartSuper() {
 
 async function autoStartBackgroundTasks() {
   if (process.env.AUTO_START_SOURCING === "false") return [];
-  return ensureBackgroundTasks(["source-harvester", "enrichment-worker", "qualified-exporter", "supervisor"]);
+  return ensureBackgroundTasks([
+    "source-harvester",
+    "source-harvester-social",
+    "source-harvester-specialist",
+    "source-harvester-ecosystem",
+    "enrichment-worker",
+    "qualified-exporter",
+    "supervisor"
+  ]);
 }
 
 app.get("/api/config", (_req, res) => res.json({ defaultScan: DEFAULT_SCAN, searchProfiles: SEARCH_PROFILES, scanPresets: SCAN_PRESETS, autoStart: process.env.AUTO_START_SOURCING !== "false" }));

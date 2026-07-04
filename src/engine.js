@@ -176,8 +176,14 @@ function buildQueries(options) {
   }
 
   queries.push(...HIGH_VALUE_QUERY_PACKS.filter((query) => settings.includeYouTube === true || !isYouTubeTemplate(query.text)).map((query, index) => materializeQuery(query, profile, index)));
+  const onlyIntents = new Set(
+    String(settings.onlyIntents || "")
+      .split(",")
+      .map((item) => item.trim())
+      .filter(Boolean)
+  );
   const seen = new Set();
-  const deduped = queries.filter((query) => settings.includeYouTube === true || !isYouTubeTemplate(query.text)).filter((query) => {
+  const deduped = queries.filter((query) => !onlyIntents.size || onlyIntents.has(query.intent)).filter((query) => settings.includeYouTube === true || !isYouTubeTemplate(query.text)).filter((query) => {
     const key = query.text.toLowerCase();
     if (seen.has(key)) return false;
     seen.add(key);

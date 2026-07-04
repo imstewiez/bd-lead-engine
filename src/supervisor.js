@@ -25,7 +25,14 @@ function numberArg(name, fallback) {
 }
 
 const intervalMs = Math.max(15000, numberArg("intervalMs", 60000));
-const managedTasks = ["source-harvester", "enrichment-worker", "qualified-exporter"];
+const managedTasks = [
+  "source-harvester",
+  "source-harvester-social",
+  "source-harvester-specialist",
+  "source-harvester-ecosystem",
+  "enrichment-worker",
+  "qualified-exporter"
+];
 
 async function writeStatus(status) {
   await fs.mkdir(dataDir, { recursive: true });

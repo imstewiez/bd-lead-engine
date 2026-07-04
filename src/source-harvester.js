@@ -8,10 +8,11 @@ import { nowIso, sleep } from "./utils.js";
 
 const rootDir = getRootDir();
 const dataDir = path.join(rootDir, "data");
-const statusPath = path.join(dataDir, "source-harvester-status.json");
-const stopPath = path.join(dataDir, "source-harvester-stop");
 
 const args = new Map(process.argv.slice(2).map((arg) => arg.split("=")).filter(([key]) => key?.startsWith("--")).map(([key, value]) => [key.replace(/^--/, ""), value ?? "true"]));
+const workerName = String(args.get("workerName") || "source-harvester").replace(/[^a-z0-9_-]/gi, "-");
+const statusPath = path.join(dataDir, `${workerName}-status.json`);
+const stopPath = path.join(dataDir, `${workerName}-stop`);
 const numberArg = (name, fallback) => {
   const parsed = Number(args.get(name) || process.env[name.toUpperCase()] || fallback);
   return Number.isFinite(parsed) ? parsed : fallback;
@@ -24,6 +25,7 @@ const options = {
   maxQueries: Math.max(12, Math.min(numberArg("maxQueries", numberArg("batchSize", 96)), 260)),
   limitPerQuery: Math.max(3, Math.min(numberArg("limitPerQuery", 10), 25)),
   delayMs: Math.max(2000, numberArg("delayMs", 10000)),
+  queryOffsetBase: Math.max(0, numberArg("queryOffsetBase", 0)),
   maxCycles: Math.max(0, numberArg("maxCycles", 0)),
   fetchPages: boolArg("fetchPages", true),
   deepEnrich: boolArg("deepEnrich", true),
@@ -41,7 +43,8 @@ const options = {
   includeSocialProfiles: boolArg("includeSocialProfiles", true),
   includeForums: boolArg("includeForums", true),
   includeSpecialistSources: boolArg("includeSpecialistSources", true),
-  includeYouTube: boolArg("includeYouTube", false)
+  includeYouTube: boolArg("includeYouTube", false),
+  onlyIntents: args.get("onlyIntents") || ""
 };
 
 async function writeStatus(status) {
@@ -61,24 +64,24 @@ async function stopRequested() {
 await fs.rm(stopPath, { force: true }).catch(() => {});
 let cycle = 0;
 let totals = { total: 0, exported: 0 };
-await writeStatus({ status: "running", phase: "started", cycle, options, totals });
+await writeStatus({ status: "running", workerName, phase: "started", cycle, options, totals });
 
 while (!(await stopRequested())) {
   cycle += 1;
-  const cycleOptions = { ...options, queryOffset: (cycle - 1) * options.maxQueries };
-  await writeStatus({ status: "running", phase: "scan", cycle, options: cycleOptions, totals });
+  const cycleOptions = { ...options, queryOffset: options.queryOffsetBase + (cycle - 1) * options.maxQueries };
+  await writeStatus({ status: "running", workerName, phase: "scan", cycle, options: cycleOptions, totals });
   try {
     const run = await runScan(cycleOptions, (progress) => {
-      if (progress.message) console.log(`[cycle ${cycle}] ${progress.message}`);
+      if (progress.message) console.log(`[${workerName} cycle ${cycle}] ${progress.message}`);
     });
     totals = await exportLeads({ csvName: "autopilot-leads.csv", jsonName: "autopilot-leads.json" });
-    await writeStatus({ status: "running", phase: "waiting", cycle, options: cycleOptions, lastRun: run, totals });
+    await writeStatus({ status: "running", workerName, phase: "waiting", cycle, options: cycleOptions, lastRun: run, totals });
   } catch (error) {
-    await writeStatus({ status: "error", phase: "error", cycle, options: cycleOptions, error: error.message, totals });
+    await writeStatus({ status: "error", workerName, phase: "error", cycle, options: cycleOptions, error: error.message, totals });
   }
   if (options.maxCycles > 0 && cycle >= options.maxCycles) break;
   if (!(await stopRequested())) await sleep(options.delayMs);
 }
 
 const finalExport = await exportLeads({ csvName: "autopilot-leads.csv", jsonName: "autopilot-leads.json" });
-await writeStatus({ status: "stopped", phase: "stopped", cycle, options, totals: finalExport });
+await writeStatus({ status: "stopped", workerName, phase: "stopped", cycle, options, totals: finalExport });

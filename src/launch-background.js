@@ -23,7 +23,15 @@ function launch(name, args) {
 }
 
 const serverPid = launch("server", ["src/server.js"]);
-const managed = await ensureBackgroundTasks(["source-harvester", "enrichment-worker", "qualified-exporter", "supervisor"]);
+const managed = await ensureBackgroundTasks([
+  "source-harvester",
+  "source-harvester-social",
+  "source-harvester-specialist",
+  "source-harvester-ecosystem",
+  "enrichment-worker",
+  "qualified-exporter",
+  "supervisor"
+]);
 
 console.log(`serverPid=${serverPid}`);
 for (const task of managed) {
