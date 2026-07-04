@@ -138,7 +138,10 @@ export function isWorkingLead(lead) {
   const url = String(lead.url || "");
   const platform = lead.platform || platformFromUrl(url);
   if (!url || !platform) return false;
+  const lowerUrl = url.toLowerCase();
   if (platform === "YouTube" || /youtube\.com|youtu\.be/i.test(url)) return false;
+  if (/oxfordlearnersdictionaries|merriam-webster|cambridge\.org\/dictionary|collinsdictionary|vocabulary\.com|thesaurus\.com|investopedia|wikipedia/.test(lowerUrl)) return false;
+  if (/forexfactory\.com\/(?:calendar|news|market|scanner)|tradingview\.com\/(?:chart|markets|symbols)\b|cryptonews\.com\/news\/.*(?:fed|payments|stablecoin|crypto)/i.test(lowerUrl)) return false;
   if (lead.segment === "Broker Site") return false;
   if (lead.priority === "D" && Number(lead.score || 0) < 45) return false;
   if (!["partner", "recruitment", "institution"].includes(lead.leadType) && lead.qualificationStatus !== "research_candidate") return false;
@@ -152,7 +155,7 @@ export function isWorkingLead(lead) {
   const brokerOfficialNoise = /\b(?:admiralmarkets|admirals|exness|xm\.com|xmtrading|octafx|octa|fbs|hfm|hotforex|tickmill|icmarkets|ic markets|pepperstone|avatrade|deriv|fxtm|roboforex|vantage|fpmarkets|fp markets|axi\.com|capital\.com|etoro|plus500|cmcmarkets|cmc markets|ig\.com|markets\.com|blackbull|multibank|forex\.com)\b/i.test(text);
   if (brokerOfficialNoise && !/\b(?:introducing broker|affiliate manager|partnership manager|business development|country manager|former|ex-)\b/i.test(text)) return false;
   const actualTradingSignal = /\b(?:forex|fx trader|fx portfolio|xauusd|gold trader|currency trader|currency trading|cfds?|copy trading|signals?|sinais|señales|senales|pamm|mam|mt4|mt5|metatrader|introducing broker|forex affiliate|broker partnership|cpa deal|revshare|trading academy|forex academy|prop firm|funded trader|portfolio manager|fund manager|money manager|asset manager|trading community|algo trader|ea developer)\b/i.test(text);
-  const genericFinanceNoise = /\b(?:noções básicas|basics of|what is|what are|guide to|guia|explainer|payments innovation|payment solutions|subscription solutions|billing|federal reserve|revolut|stripe|wise|money transfer|currency exchange rates)\b/i.test(text);
+  const genericFinanceNoise = /\b(?:noções básicas|basics of|what is|what are|guide to|guia|explainer|payments innovation|payment solutions|subscription solutions|billing|fed payments|federal reserve|stablecoin|digital assets|crypto news|revolut|stripe|wise|money transfer|currency exchange rates)\b/i.test(text);
   if (genericFinanceNoise && !/\b(?:introducing broker|forex affiliate|forex trader|fx trader|xauusd|gold trader|copy trading|signals?|pamm|mam|trading academy|forex academy|trading community|funded trader|prop firm)\b/i.test(text)) return false;
   const specialistTradingSource =
     ["mql5", "myfxbook", "tradingview", "specialist", "forum"].includes(bucket) &&
