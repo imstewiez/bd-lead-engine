@@ -5,6 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>BD Lead Engine</title>
     <link rel="stylesheet" href="/styles.css" />
+    <style>
+      body { background: radial-gradient(circle at top left, #e6f3ef 0, #f6f4ef 30%, #efe8da 100%); }
+      .auto-workspace { display: grid; gap: 16px; padding: 18px; }
+      .hero-panel { padding: 22px; border-radius: 18px; overflow: hidden; position: relative; }
+      .hero-panel::after { content: ""; position: absolute; inset: auto -10% -70% auto; width: 360px; height: 360px; border-radius: 999px; background: rgba(0,107,95,.08); pointer-events: none; }
+      .hero-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; position: relative; z-index: 1; }
+      .hero-row h2 { max-width: 900px; font-size: clamp(24px, 4vw, 44px); line-height: 1.02; margin: 0 0 10px; letter-spacing: -0.04em; }
+      .hero-copy { color: var(--muted); max-width: 840px; font-size: 15px; margin: 0; }
+      .hero-progress { margin-top: 18px; height: 10px; position: relative; z-index: 1; }
+      .event-list.compact { max-height: 118px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); position: relative; z-index: 1; }
+      .single-search { margin: 4px 0 14px; }
+      .single-search .search-box { min-height: 52px; border-radius: 14px; padding: 0 16px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.5); }
+      .single-search .search-box input { font-size: 16px; }
+      .metric-strip { grid-template-columns: repeat(8, minmax(120px, 1fr)); overflow-x: auto; padding-bottom: 2px; }
+      .metric { border-radius: 14px; }
+      .main-panel, .detail-panel, .lead-table-wrap { border-radius: 16px; }
+      .split-view { min-height: 680px; }
+      .source-strip { display: none !important; }
+      @media (max-width: 1100px) { .split-view { grid-template-columns: 1fr; } .hero-row { display: grid; } }
+    </style>
     <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
     <script defer src="/app.js"></script>
   </head>
@@ -16,22 +36,10 @@
           <h1>BD Lead Engine</h1>
         </div>
         <div class="topbar-actions">
-          <a class="icon-link" href="/api/export.csv" title="Export current worklist">
-            <i data-lucide="download"></i>
-            CSV
-          </a>
-          <a class="icon-link" href="/autopilot-contactable-leads.csv" title="Contactable CSV">
-            <i data-lucide="mail-check"></i>
-            Contactable
-          </a>
-          <a class="icon-link" href="/api/diagnostics" title="Source diagnostics" target="_blank">
-            <i data-lucide="activity"></i>
-            Diagnostics
-          </a>
-          <a class="icon-link" href="/api/clusters" title="Lead clusters" target="_blank">
-            <i data-lucide="network"></i>
-            Clusters
-          </a>
+          <a class="icon-link" href="/api/export.csv" title="Export current worklist"><i data-lucide="download"></i>CSV</a>
+          <a class="icon-link" href="/autopilot-contactable-leads.csv" title="Contactable CSV"><i data-lucide="mail-check"></i>Contactable</a>
+          <a class="icon-link" href="/api/diagnostics" title="Source diagnostics" target="_blank"><i data-lucide="activity"></i>Diagnostics</a>
+          <a class="icon-link" href="/api/clusters" title="Lead clusters" target="_blank"><i data-lucide="network"></i>Clusters</a>
         </div>
       </header>
 
@@ -40,7 +48,7 @@
           <div class="hero-row">
             <div>
               <p class="eyebrow">Always on</p>
-              <h2>Super autopilot is collecting and enriching leads while this localhost is open.</h2>
+              <h2>Collecting, enriching and ranking leads automatically.</h2>
               <p id="runMessage" class="hero-copy">Starting automatic sourcing...</p>
             </div>
             <span id="runBadge" class="badge muted">Ready</span>
@@ -62,10 +70,7 @@
           </div>
 
           <div class="toolbar single-search">
-            <div class="search-box">
-              <i data-lucide="search"></i>
-              <input id="searchInput" placeholder="Search qualified leads..." />
-            </div>
+            <div class="search-box"><i data-lucide="search"></i><input id="searchInput" placeholder="Search qualified leads..." /></div>
           </div>
 
           <div class="source-strip" id="platformStrip"></div>
@@ -73,22 +78,11 @@
           <div class="split-view">
             <div class="lead-table-wrap">
               <table class="lead-table">
-                <thead>
-                  <tr>
-                    <th>Lead</th>
-                    <th>Source</th>
-                    <th>Type</th>
-                    <th>Score</th>
-                    <th>Country</th>
-                    <th>Stage</th>
-                  </tr>
-                </thead>
+                <thead><tr><th>Lead</th><th>Source</th><th>Type</th><th>Score</th><th>Country</th><th>Stage</th></tr></thead>
                 <tbody id="leadRows"></tbody>
               </table>
             </div>
-            <aside class="detail-panel" id="detailPanel">
-              <div class="empty-state"><i data-lucide="target"></i><p>Select a lead.</p></div>
-            </aside>
+            <aside class="detail-panel" id="detailPanel"><div class="empty-state"><i data-lucide="target"></i><p>Select a lead.</p></div></aside>
           </div>
         </section>
       </main>
