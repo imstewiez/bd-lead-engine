@@ -22,7 +22,7 @@ const SCAN_PRESETS = {
   volume: { maxQueries: 220, limitPerQuery: 15, deepEnrich: true, fetchPages: true, searchContacts: true, maxContactPages: 5, maxExternalWebsites: 4, maxTrailQueries: 16, trailLimit: 6, exportEvery: 5 },
   social: { maxQueries: 160, limitPerQuery: 12, deepEnrich: true, fetchPages: true, searchContacts: true, maxContactPages: 6, maxExternalWebsites: 5, maxTrailQueries: 18, trailLimit: 7, includePartners: false, includeRecruitment: false, includeIntentPosts: true, includeEcosystem: false, includeSocialProfiles: true, includeForums: true, includeSpecialistSources: false, exportEvery: 4 },
   latam: { regionSet: "latam", maxQueries: 180, limitPerQuery: 12, deepEnrich: true, fetchPages: true, searchContacts: true, maxContactPages: 7, maxExternalWebsites: 5, maxTrailQueries: 22, trailLimit: 8, exportEvery: 4 },
-  super: { maxQueries: 260, limitPerQuery: 15, deepEnrich: true, fetchPages: true, searchContacts: true, maxContactPages: 8, maxExternalWebsites: 6, maxTrailQueries: 24, trailLimit: 8, includePartners: true, includeRecruitment: true, includeIntentPosts: true, includeEcosystem: true, includeSocialProfiles: true, includeForums: true, includeSpecialistSources: true, exportEvery: 3, delayMs: 7000 }
+  super: { regionSet: "global", maxQueries: 260, limitPerQuery: 15, deepEnrich: true, fetchPages: true, searchContacts: true, maxContactPages: 8, maxExternalWebsites: 6, maxTrailQueries: 24, trailLimit: 8, includePartners: true, includeRecruitment: true, includeIntentPosts: true, includeEcosystem: true, includeSocialProfiles: true, includeForums: true, includeSpecialistSources: true, exportEvery: 3, delayMs: 7000 }
 };
 
 const app = express();
@@ -189,7 +189,17 @@ async function continuousLoop(options) {
   activeRun = { ...activeRun, status: "idle", message: "Continuous deep scan stopped" };
 }
 
-app.get("/api/config", (_req, res) => res.json({ defaultScan: DEFAULT_SCAN, searchProfiles: SEARCH_PROFILES, scanPresets: SCAN_PRESETS }));
+function autoStartSuper() {
+  if (process.env.AUTO_START_SOURCING === "false") return;
+  if (activeRun.status === "running" || continuous.status === "running") return;
+  const options = buildScanOptions(SCAN_PRESETS.super, SCAN_PRESETS.super);
+  continuousLoop(options).catch((error) => {
+    continuous = { ...continuous, status: "failed", error: error.message };
+    pushRunEvent({ status: "failed", message: error.message, error: error.stack });
+  });
+}
+
+app.get("/api/config", (_req, res) => res.json({ defaultScan: DEFAULT_SCAN, searchProfiles: SEARCH_PROFILES, scanPresets: SCAN_PRESETS, autoStart: process.env.AUTO_START_SOURCING !== "false" }));
 app.get("/api/summary", async (req, res, next) => { try { const db = await readDb(); res.json(summarize(leadsForUi(db, req.query), db)); } catch (error) { next(error); } });
 app.get("/api/diagnostics", async (req, res, next) => { try { const db = await readDb(); res.json(buildDiagnostics(db, leadsForUi(db, req.query))); } catch (error) { next(error); } });
 app.get("/api/clusters", async (req, res, next) => { try { const db = await readDb(); const leads = leadsForUi(db, req.query); const clusters = clusterLeads(leads); res.json({ total: clusters.length, clusters }); } catch (error) { next(error); } });
@@ -221,4 +231,9 @@ app.get("/autopilot-linkedin-leads.csv", (_req, res) => res.sendFile(path.join(r
 app.get("/autopilot-x-leads.csv", (_req, res) => res.sendFile(path.join(rootDir, "autopilot-x-leads.csv")));
 app.get("*", (_req, res) => res.sendFile(path.join(publicDir, "index.html")));
 app.use((error, _req, res, _next) => { console.error(error); res.status(500).json({ error: error.message }); });
-app.listen(PORT, () => console.log(`BD Lead Engine running at http://localhost:${PORT}`));
+
+app.listen(PORT, () => {
+  console.log(`BD Lead Engine running at http://localhost:${PORT}`);
+  console.log(process.env.AUTO_START_SOURCING === "false" ? "Auto sourcing disabled." : "Auto sourcing enabled: super continuous mode will start automatically.");
+  setTimeout(autoStartSuper, 1200);
+});
