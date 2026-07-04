@@ -319,6 +319,59 @@ function renderForms(forms = []) {
   `;
 }
 
+function contactTypeLabel(value = "") {
+  const labels = {
+    email: "Email",
+    whatsapp: "WhatsApp validado",
+    phone: "Telefone",
+    form: "Formulário",
+    social: "Social/DM",
+    website: "Website",
+    "direct-link": "Link direto"
+  };
+  return labels[String(value).toLowerCase()] || value || "Contacto";
+}
+
+function contactHref(contact = "", type = "") {
+  if (/^https?:\/\//i.test(contact)) return contact;
+  if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact)) return `mailto:${contact}`;
+  if (type === "phone") return `tel:${contact.replace(/[^+\d]/g, "")}`;
+  return "";
+}
+
+function contactDisplay(contact = "") {
+  return /^https?:\/\//i.test(contact) ? shortUrl(contact) : contact;
+}
+
+function renderBestContact(lead = {}) {
+  const contact = lead.bestContact || "";
+  if (!contact) return "";
+  const type = lead.bestContactType || lead.contactQuality || "";
+  const href = contactHref(contact, type);
+  const source = lead.bestContactSource || "";
+  const contactNode = href
+    ? `<a class="mini-chip" href="${escapeHtml(href)}" target="_blank" rel="noreferrer">${escapeHtml(contactDisplay(contact))}</a>`
+    : `<span class="mini-chip">${escapeHtml(contact)}</span>`;
+
+  return `
+    <div class="detail-section">
+      <h3>Melhor contacto validado</h3>
+      <div class="message-box">
+        <div class="detail-meta">
+          <span class="priority-pill a">${escapeHtml(contactTypeLabel(type))}</span>
+          <span class="mini-chip">Confiança ${Number(lead.contactConfidence || 0)}%</span>
+        </div>
+        <div class="link-list">${contactNode}</div>
+        ${source ? `<p>Fonte: ${escapeHtml(contactDisplay(source))}</p>` : ""}
+        <button class="copy-button" data-copy="${escapeHtml(contact)}">
+          <i data-lucide="copy"></i>
+          Copiar contacto
+        </button>
+      </div>
+    </div>
+  `;
+}
+
 function renderDetail() {
   const lead = state.leads.find((item) => item.id === state.selectedId);
   const panel = $("#detailPanel");
@@ -381,6 +434,8 @@ function renderDetail() {
       <h3>Contexto</h3>
       <p>${escapeHtml(lead.snippet || "No snippet captured.")}</p>
     </div>
+
+    ${renderBestContact(lead)}
 
     <div class="detail-section">
       <h3>Outbound</h3>
