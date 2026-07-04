@@ -14,7 +14,8 @@ import { deepEnrichResult } from "./deep.js";
 import { exportLeads } from "./exporter.js";
 import { isHardRejectedLead } from "./lead-quality.js";
 import { addRun, upsertLeads } from "./store.js";
-import { enrichResult, searchOne } from "./search.js";
+import { enrichResult } from "./search.js";
+import { searchOne } from "./search-fallback.js";
 import { balancedSelect, countBySource, sourceBucket } from "./mql5-limit.js";
 import { idForLead, nowIso, sleep } from "./utils.js";
 
@@ -91,10 +92,7 @@ function addAllowedTemplate(target, template, intent, settings) {
 function materializeQuery(item, profile, index) {
   const regions = profile.regions.length ? profile.regions : ["global"];
   const region = regions[index % regions.length];
-  return {
-    text: item.template ? item.template.replace("{region}", region) : String(item.text || "").replace("{region}", region),
-    intent: item.intent || "partner"
-  };
+  return { text: item.template ? item.template.replace("{region}", region) : String(item.text || "").replace("{region}", region), intent: item.intent || "partner" };
 }
 
 function buildQueries(options) {
@@ -119,7 +117,6 @@ function buildQueries(options) {
   const queries = [];
   const families = [partnerTemplates, socialTemplates, intentTemplates, forumTemplates, specialistTemplates, ecosystemTemplates, recruitmentTemplates].filter((family) => family.length);
   const maxTemplateCount = Math.max(...families.map((family) => family.length), 0);
-
   for (let templateIndex = 0; templateIndex < maxTemplateCount; templateIndex += 1) {
     for (const family of families) {
       const item = family[templateIndex % family.length];
@@ -127,21 +124,14 @@ function buildQueries(options) {
     }
   }
 
-  const highValue = HIGH_VALUE_QUERY_PACKS
-    .filter((query) => settings.includeYouTube === true || !isYouTubeTemplate(query.text))
-    .map((query, index) => materializeQuery(query, profile, index));
-  queries.push(...highValue);
-
+  queries.push(...HIGH_VALUE_QUERY_PACKS.filter((query) => settings.includeYouTube === true || !isYouTubeTemplate(query.text)).map((query, index) => materializeQuery(query, profile, index)));
   const seen = new Set();
-  const deduped = queries
-    .filter((query) => settings.includeYouTube === true || !isYouTubeTemplate(query.text))
-    .filter((query) => {
-      const key = query.text.toLowerCase();
-      if (seen.has(key)) return false;
-      seen.add(key);
-      return true;
-    })
-    .map((query) => ({ ...query, channel: sourceBucket(query) }));
+  const deduped = queries.filter((query) => settings.includeYouTube === true || !isYouTubeTemplate(query.text)).filter((query) => {
+    const key = query.text.toLowerCase();
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  }).map((query) => ({ ...query, channel: sourceBucket(query) }));
 
   return balancedSelect(deduped, {
     limit: Number(settings.maxQueries) || DEFAULT_SCAN.maxQueries,
@@ -152,19 +142,31 @@ function buildQueries(options) {
 }
 
 function makeSourceStats() {
-  return {
-    searches: 0,
-    raw: 0,
-    qualified: 0,
-    discarded: 0,
-    duplicates: 0,
-    errors: 0,
-    reasons: {}
-  };
+  return { searches: 0, raw: 0, qualified: 0, saved: 0, discarded: 0, duplicates: 0, errors: 0, reasons: {} };
 }
 
 function bumpReason(stats, reason) {
   stats.reasons[reason] = (stats.reasons[reason] || 0) + 1;
+}
+
+function valuableSource(classified = {}, query = {}) {
+  const text = `${classified.url} ${classified.platform} ${classified.title} ${classified.snippet} ${query.text} ${query.intent} ${query.channel}`.toLowerCase();
+  return /linkedin\.com\/in|linkedin\.com\/company|instagram\.com\/[^/]+|x\.com\/[^/]+|twitter\.com\/[^/]+|t\.me\/[^/]+|discord\.gg\/[^/]+|myfxbook\.com|mql5\.com|tradingview\.com|forexfactory\.com|babypips\.com|forex|xauusd|copy trading|signals|introducing broker|affiliate|partnership|fund manager|portfolio manager|trading academy|forex academy|mentor/.test(text);
+}
+
+function makeSavedCandidate(classified, query, reason) {
+  const score = Math.max(Number(classified.score || 0), valuableSource(classified, query) ? 45 : 35);
+  const priority = score >= 70 ? "A" : score >= 45 ? "B" : "C";
+  return {
+    ...classified,
+    score,
+    priority,
+    sourceBucket: query.channel || sourceBucket(query),
+    leadType: ["partner", "recruitment", "institution"].includes(classified.leadType) ? classified.leadType : "partner",
+    segment: classified.segment && classified.segment !== "Unclear" ? classified.segment : "Research Candidate",
+    evidence: [...new Set([...(classified.evidence || []), `Saved from ${query.channel || query.intent} search`, reason].filter(Boolean))],
+    qualificationStatus: "research_candidate"
+  };
 }
 
 export async function runScan(options = {}, onProgress = () => {}) {
@@ -186,32 +188,14 @@ export async function runScan(options = {}, onProgress = () => {}) {
     return sourceStats[bucket];
   };
 
-  onProgress({
-    runId,
-    status: "running",
-    message: `Starting scan with ${queries.length} balanced queries`,
-    startedAt,
-    totalQueries: queries.length,
-    completedQueries: 0,
-    leadsFound: 0,
-    sourceStats
-  });
+  onProgress({ runId, status: "running", message: `Starting scan with ${queries.length} balanced queries`, startedAt, totalQueries: queries.length, completedQueries: 0, leadsFound: 0, sourceStats });
 
   let completedQueries = 0;
 
   for (const query of queries) {
     const stats = statFor(query);
     stats.searches += 1;
-    onProgress({
-      runId,
-      status: "running",
-      message: `Searching [${query.channel}]: ${query.text}`,
-      currentQuery: query.text,
-      completedQueries,
-      totalQueries: queries.length,
-      leadsFound: leads.length,
-      sourceStats
-    });
+    onProgress({ runId, status: "running", message: `Searching [${query.channel}]: ${query.text}`, currentQuery: query.text, completedQueries, totalQueries: queries.length, leadsFound: leads.length, sourceStats });
 
     const { results, errors: searchErrors } = await searchOne(query.text, query.intent, settings.limitPerQuery);
     stats.raw += results.length;
@@ -227,13 +211,7 @@ export async function runScan(options = {}, onProgress = () => {}) {
       seenResults.set(key, result);
 
       const enriched = settings.deepEnrich
-        ? await deepEnrichResult(result, {
-            searchContacts: settings.searchContacts !== false,
-            maxContactPages: settings.maxContactPages || 5,
-            maxExternalWebsites: settings.maxExternalWebsites || 3,
-            maxTrailQueries: settings.maxTrailQueries || 10,
-            trailLimit: settings.trailLimit || 5
-          })
+        ? await deepEnrichResult(result, { searchContacts: settings.searchContacts !== false, maxContactPages: settings.maxContactPages || 5, maxExternalWebsites: settings.maxExternalWebsites || 3, maxTrailQueries: settings.maxTrailQueries || 10, trailLimit: settings.trailLimit || 5 })
         : settings.fetchPages
           ? await enrichResult(result)
           : result;
@@ -242,33 +220,27 @@ export async function runScan(options = {}, onProgress = () => {}) {
       const lacksActionPath = classified.segment === "Unclear" && !(classified.emails || []).length && !(classified.socialLinks || []).length && classified.source !== "youtube";
       const genericNonPerson = classified.source !== "youtube" && /metatrader|login|download|review|spreads|how to open an account|trading platform|trusted global partner|ishares|marketwatch|etf|msci|quality factor|definition|pronunciation|usage notes|dictionary|oxfordlearnersdictionaries|merriam-webster|cambridge dictionary|collins dictionary|vocabulary\.com|thesaurus/i.test(`${classified.title} ${classified.snippet} ${classified.url}`);
       const hardRejected = isHardRejectedLead(classified);
-      const lowScore = (classified.score || 0) < 35;
+      const lowScore = (classified.score || 0) < 28;
       const brokerSite = classified.segment === "Broker Site";
+      const canSaveResearch = !brokerSite && !genericNonPerson && !hardRejected && valuableSource(classified, query);
 
-      if (lowScore || brokerSite || lacksActionPath || genericNonPerson || hardRejected) {
+      if (brokerSite || genericNonPerson || hardRejected || (lowScore && !canSaveResearch) || (lacksActionPath && !canSaveResearch)) {
         stats.discarded += 1;
         if (lowScore) bumpReason(stats, "low_score");
         if (brokerSite) bumpReason(stats, "broker_site");
         if (lacksActionPath) bumpReason(stats, "no_action_path");
         if (genericNonPerson) bumpReason(stats, "generic_non_person");
         if (hardRejected) bumpReason(stats, "hard_rejected");
-        onProgress({
-          runId,
-          status: "running",
-          message: `Discarded low-fit result: ${classified.name}`,
-          currentQuery: query.text,
-          completedQueries,
-          totalQueries: queries.length,
-          leadsFound: leads.length,
-          sourceStats
-        });
+        onProgress({ runId, status: "running", message: `Discarded low-fit result: ${classified.name}`, currentQuery: query.text, completedQueries, totalQueries: queries.length, leadsFound: leads.length, sourceStats });
         continue;
       }
 
+      const finalLead = lowScore || lacksActionPath ? makeSavedCandidate(classified, query, lowScore ? "Low score but strong source/query signal" : "No contact yet, queued for enrichment") : makeSavedCandidate(classified, query, "Qualified by source/query signal");
+      if (lowScore || lacksActionPath) stats.saved += 1;
       stats.qualified += 1;
-      leads.push(classified);
+      leads.push(finalLead);
       if (incremental) {
-        const storedLead = await upsertLeads([classified], runId);
+        const storedLead = await upsertLeads([finalLead], runId);
         persisted.created.push(...storedLead.created);
         persisted.updated.push(...storedLead.updated);
         if (exportEvery > 0 && leads.length % exportEvery === 0) await exportLeads();
@@ -276,21 +248,13 @@ export async function runScan(options = {}, onProgress = () => {}) {
       onProgress({
         runId,
         status: "running",
-        message: `Qualified ${classified.priority}-lead: ${classified.name}`,
+        message: `Saved ${finalLead.priority}-lead: ${finalLead.name}`,
         currentQuery: query.text,
         completedQueries,
         totalQueries: queries.length,
         leadsFound: leads.length,
         sourceStats,
-        latestLead: {
-          id: classified.id,
-          name: classified.name,
-          score: classified.score,
-          priority: classified.priority,
-          leadType: classified.leadType,
-          platform: classified.platform,
-          sourceBucket: query.channel
-        }
+        latestLead: { id: finalLead.id, name: finalLead.name, score: finalLead.score, priority: finalLead.priority, leadType: finalLead.leadType, platform: finalLead.platform, sourceBucket: query.channel }
       });
       await sleep(250);
     }
@@ -302,35 +266,10 @@ export async function runScan(options = {}, onProgress = () => {}) {
   const stored = incremental ? persisted : await upsertLeads(leads, runId);
   if (incremental) await exportLeads();
   const finishedAt = nowIso();
-  const run = {
-    id: runId,
-    startedAt,
-    finishedAt,
-    settings,
-    totalQueries: queries.length,
-    rawResults: seenResults.size,
-    leadsFound: leads.length,
-    created: stored.created.length,
-    updated: stored.updated.length,
-    sourceStats,
-    qualifiedBySource: countBySource(leads),
-    errors
-  };
+  const run = { id: runId, startedAt, finishedAt, settings, totalQueries: queries.length, rawResults: seenResults.size, leadsFound: leads.length, created: stored.created.length, updated: stored.updated.length, sourceStats, qualifiedBySource: countBySource(leads), errors };
   await addRun(run);
 
-  onProgress({
-    runId,
-    status: "completed",
-    message: `Scan complete: ${stored.created.length} new, ${stored.updated.length} updated`,
-    completedQueries,
-    totalQueries: queries.length,
-    leadsFound: leads.length,
-    created: stored.created.length,
-    updated: stored.updated.length,
-    sourceStats,
-    finishedAt
-  });
-
+  onProgress({ runId, status: "completed", message: `Scan complete: ${stored.created.length} new, ${stored.updated.length} updated`, completedQueries, totalQueries: queries.length, leadsFound: leads.length, created: stored.created.length, updated: stored.updated.length, sourceStats, finishedAt });
   return run;
 }
 
