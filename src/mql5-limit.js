@@ -1,3 +1,4 @@
+// MQL5 balance helper.
 export function isMql5Item(item = {}) {
   return /mql5/i.test([
     item.platform,
