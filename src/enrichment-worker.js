@@ -3,8 +3,10 @@ import path from "node:path";
 import { classifyResult } from "./classify.js";
 import { cleanEmails, cleanForms, cleanLinks, cleanPhoneNumbers } from "./contact-cleaner.js";
 import { deepEnrichResult } from "./deep.js";
-import { exportLeads } from "./exporter.js";
-import { hasStrictTradingIcp, isHardRejectedLead, leadRejectionReasons } from "./lead-quality.js";
+import { exportLeads, isWorkingLead } from "./exporter.js";
+import { hasStrictTradingIcp, leadRejectionReasons } from "./lead-quality.js";
+import { commercialScoreForLead } from "./intelligence.js";
+import { sourceBucket } from "./mql5-limit.js";
 import { getRootDir, readDb, updateLead, upsertLeads } from "./store.js";
 import { normalizeWhitespace, nowIso, platformFromUrl, sleep, unique } from "./utils.js";
 
@@ -31,6 +33,9 @@ const options = {
   delayMs: Math.max(500, numberArg("delayMs", 2500)),
   idleMs: Math.max(5000, numberArg("idleMs", 30000)),
   staleHours: Math.max(1, numberArg("staleHours", 72)),
+  hotStaleHours: Math.max(1, numberArg("hotStaleHours", 12)),
+  contactlessStaleHours: Math.max(1, numberArg("contactlessStaleHours", 18)),
+  maxAttempts: Math.max(1, numberArg("maxAttempts", 8)),
   maxContactPages: Math.max(1, Math.min(numberArg("maxContactPages", 6), 14)),
   maxExternalWebsites: Math.max(0, Math.min(numberArg("maxExternalWebsites", 4), 10)),
   maxTrailQueries: Math.max(2, Math.min(numberArg("maxTrailQueries", 14), 28)),
@@ -74,11 +79,19 @@ function needsEnrichment(lead) {
   if (!["partner", "recruitment", "institution"].includes(lead.leadType)) return false;
   if (lead.segment === "Broker Site" && lead.leadType !== "recruitment") return false;
   if (hasFreshRunningStatus(lead)) return false;
-  if (isHardRejectedLead(lead) || !hasStrictTradingIcp(lead)) return false;
+  if (!isWorkingLead(lead) && !hasStrictTradingIcp(lead)) return false;
+  if ((lead.enrichmentAttempts || 0) >= options.maxAttempts && contactCompleteness(lead) < 20) return false;
 
   const last = Date.parse(lead.lastDeepEnrichedAt || "");
   if (!Number.isFinite(last)) return true;
-  return Date.now() - last > options.staleHours * 60 * 60 * 1000;
+  const commercialScore = commercialScoreForLead(lead);
+  const refreshHours =
+    contactCompleteness(lead) < 35
+      ? options.contactlessStaleHours
+      : commercialScore >= 78 || lead.priority === "A"
+        ? options.hotStaleHours
+        : options.staleHours;
+  return Date.now() - last > refreshHours * 60 * 60 * 1000;
 }
 
 function contactCompleteness(lead) {
@@ -93,11 +106,12 @@ function contactCompleteness(lead) {
 }
 
 function platformRank(lead) {
-  const text = `${lead.platform || ""} ${lead.url || ""}`.toLowerCase();
-  if (/mql5|myfxbook|fxblue|zulutrade|darwinex|signalstart|collective2/.test(text)) return 0;
-  if (/linkedin/.test(text)) return 1;
-  if (/instagram|x\.com|twitter|tiktok|telegram|discord/.test(text)) return 2;
-  if (/forexfactory|babypips|tradingview|reddit/.test(text)) return 3;
+  const bucket = sourceBucket(lead);
+  if (["linkedin", "instagram", "x", "telegram", "discord", "tiktok", "facebook_threads"].includes(bucket)) return 0;
+  if (["forum", "ecosystem", "recruitment"].includes(bucket)) return 1;
+  if (["myfxbook", "tradingview", "specialist"].includes(bucket)) return 2;
+  if (bucket === "web") return 3;
+  if (bucket === "mql5") return 4;
   return 5;
 }
 
@@ -107,7 +121,12 @@ function pickNextLead(leads) {
     .sort((a, b) => {
       const completenessA = contactCompleteness(a);
       const completenessB = contactCompleteness(b);
+      const commercialA = commercialScoreForLead(a);
+      const commercialB = commercialScoreForLead(b);
       return (
+        Number(completenessB < 35) - Number(completenessA < 35) ||
+        Number(b.priority === "A") - Number(a.priority === "A") ||
+        commercialB - commercialA ||
         platformRank(a) - platformRank(b) ||
         completenessA - completenessB ||
         (b.score || 0) - (a.score || 0) ||
@@ -154,7 +173,8 @@ function mergeLeadEnrichment(base, enriched) {
 async function enrichOne(lead) {
   await updateLead(lead.id, {
     deepStatus: "running",
-    deepStartedAt: nowIso()
+    deepStartedAt: nowIso(),
+    enrichmentAttempts: Number(lead.enrichmentAttempts || 0) + 1
   });
 
   const enriched = await deepEnrichResult(lead, {

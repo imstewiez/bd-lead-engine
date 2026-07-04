@@ -39,12 +39,15 @@ const sourceHarvesterPid = launch("source-harvester", [
 const enrichmentWorkerPid = launch("enrichment-worker", [
   "src/enrichment-worker.js",
   "--delayMs=2500",
-  "--idleMs=30000",
-  "--staleHours=72",
-  "--maxContactPages=6",
-  "--maxExternalWebsites=4",
-  "--maxTrailQueries=14",
-  "--trailLimit=6"
+  "--idleMs=12000",
+  "--staleHours=48",
+  "--hotStaleHours=10",
+  "--contactlessStaleHours=14",
+  "--maxAttempts=10",
+  "--maxContactPages=8",
+  "--maxExternalWebsites=6",
+  "--maxTrailQueries=24",
+  "--trailLimit=8"
 ]);
 const qualifiedExporterPid = launch("qualified-exporter", [
   "src/qualified-exporter.js",

@@ -113,15 +113,15 @@ export function isExportQualified(lead) {
 }
 
 function rawLeadText(lead = {}) {
+  const cleanSignalText = (value = "") =>
+    String(value)
+      .replace(/\bMatched public source:.*$/i, " ")
+      .replace(/\bSource pack:.*$/i, " ");
   return [
     lead.name,
     lead.title,
     lead.snippet,
     lead.url,
-    lead.platform,
-    lead.source,
-    lead.segment,
-    lead.leadType,
     lead.audience,
     ...(lead.socialLinks || []),
     ...(lead.contactLinks || []),
@@ -129,6 +129,7 @@ function rawLeadText(lead = {}) {
     ...(lead.relatedLinks || [])
   ]
     .filter(Boolean)
+    .map(cleanSignalText)
     .join(" ")
     .toLowerCase();
 }
@@ -148,13 +149,21 @@ export function isWorkingLead(lead) {
   const bucket = sourceBucket(lead);
   const syntheticSnippet = /^(?:Extracted candidate|Qwant extracted URL)/i.test(String(lead.snippet || ""));
   const text = rawLeadText(syntheticSnippet ? { ...lead, snippet: "" } : lead);
-  const actualTradingSignal = /\b(?:forex|fx trader|xauusd|gold trader|cfds?|copy trading|signals?|sinais|señales|senales|pamm|mam|mt4|mt5|metatrader|introducing broker|forex affiliate|broker partnership|cpa deal|revshare|trading academy|forex academy|prop firm|funded trader|portfolio manager|fund manager|money manager|asset manager|trading community)\b/i.test(text);
-  if (syntheticSnippet && !actualTradingSignal) return false;
+  const brokerOfficialNoise = /\b(?:admiralmarkets|admirals|exness|xm\.com|xmtrading|octafx|octa|fbs|hfm|hotforex|tickmill|icmarkets|ic markets|pepperstone|avatrade|deriv|fxtm|roboforex|vantage|fpmarkets|fp markets|axi\.com|capital\.com|etoro|plus500|cmcmarkets|cmc markets|ig\.com|markets\.com|blackbull|multibank|forex\.com)\b/i.test(text);
+  if (brokerOfficialNoise && !/\b(?:introducing broker|affiliate manager|partnership manager|business development|country manager|former|ex-)\b/i.test(text)) return false;
+  const actualTradingSignal = /\b(?:forex|fx trader|fx portfolio|xauusd|gold trader|currency trader|currency trading|cfds?|copy trading|signals?|sinais|señales|senales|pamm|mam|mt4|mt5|metatrader|introducing broker|forex affiliate|broker partnership|cpa deal|revshare|trading academy|forex academy|prop firm|funded trader|portfolio manager|fund manager|money manager|asset manager|trading community|algo trader|ea developer)\b/i.test(text);
+  const genericFinanceNoise = /\b(?:noções básicas|basics of|what is|what are|guide to|guia|explainer|payments innovation|payment solutions|subscription solutions|billing|federal reserve|revolut|stripe|wise|money transfer|currency exchange rates)\b/i.test(text);
+  if (genericFinanceNoise && !/\b(?:introducing broker|forex affiliate|forex trader|fx trader|xauusd|gold trader|copy trading|signals?|pamm|mam|trading academy|forex academy|trading community|funded trader|prop firm)\b/i.test(text)) return false;
+  const specialistTradingSource =
+    ["mql5", "myfxbook", "tradingview", "specialist", "forum"].includes(bucket) &&
+    /\b(?:mql5|myfxbook|fxblue|zulutrade|darwinex|signalstart|collective2|tradingview|forexfactory|babypips|forex|xauusd|pamm|mam|copy trading|signals?)\b/i.test(text);
+  if (!actualTradingSignal && !specialistTradingSource) return false;
+  if (syntheticSnippet && !actualTradingSignal && !specialistTradingSource) return false;
   const trustedSource = /linkedin|instagram|x|telegram|discord|tiktok|facebook_threads|reddit|myfxbook|mql5|tradingview|forum|specialist|ecosystem/.test(bucket);
   const tradingSignal =
-    hasStrictTradingIcp(lead) ||
-    hasSearchableLeadSignal(lead) ||
-    actualTradingSignal;
+    actualTradingSignal ||
+    specialistTradingSource ||
+    (hasStrictTradingIcp(lead) && hasSearchableLeadSignal(lead));
   if (!tradingSignal) return false;
 
   const score = Number(lead.commercialScore || 0) || Number(lead.score || 0);
