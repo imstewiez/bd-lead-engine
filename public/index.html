@@ -12,51 +12,42 @@
     <div class="app-shell">
       <header class="topbar">
         <div>
-          <p class="eyebrow">Sales Sourcing</p>
+          <p class="eyebrow">Automatic Lead Intelligence</p>
           <h1>BD Lead Engine</h1>
         </div>
         <div class="topbar-actions">
-          <a class="icon-link" href="/autopilot-qualified-leads.csv" title="Qualified CSV"><i data-lucide="file-spreadsheet"></i>Qualified</a>
-          <a class="icon-link" href="/autopilot-qualified-contactable-leads.csv" title="Qualified contactable CSV"><i data-lucide="mail-check"></i>Contactable</a>
-          <a class="icon-link" href="/api/export.csv" title="Export CSV"><i data-lucide="download"></i>CSV</a>
-          <a class="icon-link" href="/api/export.csv?raw=true" title="Raw database CSV"><i data-lucide="database"></i>Raw</a>
-          <a class="icon-link" href="/api/diagnostics" title="Source diagnostics"><i data-lucide="activity"></i>Diagnostics</a>
+          <a class="icon-link" href="/api/export.csv" title="Export current worklist">
+            <i data-lucide="download"></i>
+            CSV
+          </a>
+          <a class="icon-link" href="/autopilot-contactable-leads.csv" title="Contactable CSV">
+            <i data-lucide="mail-check"></i>
+            Contactable
+          </a>
+          <a class="icon-link" href="/api/diagnostics" title="Source diagnostics" target="_blank">
+            <i data-lucide="activity"></i>
+            Diagnostics
+          </a>
+          <a class="icon-link" href="/api/clusters" title="Lead clusters" target="_blank">
+            <i data-lucide="network"></i>
+            Clusters
+          </a>
         </div>
       </header>
 
-      <main class="workspace">
-        <aside class="control-panel">
-          <div class="panel-title"><h2>Scan</h2><span id="runBadge" class="badge muted">Ready</span></div>
-
-          <label class="field"><span>Region</span><select id="regionSet"><option value="global">Global PT/ES/EN</option><option value="latam">LatAm + Brazil</option><option value="english">English speaking</option></select></label>
-
-          <div class="field-grid">
-            <label class="field"><span>Queries</span><input id="maxQueries" type="number" min="4" max="400" value="120" /></label>
-            <label class="field"><span>Results</span><input id="limitPerQuery" type="number" min="3" max="25" value="10" /></label>
+      <main class="auto-workspace">
+        <section class="main-panel hero-panel">
+          <div class="hero-row">
+            <div>
+              <p class="eyebrow">Always on</p>
+              <h2>Super autopilot is collecting and enriching leads while this localhost is open.</h2>
+              <p id="runMessage" class="hero-copy">Starting automatic sourcing...</p>
+            </div>
+            <span id="runBadge" class="badge muted">Ready</span>
           </div>
-
-          <label class="check-row"><input id="includePartners" type="checkbox" checked /><span>Partners</span></label>
-          <label class="check-row"><input id="includeRecruitment" type="checkbox" checked /><span>Recruitment</span></label>
-          <label class="check-row"><input id="fetchPages" type="checkbox" checked /><span>Enrich pages</span></label>
-          <label class="check-row"><input id="deepEnrich" type="checkbox" checked /><span>Deep contact hunt</span></label>
-
-          <button id="scanButton" class="primary-button"><i data-lucide="radar"></i>Start scan</button>
-          <button id="superLaunchButton" class="primary-button super-button" onclick="fetch('/api/continuous/start',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({regionSet:document.getElementById('regionSet').value,maxQueries:220,limitPerQuery:15,deepEnrich:true,fetchPages:true,searchContacts:true,maxContactPages:8,maxExternalWebsites:6,maxTrailQueries:24,trailLimit:8,delayMs:7000,includePartners:true,includeRecruitment:true,includeIntentPosts:true,includeEcosystem:true,includeSocialProfiles:true,includeForums:true,includeSpecialistSources:true,exportEvery:3})}).then(()=>location.reload()).catch(e=>alert(e.message))"><i data-lucide="rocket"></i>Super autopilot</button>
-          <div class="dual-actions">
-            <button id="continuousButton" class="ghost-button"><i data-lucide="infinity"></i>Deep continuous</button>
-            <button id="stopButton" class="ghost-button danger"><i data-lucide="square"></i>Stop</button>
-          </div>
-
-          <div class="preset-grid">
-            <button class="ghost-button" onclick="fetch('/api/scan/preset/quality',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({regionSet:document.getElementById('regionSet').value})}).then(()=>location.reload()).catch(e=>alert(e.message))">Quality</button>
-            <button class="ghost-button" onclick="fetch('/api/scan/preset/volume',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({regionSet:document.getElementById('regionSet').value})}).then(()=>location.reload()).catch(e=>alert(e.message))">Volume</button>
-            <button class="ghost-button" onclick="fetch('/api/scan/preset/social',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({regionSet:document.getElementById('regionSet').value})}).then(()=>location.reload()).catch(e=>alert(e.message))">Social</button>
-            <button class="ghost-button" onclick="fetch('/api/scan/preset/latam',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({})}).then(()=>location.reload()).catch(e=>alert(e.message))">LatAm</button>
-          </div>
-
-          <div class="run-box"><div class="progress-track"><div id="progressBar" class="progress-bar"></div></div><p id="runMessage">Ready.</p></div>
-          <div class="event-list" id="eventList"></div>
-        </aside>
+          <div class="progress-track hero-progress"><div id="progressBar" class="progress-bar"></div></div>
+          <div class="event-list compact" id="eventList"></div>
+        </section>
 
         <section class="main-panel">
           <div class="metric-strip">
@@ -70,24 +61,57 @@
             <div class="metric"><span>Email/Form</span><strong id="metricEmailForm">0</strong></div>
           </div>
 
-          <div class="toolbar">
-            <div class="search-box"><i data-lucide="search"></i><input id="searchInput" placeholder="Search leads, countries, segments..." /></div>
-            <select id="viewModeFilter" title="Lead view mode"><option value="qualified">Qualified worklist</option><option value="raw">Raw database</option></select>
-            <select id="platformFilter" title="Source filter"><option value="">All sources</option><option value="non-mql5">Non-MQL5 first</option><option value="social">Social/DM sources</option><option value="linkedin">LinkedIn</option><option value="instagram">Instagram</option><option value="x">X / Twitter</option><option value="telegram">Telegram</option><option value="discord">Discord</option><option value="tiktok">TikTok</option><option value="myfxbook">Myfxbook</option><option value="tradingview">TradingView</option><option value="forum">Forums</option><option value="ecosystem">Ecosystem</option><option value="mql5">MQL5</option><option value="web">Web</option></select>
-            <select id="priorityFilter"><option value="">All priorities</option><option value="A">A priority</option><option value="B">B priority</option><option value="C">C priority</option><option value="D">D priority</option></select>
-            <select id="typeFilter"><option value="">All types</option><option value="partner">Partners</option><option value="recruitment">Recruitment</option><option value="institution">Institution</option><option value="research">Research</option></select>
-            <select id="stageFilter"><option value="">All stages</option><option value="new">New</option><option value="contacted">Contacted</option><option value="replied">Replied</option><option value="meeting_booked">Meeting booked</option><option value="won">Won</option><option value="lost">Lost</option></select>
+          <div class="toolbar single-search">
+            <div class="search-box">
+              <i data-lucide="search"></i>
+              <input id="searchInput" placeholder="Search qualified leads..." />
+            </div>
           </div>
 
           <div class="source-strip" id="platformStrip"></div>
-          <div class="diagnostics-panel"><a class="mini-chip" href="/api/diagnostics" target="_blank">Open source diagnostics</a></div>
 
           <div class="split-view">
-            <div class="lead-table-wrap"><table class="lead-table"><thead><tr><th>Lead</th><th>Source</th><th>Type</th><th>Score</th><th>Country</th><th>Stage</th></tr></thead><tbody id="leadRows"></tbody></table></div>
-            <aside class="detail-panel" id="detailPanel"><div class="empty-state"><i data-lucide="target"></i><p>Select a lead.</p></div></aside>
+            <div class="lead-table-wrap">
+              <table class="lead-table">
+                <thead>
+                  <tr>
+                    <th>Lead</th>
+                    <th>Source</th>
+                    <th>Type</th>
+                    <th>Score</th>
+                    <th>Country</th>
+                    <th>Stage</th>
+                  </tr>
+                </thead>
+                <tbody id="leadRows"></tbody>
+              </table>
+            </div>
+            <aside class="detail-panel" id="detailPanel">
+              <div class="empty-state"><i data-lucide="target"></i><p>Select a lead.</p></div>
+            </aside>
           </div>
         </section>
       </main>
+
+      <div style="display:none">
+        <aside class="control-panel">
+          <select id="regionSet"><option value="global">Global</option></select>
+          <input id="maxQueries" value="260" />
+          <input id="limitPerQuery" value="15" />
+          <input id="includePartners" type="checkbox" checked />
+          <input id="includeRecruitment" type="checkbox" checked />
+          <input id="fetchPages" type="checkbox" checked />
+          <input id="deepEnrich" type="checkbox" checked />
+          <button id="scanButton">scan</button>
+          <button id="continuousButton">continuous</button>
+          <button id="stopButton">stop</button>
+          <select id="viewModeFilter"><option value="qualified">Qualified</option></select>
+          <select id="platformFilter"><option value=""></option></select>
+          <select id="priorityFilter"><option value=""></option></select>
+          <select id="typeFilter"><option value=""></option></select>
+          <select id="stageFilter"><option value=""></option></select>
+        </aside>
+      </div>
     </div>
   </body>
 </html>
