@@ -62,17 +62,15 @@ function isForumSourcePage(lead = {}) {
   if (/forexfactory\.com\/(?:forum|forums|calendar|news|market|scanner)\b/i.test(url)) return true;
   if (/forexpeacearmy\.com\/community\/(?:forums|tags|search)\b/i.test(url)) return true;
   if ((domain.includes("forum") || /forexfactory|earnforex|forexpeacearmy/.test(domain)) && /\b(?:tag|tags|category|categories|forum index|search results)\b/i.test(text)) return true;
-  if (parts.includes("thread") || /\/thread\/|forexfactory\.com\/thread\//i.test(url)) return !hasValidatedContact(lead);
+  if (parts.includes("thread") || /\/thread\/|forexfactory\.com\/thread\//i.test(url)) return true;
   return false;
 }
 
 function isEventSourcePage(lead = {}) {
   const text = leadText(lead);
   const url = String(lead.url || "").toLowerCase();
-  if (/\b(?:expo|summit|event|conference|past-events|agenda|sponsor|sponsors|exhibitor|exhibitors|attending)\b/i.test(`${text} ${url}`)) {
-    return !/linkedin\.com\/(?:in|company)\//i.test(url) && !hasValidatedContact(lead);
-  }
-  return false;
+  if (/linkedin\.com\/(?:in|company)\//i.test(url)) return false;
+  return /\b(?:expo|summit|event|conference|past-events|agenda|sponsor|sponsors|exhibitor|exhibitors|attending)\b/i.test(`${text} ${url}`);
 }
 
 function isDirectoryOrIndexPage(lead = {}) {
@@ -87,17 +85,12 @@ function isCompanyOrPersonLead(lead = {}) {
   if (hasDirectProfileUrl(lead)) return true;
   if (hasValidatedContact(lead) && /\b(?:founder|owner|ceo|director|head|manager|partner|introducing broker|fund manager|portfolio manager|asset manager|mentor|academy|community|signals|prop firm|funded trader|trader|affiliate)\b/i.test(text)) return true;
   if (["IB / Partner", "Affiliate", "Trading Education", "Community", "Creator / Influencer", "Prop / Funded Trading", "Fund / Asset Manager", "High-Calibre Trader"].includes(segment) && hasValidatedContact(lead)) return true;
-  if (["Broker-Seeking / Intent Post"].includes(segment) && hasValidatedContact(lead)) return true;
   return false;
 }
 
 export function classifyLeadEntity(lead = {}) {
   const bucket = sourceBucket(lead);
   const platform = lead.platform || platformFromUrl(lead.url || "") || "Web";
-
-  if (isCompanyOrPersonLead(lead)) {
-    return { kind: "actual_lead", label: "Actual lead", reason: "direct_profile_or_validated_contact", bucket, platform };
-  }
 
   if (isForumSourcePage(lead)) {
     return { kind: "research_source", label: "Research source", reason: "forum_thread_or_index", bucket, platform };
@@ -113,6 +106,10 @@ export function classifyLeadEntity(lead = {}) {
 
   if (["forum", "ecosystem"].includes(bucket) && !hasValidatedContact(lead)) {
     return { kind: "research_source", label: "Research source", reason: "source_bucket_without_validated_contact", bucket, platform };
+  }
+
+  if (isCompanyOrPersonLead(lead)) {
+    return { kind: "actual_lead", label: "Actual lead", reason: "direct_profile_or_validated_contact", bucket, platform };
   }
 
   return { kind: "actual_lead", label: "Actual lead", reason: "default_contactable_or_profile_candidate", bucket, platform };
