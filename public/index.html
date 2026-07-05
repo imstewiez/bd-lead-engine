@@ -1,25 +1,36 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#111a17" />
     <title>BD Lead Engine</title>
-    <link rel="stylesheet" href="/styles.css?v=pipeline-1" />
+    <link rel="stylesheet" href="/styles.css?v=premium-2" />
     <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-    <script defer src="/app.js?v=pipeline-1"></script>
+    <script defer src="/app.js?v=premium-2"></script>
   </head>
   <body>
+    <div class="ambient-grid" aria-hidden="true"></div>
     <div class="app-shell">
       <header class="topbar">
         <div class="brand-lockup">
-          <div class="brand-mark">BD</div>
-          <div>
+          <div class="brand-mark"><span>BD</span></div>
+          <div class="brand-copy">
             <p class="eyebrow">Lead operating system</p>
             <h1>BD Lead Engine</h1>
+            <p class="brand-subtitle">Autonomous sourcing, enrichment and CRM execution cockpit.</p>
           </div>
         </div>
+
         <div class="topbar-actions">
           <span id="runBadge" class="badge muted">Pronto</span>
+          <select id="viewModeFilter" class="mode-select" aria-label="Modo de visualização">
+            <option value="qualified">Qualified</option>
+            <option value="raw">Raw base</option>
+          </select>
+          <button id="scanButton" class="ghost-button" type="button"><i data-lucide="scan-search"></i> Scan</button>
+          <button id="continuousButton" class="primary-button" type="button"><i data-lucide="radar"></i> Autopilot</button>
+          <button id="stopButton" class="danger-button" type="button"><i data-lucide="octagon-x"></i> Stop</button>
           <a class="icon-link" href="/autopilot-working-leads.csv"><i data-lucide="download"></i> Export</a>
         </div>
       </header>
@@ -28,12 +39,13 @@
         <section class="ops-rail">
           <article class="run-card">
             <div class="run-orbit"></div>
+            <div class="run-glow"></div>
             <div class="panel-title">
               <div>
-                <p class="eyebrow">Autopilot</p>
-                <h2>Motor ativo, pipeline controlado.</h2>
+                <p class="eyebrow">Autopilot command</p>
+                <h2>Motor ativo. Pipeline sempre em produção.</h2>
               </div>
-              <i data-lucide="radar"></i>
+              <div class="panel-icon"><i data-lucide="target"></i></div>
             </div>
             <p id="runMessage" class="hero-copy">A procurar, qualificar e enriquecer oportunidades automaticamente.</p>
             <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
@@ -41,15 +53,15 @@
             <div class="event-list compact" id="eventList"></div>
           </article>
 
-          <section class="metric-strip">
-            <div class="metric hot"><span id="metricTotalLabel">Qualificadas</span><strong id="metricTotal">0</strong></div>
-            <div class="metric raw"><span>Base</span><strong id="metricRawTotal">0</strong></div>
-            <div class="metric"><span>A leads</span><strong id="metricA">0</strong></div>
-            <div class="metric"><span>Parceiros</span><strong id="metricPartners">0</strong></div>
-            <div class="metric"><span>Recruta</span><strong id="metricRecruitment">0</strong></div>
-            <div class="metric booked"><span>Reuniões</span><strong id="metricBooked">0</strong></div>
-            <div class="metric contact"><span>Contactáveis</span><strong id="metricContactable">0</strong></div>
-            <div class="metric"><span>Contacto</span><strong id="metricEmailForm">0</strong></div>
+          <section class="metric-strip" aria-label="Resumo do pipeline">
+            <div class="metric hot"><span id="metricTotalLabel">Qualificadas</span><strong id="metricTotal">0</strong><small>pipeline útil</small></div>
+            <div class="metric raw"><span>Base</span><strong id="metricRawTotal">0</strong><small>fonte total</small></div>
+            <div class="metric danger"><span>A leads</span><strong id="metricA">0</strong><small>prioridade máxima</small></div>
+            <div class="metric"><span>Parceiros</span><strong id="metricPartners">0</strong><small>IB / afiliados</small></div>
+            <div class="metric"><span>Recruta</span><strong id="metricRecruitment">0</strong><small>talento comercial</small></div>
+            <div class="metric booked"><span>Reuniões</span><strong id="metricBooked">0</strong><small>pipeline avançado</small></div>
+            <div class="metric contact"><span>Contactáveis</span><strong id="metricContactable">0</strong><small>com caminho direto</small></div>
+            <div class="metric"><span>Contacto</span><strong id="metricEmailForm">0</strong><small>email / forms</small></div>
           </section>
         </section>
 
@@ -78,24 +90,18 @@
         </section>
       </main>
 
-      <div style="display:none">
-        <aside class="control-panel">
-          <select id="regionSet"><option value="global">Global</option></select>
-          <input id="maxQueries" value="260" />
-          <input id="limitPerQuery" value="15" />
-          <input id="includePartners" type="checkbox" checked />
-          <input id="includeRecruitment" type="checkbox" checked />
-          <input id="fetchPages" type="checkbox" checked />
-          <input id="deepEnrich" type="checkbox" checked />
-          <button id="scanButton">scan</button>
-          <button id="continuousButton">continuous</button>
-          <button id="stopButton">stop</button>
-          <select id="viewModeFilter"><option value="qualified">Qualified</option></select>
-          <select id="platformFilter"><option value=""></option></select>
-          <select id="priorityFilter"><option value=""></option></select>
-          <select id="typeFilter"><option value=""></option></select>
-          <select id="stageFilter"><option value=""></option></select>
-        </aside>
+      <div class="control-settings" aria-hidden="true">
+        <select id="regionSet"><option value="global">Global</option></select>
+        <input id="maxQueries" value="260" />
+        <input id="limitPerQuery" value="15" />
+        <input id="includePartners" type="checkbox" checked />
+        <input id="includeRecruitment" type="checkbox" checked />
+        <input id="fetchPages" type="checkbox" checked />
+        <input id="deepEnrich" type="checkbox" checked />
+        <select id="platformFilter"><option value=""></option></select>
+        <select id="priorityFilter"><option value=""></option></select>
+        <select id="typeFilter"><option value=""></option></select>
+        <select id="stageFilter"><option value=""></option></select>
       </div>
     </div>
   </body>
