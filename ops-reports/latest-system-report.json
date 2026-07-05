@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "generatedAt": "2026-07-05T19:04:22.951Z",
+  "generatedAt": "2026-07-05T19:14:25.934Z",
   "summary": {
     "ok": true,
     "rawLeads": 1372,
@@ -12,22 +12,22 @@
     "a2Strong": 16,
     "salesReady": 37,
     "platformContactLeaks": 0,
-    "highValueNoContact": 156,
+    "highValueNoContact": 160,
     "duplicateLike": 92,
     "uniqueKeys": 1280,
-    "enrichmentDueNow": 865,
-    "enrichedLastHour": 150,
-    "enrichedLast24h": 783,
+    "enrichmentDueNow": 847,
+    "enrichedLastHour": 170,
+    "enrichedLast24h": 786,
     "harvesters": 9,
-    "harvesterRawSeen": 0,
-    "harvesterSavedThisCycle": 0,
-    "providerErrors": 0,
+    "harvesterRawSeen": 191,
+    "harvesterSavedThisCycle": 5,
+    "providerErrors": 163,
     "staleWorkers": [],
     "issues": []
   },
   "health": {
     "ok": true,
-    "updatedAt": "2026-07-05T19:04:21.400Z",
+    "updatedAt": "2026-07-05T19:14:24.201Z",
     "counts": {
       "raw": 1372,
       "qualified": 117,
@@ -36,8 +36,8 @@
       "aLeads": 47,
       "a1Hot": 31,
       "a2Strong": 16,
-      "bNurture": 67,
-      "cResearch": 34,
+      "bNurture": 69,
+      "cResearch": 32,
       "sourceOnly": 0
     },
     "duplicate": {
@@ -45,16 +45,16 @@
       "uniqueKeys": 1280
     },
     "enrichmentQueue": {
-      "stale": 429,
-      "contactless": 419,
+      "stale": 434,
+      "contactless": 421,
       "neverDeep": 229,
       "eligible": 1038,
-      "dueNow": 865,
-      "rotationDue": 530,
-      "enrichedLastHour": 150,
-      "enrichedLast24h": 783,
-      "oldestDeepAgeHours": 55.6,
-      "running": 7
+      "dueNow": 847,
+      "rotationDue": 528,
+      "enrichedLastHour": 170,
+      "enrichedLast24h": 786,
+      "oldestDeepAgeHours": 55.8,
+      "running": 8
     },
     "tasks": {
       "source-harvester": {
@@ -121,8 +121,8 @@
     "statuses": {
       "source-harvester": {
         "exists": true,
-        "updatedAt": "2026-07-05T19:04:17.272Z",
-        "ageMs": 4123,
+        "updatedAt": "2026-07-05T19:12:40.300Z",
+        "ageMs": 103895,
         "status": {
           "status": "running",
           "workerName": "source-harvester",
@@ -160,13 +160,50 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-05T19:04:17.249Z",
+          "heartbeatAt": "2026-07-05T19:12:40.294Z",
           "progress": {
-            "message": "Starting scan with 140 balanced queries",
+            "message": "Searching [telegram]: \"forex\" \"Telegram\" \"community\" South Africa",
             "status": "running",
             "latestLead": null,
             "sourceStats": {
               "linkedin": {
+                "searches": 1,
+                "raw": 10,
+                "qualified": 10,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 10,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {}
+              },
+              "instagram": {
+                "searches": 1,
+                "raw": 10,
+                "qualified": 4,
+                "saved": 1,
+                "discarded": 6,
+                "duplicates": 3,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "hard_rejected": 6
+                }
+              },
+              "x": {
+                "searches": 1,
+                "raw": 2,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 2,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "hard_rejected": 2
+                }
+              },
+              "telegram": {
                 "searches": 1,
                 "raw": 0,
                 "qualified": 0,
@@ -179,13 +216,13 @@
               }
             }
           },
-          "updatedAt": "2026-07-05T19:04:17.272Z"
+          "updatedAt": "2026-07-05T19:12:40.300Z"
         }
       },
       "source-harvester-social": {
         "exists": true,
-        "updatedAt": "2026-07-05T19:04:17.281Z",
-        "ageMs": 4115,
+        "updatedAt": "2026-07-05T19:14:11.434Z",
+        "ageMs": 12762,
         "status": {
           "status": "running",
           "workerName": "source-harvester-social",
@@ -223,9 +260,9 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-05T19:04:17.234Z",
+          "heartbeatAt": "2026-07-05T19:14:11.434Z",
           "progress": {
-            "message": "Starting scan with 150 balanced queries",
+            "message": "Discarded hard-rejected result: Discord",
             "status": "running",
             "latestLead": null,
             "sourceStats": {
@@ -237,18 +274,72 @@
                 "discarded": 0,
                 "duplicates": 0,
                 "errors": 0,
+                "providerErrors": 9,
+                "reasons": {
+                  "provider_errors": 1
+                }
+              },
+              "instagram": {
+                "searches": 1,
+                "raw": 4,
+                "qualified": 1,
+                "saved": 0,
+                "discarded": 3,
+                "duplicates": 1,
+                "errors": 0,
                 "providerErrors": 0,
-                "reasons": {}
+                "reasons": {
+                  "hard_rejected": 3
+                }
+              },
+              "x": {
+                "searches": 1,
+                "raw": 10,
+                "qualified": 3,
+                "saved": 1,
+                "discarded": 5,
+                "duplicates": 4,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "hard_rejected": 5
+                }
+              },
+              "telegram": {
+                "searches": 1,
+                "raw": 1,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 1,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "hard_rejected": 1
+                }
+              },
+              "discord": {
+                "searches": 1,
+                "raw": 2,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 1,
+                "duplicates": 1,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "hard_rejected": 1
+                }
               }
             }
           },
-          "updatedAt": "2026-07-05T19:04:17.281Z"
+          "updatedAt": "2026-07-05T19:14:11.434Z"
         }
       },
       "source-harvester-specialist": {
         "exists": true,
-        "updatedAt": "2026-07-05T19:04:17.292Z",
-        "ageMs": 4104,
+        "updatedAt": "2026-07-05T19:13:59.944Z",
+        "ageMs": 24252,
         "status": {
           "status": "running",
           "workerName": "source-harvester-specialist",
@@ -286,13 +377,78 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-05T19:04:17.262Z",
+          "heartbeatAt": "2026-07-05T19:13:59.941Z",
           "progress": {
-            "message": "Starting scan with 135 balanced queries",
+            "message": "Searching [forum]: \"forex community\" \"forum\" \"broker\"",
             "status": "running",
             "latestLead": null,
             "sourceStats": {
               "linkedin": {
+                "searches": 1,
+                "raw": 6,
+                "qualified": 1,
+                "saved": 0,
+                "discarded": 5,
+                "duplicates": 1,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "hard_rejected": 5
+                }
+              },
+              "x": {
+                "searches": 1,
+                "raw": 0,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 7,
+                "reasons": {
+                  "provider_errors": 1
+                }
+              },
+              "telegram": {
+                "searches": 1,
+                "raw": 8,
+                "qualified": 7,
+                "saved": 2,
+                "discarded": 1,
+                "duplicates": 5,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "hard_rejected": 1
+                }
+              },
+              "myfxbook": {
+                "searches": 1,
+                "raw": 0,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 9,
+                "reasons": {
+                  "provider_errors": 1
+                }
+              },
+              "specialist": {
+                "searches": 1,
+                "raw": 0,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 9,
+                "reasons": {
+                  "provider_errors": 1
+                }
+              },
+              "forum": {
                 "searches": 1,
                 "raw": 0,
                 "qualified": 0,
@@ -305,13 +461,13 @@
               }
             }
           },
-          "updatedAt": "2026-07-05T19:04:17.292Z"
+          "updatedAt": "2026-07-05T19:13:59.944Z"
         }
       },
       "source-harvester-ecosystem": {
         "exists": true,
-        "updatedAt": "2026-07-05T19:04:17.272Z",
-        "ageMs": 4124,
+        "updatedAt": "2026-07-05T19:13:48.098Z",
+        "ageMs": 36098,
         "status": {
           "status": "running",
           "workerName": "source-harvester-ecosystem",
@@ -349,13 +505,65 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-05T19:04:17.248Z",
+          "heartbeatAt": "2026-07-05T19:13:48.094Z",
           "progress": {
-            "message": "Starting scan with 110 balanced queries",
+            "message": "Searching [recruitment]: \"exness\" \"business development\" Latin America",
             "status": "running",
             "latestLead": null,
             "sourceStats": {
               "linkedin": {
+                "searches": 1,
+                "raw": 0,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 9,
+                "reasons": {
+                  "provider_errors": 1
+                }
+              },
+              "telegram": {
+                "searches": 1,
+                "raw": 8,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 8,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "hard_rejected": 8
+                }
+              },
+              "discord": {
+                "searches": 1,
+                "raw": 8,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 8,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "hard_rejected": 8
+                }
+              },
+              "ecosystem": {
+                "searches": 1,
+                "raw": 6,
+                "qualified": 2,
+                "saved": 0,
+                "discarded": 4,
+                "duplicates": 2,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "hard_rejected": 4
+                }
+              },
+              "recruitment": {
                 "searches": 1,
                 "raw": 0,
                 "qualified": 0,
@@ -368,13 +576,13 @@
               }
             }
           },
-          "updatedAt": "2026-07-05T19:04:17.272Z"
+          "updatedAt": "2026-07-05T19:13:48.098Z"
         }
       },
       "source-harvester-linkedin": {
         "exists": true,
-        "updatedAt": "2026-07-05T19:04:17.276Z",
-        "ageMs": 4120,
+        "updatedAt": "2026-07-05T19:13:43.674Z",
+        "ageMs": 40522,
         "status": {
           "status": "running",
           "workerName": "source-harvester-linkedin",
@@ -412,32 +620,34 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-05T19:04:17.242Z",
+          "heartbeatAt": "2026-07-05T19:13:43.668Z",
           "progress": {
-            "message": "Starting scan with 219 balanced queries",
+            "message": "Searching [linkedin]: site:linkedin.com/in \"forex affiliate\" \"Chile\"",
             "status": "running",
             "latestLead": null,
             "sourceStats": {
               "linkedin": {
-                "searches": 1,
+                "searches": 8,
                 "raw": 0,
                 "qualified": 0,
                 "saved": 0,
                 "discarded": 0,
                 "duplicates": 0,
                 "errors": 0,
-                "providerErrors": 0,
-                "reasons": {}
+                "providerErrors": 60,
+                "reasons": {
+                  "provider_errors": 7
+                }
               }
             }
           },
-          "updatedAt": "2026-07-05T19:04:17.276Z"
+          "updatedAt": "2026-07-05T19:13:43.674Z"
         }
       },
       "source-harvester-instagram": {
         "exists": true,
-        "updatedAt": "2026-07-05T19:04:17.260Z",
-        "ageMs": 4136,
+        "updatedAt": "2026-07-05T19:13:43.938Z",
+        "ageMs": 40259,
         "status": {
           "status": "running",
           "workerName": "source-harvester-instagram",
@@ -475,32 +685,34 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-05T19:04:17.238Z",
+          "heartbeatAt": "2026-07-05T19:13:43.933Z",
           "progress": {
-            "message": "Starting scan with 55 balanced queries",
+            "message": "Searching [instagram]: site:instagram.com \"gold trader\" \"telegram\"",
             "status": "running",
             "latestLead": null,
             "sourceStats": {
               "instagram": {
-                "searches": 1,
-                "raw": 0,
-                "qualified": 0,
+                "searches": 7,
+                "raw": 35,
+                "qualified": 10,
                 "saved": 0,
-                "discarded": 0,
-                "duplicates": 0,
+                "discarded": 5,
+                "duplicates": 30,
                 "errors": 0,
                 "providerErrors": 0,
-                "reasons": {}
+                "reasons": {
+                  "hard_rejected": 5
+                }
               }
             }
           },
-          "updatedAt": "2026-07-05T19:04:17.260Z"
+          "updatedAt": "2026-07-05T19:13:43.938Z"
         }
       },
       "source-harvester-platforms": {
         "exists": true,
-        "updatedAt": "2026-07-05T19:04:17.277Z",
-        "ageMs": 4120,
+        "updatedAt": "2026-07-05T19:13:06.717Z",
+        "ageMs": 77480,
         "status": {
           "status": "running",
           "workerName": "source-harvester-platforms",
@@ -540,32 +752,60 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-05T19:04:17.244Z",
+          "heartbeatAt": "2026-07-05T19:13:06.713Z",
           "progress": {
-            "message": "Starting scan with 48 balanced queries",
+            "message": "Searching [mql5]: site:mql5.com/en/forum \"broker\" \"forex\"",
             "status": "running",
             "latestLead": null,
             "sourceStats": {
               "myfxbook": {
-                "searches": 1,
+                "searches": 3,
                 "raw": 0,
                 "qualified": 0,
                 "saved": 0,
                 "discarded": 0,
                 "duplicates": 0,
                 "errors": 0,
-                "providerErrors": 0,
-                "reasons": {}
+                "providerErrors": 26,
+                "reasons": {
+                  "provider_errors": 3
+                }
+              },
+              "mql5": {
+                "searches": 3,
+                "raw": 0,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 18,
+                "reasons": {
+                  "provider_errors": 2
+                }
+              },
+              "specialist": {
+                "searches": 2,
+                "raw": 0,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 16,
+                "reasons": {
+                  "provider_errors": 2
+                }
               }
             }
           },
-          "updatedAt": "2026-07-05T19:04:17.277Z"
+          "updatedAt": "2026-07-05T19:13:06.717Z"
         }
       },
       "source-harvester-communities": {
         "exists": true,
-        "updatedAt": "2026-07-05T19:04:17.297Z",
-        "ageMs": 4100,
+        "updatedAt": "2026-07-05T19:13:50.374Z",
+        "ageMs": 33823,
         "status": {
           "status": "running",
           "workerName": "source-harvester-communities",
@@ -603,32 +843,345 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-05T19:04:17.254Z",
+          "heartbeatAt": "2026-07-05T19:13:50.373Z",
           "progress": {
-            "message": "Starting scan with 142 balanced queries",
+            "message": "Saved A-lead: introducing broker | Forex Forum - EarnForex",
             "status": "running",
-            "latestLead": null,
+            "latestLead": {
+              "id": "4a0878ce1fc5eb0e",
+              "source": "bing",
+              "sourceIntent": "forum",
+              "query": "\"forex forum\" \"introducing broker\"",
+              "url": "https://www.earnforex.com/forum/tags/introducing-broker/",
+              "domain": "earnforex.com",
+              "platform": "Web",
+              "title": "introducing broker | Forex Forum - EarnForex",
+              "name": "introducing broker | Forex Forum - EarnForex",
+              "snippet": "Oct 9, 2025 · Why become an Introducing Broker for Tallinex · Best-of-market rebates and ability to earn bonus on IB commission. You can earn up to 1 pip from your clients trading volume. · Earn …",
+              "pageTitle": "introducing broker | Forex Forum - EarnForex",
+              "pageDescription": "",
+              "pageText": "Brokers MT4 Forex Brokers MT5 Forex brokers PayPal Brokers Skrill Brokers Oil Trading Brokers Gold Trading Brokers Web Browser Platform Brokers with CFD Trading ECN Brokers Bitcoin FX Brokers PAMM Forex Brokers With Cent Accounts With High Leverage Cryptocurrency Brokers Forums New posts Trending Search forums What's new Featured content New posts Latest activity Log in Register What's new Search Search titles only By: Search Advanced search… Search titles only By: Search Advanced… Menu Install the app Install How to install the app on iOS Follow along with the video below to see how to install our site as a web app on your home screen. Note: This feature may not be available in some browsers. introducing broker Tags You are using an out of date browser. It may not display this or other websites correctly.You should upgrade or use an alternative browser. Top-Tier IB Partnership - Regulated Broker | Fast Payouts | Custom Revenue Share Looking for Forex Introducing Brokers - Competitive Rebates Available! We are seeking experienced as well as first-time Forex Introducing Brokers with competitive rebates Clients accepted from 180+ countries Up to 1:1000 Leverage (automatically adjusted to 1:500 when account equity exceeds... forexrebates Thread Dec 11, 2025 forex forex cpa forex partnership introducing broker Replies: 9 Forum: Advertisements Looking to earn from your trading community or audience? Join a rewarding Forex Introducing Broker (IB) Partnership Program and start earning commissions for every lot your referred clients trade—ranging from $8 to $25 per lot, with the option for custom rebates to suit your setup. Whether you run a Telegram group, a trading blog, offer mentorship... tradingexpertg Thread Oct 9, 2025 forex forex affiliate programs introducing broker Replies: 0 Forum: Advertisements Have a network of traders? Start earning from their trades! - Forexibpartners Join the Forex IB Partners Program and earn $8–$25 per lot, with custom rebates available on request. Daily payouts Leverage up to 1:2000 Full support & tracking tools Perfect for Telegram groups, blogs, trading mentors & more Click here to become a partner Or DM me for more info. tournixtrades Thread Sep 25, 2025 advertisement advertising forex forex introducing broker introducing brokers trading Replies: 5 Forum: Advertisements To Forex educators out there, what sets you apart from other educators..? If you are a Forex educator and you educate what sets you apart from other educators gstavrinou Thread May 29, 2025 affiliate forex introducing broker Replies: 5 Forum: Forex Education BAXIA | Bonus Promotions baxiamarkets.com About Baxia Markets: Established in 2020, Baxia Markets emerged as a trailblazer in the world of forex brokerage. But don't let our young age fool you – our roots run deep, with a team of professionals who boast more than 20 years of rich experience in forex services. The... Baxia Thread Aug 8, 2023 deposit bonus introducing broker partners promotions Replies: 4 Forum: Advertisements P Anyone interested in IB partnership? More details are provided in the post Hi guys, I am currently finding IBs for one of the top forex companies based in Australia. I want to list the rebate details here but I don't think the forum would let me lol. But it is basically 60% of the spread, and MAM system is offered if required. Unfortunately given the regulations the... Petrichor Thread Dec 21, 2021 introducing broker Replies: 0 Forum: Forex Jobs Forex insights needed from an IB Hey, looking for IBs who can help me with the concept and understanding of forex as I am new to trading. Looking forward to interact with you guys. Samantha.018 Thread Aug 31, 2021 forex introducing broker Replies: 3 Forum: Advertisements Being an Introducing Broker (Affiliate), is it viable? What do you guys think about being an Introducing Broker or an affiliate? We can make some additional money without risking to trade by ourselves. However, at the same time, it also requires a lot of effort and a very good network. Moreover, if the broker messes up, we will get a lot of... Kevin.Lee Thread May 14, 2020 affiliate introducing broker introducing brokers Replies: 0 Forum: Forex Brokers G best benefits for IB Why become an Introducing Broker for Tallinex · Best-of-market rebates and ability to earn bonus on IB commission. You can earn up to 1 pip from your clients trading volume. · Earn commissions and part of the performance fee from Pro- Managed account investors... gammatheta Thread Jan 20, 2014 forex introducing broker Replies: 1 Forum: Advertisements G Tallinex IB / Money Manager programs Tallinex OÛ ( Estonia) has good programs for both IB's and Money Managers and also accepts US clients -> https://www.tallinex.com/?i=100005 Tallinex Introducing Broker program -> https://www.tallinex.com/introducing-brokers?i=100005 is a great way to start receiving 2-tier compensation for... gammatheta Thread Sep 10, 2013 forex introducing broker money manager Replies: 1 Forum: Advertisements Cookies Contact us Terms and rules Privacy policy Help EarnForex.com RSS Top Bottom We value your privacy We use essential cookies to make this site work, and optional cookies to enhance your experience. See further information and configure your preferences Accept all cookies Reject optional cookies Essential cookies These cookies are required to enable core functionality such as security, network management, and accessibility. You may not reject these. Optional cookies We deliver enhanced functionality for your browsing experience by setting these cookies. If you reject them, enhanced functionality will be unavailable. Third-party cookies Cookies set by third parties may be required to power functionality in conjunction with various service providers for security, analytics, performance or advertising purposes. Detailed cookie usage Privacy policy Save cookie preferences",
+              "emails": [
+                "petrichor2227@gmail.com",
+                "webmaster@earnforex.com"
+              ],
+              "socialLinks": [
+                "https://wa.me/11783278787",
+                "https://wa.me/11783278788",
+                "https://www.facebook.com/sharer.php?u={url",
+                "https://x.com/intent/tweet?url={url",
+                "https://www.linkedin.com/sharing/share-offsite/?url={url",
+                "https://reddit.com/submit?url={url",
+                "https://wa.me/11783278789",
+                "https://x.com/EarnForexBlog",
+                "https://www.facebook.com/EarnForexBlog",
+                "https://www.linkedin.com/company/earnforex/",
+                "https://twitter.com/EarnForexBlog",
+                "https://wa.me/11783278793"
+              ],
+              "contactLinks": [
+                "https://www.earnforex.com/forum/threads/top-tier-ib-partnership-regulated-broker-fast-payouts-custom-revenue-share.53422/",
+                "https://www.earnforex.com/forum/threads/have-a-network-of-traders-start-earning-from-their-trades-forexibpartners.53008/",
+                "https://www.earnforex.com/forum/threads/anyone-interested-in-ib-partnership-more-details-are-provided-in-the-post.46490/",
+                "https://www.earnforex.com/forum/threads/being-an-introducing-broker-affiliate-is-it-viable.41522/",
+                "https://www.earnforex.com/forum/misc/contact",
+                "https://www.earnforex.com/forum/tags/forex-partnership/",
+                "https://www.earnforex.com/forum/threads/top-tier-ib-partnership-regulated-broker-fast-payouts-custom-revenue-share.53422/post-251283",
+                "https://www.earnforex.com/forum/threads/top-tier-ib-partnership-regulated-broker-fast-payouts-custom-revenue-share.53422/reply?quote=251283",
+                "https://www.earnforex.com/forum/threads/top-tier-ib-partnership-regulated-broker-fast-payouts-custom-revenue-share.53422/post-251382",
+                "https://www.earnforex.com/forum/threads/top-tier-ib-partnership-regulated-broker-fast-payouts-custom-revenue-share.53422/reply?quote=251382",
+                "https://www.earnforex.com/forum/threads/top-tier-ib-partnership-regulated-broker-fast-payouts-custom-revenue-share.53422/post-251474",
+                "https://www.earnforex.com/forum/threads/top-tier-ib-partnership-regulated-broker-fast-payouts-custom-revenue-share.53422/reply?quote=251474",
+                "https://www.earnforex.com/forum/threads/top-tier-ib-partnership-regulated-broker-fast-payouts-custom-revenue-share.53422/post-251603",
+                "https://www.puprimepartners.com/introducing-brokers/",
+                "https://www.puprimepartners.com/cpa-affiliates/",
+                "https://www.earnforex.com/forum/threads/top-tier-ib-partnership-regulated-broker-fast-payouts-custom-revenue-share.53422/reply?quote=251603",
+                "https://www.earnforex.com/forum/threads/top-tier-ib-partnership-regulated-broker-fast-payouts-custom-revenue-share.53422/post-251827",
+                "https://www.earnforex.com/forum/threads/top-tier-ib-partnership-regulated-broker-fast-payouts-custom-revenue-share.53422/reply?quote=251827",
+                "https://www.earnforex.com/forum/threads/top-tier-ib-partnership-regulated-broker-fast-payouts-custom-revenue-share.53422/post-251901",
+                "https://www.earnforex.com/forum/threads/top-tier-ib-partnership-regulated-broker-fast-payouts-custom-revenue-share.53422/reply?quote=251901",
+                "https://www.earnforex.com/forum/threads/top-tier-ib-partnership-regulated-broker-fast-payouts-custom-revenue-share.53422/post-252156",
+                "https://www.earnforex.com/forum/threads/top-tier-ib-partnership-regulated-broker-fast-payouts-custom-revenue-share.53422/reply?quote=252156",
+                "https://www.earnforex.com/forum/threads/top-tier-ib-partnership-regulated-broker-fast-payouts-custom-revenue-share.53422/post-252280",
+                "https://www.earnforex.com/forum/threads/top-tier-ib-partnership-regulated-broker-fast-payouts-custom-revenue-share.53422/reply?quote=252280",
+                "https://www.earnforex.com/forum/threads/have-a-network-of-traders-start-earning-from-their-trades-forexibpartners.53008/post-248957",
+                "https://www.earnforex.com/forum/attachments/forexibpartners-official-logo-png.34516/",
+                "https://forexibpartners.com/",
+                "https://www.earnforex.com/forum/threads/have-a-network-of-traders-start-earning-from-their-trades-forexibpartners.53008/reply?quote=248957",
+                "https://www.earnforex.com/forum/threads/have-a-network-of-traders-start-earning-from-their-trades-forexibpartners.53008/post-249160",
+                "https://www.earnforex.com/forum/threads/have-a-network-of-traders-start-earning-from-their-trades-forexibpartners.53008/reply?quote=249160"
+              ],
+              "fetchStatus": "deep-ok",
+              "sourceQuery": "\"forex forum\" \"introducing broker\"",
+              "websiteLinks": [
+                "https://www.earnforex.com/forum/",
+                "https://www.earnforex.com/forex-brokers/",
+                "https://www.earnforex.com/mt4-forex-brokers/",
+                "https://www.earnforex.com/mt5-forex-brokers/",
+                "https://www.earnforex.com/paypal-forex-brokers/",
+                "https://www.earnforex.com/skrill-forex-brokers/",
+                "https://www.earnforex.com/oil-forex-brokers/",
+                "https://www.earnforex.com/gold-forex-brokers/",
+                "https://www.earnforex.com/web-forex-brokers/",
+                "https://www.earnforex.com/forex-brokers-cfd/",
+                "https://www.earnforex.com/ecn-forex-brokers/",
+                "https://www.earnforex.com/bitcoin-forex-brokers/",
+                "https://www.earnforex.com/pamm-forex-brokers/",
+                "https://www.earnforex.com/cent-forex-brokers/",
+                "https://www.earnforex.com/high-leverage-forex-brokers/",
+                "https://www.earnforex.com/cryptocurrency-forex-brokers/",
+                "https://www.earnforex.com/forum/whats-new/posts/",
+                "https://www.earnforex.com/forum/trending/",
+                "https://www.earnforex.com/forum/search/?type=post",
+                "https://www.earnforex.com/forum/whats-new/",
+                "https://www.earnforex.com/",
+                "https://www.earnforex.com/forex-tools/",
+                "https://www.earnforex.com/best-forex-prop-firms/",
+                "https://www.earnforex.com/community/",
+                "https://www.earnforex.com/education/",
+                "https://www.earnforex.com/software/",
+                "https://www.earnforex.com/cn/%E8%81%94%E7%B3%BB%E7%AB%99%E9%95%BF/",
+                "https://www.earnforex.com/ar/%D8%A7%D8%AA%D8%B5%D9%84%20%D8%A8%D9%85%D8%AF%D9%8A%D8%B1%20%D8%A7%D9%84%D9%85%D9%88%D9%82%D8%B9/",
+                "https://www.earnforex.com/metatrader-expert-advisors/Position-Sizer/",
+                "https://www.earnforex.com/what-is-forex/"
+              ],
+              "phoneNumbers": [],
+              "forms": [
+                {
+                  "pageUrl": "https://www.earnforex.com/forum/threads/top-tier-ib-partnership-regulated-broker-fast-payouts-custom-revenue-share.53422/",
+                  "action": "https://www.earnforex.com/forum/search/search",
+                  "method": "POST",
+                  "fields": [
+                    "keywords",
+                    "_xfToken"
+                  ],
+                  "label": "Form 1"
+                },
+                {
+                  "pageUrl": "https://www.earnforex.com/forum/threads/top-tier-ib-partnership-regulated-broker-fast-payouts-custom-revenue-share.53422/",
+                  "action": "https://www.earnforex.com/forum/search/search",
+                  "method": "POST",
+                  "fields": [
+                    "keywords",
+                    "constraints",
+                    "c[title_only]",
+                    "c[users]",
+                    "_xfToken"
+                  ],
+                  "label": "Search Everywhere Threads This forum This thread Search titles only By: Search Advanced search…"
+                },
+                {
+                  "pageUrl": "https://www.earnforex.com/forum/threads/top-tier-ib-partnership-regulated-broker-fast-payouts-custom-revenue-share.53422/",
+                  "action": "https://www.earnforex.com/forum/threads/top-tier-ib-partnership-regulated-broker-fast-payouts-custom-revenue-share.53422/add-reply",
+                  "method": "POST",
+                  "fields": [
+                    "_xfToken",
+                    "message",
+                    "last_date",
+                    "last_known_date",
+                    "parent_id",
+                    "load_extra"
+                  ],
+                  "label": "Post reply Insert quotes…"
+                },
+                {
+                  "pageUrl": "https://www.earnforex.com/forum/threads/top-tier-ib-partnership-regulated-broker-fast-payouts-custom-revenue-share.53422/",
+                  "action": "https://www.earnforex.com/forum/misc/cookies?update=1",
+                  "method": "POST",
+                  "fields": [
+                    "_xfToken",
+                    "checkbox",
+                    "consent[optional]",
+                    "consent[_third_party]"
+                  ],
+                  "label": "Essential cookies These cookies are required to enable core functionality such as security, network management, and accessibility. You may not reject these. Optional cookies We del"
+                },
+                {
+                  "pageUrl": "https://www.earnforex.com/forum/threads/top-tier-ib-partnership-regulated-broker-fast-payouts-custom-revenue-share.53422/",
+                  "action": "https://www.earnforex.com/forum/threads/top-tier-ib-partnership-regulated-broker-fast-payouts-custom-revenue-share.53422/",
+                  "method": "GET",
+                  "fields": [
+                    "_xfClientLoadTime"
+                  ],
+                  "label": "Form 6"
+                },
+                {
+                  "pageUrl": "https://www.earnforex.com/forum/threads/have-a-network-of-traders-start-earning-from-their-trades-forexibpartners.53008/",
+                  "action": "https://www.earnforex.com/forum/search/search",
+                  "method": "POST",
+                  "fields": [
+                    "keywords",
+                    "_xfToken"
+                  ],
+                  "label": "Form 1"
+                },
+                {
+                  "pageUrl": "https://www.earnforex.com/forum/threads/have-a-network-of-traders-start-earning-from-their-trades-forexibpartners.53008/",
+                  "action": "https://www.earnforex.com/forum/search/search",
+                  "method": "POST",
+                  "fields": [
+                    "keywords",
+                    "constraints",
+                    "c[title_only]",
+                    "c[users]",
+                    "_xfToken"
+                  ],
+                  "label": "Search Everywhere Threads This forum This thread Search titles only By: Search Advanced search…"
+                },
+                {
+                  "pageUrl": "https://www.earnforex.com/forum/threads/have-a-network-of-traders-start-earning-from-their-trades-forexibpartners.53008/",
+                  "action": "https://www.earnforex.com/forum/threads/have-a-network-of-traders-start-earning-from-their-trades-forexibpartners.53008/add-reply",
+                  "method": "POST",
+                  "fields": [
+                    "_xfToken",
+                    "message",
+                    "last_date",
+                    "last_known_date",
+                    "parent_id",
+                    "load_extra"
+                  ],
+                  "label": "Post reply Insert quotes…"
+                }
+              ],
+              "contactSources": [
+                "https://www.earnforex.com/forum/tags/introducing-broker/",
+                "https://www.earnforex.com/forum/threads/top-tier-ib-partnership-regulated-broker-fast-payouts-custom-revenue-share.53422/",
+                "https://www.earnforex.com/forum/threads/have-a-network-of-traders-start-earning-from-their-trades-forexibpartners.53008/",
+                "https://www.earnforex.com/forum/threads/anyone-interested-in-ib-partnership-more-details-are-provided-in-the-post.46490/",
+                "https://www.earnforex.com/forum/threads/being-an-introducing-broker-affiliate-is-it-viable.41522/",
+                "https://www.earnforex.com/forum/misc/contact",
+                "https://www.earnforex.com/contact/",
+                "https://www.earnforex.com/contact-us",
+                "https://www.earnforex.com/forum/",
+                "https://www.pinterest.com/pin/create/bookmarklet/?url={url",
+                "https://www.earnforex.com/contacto",
+                "https://www.earnforex.com/contato",
+                "https://www.earnforex.com/about/",
+                "https://www.earnforex.com/forex-brokers/",
+                "https://www.earnforex.com/forex-e-books/",
+                "https://www.earnforex.com/mt4-forex-brokers/",
+                "https://www.earnforex.com/mt5-forex-brokers/",
+                "https://www.earnforex.com/paypal-forex-brokers/",
+                "https://www.earnforex.com/skrill-forex-brokers/"
+              ],
+              "relatedLinks": [],
+              "decisionMakerLinks": [
+                "https://www.linkedin.com/company/earnforex/"
+              ],
+              "decisionMakers": [],
+              "contactConfidence": 96,
+              "contactQuality": "whatsapp",
+              "lastDeepEnrichedAt": "2026-07-05T19:13:48.801Z",
+              "bestContact": "petrichor2227@gmail.com",
+              "bestContactType": "email",
+              "bestContactSource": "https://www.earnforex.com/forum/tags/introducing-broker/",
+              "enrichmentAudit": {
+                "sourceDomain": "earnforex.com",
+                "contactQuality": "whatsapp",
+                "contactConfidence": 96,
+                "profileFirst": true,
+                "searchTrailUsed": false,
+                "websiteCandidates": [
+                  "https://www.earnforex.com/forum/",
+                  "https://www.earnforex.com/forex-brokers/",
+                  "https://www.earnforex.com/mt4-forex-brokers/",
+                  "https://www.earnforex.com/mt5-forex-brokers/",
+                  "https://www.earnforex.com/paypal-forex-brokers/",
+                  "https://www.earnforex.com/skrill-forex-brokers/",
+                  "https://www.earnforex.com/oil-forex-brokers/",
+                  "https://www.earnforex.com/gold-forex-brokers/",
+                  "https://www.earnforex.com/web-forex-brokers/",
+                  "https://www.earnforex.com/forex-brokers-cfd/"
+                ],
+                "contactSources": [
+                  "https://www.earnforex.com/forum/tags/introducing-broker/",
+                  "https://www.earnforex.com/forum/threads/top-tier-ib-partnership-regulated-broker-fast-payouts-custom-revenue-share.53422/",
+                  "https://www.earnforex.com/forum/threads/have-a-network-of-traders-start-earning-from-their-trades-forexibpartners.53008/",
+                  "https://www.earnforex.com/forum/threads/anyone-interested-in-ib-partnership-more-details-are-provided-in-the-post.46490/",
+                  "https://www.earnforex.com/forum/threads/being-an-introducing-broker-affiliate-is-it-viable.41522/",
+                  "https://www.earnforex.com/forum/misc/contact",
+                  "https://www.earnforex.com/contact/",
+                  "https://www.earnforex.com/contact-us",
+                  "https://www.earnforex.com/forum/",
+                  "https://www.pinterest.com/pin/create/bookmarklet/?url={url"
+                ],
+                "relatedEvidenceCount": 0,
+                "note": "Contacts are prioritized from the source profile and its discovered website/linkhub before any public-search trail evidence."
+              },
+              "leadType": "partner",
+              "segment": "Broker-Seeking / Intent Post",
+              "countries": [],
+              "country": "",
+              "languages": [
+                "English",
+                "Spanish",
+                "Portuguese"
+              ],
+              "evidence": [
+                "Introducing broker",
+                "Affiliate angle",
+                "Trading education",
+                "Community/audience",
+                "Prop/funded trading angle",
+                "Broker background"
+              ],
+              "score": 100,
+              "priority": "A",
+              "outbound": {
+                "opener": "Vi Oct 9, 2025 · Why become an Introducing Broker for Tallinex · Best-of-market rebates and ability to earn bonus on IB commission. e parece haver uma ligação clara a introducing broker.",
+                "dm": "Olá, vi o teu trabalho ligado a trading/forex e pareceu-me que pode haver uma conversa interessante de parceria. Lidero Business Development e trabalho com parceiros, comunidades e afiliados em mercados globais. Faz sentido falarmos 15 minutos esta semana?",
+                "followUp": "Acho que há potencial para uma conversa objetiva: audiência/comunidade de trading, estrutura de parceria e crescimento com uma corretora regulada. Tens disponibilidade esta semana?"
+              }
+            },
             "sourceStats": {
               "telegram": {
                 "searches": 1,
-                "raw": 0,
+                "raw": 1,
                 "qualified": 0,
                 "saved": 0,
-                "discarded": 0,
+                "discarded": 1,
                 "duplicates": 0,
                 "errors": 0,
                 "providerErrors": 0,
-                "reasons": {}
+                "reasons": {
+                  "hard_rejected": 1
+                }
+              },
+              "discord": {
+                "searches": 1,
+                "raw": 12,
+                "qualified": 4,
+                "saved": 0,
+                "discarded": 8,
+                "duplicates": 4,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "hard_rejected": 8
+                }
+              },
+              "forum": {
+                "searches": 1,
+                "raw": 12,
+                "qualified": 3,
+                "saved": 0,
+                "discarded": 2,
+                "duplicates": 3,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "hard_rejected": 2
+                }
               }
             }
           },
-          "updatedAt": "2026-07-05T19:04:17.297Z"
+          "updatedAt": "2026-07-05T19:13:50.374Z"
         }
       },
       "source-harvester-events": {
         "exists": true,
-        "updatedAt": "2026-07-05T19:04:17.279Z",
-        "ageMs": 4118,
+        "updatedAt": "2026-07-05T19:14:07.985Z",
+        "ageMs": 16212,
         "status": {
           "status": "running",
           "workerName": "source-harvester-events",
@@ -666,32 +1219,47 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-05T19:04:17.251Z",
+          "heartbeatAt": "2026-07-05T19:14:07.983Z",
           "progress": {
-            "message": "Starting scan with 163 balanced queries",
+            "message": "Discarded hard-rejected result: Octa: the leading broker for online trading",
             "status": "running",
             "latestLead": null,
             "sourceStats": {
               "ecosystem": {
-                "searches": 1,
-                "raw": 0,
-                "qualified": 0,
-                "saved": 0,
-                "discarded": 0,
-                "duplicates": 0,
+                "searches": 3,
+                "raw": 30,
+                "qualified": 3,
+                "saved": 1,
+                "discarded": 7,
+                "duplicates": 22,
                 "errors": 0,
                 "providerErrors": 0,
-                "reasons": {}
+                "reasons": {
+                  "hard_rejected": 7
+                }
+              },
+              "recruitment": {
+                "searches": 3,
+                "raw": 26,
+                "qualified": 4,
+                "saved": 0,
+                "discarded": 5,
+                "duplicates": 14,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "hard_rejected": 5
+                }
               }
             }
           },
-          "updatedAt": "2026-07-05T19:04:17.279Z"
+          "updatedAt": "2026-07-05T19:14:07.985Z"
         }
       },
       "enrichment-worker": {
         "exists": true,
-        "updatedAt": "2026-07-05T19:04:19.597Z",
-        "ageMs": 1800,
+        "updatedAt": "2026-07-05T19:14:08.795Z",
+        "ageMs": 15403,
         "status": {
           "status": "running",
           "phase": "enriching",
@@ -708,121 +1276,92 @@
             "maxTrailQueries": 24,
             "trailLimit": 8
           },
-          "processed": 0,
+          "processed": 29,
           "rejected": 0,
           "errors": 0,
           "idleCycles": 0,
           "queue": {
             "eligible": 780,
-            "dueNow": 628,
+            "dueNow": 609,
             "never": 181,
-            "contactlessDue": 100,
-            "scheduledDue": 345,
+            "contactlessDue": 78,
+            "scheduledDue": 348,
             "rotationDue": 2,
-            "recentlyEnriched1h": 148,
-            "recentlyEnriched24h": 589,
+            "recentlyEnriched1h": 167,
+            "recentlyEnriched24h": 590,
             "blockedRunning": 4,
-            "oldestDeepAgeHours": 48.5
+            "oldestDeepAgeHours": 42.8
           },
           "current": {
-            "id": "9f8788a7c6847507",
-            "name": "groups › 710329449564905FTMO Trader's Community | Join our new Forex WhatsApp group",
-            "url": "https://www.facebook.com/groups/710329449564905/posts/1737192706878569/",
-            "platform": "Facebook",
+            "id": "9958cd4c461039c1",
+            "name": "Noções básicas de CFDs | Revolut Portugal",
+            "url": "https://help.revolut.com/pt-PT/help/wealth/stocks/cfds/cfds-basics/",
+            "platform": "Web",
             "dueReason": "contactless_due"
           },
-          "updatedAt": "2026-07-05T19:04:19.597Z"
+          "updatedAt": "2026-07-05T19:14:08.795Z"
         }
       },
       "smart-enrichment-worker": {
         "exists": true,
-        "updatedAt": "2026-07-05T19:04:17.900Z",
-        "ageMs": 3497,
+        "updatedAt": "2026-07-05T19:14:06.485Z",
+        "ageMs": 17713,
         "status": {
           "status": "running",
           "phase": "smart-enriching",
-          "processed": 0,
-          "stored": 0,
+          "processed": 3,
+          "stored": 3,
           "errors": 0,
           "current": {
-            "id": "e4db71aed6bb33cb",
-            "name": "QUAL | Águeda - Facebook",
-            "url": "https://www.facebook.com/qual.pt/",
-            "platform": "Facebook",
-            "bucket": "facebook_threads"
+            "id": "4f62eb3d6135f961",
+            "name": "lilo org",
+            "url": "https://www.instagram.com/lilo__org/",
+            "platform": "Instagram",
+            "bucket": "instagram"
           },
-          "lastResult": null,
-          "updatedAt": "2026-07-05T19:04:17.900Z"
+          "lastResult": {
+            "id": "7d43b92e82f093d9",
+            "name": "@Learnwithvell",
+            "bucket": "telegram",
+            "bestContact": "",
+            "contactLinks": 0,
+            "websites": 0,
+            "related": 15,
+            "at": "2026-07-05T19:13:59.042Z"
+          },
+          "updatedAt": "2026-07-05T19:14:06.485Z"
         }
       },
       "lead-cleaner": {
         "exists": true,
-        "updatedAt": "2026-07-05T19:04:19.092Z",
-        "ageMs": 2305,
+        "updatedAt": "2026-07-05T19:14:14.421Z",
+        "ageMs": 9777,
         "status": {
           "status": "running",
           "phase": "waiting",
-          "cycle": 1,
+          "cycle": 14,
           "intervalMs": 45000,
           "limit": 1000,
-          "totalRemoved": 1,
+          "totalRemoved": 6,
           "errors": 0,
           "lastRun": {
             "ok": true,
             "dryRun": false,
-            "before": 1373,
-            "removed": 1,
+            "before": 1372,
+            "removed": 0,
             "after": 1372,
-            "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-05T19-04-17-239Z.json",
-            "byReason": {
-              "hard_rejected:generic broker ranking/review page": 1
-            },
-            "sample": [
-              {
-                "id": "f99bf5a5050aece3",
-                "name": "Stanislav Tomilov Vortex Turbo EA 248% growth since 2025 Reliability 100% Algo trading 0 Copy for 1000 USD per month",
-                "url": "https://www.mql5.com/en/signals/2345752?source=Site+Signals+MT5+Tile+All",
-                "reason": "hard_rejected:generic broker ranking/review page"
-              }
-            ],
-            "exported": {
-              "csvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.csv",
-              "jsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.json",
-              "contactCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.csv",
-              "contactJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.json",
-              "hotCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.csv",
-              "hotJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.json",
-              "socialCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
-              "socialJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.json",
-              "instagramCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
-              "instagramJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.json",
-              "linkedinCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
-              "linkedinJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.json",
-              "xCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
-              "xJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.json",
-              "workingCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
-              "workingJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.json",
-              "researchCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.csv",
-              "researchJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.json",
-              "exported": 117,
-              "working": 148,
-              "researchSources": 121,
-              "contactable": 117,
-              "hot": 52,
-              "social": 51,
-              "instagram": 5,
-              "linkedin": 31,
-              "x": 9,
-              "total": 1372
-            }
+            "backupPath": null,
+            "byReason": {},
+            "sample": [],
+            "exported": null
           },
-          "updatedAt": "2026-07-05T19:04:19.092Z"
+          "updatedAt": "2026-07-05T19:14:14.421Z"
         }
       },
       "qualified-exporter": {
         "exists": true,
-        "updatedAt": "2026-07-05T19:04:18.763Z",
-        "ageMs": 2635,
+        "updatedAt": "2026-07-05T19:13:37.974Z",
+        "ageMs": 46224,
         "status": {
           "status": "running",
           "intervalMs": 45000,
@@ -845,40 +1384,98 @@
             "workingJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.json",
             "researchCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.csv",
             "researchJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.json",
-            "exported": 117,
+            "exported": 116,
             "working": 148,
             "researchSources": 121,
-            "contactable": 117,
-            "hot": 52,
-            "social": 51,
+            "contactable": 116,
+            "hot": 51,
+            "social": 50,
             "instagram": 5,
-            "linkedin": 31,
+            "linkedin": 30,
             "x": 9,
-            "total": 1373
+            "total": 1372
           },
-          "updatedAt": "2026-07-05T19:04:18.763Z"
+          "updatedAt": "2026-07-05T19:13:37.974Z"
         }
       },
       "cloud-logger-worker": {
         "exists": true,
-        "updatedAt": "2026-07-05T19:04:20.357Z",
-        "ageMs": 1041,
+        "updatedAt": "2026-07-05T19:04:24.729Z",
+        "ageMs": 599470,
         "status": {
           "status": "running",
-          "phase": "started",
+          "phase": "done",
           "intervalMs": 600000,
-          "loop": false,
-          "once": true,
-          "updatedAt": "2026-07-05T19:04:20.357Z"
+          "cycles": 1,
+          "errors": 0,
+          "lastResult": {
+            "summary": {
+              "at": "2026-07-05T19:04:22.951Z",
+              "ok": true,
+              "raw": 1372,
+              "qualified": 117,
+              "working": 148,
+              "contactable": 131,
+              "salesReady": 37,
+              "a1Hot": 31,
+              "a2Strong": 16,
+              "platformContactLeaks": 0,
+              "highValueNoContact": 156,
+              "providerErrors": 0,
+              "staleWorkers": [],
+              "issues": [],
+              "smartTrail": {
+                "phase": "smart-enriching",
+                "processed": 0,
+                "stored": 0,
+                "errors": 0,
+                "current": "QUAL | Águeda - Facebook",
+                "last": "",
+                "best": ""
+              },
+              "salesReadyByBucket": {
+                "web": 8,
+                "x": 7,
+                "myfxbook": 6,
+                "mql5": 5,
+                "specialist": 4,
+                "instagram": 3,
+                "facebook_threads": 1,
+                "linkedin": 1,
+                "telegram": 1,
+                "tiktok": 1
+              },
+              "qualifiedByBucket": {
+                "linkedin": 31,
+                "mql5": 26,
+                "myfxbook": 21,
+                "web": 10,
+                "x": 9,
+                "facebook_threads": 6,
+                "instagram": 6,
+                "specialist": 4,
+                "discord": 2,
+                "telegram": 1,
+                "tiktok": 1
+              }
+            },
+            "git": {
+              "ok": true,
+              "committed": true,
+              "pushed": true,
+              "commit": "[main c2c5f26] ops: update engine cloud report 2026-07-05T19:04:23.272Z\n 3 files changed, 231 insertions(+), 121 deletions(-)\n"
+            }
+          },
+          "updatedAt": "2026-07-05T19:04:24.729Z"
         }
       },
       "supervisor": {
         "exists": true,
-        "updatedAt": "2026-07-05T19:04:18.404Z",
-        "ageMs": 2994,
+        "updatedAt": "2026-07-05T19:13:28.193Z",
+        "ageMs": 56006,
         "status": {
           "status": "running",
-          "cycle": 1,
+          "cycle": 10,
           "intervalMs": 60000,
           "ensured": [
             {
@@ -956,32 +1553,32 @@
           "health": {
             "ok": true,
             "counts": {
-              "raw": 1373,
-              "qualified": 117,
+              "raw": 1372,
+              "qualified": 116,
               "working": 148,
               "contactable": 131,
               "aLeads": 47,
               "a1Hot": 31,
               "a2Strong": 16,
-              "bNurture": 67,
-              "cResearch": 34,
+              "bNurture": 69,
+              "cResearch": 32,
               "sourceOnly": 0
             },
             "enrichmentQueue": {
-              "stale": 429,
-              "contactless": 419,
+              "stale": 435,
+              "contactless": 420,
               "neverDeep": 229,
-              "eligible": 1039,
-              "dueNow": 865,
-              "rotationDue": 530,
-              "enrichedLastHour": 150,
-              "enrichedLast24h": 784,
-              "oldestDeepAgeHours": 55.6,
-              "running": 6
+              "eligible": 1038,
+              "dueNow": 848,
+              "rotationDue": 528,
+              "enrichedLastHour": 167,
+              "enrichedLast24h": 785,
+              "oldestDeepAgeHours": 55.7,
+              "running": 8
             },
             "issues": []
           },
-          "updatedAt": "2026-07-05T19:04:18.404Z"
+          "updatedAt": "2026-07-05T19:13:28.193Z"
         }
       }
     },
@@ -989,58 +1586,58 @@
       "autopilot-qualified-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.csv",
-        "size": 374894,
-        "updatedAt": "2026-07-05T19:04:18.750Z",
-        "ageMs": 2649.25390625
+        "size": 374335,
+        "updatedAt": "2026-07-05T19:13:37.565Z",
+        "ageMs": 46634.65771484375
       },
       "autopilot-qualified-contactable-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.csv",
-        "size": 374894,
-        "updatedAt": "2026-07-05T19:04:18.830Z",
-        "ageMs": 2568.90380859375
+        "size": 374335,
+        "updatedAt": "2026-07-05T19:13:37.663Z",
+        "ageMs": 46536.750244140625
       },
       "autopilot-hot-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.csv",
-        "size": 203046,
-        "updatedAt": "2026-07-05T19:04:18.891Z",
-        "ageMs": 2507.848388671875
+        "size": 201934,
+        "updatedAt": "2026-07-05T19:13:37.725Z",
+        "ageMs": 46474.686767578125
       },
       "autopilot-working-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
-        "size": 402304,
-        "updatedAt": "2026-07-05T19:04:20.973Z",
-        "ageMs": 426.4072265625
+        "size": 403330,
+        "updatedAt": "2026-07-05T19:14:03.675Z",
+        "ageMs": 20524.890625
       },
       "autopilot-social-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
-        "size": 128547,
-        "updatedAt": "2026-07-05T19:04:20.874Z",
-        "ageMs": 524.530029296875
+        "size": 129423,
+        "updatedAt": "2026-07-05T19:14:03.558Z",
+        "ageMs": 20642.2158203125
       },
       "autopilot-linkedin-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
-        "size": 62458,
-        "updatedAt": "2026-07-05T19:04:20.886Z",
-        "ageMs": 512.5078125
+        "size": 62965,
+        "updatedAt": "2026-07-05T19:14:03.572Z",
+        "ageMs": 20628.190673828125
       },
       "autopilot-instagram-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
         "size": 11534,
-        "updatedAt": "2026-07-05T19:04:20.879Z",
-        "ageMs": 520.52587890625
+        "updatedAt": "2026-07-05T19:14:03.564Z",
+        "ageMs": 20635.70068359375
       },
       "autopilot-x-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
         "size": 40663,
-        "updatedAt": "2026-07-05T19:04:20.900Z",
-        "ageMs": 500.001220703125
+        "updatedAt": "2026-07-05T19:14:03.589Z",
+        "ageMs": 20612.1767578125
       }
     },
     "issues": []
@@ -1053,7 +1650,7 @@
       "working": 148,
       "salesReady": 37,
       "platformContactLeaks": 0,
-      "highValueNoContact": 156
+      "highValueNoContact": 160
     },
     "byBucket": {
       "mql5": 385,
@@ -1064,12 +1661,12 @@
       "recruitment": 58,
       "instagram": 51,
       "telegram": 49,
-      "forum": 38,
+      "forum": 37,
       "specialist": 29,
       "x": 28,
       "myfxbook": 23,
       "tiktok": 12,
-      "discord": 9
+      "discord": 10
     },
     "qualifiedByBucket": {
       "linkedin": 31,
@@ -1123,7 +1720,7 @@
         "bucket": "facebook_threads",
         "score": 68,
         "contactScore": 148,
-        "contact": "https://wa.me/11783277881"
+        "contact": "https://wa.me/11783278707"
       },
       {
         "name": "Trading Brasilhttps://onetradingbrasil.com.br › courses › curso-forexCURSO – FX: Introdução ao Forex - One Trading Brasil",
@@ -1171,6 +1768,16 @@
     "platformLeakSamples": [],
     "highValueNoContactSamples": [
       {
+        "name": "@ForexFrontlinebr",
+        "bucket": "telegram",
+        "score": 93
+      },
+      {
+        "name": "@Learnwithvell",
+        "bucket": "telegram",
+        "score": 93
+      },
+      {
         "name": "@TraderArqueiro",
         "bucket": "telegram",
         "score": 85
@@ -1199,16 +1806,6 @@
         "name": "Ghafoor | Professional Forex Trader - Instagram",
         "bucket": "instagram",
         "score": 77
-      },
-      {
-        "name": "@carlosmena3340",
-        "bucket": "telegram",
-        "score": 76
-      },
-      {
-        "name": "@5minutosfaciles",
-        "bucket": "telegram",
-        "score": 76
       }
     ],
     "weakSpecialistSamples": [
@@ -1278,14 +1875,71 @@
     {
       "name": "cloud-logger-worker",
       "status": "running",
-      "phase": "started",
-      "age": "1s",
-      "ageMs": 1062,
+      "phase": "done",
+      "age": "10m",
+      "ageMs": 599493,
       "cycle": null,
       "pid": null,
       "message": "",
       "current": null,
-      "lastResult": null,
+      "lastResult": {
+        "summary": {
+          "at": "2026-07-05T19:04:22.951Z",
+          "ok": true,
+          "raw": 1372,
+          "qualified": 117,
+          "working": 148,
+          "contactable": 131,
+          "salesReady": 37,
+          "a1Hot": 31,
+          "a2Strong": 16,
+          "platformContactLeaks": 0,
+          "highValueNoContact": 156,
+          "providerErrors": 0,
+          "staleWorkers": [],
+          "issues": [],
+          "smartTrail": {
+            "phase": "smart-enriching",
+            "processed": 0,
+            "stored": 0,
+            "errors": 0,
+            "current": "QUAL | Águeda - Facebook",
+            "last": "",
+            "best": ""
+          },
+          "salesReadyByBucket": {
+            "web": 8,
+            "x": 7,
+            "myfxbook": 6,
+            "mql5": 5,
+            "specialist": 4,
+            "instagram": 3,
+            "facebook_threads": 1,
+            "linkedin": 1,
+            "telegram": 1,
+            "tiktok": 1
+          },
+          "qualifiedByBucket": {
+            "linkedin": 31,
+            "mql5": 26,
+            "myfxbook": 21,
+            "web": 10,
+            "x": 9,
+            "facebook_threads": 6,
+            "instagram": 6,
+            "specialist": 4,
+            "discord": 2,
+            "telegram": 1,
+            "tiktok": 1
+          }
+        },
+        "git": {
+          "ok": true,
+          "committed": true,
+          "pushed": true,
+          "commit": "[main c2c5f26] ops: update engine cloud report 2026-07-05T19:04:23.272Z\n 3 files changed, 231 insertions(+), 121 deletions(-)\n"
+        }
+      },
       "counts": {
         "raw": 0,
         "saved": 0,
@@ -1300,15 +1954,15 @@
         "totalRemoved": null,
         "processed": null,
         "stored": null,
-        "errors": null
+        "errors": 0
       }
     },
     {
       "name": "engine-control",
-      "status": "running",
-      "phase": "started",
-      "age": "10s",
-      "ageMs": 9592,
+      "status": "done",
+      "phase": "done",
+      "age": "10m",
+      "ageMs": 596743,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -1335,16 +1989,16 @@
       "name": "enrichment-worker",
       "status": "running",
       "phase": "enriching",
-      "age": "2s",
-      "ageMs": 1823,
+      "age": "15s",
+      "ageMs": 15428,
       "cycle": null,
       "pid": null,
       "message": "",
       "current": {
-        "id": "9f8788a7c6847507",
-        "name": "groups › 710329449564905FTMO Trader's Community | Join our new Forex WhatsApp group",
-        "url": "https://www.facebook.com/groups/710329449564905/posts/1737192706878569/",
-        "platform": "Facebook",
+        "id": "9958cd4c461039c1",
+        "name": "Noções básicas de CFDs | Revolut Portugal",
+        "url": "https://help.revolut.com/pt-PT/help/wealth/stocks/cfds/cfds-basics/",
+        "platform": "Web",
         "dueReason": "contactless_due"
       },
       "lastResult": null,
@@ -1360,7 +2014,7 @@
         "contactable": null,
         "hot": null,
         "totalRemoved": null,
-        "processed": 0,
+        "processed": 29,
         "stored": null,
         "errors": 0
       }
@@ -1369,103 +2023,12 @@
       "name": "lead-cleaner",
       "status": "running",
       "phase": "waiting",
-      "age": "2s",
-      "ageMs": 2328,
-      "cycle": 1,
+      "age": "10s",
+      "ageMs": 9802,
+      "cycle": 14,
       "pid": null,
       "message": "",
       "current": null,
-      "lastResult": null,
-      "counts": {
-        "raw": 0,
-        "saved": 0,
-        "discarded": 0,
-        "duplicates": 0,
-        "providerErrors": 0,
-        "total": null,
-        "exported": {
-          "csvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.csv",
-          "jsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.json",
-          "contactCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.csv",
-          "contactJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.json",
-          "hotCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.csv",
-          "hotJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.json",
-          "socialCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
-          "socialJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.json",
-          "instagramCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
-          "instagramJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.json",
-          "linkedinCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
-          "linkedinJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.json",
-          "xCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
-          "xJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.json",
-          "workingCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
-          "workingJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.json",
-          "researchCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.csv",
-          "researchJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.json",
-          "exported": 117,
-          "working": 148,
-          "researchSources": 121,
-          "contactable": 117,
-          "hot": 52,
-          "social": 51,
-          "instagram": 5,
-          "linkedin": 31,
-          "x": 9,
-          "total": 1372
-        },
-        "working": null,
-        "contactable": null,
-        "hot": null,
-        "totalRemoved": 1,
-        "processed": null,
-        "stored": null,
-        "errors": 0
-      }
-    },
-    {
-      "name": "qualified-exporter",
-      "status": "running",
-      "phase": "n/a",
-      "age": "3s",
-      "ageMs": 2657,
-      "cycle": null,
-      "pid": null,
-      "message": "",
-      "current": null,
-      "lastResult": null,
-      "counts": {
-        "raw": 0,
-        "saved": 0,
-        "discarded": 0,
-        "duplicates": 0,
-        "providerErrors": 0,
-        "total": 1373,
-        "exported": 117,
-        "working": 148,
-        "contactable": 117,
-        "hot": 52,
-        "totalRemoved": null,
-        "processed": null,
-        "stored": null,
-        "errors": null
-      }
-    },
-    {
-      "name": "smart-enrichment-worker",
-      "status": "running",
-      "phase": "smart-enriching",
-      "age": "4s",
-      "ageMs": 3520,
-      "cycle": null,
-      "pid": null,
-      "message": "",
-      "current": {
-        "id": "e4db71aed6bb33cb",
-        "name": "QUAL | Águeda - Facebook",
-        "url": "https://www.facebook.com/qual.pt/",
-        "platform": "Facebook",
-        "bucket": "facebook_threads"
-      },
       "lastResult": null,
       "counts": {
         "raw": 0,
@@ -1478,21 +2041,21 @@
         "working": null,
         "contactable": null,
         "hot": null,
-        "totalRemoved": null,
-        "processed": 0,
-        "stored": 0,
+        "totalRemoved": 6,
+        "processed": null,
+        "stored": null,
         "errors": 0
       }
     },
     {
-      "name": "source-harvester",
+      "name": "qualified-exporter",
       "status": "running",
-      "phase": "scan",
-      "age": "4s",
-      "ageMs": 4150,
-      "cycle": 1,
+      "phase": "n/a",
+      "age": "46s",
+      "ageMs": 46249,
+      "cycle": null,
       "pid": null,
-      "message": "Starting scan with 140 balanced queries",
+      "message": "",
       "current": null,
       "lastResult": null,
       "counts": {
@@ -1500,6 +2063,77 @@
         "saved": 0,
         "discarded": 0,
         "duplicates": 0,
+        "providerErrors": 0,
+        "total": 1372,
+        "exported": 116,
+        "working": 148,
+        "contactable": 116,
+        "hot": 51,
+        "totalRemoved": null,
+        "processed": null,
+        "stored": null,
+        "errors": null
+      }
+    },
+    {
+      "name": "smart-enrichment-worker",
+      "status": "running",
+      "phase": "smart-enriching",
+      "age": "18s",
+      "ageMs": 17738,
+      "cycle": null,
+      "pid": null,
+      "message": "",
+      "current": {
+        "id": "4f62eb3d6135f961",
+        "name": "lilo org",
+        "url": "https://www.instagram.com/lilo__org/",
+        "platform": "Instagram",
+        "bucket": "instagram"
+      },
+      "lastResult": {
+        "id": "7d43b92e82f093d9",
+        "name": "@Learnwithvell",
+        "bucket": "telegram",
+        "bestContact": "",
+        "contactLinks": 0,
+        "websites": 0,
+        "related": 15,
+        "at": "2026-07-05T19:13:59.042Z"
+      },
+      "counts": {
+        "raw": 0,
+        "saved": 0,
+        "discarded": 0,
+        "duplicates": 0,
+        "providerErrors": 0,
+        "total": null,
+        "exported": null,
+        "working": null,
+        "contactable": null,
+        "hot": null,
+        "totalRemoved": null,
+        "processed": 3,
+        "stored": 3,
+        "errors": 0
+      }
+    },
+    {
+      "name": "source-harvester",
+      "status": "running",
+      "phase": "scan",
+      "age": "2m",
+      "ageMs": 103926,
+      "cycle": 1,
+      "pid": null,
+      "message": "Searching [telegram]: \"forex\" \"Telegram\" \"community\" South Africa",
+      "current": null,
+      "lastResult": null,
+      "counts": {
+        "raw": 22,
+        "saved": 1,
+        "discarded": 8,
+        "duplicates": 13,
         "providerErrors": 0,
         "total": 0,
         "exported": 0,
@@ -1516,18 +2150,18 @@
       "name": "source-harvester-communities",
       "status": "running",
       "phase": "scan",
-      "age": "4s",
-      "ageMs": 4124,
+      "age": "34s",
+      "ageMs": 33850,
       "cycle": 1,
       "pid": null,
-      "message": "Starting scan with 142 balanced queries",
+      "message": "Saved A-lead: introducing broker | Forex Forum - EarnForex",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 0,
+        "raw": 25,
         "saved": 0,
-        "discarded": 0,
-        "duplicates": 0,
+        "discarded": 11,
+        "duplicates": 7,
         "providerErrors": 0,
         "total": 0,
         "exported": 0,
@@ -1544,19 +2178,19 @@
       "name": "source-harvester-ecosystem",
       "status": "running",
       "phase": "scan",
-      "age": "4s",
-      "ageMs": 4149,
+      "age": "36s",
+      "ageMs": 36126,
       "cycle": 1,
       "pid": null,
-      "message": "Starting scan with 110 balanced queries",
+      "message": "Searching [recruitment]: \"exness\" \"business development\" Latin America",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 0,
+        "raw": 22,
         "saved": 0,
-        "discarded": 0,
-        "duplicates": 0,
-        "providerErrors": 0,
+        "discarded": 20,
+        "duplicates": 2,
+        "providerErrors": 9,
         "total": 0,
         "exported": 0,
         "working": null,
@@ -1572,18 +2206,18 @@
       "name": "source-harvester-events",
       "status": "running",
       "phase": "scan",
-      "age": "4s",
-      "ageMs": 4142,
+      "age": "16s",
+      "ageMs": 16239,
       "cycle": 1,
       "pid": null,
-      "message": "Starting scan with 163 balanced queries",
+      "message": "Discarded hard-rejected result: Octa: the leading broker for online trading",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 0,
-        "saved": 0,
-        "discarded": 0,
-        "duplicates": 0,
+        "raw": 56,
+        "saved": 1,
+        "discarded": 12,
+        "duplicates": 36,
         "providerErrors": 0,
         "total": 0,
         "exported": 0,
@@ -1600,18 +2234,18 @@
       "name": "source-harvester-instagram",
       "status": "running",
       "phase": "scan",
-      "age": "4s",
-      "ageMs": 4161,
+      "age": "40s",
+      "ageMs": 40286,
       "cycle": 1,
       "pid": null,
-      "message": "Starting scan with 55 balanced queries",
+      "message": "Searching [instagram]: site:instagram.com \"gold trader\" \"telegram\"",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 0,
+        "raw": 35,
         "saved": 0,
-        "discarded": 0,
-        "duplicates": 0,
+        "discarded": 5,
+        "duplicates": 30,
         "providerErrors": 0,
         "total": 0,
         "exported": 0,
@@ -1628,11 +2262,11 @@
       "name": "source-harvester-linkedin",
       "status": "running",
       "phase": "scan",
-      "age": "4s",
-      "ageMs": 4145,
+      "age": "41s",
+      "ageMs": 40551,
       "cycle": 1,
       "pid": null,
-      "message": "Starting scan with 219 balanced queries",
+      "message": "Searching [linkedin]: site:linkedin.com/in \"forex affiliate\" \"Chile\"",
       "current": null,
       "lastResult": null,
       "counts": {
@@ -1640,7 +2274,7 @@
         "saved": 0,
         "discarded": 0,
         "duplicates": 0,
-        "providerErrors": 0,
+        "providerErrors": 60,
         "total": 0,
         "exported": 0,
         "working": null,
@@ -1656,11 +2290,11 @@
       "name": "source-harvester-platforms",
       "status": "running",
       "phase": "scan",
-      "age": "4s",
-      "ageMs": 4145,
+      "age": "1m",
+      "ageMs": 77508,
       "cycle": 1,
       "pid": null,
-      "message": "Starting scan with 48 balanced queries",
+      "message": "Searching [mql5]: site:mql5.com/en/forum \"broker\" \"forex\"",
       "current": null,
       "lastResult": null,
       "counts": {
@@ -1668,7 +2302,7 @@
         "saved": 0,
         "discarded": 0,
         "duplicates": 0,
-        "providerErrors": 0,
+        "providerErrors": 60,
         "total": 0,
         "exported": 0,
         "working": null,
@@ -1684,19 +2318,19 @@
       "name": "source-harvester-social",
       "status": "running",
       "phase": "scan",
-      "age": "4s",
-      "ageMs": 4141,
+      "age": "13s",
+      "ageMs": 12791,
       "cycle": 1,
       "pid": null,
-      "message": "Starting scan with 150 balanced queries",
+      "message": "Discarded hard-rejected result: Discord",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 0,
-        "saved": 0,
-        "discarded": 0,
-        "duplicates": 0,
-        "providerErrors": 0,
+        "raw": 17,
+        "saved": 1,
+        "discarded": 10,
+        "duplicates": 6,
+        "providerErrors": 9,
         "total": 0,
         "exported": 0,
         "working": null,
@@ -1712,19 +2346,19 @@
       "name": "source-harvester-specialist",
       "status": "running",
       "phase": "scan",
-      "age": "4s",
-      "ageMs": 4130,
+      "age": "24s",
+      "ageMs": 24281,
       "cycle": 1,
       "pid": null,
-      "message": "Starting scan with 135 balanced queries",
+      "message": "Searching [forum]: \"forex community\" \"forum\" \"broker\"",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 0,
-        "saved": 0,
-        "discarded": 0,
-        "duplicates": 0,
-        "providerErrors": 0,
+        "raw": 14,
+        "saved": 2,
+        "discarded": 6,
+        "duplicates": 6,
+        "providerErrors": 25,
         "total": 0,
         "exported": 0,
         "working": null,
@@ -1740,9 +2374,9 @@
       "name": "supervisor",
       "status": "running",
       "phase": "n/a",
-      "age": "3s",
-      "ageMs": 3018,
-      "cycle": 1,
+      "age": "56s",
+      "ageMs": 56033,
+      "cycle": 10,
       "pid": null,
       "message": "",
       "current": null,
@@ -1769,58 +2403,58 @@
     "autopilot-qualified-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.csv",
-      "size": 374894,
-      "updatedAt": "2026-07-05T19:04:18.750Z",
-      "ageMs": 2649.25390625
+      "size": 374335,
+      "updatedAt": "2026-07-05T19:13:37.565Z",
+      "ageMs": 46634.65771484375
     },
     "autopilot-qualified-contactable-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.csv",
-      "size": 374894,
-      "updatedAt": "2026-07-05T19:04:18.830Z",
-      "ageMs": 2568.90380859375
+      "size": 374335,
+      "updatedAt": "2026-07-05T19:13:37.663Z",
+      "ageMs": 46536.750244140625
     },
     "autopilot-hot-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.csv",
-      "size": 203046,
-      "updatedAt": "2026-07-05T19:04:18.891Z",
-      "ageMs": 2507.848388671875
+      "size": 201934,
+      "updatedAt": "2026-07-05T19:13:37.725Z",
+      "ageMs": 46474.686767578125
     },
     "autopilot-working-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
-      "size": 402304,
-      "updatedAt": "2026-07-05T19:04:20.973Z",
-      "ageMs": 426.4072265625
+      "size": 403330,
+      "updatedAt": "2026-07-05T19:14:03.675Z",
+      "ageMs": 20524.890625
     },
     "autopilot-social-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
-      "size": 128547,
-      "updatedAt": "2026-07-05T19:04:20.874Z",
-      "ageMs": 524.530029296875
+      "size": 129423,
+      "updatedAt": "2026-07-05T19:14:03.558Z",
+      "ageMs": 20642.2158203125
     },
     "autopilot-linkedin-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
-      "size": 62458,
-      "updatedAt": "2026-07-05T19:04:20.886Z",
-      "ageMs": 512.5078125
+      "size": 62965,
+      "updatedAt": "2026-07-05T19:14:03.572Z",
+      "ageMs": 20628.190673828125
     },
     "autopilot-instagram-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
       "size": 11534,
-      "updatedAt": "2026-07-05T19:04:20.879Z",
-      "ageMs": 520.52587890625
+      "updatedAt": "2026-07-05T19:14:03.564Z",
+      "ageMs": 20635.70068359375
     },
     "autopilot-x-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
       "size": 40663,
-      "updatedAt": "2026-07-05T19:04:20.900Z",
-      "ageMs": 500.001220703125
+      "updatedAt": "2026-07-05T19:14:03.589Z",
+      "ageMs": 20612.1767578125
     }
   },
   "recentRuns": [
@@ -2432,6 +3066,50 @@
   ],
   "pruneHistory": [
     {
+      "at": "2026-07-05T19:10:26.214Z",
+      "reason": "lead-cleaner",
+      "removed": 1,
+      "before": 1373,
+      "after": 1372,
+      "byReason": {
+        "forexfactory_generic_tool_page": 1
+      },
+      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-05T19-10-26-210Z.json"
+    },
+    {
+      "at": "2026-07-05T19:09:39.497Z",
+      "reason": "lead-cleaner",
+      "removed": 2,
+      "before": 1374,
+      "after": 1372,
+      "byReason": {
+        "forexfactory_generic_tool_page": 2
+      },
+      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-05T19-09-39-491Z.json"
+    },
+    {
+      "at": "2026-07-05T19:08:52.828Z",
+      "reason": "lead-cleaner",
+      "removed": 1,
+      "before": 1373,
+      "after": 1372,
+      "byReason": {
+        "forexfactory_generic_tool_page": 1
+      },
+      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-05T19-08-52-825Z.json"
+    },
+    {
+      "at": "2026-07-05T19:07:20.569Z",
+      "reason": "lead-cleaner",
+      "removed": 1,
+      "before": 1373,
+      "after": 1372,
+      "byReason": {
+        "forexfactory_generic_tool_page": 1
+      },
+      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-05T19-07-20-566Z.json"
+    },
+    {
       "at": "2026-07-05T19:04:17.245Z",
       "reason": "lead-cleaner",
       "removed": 1,
@@ -2441,51 +3119,6 @@
         "hard_rejected:generic broker ranking/review page": 1
       },
       "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-05T19-04-17-239Z.json"
-    },
-    {
-      "at": "2026-07-05T19:03:39.550Z",
-      "reason": "lead-cleaner",
-      "removed": 2,
-      "before": 1375,
-      "after": 1373,
-      "byReason": {
-        "hard_rejected:official broker/brokerage page": 1,
-        "forexfactory_generic_tool_page": 1
-      },
-      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-05T19-03-39-547Z.json"
-    },
-    {
-      "at": "2026-07-05T19:02:52.468Z",
-      "reason": "lead-cleaner",
-      "removed": 2,
-      "before": 1376,
-      "after": 1374,
-      "byReason": {
-        "hard_rejected:official broker/brokerage page": 2
-      },
-      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-05T19-02-52-464Z.json"
-    },
-    {
-      "at": "2026-07-05T19:02:05.217Z",
-      "reason": "lead-cleaner",
-      "removed": 1,
-      "before": 1377,
-      "after": 1376,
-      "byReason": {
-        "hard_rejected:official broker/brokerage page": 1
-      },
-      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-05T19-02-05-209Z.json"
-    },
-    {
-      "at": "2026-07-05T19:01:17.947Z",
-      "reason": "lead-cleaner",
-      "removed": 1,
-      "before": 1378,
-      "after": 1377,
-      "byReason": {
-        "hard_rejected:official broker/brokerage page": 1
-      },
-      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-05T19-01-17-943Z.json"
     }
   ],
   "cleanupHistory": [
@@ -2568,131 +3201,131 @@
   "logs": {
     "source-harvester": {
       "out": [
-        "[source-harvester cycle 1] Searching [discord]: \"forex\" \"discord\" \"trading\" South Africa",
-        "[source-harvester cycle 1] Saved C-lead: lilo org",
-        "[source-harvester cycle 1] Discarded hard-rejected result: GPT Chat - DeepAI",
-        "[source-harvester cycle 1] Searching [facebook_threads]: site:facebook.com \"forex\" \"whatsapp\" \"broker\" UAE",
-        "[source-harvester cycle 1] Searching [forum]: site:reddit.com/r/Forex \"which broker\"",
-        "[source-harvester cycle 1] Searching [ecosystem]: \"trading academy\" \"sponsor\" \"broker\" UAE",
-        "[source-harvester cycle 1] Starting scan with 140 balanced queries",
-        "[source-harvester cycle 1] Searching [linkedin]: site:linkedin.com/in \"introducing broker\" \"forex\" Brazil"
+        "[source-harvester cycle 1] Discarded hard-rejected result: company qwant",
+        "[source-harvester cycle 1] Discarded hard-rejected result: invite vjhCHnFMkw",
+        "[source-harvester cycle 1] Saved C-lead: company murenamobile",
+        "[source-harvester cycle 1] Searching [x]: site:x.com \"looking for broker\" \"forex\"",
+        "[source-harvester cycle 1] Discarded hard-rejected result: Trending Topics & Today's News | X - Twitter",
+        "[source-harvester cycle 1] Discarded hard-rejected result: (@X) / Posts / X - Twitter",
+        "[source-harvester cycle 1] Searching [telegram]: \"forex\" \"Telegram\" \"community\" South Africa",
+        "[source-harvester cycle 1] Searching [discord]: \"forex\" \"discord\" \"trading\" South Africa"
       ],
       "err": []
     },
     "source-harvester-social": {
       "out": [
-        "[source-harvester-social cycle 1] Saved D-lead: Gold Spot Price - XAUUSD Chart - ProRealTime",
-        "[source-harvester-social cycle 1] Discarded hard-rejected result: AU/USD (Gold / US Dollar) - Live Exchange Rate & Trend Chart",
-        "[source-harvester-social cycle 1] Discarded hard-rejected result: AU USD Chart & Rate - XAU USD Trading - FOREX.com",
-        "[source-harvester-social cycle 1] Discarded hard-rejected result: (Gold vs US Dollar): Precious Metal Prices & Live Charts",
-        "[source-harvester-social cycle 1] Saved B-lead: .com",
-        "[source-harvester-social cycle 1] Searching [facebook_threads]: site:facebook.com/groups \"forex\" \"trading\" United Kingdom",
-        "[source-harvester-social cycle 1] Starting scan with 150 balanced queries",
-        "[source-harvester-social cycle 1] Searching [linkedin]: site:linkedin.com/posts \"forex\" \"broker\" \"looking for\" Mexico"
+        "[source-harvester-social cycle 1] Discarded hard-rejected result: Qwant FR",
+        "[source-harvester-social cycle 1] Discarded hard-rejected result: company qwant",
+        "[source-harvester-social cycle 1] Discarded hard-rejected result: invite vjhCHnFMkw",
+        "[source-harvester-social cycle 1] Searching [telegram]: site:t.me \"forex dubai\" \"signals\"",
+        "[source-harvester-social cycle 1] Discarded hard-rejected result: View @telegram",
+        "[source-harvester-social cycle 1] Searching [discord]: site:discord.com/invite \"forex trading\"",
+        "[source-harvester-social cycle 1] Discarded hard-rejected result: Discord",
+        "[source-harvester-social cycle 1] Searching [tiktok]: \"xauusd\" \"tiktok.com/@\" \"trader\""
       ],
       "err": []
     },
     "source-harvester-specialist": {
       "out": [
-        "[source-harvester-specialist cycle 1] Searching [forum]: \"forex community\" \"forum\" \"broker\"",
-        "[source-harvester-specialist cycle 1] Discarded hard-rejected result: Trade Online with an Award-winning Global Forex Broker",
-        "[source-harvester-specialist cycle 1] Saved A-lead: MetaTrader 5 Trading Platform for Forex, Stocks, Futures",
-        "[source-harvester-specialist cycle 1] Discarded hard-rejected result: Online Forex Broker & Crypto Trading | OANDA | US",
-        "[source-harvester-specialist cycle 1] Discarded hard-rejected result: qwantcom",
-        "[source-harvester-specialist cycle 1] Discarded hard-rejected result: Qwant FR",
-        "[source-harvester-specialist cycle 1] Starting scan with 135 balanced queries",
-        "[source-harvester-specialist cycle 1] Searching [linkedin]: site:linkedin.com/company \"copy trading\" \"forex\""
+        "[source-harvester-specialist cycle 1] Saved C-lead: Forex Factory",
+        "[source-harvester-specialist cycle 1] Discarded hard-rejected result: Forex Factory | Global markets for the smart money.",
+        "[source-harvester-specialist cycle 1] Saved C-lead: Forex Factory | Global markets for the smart money.",
+        "[source-harvester-specialist cycle 1] Saved C-lead: Forex Factory",
+        "[source-harvester-specialist cycle 1] Saved A-lead: calendar.forexfactory.com",
+        "[source-harvester-specialist cycle 1] Searching [myfxbook]: site:myfxbook.com/members \"money manager\"",
+        "[source-harvester-specialist cycle 1] Searching [specialist]: site:fxblue.com/users \"forex\"",
+        "[source-harvester-specialist cycle 1] Searching [forum]: \"forex community\" \"forum\" \"broker\""
       ],
       "err": []
     },
     "source-harvester-ecosystem": {
       "out": [
-        "[source-harvester-ecosystem cycle 1] Discarded hard-rejected result: Exness Global – trading app - Apps on Google Play",
-        "[source-harvester-ecosystem cycle 1] Saved B-lead: Exness | Trusted Global Partner in Financial Trading and Technology",
-        "[source-harvester-ecosystem cycle 1] Saved C-lead: Exness - Download",
-        "[source-harvester-ecosystem cycle 1] Discarded hard-rejected result: Exness MT4/MT5 Download and Installation Instructions | Exness",
-        "[source-harvester-ecosystem cycle 1] Searching [web]: \"forex\" \"company registration\" \"director\" Colombia",
-        "[source-harvester-ecosystem cycle 1] Saved B-lead: Forex Factory | Global markets for the smart money.",
-        "[source-harvester-ecosystem cycle 1] Starting scan with 110 balanced queries",
-        "[source-harvester-ecosystem cycle 1] Searching [linkedin]: site:linkedin.com/in \"Forex Expo Dubai\" \"attendee\""
+        "[source-harvester-ecosystem cycle 1] Discarded hard-rejected result: qwantcom",
+        "[source-harvester-ecosystem cycle 1] Discarded hard-rejected result: Qwant FR",
+        "[source-harvester-ecosystem cycle 1] Discarded hard-rejected result: company qwant",
+        "[source-harvester-ecosystem cycle 1] Discarded hard-rejected result: invite vjhCHnFMkw",
+        "[source-harvester-ecosystem cycle 1] Saved A-lead: company murenamobile",
+        "[source-harvester-ecosystem cycle 1] Saved A-lead: lilo org",
+        "[source-harvester-ecosystem cycle 1] Searching [recruitment]: \"exness\" \"business development\" Latin America",
+        "[source-harvester-ecosystem cycle 1] Searching [web]: \"forex\" \"company registration\" \"director\" Colombia"
       ],
       "err": []
     },
     "source-harvester-linkedin": {
       "out": [
-        "[source-harvester-linkedin cycle 1] Discarded hard-rejected result: Dee Kelly - Tax and Compliance Manager | LinkedIn",
-        "[source-harvester-linkedin cycle 1] Discarded hard-rejected result: Dee Kelly - Special Counsel | Health Law | LinkedIn",
-        "[source-harvester-linkedin cycle 1] Discarded hard-rejected result: Dee Kelly - Founder, Melt In Essence | LinkedIn",
+        "[source-harvester-linkedin cycle 1] Searching [linkedin]: site:linkedin.com/posts \"Money Expo\" \"attending\" \"forex\"",
+        "[source-harvester-linkedin cycle 1] Searching [linkedin]: site:linkedin.com/posts \"Wiki Finance Expo\" \"attending\" \"forex\"",
+        "[source-harvester-linkedin cycle 1] Searching [linkedin]: site:linkedin.com/posts \"Finance Magnates\" \"attending\" \"forex\"",
+        "[source-harvester-linkedin cycle 1] Searching [linkedin]: site:linkedin.com/in \"Forex Expo Dubai\" \"attendee\"",
+        "[source-harvester-linkedin cycle 1] Searching [linkedin]: site:linkedin.com/in \"iFX EXPO\" \"attendee\" \"forex\"",
         "[source-harvester-linkedin cycle 1] Searching [linkedin]: site:linkedin.com/in \"introducing broker\" \"forex\" \"Mexico\"",
         "[source-harvester-linkedin cycle 1] Searching [linkedin]: site:linkedin.com/in \"IB partner\" \"forex\" \"Colombia\"",
-        "[source-harvester-linkedin cycle 1] Searching [linkedin]: site:linkedin.com/in \"forex affiliate\" \"Chile\"",
-        "[source-harvester-linkedin cycle 1] Starting scan with 219 balanced queries",
-        "[source-harvester-linkedin cycle 1] Searching [linkedin]: site:linkedin.com/posts \"Money Expo\" \"attending\" \"forex\""
+        "[source-harvester-linkedin cycle 1] Searching [linkedin]: site:linkedin.com/in \"forex affiliate\" \"Chile\""
       ],
       "err": []
     },
     "source-harvester-instagram": {
       "out": [
+        "[source-harvester-instagram cycle 1] Saved B-lead: ) - Instagram",
+        "[source-harvester-instagram cycle 1] Saved B-lead: reel DL9gxWqRcxh",
         "[source-harvester-instagram cycle 1] Saved C-lead: reel DAlCzlgRTQe",
         "[source-harvester-instagram cycle 1] Saved B-lead: reel DM59pRzOpET",
+        "[source-harvester-instagram cycle 1] Discarded hard-rejected result: ) - Instagram",
         "[source-harvester-instagram cycle 1] Searching [instagram]: site:instagram.com \"forex mentor\" \"telegram\" \"Brasil\"",
         "[source-harvester-instagram cycle 1] Searching [instagram]: site:instagram.com \"xauusd\" \"whatsapp\" \"Mexico\"",
-        "[source-harvester-instagram cycle 1] Searching [instagram]: site:instagram.com \"gold trader\" \"telegram\"",
-        "[source-harvester-instagram cycle 1] Searching [instagram]: site:instagram.com \"forex signals\" \"link in bio\"",
-        "[source-harvester-instagram cycle 1] Starting scan with 55 balanced queries",
-        "[source-harvester-instagram cycle 1] Searching [instagram]: site:instagram.com \"gold trader\" \"telegram\" Colombia"
+        "[source-harvester-instagram cycle 1] Searching [instagram]: site:instagram.com \"gold trader\" \"telegram\""
       ],
       "err": []
     },
     "source-harvester-platforms": {
       "out": [
+        "[source-harvester-platforms cycle 1] Searching [myfxbook]: site:myfxbook.com/portfolio \"forex\" \"drawdown\"",
+        "[source-harvester-platforms cycle 1] Searching [mql5]: site:mql5.com/en/users \"XAUUSD\"",
         "[source-harvester-platforms cycle 1] Searching [specialist]: site:fxblue.com/users \"forex\"",
         "[source-harvester-platforms cycle 1] Searching [myfxbook]: site:myfxbook.com/reviews/brokers \"introducing broker\"",
         "[source-harvester-platforms cycle 1] Searching [mql5]: site:mql5.com/en/users \"PAMM\"",
         "[source-harvester-platforms cycle 1] Searching [specialist]: site:fxblue.com/users \"XAUUSD\"",
         "[source-harvester-platforms cycle 1] Searching [myfxbook]: site:myfxbook.com/community \"broker\" \"forex\"",
-        "[source-harvester-platforms cycle 1] Searching [mql5]: site:mql5.com/en/forum \"broker\" \"forex\"",
-        "[source-harvester-platforms cycle 1] Starting scan with 48 balanced queries",
-        "[source-harvester-platforms cycle 1] Searching [myfxbook]: site:myfxbook.com/portfolio \"forex\" \"drawdown\""
+        "[source-harvester-platforms cycle 1] Searching [mql5]: site:mql5.com/en/forum \"broker\" \"forex\""
       ],
       "err": []
     },
     "source-harvester-communities": {
       "out": [
-        "[source-harvester-communities cycle 1] Saved B-lead: What means Introducing Broker? | Forex Peace Army - Your Forex …",
-        "[source-harvester-communities cycle 1] Discarded hard-rejected result: 2026 - The Largest Forex Event in the Middle East",
-        "[source-harvester-communities cycle 1] Saved A-lead: PAMM recommendation | Forex Forum by Myfxbook",
-        "[source-harvester-communities cycle 1] Discarded hard-rejected result: forum.forex",
-        "[source-harvester-communities cycle 1] Discarded hard-rejected result: .com",
-        "[source-harvester-communities cycle 1] Saved C-lead: forexpeacearmy.com",
-        "[source-harvester-communities cycle 1] Starting scan with 142 balanced queries",
-        "[source-harvester-communities cycle 1] Searching [telegram]: site:t.me \"forex\" \"copy trading\""
+        "[source-harvester-communities cycle 1] Saved C-lead: company murenamobile",
+        "[source-harvester-communities cycle 1] Searching [forum]: \"forex forum\" \"introducing broker\"",
+        "[source-harvester-communities cycle 1] Discarded hard-rejected result: What Is An Introducing Broker In Forex? How Do They Earn Money?",
+        "[source-harvester-communities cycle 1] Saved B-lead: Introducing Broker (IB) | Forex Forum | Forex Trading Discussion ...",
+        "[source-harvester-communities cycle 1] Discarded hard-rejected result: introducing brokers | Forex Forum - EarnForex",
+        "[source-harvester-communities cycle 1] Saved B-lead: Are Introducing brokers good or bad ? | Forex Forum by Myfxbook",
+        "[source-harvester-communities cycle 1] Saved A-lead: introducing broker | Forex Forum - EarnForex",
+        "[source-harvester-communities cycle 1] Saved B-lead: What means Introducing Broker? | Forex Peace Army - Your Forex …"
       ],
       "err": []
     },
     "source-harvester-events": {
       "out": [
-        "[source-harvester-events cycle 1] Discarded hard-rejected result: Exness - Online Trading Platform | Forex, Stocks, Crypto & More",
-        "[source-harvester-events cycle 1] Searching [ecosystem]: \"Forex Expo Dubai\" \"attending\" \"affiliate\" \"forex\"",
-        "[source-harvester-events cycle 1] Searching [recruitment]: \"XM\" \"affiliate manager\" Chile",
-        "[source-harvester-events cycle 1] Discarded hard-rejected result: Access Global Financial Markets and Start Trading | XM",
         "[source-harvester-events cycle 1] Saved D-lead: Access Global Financial Markets and Start Trading | XM",
         "[source-harvester-events cycle 1] Discarded hard-rejected result: XM – Global Broker in Forex and CFD Trading",
-        "[source-harvester-events cycle 1] Starting scan with 163 balanced queries",
-        "[source-harvester-events cycle 1] Searching [ecosystem]: \"Forex Expo Dubai\" \"attending\" \"introducing broker\""
+        "[source-harvester-events cycle 1] Searching [ecosystem]: \"Forex Expo Dubai\" \"visitor pass\" \"forex\"",
+        "[source-harvester-events cycle 1] Searching [recruitment]: \"Octa\" \"business development\" Dubai",
+        "[source-harvester-events cycle 1] Discarded hard-rejected result: Reddit",
+        "[source-harvester-events cycle 1] Saved B-lead: Log in to your Profile — Octa",
+        "[source-harvester-events cycle 1] Discarded hard-rejected result: Octa: the leading broker for online trading",
+        "[source-harvester-events cycle 1] Discarded hard-rejected result: Octa Global - Apps on Google Play"
       ],
       "err": []
     },
     "enrichment-worker": {
       "out": [
-        "[enrichment-worker] stored contactless_due f9f7b45a83b7b39d link click; emails=0; links=0; makers=0; best=-",
-        "[enrichment-worker] stored contactless_due 5f3f5edccdf52fde Introductory - Introducing Broker at FXIntroductory | LinkedIn; emails=0; links=0; makers=0; best=https://uk.linkedin.com/in/fx-introductory-525932234",
-        "[enrichment-worker] stored contactless_due c518192415427ad5 link click; emails=0; links=0; makers=0; best=-",
-        "[enrichment-worker] stored contactless_due 13c53053cff20a25 Chandwale‏ - ‏Forex trading professional | introducing Broker (IB ...; emails=0; links=0; makers=0; best=https://ae.linkedin.com/in/adil-chandwale-388452373",
-        "[enrichment-worker] stored contactless_due 6ed3d17ab65207ac link click; emails=0; links=0; makers=0; best=-",
-        "[enrichment-worker] stored contactless_due fa8ad11e5cb51ff8 link click; emails=0; links=0; makers=0; best=-",
-        "[enrichment-worker] Started with {\"delayMs\":2500,\"idleMs\":6000,\"staleHours\":6,\"hotStaleHours\":1,\"contactlessStaleHours\":1,\"rotationHours\":2,\"maxAttempts\":25,\"maxContactPages\":8,\"maxExternalWebsites\":6,\"maxTrailQueries\":24,\"trailLimit\":8}",
-        "[enrichment-worker] stored contactless_due 9f8788a7c6847507 groups › 710329449564905FTMO Trader's Community | Join our new Forex WhatsApp group; emails=0; links=0; makers=0; best=https://www.facebook.com/groups/710329449564905/posts/1737192706878569/"
+        "[enrichment-worker] stored contactless_due 4f21f44e62ebcabd profilephoto:UserTileStatic p; emails=0; links=0; makers=0; best=-",
+        "[enrichment-worker] stored contactless_due a59e4488f7680829 profilephoto:UserTileMedium p; emails=0; links=0; makers=0; best=-",
+        "[enrichment-worker] stored contactless_due 36cdb08bee81305d profilephoto:UserTileStatic p; emails=0; links=0; makers=0; best=-",
+        "[enrichment-worker] stored contactless_due 017886b356411d19 Broker at Tifia | Bachelor of Arts - LinkedIn; emails=0; links=0; makers=0; best=https://za.linkedin.com/in/minenhle-dlamini-85b49a133",
+        "[enrichment-worker] stored contactless_due a7c707e7b4926493 profilephoto:UserTileMedium p; emails=0; links=0; makers=0; best=-",
+        "[enrichment-worker] stored contactless_due 2b50f5e35d746e4e FOREX Signals Bad and Good : r/Forexstrategy - Reddit; emails=0; links=0; makers=0; best=-",
+        "[enrichment-worker] stored contactless_due 9e59793a38baf577 Trying to learn forex from random YouTube videos is why most ...; emails=0; links=0; makers=0; best=-",
+        "[enrichment-worker] stored contactless_due 7ce2d67716e41889 Azure HBv5 outperforms HBv4 in CFD workload benchmark; emails=0; links=0; makers=0; best=https://www.linkedin.com/posts/jared-brathwaite-b9373092_azure-hpc-microsoft-activity-7454856553846919168-FOn3"
       ],
       "err": []
     },
@@ -2702,27 +3335,27 @@
     },
     "lead-cleaner": {
       "out": [
-        "[lead-cleaner] 2026-07-05T18:58:56.456Z removed=1 totalRemoved=21",
-        "[lead-cleaner] 2026-07-05T18:59:43.695Z removed=1 totalRemoved=22",
-        "[lead-cleaner] 2026-07-05T19:00:32.561Z removed=2 totalRemoved=24",
-        "[lead-cleaner] 2026-07-05T19:01:19.807Z removed=1 totalRemoved=25",
         "[lead-cleaner] 2026-07-05T19:02:07.028Z removed=1 totalRemoved=26",
         "[lead-cleaner] 2026-07-05T19:02:54.269Z removed=2 totalRemoved=28",
         "[lead-cleaner] 2026-07-05T19:03:40.904Z removed=2 totalRemoved=30",
-        "[lead-cleaner] 2026-07-05T19:04:19.092Z removed=1 totalRemoved=1"
+        "[lead-cleaner] 2026-07-05T19:04:19.092Z removed=1 totalRemoved=1",
+        "[lead-cleaner] 2026-07-05T19:07:22.223Z removed=1 totalRemoved=2",
+        "[lead-cleaner] 2026-07-05T19:08:54.199Z removed=1 totalRemoved=3",
+        "[lead-cleaner] 2026-07-05T19:09:40.892Z removed=2 totalRemoved=5",
+        "[lead-cleaner] 2026-07-05T19:10:27.675Z removed=1 totalRemoved=6"
       ],
       "err": []
     },
     "qualified-exporter": {
       "out": [
-        "[qualified-exporter] 2026-07-05T18:58:49.992Z total=1382 qualified=117 contactable=117 hot=52 social=51 instagram=5 linkedin=31 x=9",
-        "[qualified-exporter] 2026-07-05T18:59:36.763Z total=1381 qualified=117 contactable=117 hot=52 social=51 instagram=5 linkedin=31 x=9",
-        "[qualified-exporter] 2026-07-05T19:00:23.556Z total=1380 qualified=117 contactable=117 hot=52 social=51 instagram=5 linkedin=31 x=9",
-        "[qualified-exporter] 2026-07-05T19:01:10.321Z total=1378 qualified=117 contactable=117 hot=52 social=51 instagram=5 linkedin=31 x=9",
-        "[qualified-exporter] 2026-07-05T19:01:57.083Z total=1377 qualified=117 contactable=117 hot=52 social=51 instagram=5 linkedin=31 x=9",
-        "[qualified-exporter] 2026-07-05T19:02:43.817Z total=1376 qualified=117 contactable=117 hot=52 social=51 instagram=5 linkedin=31 x=9",
-        "[qualified-exporter] 2026-07-05T19:03:30.511Z total=1375 qualified=117 contactable=117 hot=52 social=51 instagram=5 linkedin=31 x=9",
-        "[qualified-exporter] 2026-07-05T19:04:18.762Z total=1373 qualified=117 contactable=117 hot=52 social=51 instagram=5 linkedin=31 x=9"
+        "[qualified-exporter] 2026-07-05T19:08:58.405Z total=1373 qualified=118 contactable=118 hot=51 social=52 instagram=6 linkedin=31 x=9",
+        "[qualified-exporter] 2026-07-05T19:09:44.744Z total=1372 qualified=117 contactable=117 hot=51 social=51 instagram=5 linkedin=31 x=9",
+        "[qualified-exporter] 2026-07-05T19:10:31.502Z total=1372 qualified=116 contactable=116 hot=51 social=50 instagram=5 linkedin=30 x=9",
+        "[qualified-exporter] 2026-07-05T19:11:18.215Z total=1372 qualified=116 contactable=116 hot=51 social=50 instagram=5 linkedin=30 x=9",
+        "[qualified-exporter] 2026-07-05T19:12:04.923Z total=1372 qualified=116 contactable=116 hot=51 social=50 instagram=5 linkedin=30 x=9",
+        "[qualified-exporter] 2026-07-05T19:12:51.265Z total=1372 qualified=116 contactable=116 hot=51 social=50 instagram=5 linkedin=30 x=9",
+        "[qualified-exporter] 2026-07-05T19:13:37.974Z total=1372 qualified=116 contactable=116 hot=51 social=50 instagram=5 linkedin=30 x=9",
+        "[qualified-exporter] 2026-07-05T19:14:24.682Z total=1372 qualified=117 contactable=117 hot=52 social=51 instagram=5 linkedin=31 x=9"
       ],
       "err": []
     },
@@ -2732,14 +3365,14 @@
     },
     "supervisor": {
       "out": [
-        "[supervisor] 2026-07-05T18:57:41.321Z cycle=9 ok=true raw=1381 working=147 a=47",
-        "[supervisor] 2026-07-05T18:58:42.464Z cycle=10 ok=true raw=1382 working=148 a=47",
-        "[supervisor] 2026-07-05T18:59:43.673Z cycle=11 ok=true raw=1380 working=148 a=47",
-        "[supervisor] 2026-07-05T19:00:44.945Z cycle=12 ok=true raw=1378 working=148 a=47",
-        "[supervisor] 2026-07-05T19:01:46.229Z cycle=13 ok=true raw=1377 working=148 a=47",
-        "[supervisor] 2026-07-05T19:02:47.471Z cycle=14 ok=true raw=1376 working=148 a=47",
-        "[supervisor] 2026-07-05T19:03:48.399Z cycle=15 ok=true raw=1373 working=148 a=47",
-        "[supervisor] 2026-07-05T19:04:18.405Z cycle=1 ok=true raw=1373 working=148 a=47"
+        "[supervisor] 2026-07-05T19:06:20.708Z cycle=3 ok=true raw=1372 working=148 a=47",
+        "[supervisor] 2026-07-05T19:07:21.913Z cycle=4 ok=true raw=1372 working=148 a=47",
+        "[supervisor] 2026-07-05T19:08:22.962Z cycle=5 ok=true raw=1372 working=148 a=47",
+        "[supervisor] 2026-07-05T19:09:23.916Z cycle=6 ok=true raw=1374 working=148 a=47",
+        "[supervisor] 2026-07-05T19:10:24.937Z cycle=7 ok=true raw=1373 working=148 a=47",
+        "[supervisor] 2026-07-05T19:11:26.189Z cycle=8 ok=true raw=1372 working=148 a=47",
+        "[supervisor] 2026-07-05T19:12:27.161Z cycle=9 ok=true raw=1372 working=148 a=47",
+        "[supervisor] 2026-07-05T19:13:28.194Z cycle=10 ok=true raw=1372 working=148 a=47"
       ],
       "err": []
     },
