@@ -9,7 +9,15 @@ import { getRootDir, readDb } from "./store.js";
 
 const rootDir = getRootDir();
 const dataDir = path.join(rootDir, "data");
-const HARVESTERS = ["source-harvester", "source-harvester-social", "source-harvester-specialist", "source-harvester-ecosystem"];
+const HARVESTERS = [
+  "source-harvester",
+  "source-harvester-social",
+  "source-harvester-specialist",
+  "source-harvester-ecosystem",
+  "source-harvester-linkedin",
+  "source-harvester-platforms",
+  "source-harvester-registries"
+];
 
 async function readJson(filePath) {
   try {
