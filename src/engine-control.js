@@ -1,3 +1,4 @@
+import "./env.js";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
