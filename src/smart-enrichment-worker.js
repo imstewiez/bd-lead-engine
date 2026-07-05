@@ -1,11 +1,12 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { classifyResult } from "./classify.js";
+import { cleanForms, cleanPhoneNumbers } from "./contact-cleaner.js";
 import { exportLeads } from "./exporter.js";
 import { commercialScoreForLead } from "./intelligence.js";
 import { sourceBucket } from "./mql5-limit.js";
-import { isPlatformProfileUrl } from "./platform-enrichment.js";
-import { isPlatformOwnedEmail, stripPlatformOwnedContacts } from "./platform-contact-policy.js";
+import { cleanDecisionContactLinks, isPlatformProfileUrl, pickBestContact } from "./platform-enrichment.js";
+import { filterDecisionMakerEmails, isPlatformOwnedEmail, stripPlatformOwnedContacts } from "./platform-contact-policy.js";
 import { deepEnrichResult } from "./smart-deep.js";
 import { getRootDir, readDb, updateLead, upsertLeads } from "./store.js";
 import { nowIso, sleep } from "./utils.js";
@@ -43,11 +44,15 @@ function ageHours(dateLike = "") {
 }
 
 function hasDecisionContact(lead = {}) {
+  const stripped = stripPlatformOwnedContacts(lead);
+  const best = pickBestContact(stripped);
   const platformEmail = (lead.emails || []).some((email) => isPlatformOwnedEmail(email, lead)) || (lead.bestContactType === "email" && isPlatformOwnedEmail(lead.bestContact, lead));
-  const directBest = Boolean(lead.bestContact && lead.bestContactType !== "email");
-  const directLinks = (lead.contactLinks || []).length > 0;
-  const makerLinks = (lead.decisionMakerLinks || []).length > 0 || (lead.decisionMakers || []).length > 0;
-  return !platformEmail && (directBest || directLinks || makerLinks || Number(lead.contactConfidence || 0) >= 85);
+  const emails = filterDecisionMakerEmails(stripped);
+  const phones = cleanPhoneNumbers(stripped.phoneNumbers || []);
+  const forms = cleanForms(stripped.forms || []);
+  const directLinks = cleanDecisionContactLinks([stripped.bestContact, ...(stripped.contactLinks || []), ...(stripped.socialLinks || [])]);
+  const bestIsReal = Boolean(best.bestContact && best.bestContactType !== "website" && !isPlatformProfileUrl(best.bestContact));
+  return !platformEmail && (emails.length > 0 || phones.length > 0 || forms.length > 0 || directLinks.length > 0 || bestIsReal || Number(stripped.contactConfidence || 0) >= 90);
 }
 
 function needsSmartTrail(lead = {}) {
@@ -95,7 +100,7 @@ while (!(await stopRequested())) {
     await exportLeads({ csvName: "autopilot-leads.csv", jsonName: "autopilot-leads.json" });
     processed += 1;
     stored += result.created.length + result.updated.length;
-    lastResult = { id: lead.id, name: lead.name || lead.url, bucket: sourceBucket(lead), bestContact: finalLead.bestContact || "", contactLinks: (finalLead.contactLinks || []).length, websites: (finalLead.websiteLinks || []).length, related: (finalLead.relatedLinks || []).length, at: nowIso() };
+    lastResult = { id: lead.id, name: lead.name || lead.url, bucket: sourceBucket(lead), bestContact: finalLead.bestContact || "", contactLinks: (finalLead.contactLinks || []).length, websites: (finalLead.websiteLinks || []).length, related: (finalLead.relatedLinks || []).length, hasDecisionContact: hasDecisionContact(finalLead), at: nowIso() };
   } catch (error) {
     errors += 1;
     lastResult = { id: lead.id, name: lead.name || lead.url, bucket: sourceBucket(lead), error: error.message, at: nowIso() };
