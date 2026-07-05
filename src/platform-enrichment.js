@@ -26,6 +26,18 @@ export function isPlatformProfileUrl(url = "") {
   return isPlatformProfileDomain(domainOf(url));
 }
 
+export function isDecisionContactUrl(url = "") {
+  return isUsefulDirectContactUrl(url) && !isPlatformProfileUrl(url);
+}
+
+export function cleanDecisionContactLinks(links = [], options = {}) {
+  return cleanLinks(links, {
+    allowYouTubeChannels: false,
+    allowShorteners: true,
+    ...options
+  }).filter(isDecisionContactUrl);
+}
+
 function platformRoot(domain = "") {
   const clean = String(domain || "").replace(/^www\./i, "").toLowerCase();
   return PLATFORM_DOMAINS.find((platform) => isDomainOrSubdomain(clean, platform)) || "";
@@ -66,12 +78,9 @@ export function isGenericContactTrailName(name = "") {
 export function pickBestContact(lead = {}) {
   const emails = filterPlatformOwnedEmails(lead);
   const phones = cleanPhoneNumbers(lead.phoneNumbers || []);
-  const direct = cleanLinks([lead.url, ...(lead.socialLinks || []), ...(lead.contactLinks || [])], {
-    allowYouTubeChannels: false,
-    allowShorteners: true
-  }).filter(isUsefulDirectContactUrl);
+  const direct = cleanDecisionContactLinks([lead.url, ...(lead.socialLinks || []), ...(lead.contactLinks || [])]);
   const forms = cleanForms(lead.forms || []);
-  const websites = cleanLinks(lead.websiteLinks || [], { allowYouTubeChannels: false, allowShorteners: true });
+  const websites = cleanLinks(lead.websiteLinks || [], { allowYouTubeChannels: false, allowShorteners: true }).filter((url) => !isPlatformProfileUrl(url));
   const whatsapp = direct.find((url) => /wa\.me|whatsapp/i.test(url));
   const booking = direct.find((url) => /calendly|t\.me|telegram/i.test(url));
   const social = direct.find((url) => !/wa\.me|whatsapp|calendly|t\.me|telegram/i.test(url));
