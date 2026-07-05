@@ -52,6 +52,16 @@ $env:SERPAPI_KEY="..."
 npm.cmd start
 ```
 
+## Production enrichment workflow
+
+The deep enrichment flow is profile-first: source profile/page, then source-discovered website or linkhub, then strict identity-matched search trail only when no actionable contact exists. This prevents unrelated public-search pages from polluting a lead with random forms or contact links.
+
+See the production playbook:
+
+```text
+docs/LEAD_ENGINE_PRODUCTION_PLAYBOOK.md
+```
+
 ## What it does
 
 - Searches public web results across partner and recruitment queries.
