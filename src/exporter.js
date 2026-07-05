@@ -10,6 +10,7 @@ import {
 } from "./contact-cleaner.js";
 import { getRootDir, readDb } from "./store.js";
 import { hasSearchableLeadSignal, hasStrictTradingIcp, isHardRejectedLead, leadRejectionReasons } from "./lead-quality.js";
+import { classifyLeadEntity, isActualLead, isResearchSource } from "./lead-entity.js";
 import { isHotLead, qualifyLead } from "./qualification.js";
 import { limitMql5Share, sourceBucket } from "./mql5-limit.js";
 import { platformFromUrl, toCsvCell, unique } from "./utils.js";
@@ -95,6 +96,10 @@ function requiresValidatedContactBeforeWorklist(lead = {}) {
   return false;
 }
 
+function hardRejectionReasonsForExport(lead = {}) {
+  return leadRejectionReasons(lead).filter((reason) => reason !== "missing strict forex/CFD/trading ICP signal");
+}
+
 export function isExportQualified(lead) {
   const url = String(lead.url || "");
   const platform = lead.platform || platformFromUrl(url);
@@ -106,6 +111,7 @@ export function isExportQualified(lead) {
   if (isHardRejectedLead(lead)) return false;
   if (!hasStrictTradingIcp(lead)) return false;
   if (!hasActionableContact(lead)) return false;
+  if (!isActualLead(lead)) return false;
   if (isGenericPlatformPortal(lead)) return false;
   if (/youtube\.com|youtu\.be/i.test(String(lead.url || "")) && !hasSearchableLeadSignal(lead)) return false;
   if (!["partner", "recruitment", "institution"].includes(lead.leadType)) return false;
@@ -117,25 +123,17 @@ export function isExportQualified(lead) {
   ) {
     return false;
   }
-  if (/cheyenne frontier days|frontier days|computational fluid dynamics/.test(text)) {
-    return false;
-  }
+  if (/cheyenne frontier days|frontier days|computational fluid dynamics/.test(text)) return false;
   if (
     /cursor: ai coding|learn cursor|udemy|fundacao bradesco|fundação bradesco|escola virtual|sebrae|edutin|cursos online|curso online|romanian academy|barça academy|barca academy|bloomberg|reuters|cnbc|mining weekly|miningweekly|focus-economics|yahoo finance|equity research|investment banking|credit analyst|fixed income analyst|bank analyst|chief economist|macroeconomist/.test(text)
   ) {
     return false;
   }
-  if (/\b(curso|cursos|course|courses|academy|academia|school|escola|universidad|university)\b/.test(text) && !/forex|fx |xauusd|gold|trading|trader|broker|corretora|copy trading|signals|sinais|señales|senales|invest|financial|financ/.test(text)) {
-    return false;
-  }
-  if (/\b(analyst|economist|research|bank|banco|finance news|market news)\b/.test(text) && !/forex trader|fx trader|xauusd|gold trader|portfolio manager|fund manager|asset manager|copy trading|pamm|mam|introducing broker|affiliate/.test(text)) {
-    return false;
-  }
+  if (/\b(curso|cursos|course|courses|academy|academia|school|escola|universidad|university)\b/.test(text) && !/forex|fx |xauusd|gold|trading|trader|broker|corretora|copy trading|signals|sinais|señales|senales|invest|financial|financ/.test(text)) return false;
+  if (/\b(analyst|economist|research|bank|banco|finance news|market news)\b/.test(text) && !/forex trader|fx trader|xauusd|gold trader|portfolio manager|fund manager|asset manager|copy trading|pamm|mam|introducing broker|affiliate/.test(text)) return false;
   if (
     lead.leadType !== "recruitment" &&
-    /^@?(exness|xm|octa|fbs|hfm|hotforex|tickmill|ironfx|iron ?fx|dukascopy|pepperstone|avatrade|deriv|ic ?markets|infinox|forex\.com|roboforex|fxtm|vantage|dooprime|pocket ?option|iq ?option|olymp ?trade|gdmfx)\b/i.test(
-      String(lead.name || "")
-    )
+    /^@?(exness|xm|octa|fbs|hfm|hotforex|tickmill|ironfx|iron ?fx|dukascopy|pepperstone|avatrade|deriv|ic ?markets|infinox|forex\.com|roboforex|fxtm|vantage|dooprime|pocket ?option|iq ?option|olymp ?trade|gdmfx)\b/i.test(String(lead.name || ""))
   ) {
     return false;
   }
@@ -190,8 +188,9 @@ export function isWorkingLead(lead) {
   if (lead.priority === "D" && Number(lead.score || 0) < 45) return false;
   if (!["partner", "recruitment", "institution"].includes(lead.leadType) && lead.qualificationStatus !== "research_candidate") return false;
 
-  const hardReasons = leadRejectionReasons(lead).filter((reason) => reason !== "missing strict forex/CFD/trading ICP signal");
+  const hardReasons = hardRejectionReasonsForExport(lead);
   if (hardReasons.length) return false;
+  if (!isActualLead(lead)) return false;
 
   const bucket = sourceBucket(lead);
   const syntheticSnippet = /^(?:Extracted candidate|Qwant extracted URL)/i.test(String(lead.snippet || ""));
@@ -221,6 +220,24 @@ export function isWorkingLead(lead) {
   const score = Number(lead.commercialScore || 0) || Number(lead.score || 0);
   if (score < 35 && !trustedSource) return false;
   return true;
+}
+
+export function isResearchExportSource(lead = {}) {
+  const url = String(lead.url || "");
+  const platform = lead.platform || platformFromUrl(url);
+  if (!url || !platform) return false;
+  if (!isResearchSource(lead)) return false;
+  if (lead.segment === "Broker Site") return false;
+  if (lead.priority === "D" && Number(lead.score || 0) < 45) return false;
+  const hardReasons = hardRejectionReasonsForExport(lead);
+  if (hardReasons.length) return false;
+  const text = rawLeadText(lead);
+  const researchSignal =
+    hasStrictTradingIcp(lead) ||
+    hasSearchableLeadSignal(lead) ||
+    /\b(?:introducing broker|which broker|broker recommendation|forex|xauusd|copy trading|signals?|pamm|mam|expo|summit|sponsor|exhibitor|funded trader|prop firm|portfolio manager|fund manager|asset manager)\b/i.test(text);
+  if (!researchSignal) return false;
+  return Number(lead.score || 0) >= 45 || ["forum", "ecosystem", "specialist"].includes(sourceBucket(lead));
 }
 
 function sortLeads(a, b) {
@@ -256,9 +273,7 @@ function canonicalLeadKey(lead) {
     parsed.search = "";
     const domain = parsed.hostname.replace(/^www\./, "").toLowerCase();
     const parts = parsed.pathname.split("/").filter(Boolean);
-    if ((domain === "youtube.com" || domain.endsWith(".youtube.com")) && parts.length) {
-      return `youtube:${parts.slice(0, 2).join("/").toLowerCase()}`;
-    }
+    if ((domain === "youtube.com" || domain.endsWith(".youtube.com")) && parts.length) return `youtube:${parts.slice(0, 2).join("/").toLowerCase()}`;
     if ((domain === "instagram.com" || domain.endsWith(".instagram.com")) && parts[0]) return `instagram:${parts[0].toLowerCase()}`;
     if ((domain === "linkedin.com" || domain.endsWith(".linkedin.com")) && parts.length >= 2) return `linkedin:${parts[0].toLowerCase()}/${parts[1].toLowerCase()}`;
     if ((domain === "x.com" || domain === "twitter.com") && parts[0]) return `x:${parts[0].toLowerCase()}`;
@@ -300,15 +315,22 @@ export function filterWorkingLeads(leads, options = {}) {
   });
 }
 
+export function filterResearchSources(leads, options = {}) {
+  return dedupeLeads(leads.filter(isResearchExportSource).sort((a, b) => Number(b.score || 0) - Number(a.score || 0) || String(b.lastSeen || "").localeCompare(String(a.lastSeen || "")))).slice(0, Number(options.limit || leads.length));
+}
+
 function formatDecisionMakers(decisionMakers = []) {
   return decisionMakers.map((person) => [person.name, person.title, person.url].filter(Boolean).join(" | "));
 }
 
 function serializeLead(lead) {
   const qualification = qualifyLead(lead);
+  const entity = classifyLeadEntity(lead);
   const columns = {
     commercialScore: lead.commercialScore || "",
     sourceBucket: lead.sourceBucket || sourceBucket(lead),
+    entityKind: entity.kind,
+    entityReason: entity.reason,
     priority: lead.priority || "",
     icpTier: qualification.icpTier,
     meetingPriority: qualification.meetingPriority,
@@ -354,6 +376,7 @@ export async function exportLeads(options = {}) {
   const all = db.leads || [];
   const qualified = filterAndDedupeLeads(all, { limit: options.limit });
   const working = filterWorkingLeads(all, { limit: options.limit });
+  const researchSources = filterResearchSources(all, { limit: options.limit });
   const contactable = qualified.filter(hasActionableContact);
   const hot = qualified.filter(isHotLead);
   const social = qualified.filter((lead) => /linkedin|instagram|x\.com|twitter|telegram|discord|tiktok|facebook|threads|reddit/i.test(`${lead.platform} ${lead.url}`));
@@ -364,6 +387,8 @@ export async function exportLeads(options = {}) {
   const header = [
     "commercialScore",
     "sourceBucket",
+    "entityKind",
+    "entityReason",
     "priority",
     "icpTier",
     "meetingPriority",
@@ -421,6 +446,8 @@ export async function exportLeads(options = {}) {
   const xJsonPath = await writeJson("autopilot-x-leads.json", x);
   const workingCsvPath = await writeCsv("autopilot-working-leads.csv", working);
   const workingJsonPath = await writeJson("autopilot-working-leads.json", working);
+  const researchCsvPath = await writeCsv("autopilot-research-sources.csv", researchSources);
+  const researchJsonPath = await writeJson("autopilot-research-sources.json", researchSources);
 
   return {
     csvPath,
@@ -439,8 +466,11 @@ export async function exportLeads(options = {}) {
     xJsonPath,
     workingCsvPath,
     workingJsonPath,
+    researchCsvPath,
+    researchJsonPath,
     exported: qualified.length,
     working: working.length,
+    researchSources: researchSources.length,
     contactable: contactable.length,
     hot: hot.length,
     social: social.length,
