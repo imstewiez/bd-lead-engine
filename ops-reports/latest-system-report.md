@@ -1,11 +1,11 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-05T23:21:11.226Z
+Updated: 2026-07-05T23:31:23.328Z
 Health: OK
 
 ## Funnel
-Raw: 1293
-Qualified: 95
+Raw: 1288
+Qualified: 96
 Working: 122
 Contactable: 101
 Sales-ready: 38
@@ -14,22 +14,22 @@ A2 Strong: 17
 
 ## Quality
 Platform contact leaks: 15
-High-value without real contact: 302
+High-value without real contact: 294
 Sales-ready by bucket: {"web":8,"x":7,"myfxbook":6,"mql5":5,"specialist":4,"instagram":3,"tiktok":2,"facebook_threads":1,"linkedin":1,"telegram":1}
-Qualified by bucket: {"linkedin":40,"instagram":13,"x":9,"web":9,"facebook_threads":6,"myfxbook":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
+Qualified by bucket: {"linkedin":41,"instagram":13,"x":9,"web":9,"facebook_threads":6,"myfxbook":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
 
 ## Sourcing / Workers
-Provider errors: 855
+Provider errors: 1053
 Stale workers: engine-control
 Issues: none
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 51
-Stored: 51
+Processed: 60
+Stored: 60
 Errors: 0
-Current: Antony Sufianto EA18 267% growth since 2025 Reliability 100% Algo trading 0 Copy for 30 USD per month
-Last: Mary Ngu Lin Po MyGold 506% growth since 2023 Reliability 0% Algo trading 0 Copy for 100 USD per month
+Current: Shady Shata JPYShadySoft 249% growth since 2025 Reliability 100% Algo trading 1 Copy for 100 USD per month
+Last: Parada Soikam Gold trad sc 238% growth since 2024 Reliability 100% Algo trading 1 Copy for 30 USD per month
 Last best contact: +31 10 669 0521
 
 ## Recent Errors
