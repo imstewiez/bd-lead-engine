@@ -1,11 +1,20 @@
 import * as cheerio from "cheerio";
-import { cleanSearchRedirect, domainOf, idForLead, normalizeWhitespace, platformFromUrl, safeUrl, stripHtml, titleFromUrl, unique } from "./utils.js";
+import { cleanSearchRedirect, domainOf, normalizeWhitespace, safeUrl, sleep, stripHtml, titleFromUrl, unique } from "./utils.js";
 import { fetchText, resultFrom } from "./search.js";
 
-const SEARCH_ENGINES = ["bing-rss", "bing", "duckduckgo", "yahoo", "brave-html", "qwant", "google"];
+const DEFAULT_SEARCH_ENGINES = ["bing-rss", "yahoo", "bing", "duckduckgo", "brave-html", "qwant", "google", "mojeek"];
+const RETRY_SEARCH_ENGINES = ["bing-rss", "yahoo", "bing", "duckduckgo", "brave-html", "mojeek"];
 const NON_TRADING_FOREX_DOMAINS = ["forex.se", "forex.no", "forex.fi", "forexvaluta.dk"];
 const KNOWN_FALSE_POSITIVE_DOMAINS = ["kitco.com", "mambaby.com", "partnershiphp.org", "tipranks.com", "tradersunion.com", "latammediareport.com"];
 const NON_TRADING_FOREX_NOISE = /växla|valuta|valutakurser|valutaomvandlare|reseförsäkring|skicka pengar|western union|kreditkort|travel money|currency exchange|exchange rates|money transfer|travel insurance|buy currency|sell currency/i;
+
+function engineList() {
+  const configured = String(process.env.SEARCH_FALLBACK_ENGINES || "")
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+  return configured.length ? unique(configured) : DEFAULT_SEARCH_ENGINES;
+}
 
 function siteConstraint(query = "") {
   const match = String(query).match(/\bsite:([a-z0-9.-]+)((?:\/[^\s"]*)?)/i);
@@ -33,7 +42,7 @@ function matchesSiteConstraint(result, query) {
 function cleanTitle(raw = "", url = "") {
   const title = normalizeWhitespace(stripHtml(raw || ""))
     .replace(/^(?:https?:\/\/)?(?:www\.)?[^\s]+\s*/i, "")
-    .replace(/^[›|:;,-\s]+/, "");
+    .replace(/^[›|:;,\-\s]+/, "");
   return title || titleFromUrl(url);
 }
 
@@ -71,7 +80,7 @@ function parseAnchors(html, query, intent, source) {
     if (!url && rawHref?.startsWith("/url?")) url = cleanSearchRedirect(`https://www.google.com${rawHref}`);
     if (!url) return;
     const domain = domainOf(url);
-    if (/google\.|gstatic|bing\.|microsoft\.|yahoo\.|duckduckgo\.|brave\.|qwant\.|schema\.org/.test(domain)) return;
+    if (/google\.|gstatic|bing\.|microsoft\.|yahoo\.|duckduckgo\.|brave\.|qwant\.|mojeek\.|schema\.org/.test(domain)) return;
     const title = cleanTitle(link.text(), url);
     if (!title || title.length < 5) return;
     const snippet = normalizeWhitespace(link.closest("li, div, article, section").text()).replace(title, "");
@@ -91,7 +100,7 @@ function parseAnchors(html, query, intent, source) {
     const url = cleanSearchRedirect(match.replace(/[.,;]+$/, ""));
     if (!url) continue;
     const domain = domainOf(url);
-    if (/google\.|gstatic|bing\.|microsoft\.|yahoo\.|duckduckgo\.|brave\.|qwant\.|schema\.org/.test(domain)) continue;
+    if (/google\.|gstatic|bing\.|microsoft\.|yahoo\.|duckduckgo\.|brave\.|qwant\.|mojeek\.|schema\.org/.test(domain)) continue;
     const result = resultFrom(url, titleFromUrl(url), `Extracted candidate for ${query}`, source, query, intent);
     if (result) results.push(result);
   }
@@ -106,6 +115,7 @@ function searchUrl(engine, query, limit) {
   if (engine === "brave-html") return `https://search.brave.com/search?q=${encodeURIComponent(query)}&source=web`;
   if (engine === "qwant") return `https://www.qwant.com/?q=${encodeURIComponent(query)}&t=web`;
   if (engine === "google") return `https://www.google.com/search?q=${encodeURIComponent(query)}&num=${Math.min(limit, 10)}&hl=en`;
+  if (engine === "mojeek") return `https://www.mojeek.com/search?q=${encodeURIComponent(query)}`;
   return `https://duckduckgo.com/html/?q=${encodeURIComponent(query)}`;
 }
 
@@ -116,8 +126,9 @@ function isKnownFalsePositive(result = {}) {
     const parsed = new URL(result.url || "");
     const host = parsed.hostname.replace(/^www\./, "").toLowerCase();
     const path = parsed.pathname.replace(/\/$/, "").toLowerCase();
-    if (/^(?:[a-z]{2}\.)?tradingview\.com$/.test(host) && (!path || path === "")) return true;
-    if (/^(?:www\.)?tradingview\.com$/.test(host) && /^\/(?:markets|chart|symbols)(?:\/|$)/i.test(parsed.pathname)) return true;
+    if (/^(?:[a-z]{2}\.)?tradingview\.com$/.test(host)) return true;
+    if (/^(?:www\.)?tradingview\.com$/.test(host) && /^\/(?:u|ideas|markets|chart|symbols|scripts)(?:\/|$)/i.test(parsed.pathname)) return true;
+    if (!path && /^(?:www\.)?(?:linkedin\.com|instagram\.com|x\.com|twitter\.com|facebook\.com|tiktok\.com)$/.test(host)) return true;
   } catch {}
   return false;
 }
@@ -133,17 +144,17 @@ function junk(result) {
   if (isKnownFalsePositive(result)) return true;
   if (isNonTradingForexNoise(result)) return true;
   const text = `${result.title} ${result.snippet} ${result.url}`.toLowerCase();
-  return /cache\.aspx|press release|newswire|top\s*\d+\s+forex|best\s+forex\s+(?:educators|mentors)|w3\.org|schema\.org|xmlns|xhtml|wikipedia|dictionary|definition|investopedia|marketwatch|ishares|msci|weather|currency exchange|google maps|tripadvisor|computational fluid dynamics|forex\.com\/?$/.test(text);
+  return /tradingview\.com|cache\.aspx|press release|newswire|top\s*\d+\s+forex|best\s+forex\s+(?:educators|mentors)|w3\.org|schema\.org|xmlns|xhtml|wikipedia|dictionary|definition|investopedia|marketwatch|ishares|msci|weather|currency exchange|google maps|tripadvisor|computational fluid dynamics|forex\.com\/?$/.test(text);
 }
 
 function hasLeadSignal(result, query) {
   const text = `${result.title} ${result.snippet} ${result.url} ${query}`.toLowerCase();
-  return /forex|\bfx\b|xauusd|gold trader|trading|trader|broker|cfd|cfds|pamm|\bmam\b|copy trading|signals|sinais|señales|telegram|whatsapp|discord|linkedin|instagram|myfxbook|mql5|tradingview|introducing broker|affiliate|partnership|academy|mentor|fund manager|portfolio manager|asset manager|prop firm|funded trader|business development/.test(text);
+  return /forex|\bfx\b|xauusd|gold trader|trading|trader|broker|cfd|cfds|pamm|\bmam\b|copy trading|signals|sinais|señales|telegram|whatsapp|discord|linkedin|instagram|myfxbook|mql5|introducing broker|affiliate|partnership|academy|mentor|fund manager|portfolio manager|asset manager|prop firm|funded trader|business development|attending|visitor|delegate|speaker|panelist/.test(text);
 }
 
 function platformBoost(result) {
   const url = String(result.url || "").toLowerCase();
-  if (/linkedin\.com\/in|linkedin\.com\/company|instagram\.com\/[^/]+|x\.com\/[^/]+|twitter\.com\/[^/]+|t\.me\/[^/]+|discord\.gg\/[^/]+|myfxbook\.com|mql5\.com|tradingview\.com\/u\//.test(url)) return true;
+  if (/linkedin\.com\/in|linkedin\.com\/company|instagram\.com\/[^/]+|x\.com\/[^/]+|twitter\.com\/[^/]+|t\.me\/[^/]+|discord\.gg\/[^/]+|myfxbook\.com|mql5\.com|fxblue\.com|zulutrade\.com|darwinex\.com|signalstart\.com/.test(url)) return true;
   return false;
 }
 
@@ -153,28 +164,77 @@ function isSyntheticResult(result = {}) {
 
 function hasActualLeadSignal(result) {
   const text = `${result.title} ${isSyntheticResult(result) ? "" : result.snippet} ${result.url}`.toLowerCase();
-  return /forex|\bfx\b|xauusd|gold trader|trading|trader|broker|cfd|cfds|pamm|\bmam\b|copy trading|signals|sinais|senales|telegram|whatsapp|discord|linkedin|instagram|myfxbook|mql5|tradingview\.com\/u\/|introducing broker|affiliate|partnership|academy|mentor|fund manager|portfolio manager|asset manager|prop firm|funded trader|business development/.test(text);
+  return /forex|\bfx\b|xauusd|gold trader|trading|trader|broker|cfd|cfds|pamm|\bmam\b|copy trading|signals|sinais|senales|telegram|whatsapp|discord|linkedin|instagram|myfxbook|mql5|introducing broker|affiliate|partnership|academy|mentor|fund manager|portfolio manager|asset manager|prop firm|funded trader|business development|attending|visitor|delegate|speaker|panelist/.test(text);
 }
 
 async function runEngine(engine, query, intent, limit) {
   try {
-    const html = await fetchText(searchUrl(engine, query, limit), 14000);
+    const html = await fetchText(searchUrl(engine, query, limit), 18000);
     return { results: parseAnchors(html, query, intent, engine), errors: [] };
   } catch (error) {
+    const message = String(error.message || "");
+    if (/abort|timeout|fetch failed|ECONNRESET|ETIMEDOUT|HTTP 429|HTTP 403/i.test(message)) {
+      await sleep(700);
+      try {
+        const html = await fetchText(searchUrl(engine, query, limit), 26000);
+        return { results: parseAnchors(html, query, intent, engine), errors: [] };
+      } catch (retryError) {
+        return { results: [], errors: [`${engine}: ${retryError.message}`] };
+      }
+    }
     return { results: [], errors: [`${engine}: ${error.message}`] };
   }
 }
 
-export async function searchOne(query, intent = "partner", limit = 10) {
-  const engines = SEARCH_ENGINES;
-  const providers = await Promise.all(engines.map((engine) => runEngine(engine, query, intent, limit)));
-  const errors = providers.flatMap((provider) => provider.errors);
-  const all = providers.flatMap((provider) => provider.results);
-  const seen = new Set();
-  const candidates = [];
+function relaxedQueryText(query = "") {
+  return normalizeWhitespace(
+    String(query)
+      .replace(/\bsite:[a-z0-9.-]+(?:\/[^\s"]*)?/gi, "")
+      .replace(/[“”]/g, "\"")
+      .trim()
+  );
+}
 
-  for (const result of all) {
-    if (!matchesSiteConstraint(result, query)) continue;
+function queryVariants(query = "") {
+  const original = normalizeWhitespace(query);
+  const variants = [original];
+  const required = siteConstraint(original);
+  const relaxed = relaxedQueryText(original);
+
+  if (required?.domain) {
+    const sitePath = `${required.domain}${required.pathPrefix || ""}`.replace(/\/$/, "");
+    if (relaxed) variants.push(`"${sitePath}" ${relaxed}`);
+    if (required.domain === "x.com") variants.push(original.replace(/site:x\.com/i, "site:twitter.com"));
+    if (required.domain === "twitter.com") variants.push(original.replace(/site:twitter\.com/i, "site:x.com"));
+    if (required.domain === "linkedin.com" && required.pathPrefix.startsWith("/in")) variants.push(`"linkedin.com/in" ${relaxed}`);
+    if (required.domain === "linkedin.com" && required.pathPrefix.startsWith("/company")) variants.push(`"linkedin.com/company" ${relaxed}`);
+    if (required.domain === "instagram.com") variants.push(`"instagram.com" ${relaxed}`);
+    if (required.domain === "t.me") variants.push(original.replace(/site:t\.me/i, "site:telegram.me"));
+    if (required.domain === "telegram.me") variants.push(original.replace(/site:telegram\.me/i, "site:t.me"));
+    if (required.domain === "mql5.com") variants.push(`"mql5.com" ${relaxed}`);
+    if (required.domain === "myfxbook.com") variants.push(`"myfxbook.com" ${relaxed}`);
+  }
+
+  if (relaxed && relaxed !== original) variants.push(relaxed);
+  if (relaxed && /\b(?:forex|xauusd|trading|broker|affiliate|introducing broker)\b/i.test(relaxed)) {
+    variants.push(`${relaxed} contact`);
+    variants.push(`${relaxed} profile`);
+  }
+
+  return unique(variants.filter(Boolean)).slice(0, 5);
+}
+
+async function runSearchWave(engines, query, intent, limit) {
+  const providers = await Promise.all(engines.map((engine) => runEngine(engine, query, intent, limit)));
+  return {
+    results: providers.flatMap((provider) => provider.results),
+    errors: providers.flatMap((provider) => provider.errors)
+  };
+}
+
+function collectCandidates(rawResults, originalQuery, seen, candidates) {
+  for (const result of rawResults) {
+    if (!matchesSiteConstraint(result, originalQuery)) continue;
     if (junk(result)) continue;
     if (!hasActualLeadSignal(result) && !(platformBoost(result) && !isSyntheticResult(result))) continue;
     const key = result.url.replace(/\/$/, "").toLowerCase();
@@ -182,7 +242,33 @@ export async function searchOne(query, intent = "partner", limit = 10) {
     seen.add(key);
     candidates.push(result);
   }
+}
+
+export async function searchOne(query, intent = "partner", limit = 10) {
+  const engines = engineList();
+  const seen = new Set();
+  const candidates = [];
+  const errors = [];
+
+  const firstWave = await runSearchWave(engines, query, intent, limit);
+  errors.push(...firstWave.errors);
+  collectCandidates(firstWave.results, query, seen, candidates);
+
+  if (candidates.length < limit) {
+    const retryEngines = RETRY_SEARCH_ENGINES.filter((engine) => engines.includes(engine));
+    for (const variant of queryVariants(query).filter((item) => item !== query)) {
+      if (candidates.length >= limit * 2) break;
+      const wave = await runSearchWave(retryEngines, variant, intent, limit);
+      errors.push(...wave.errors.map((error) => `${error} [variant]`));
+      collectCandidates(wave.results, query, seen, candidates);
+      if (candidates.length >= limit) break;
+    }
+  }
 
   const strong = candidates.filter((result) => hasActualLeadSignal(result) || (platformBoost(result) && !isSyntheticResult(result)) || hasLeadSignal(result, query));
-  return { results: unique(strong).slice(0, limit), errors };
+  return {
+    results: unique(strong).slice(0, limit),
+    errors: strong.length ? [] : unique(errors).slice(0, 12),
+    providerWarnings: unique(errors).slice(0, 20)
+  };
 }
