@@ -1,5 +1,5 @@
 import * as cheerio from "cheerio";
-import { cleanSearchRedirect, domainOf, idForLead, normalizeWhitespace, platformFromUrl, safeUrl, stripHtml, titleFromUrl, unique } from "./utils.js";
+import { cleanSearchRedirect, domainOf, normalizeWhitespace, platformFromUrl, safeUrl, stripHtml, titleFromUrl, unique } from "./utils.js";
 import { fetchText, resultFrom } from "./search.js";
 
 const SEARCH_ENGINES = ["bing-rss", "bing", "duckduckgo", "yahoo", "brave-html", "qwant", "google"];
@@ -141,7 +141,7 @@ async function runEngine(engine, query, intent, limit) {
 }
 
 export async function searchOne(query, intent = "partner", limit = 10) {
-  const engines = intent === "partner" ? SEARCH_ENGINES.slice(1) : SEARCH_ENGINES;
+  const engines = SEARCH_ENGINES;
   const providers = await Promise.all(engines.map((engine) => runEngine(engine, query, intent, limit)));
   const errors = providers.flatMap((provider) => provider.errors);
   const all = providers.flatMap((provider) => provider.results);
@@ -158,6 +158,6 @@ export async function searchOne(query, intent = "partner", limit = 10) {
     candidates.push(result);
   }
 
-  const strong = candidates.filter((result) => hasActualLeadSignal(result) || (platformBoost(result) && !isSyntheticResult(result)));
+  const strong = candidates.filter((result) => hasActualLeadSignal(result) || (platformBoost(result) && !isSyntheticResult(result)) || hasLeadSignal(result, query));
   return { results: unique(strong).slice(0, limit), errors };
 }
