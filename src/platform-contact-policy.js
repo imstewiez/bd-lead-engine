@@ -6,6 +6,7 @@ const PLATFORM_DOMAINS = [
   "mql5.com",
   "tradingview.com",
   "fxblue.com",
+  "fxbluelabs.com",
   "zulutrade.com",
   "darwinex.com",
   "signalstart.com",
