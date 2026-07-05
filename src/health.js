@@ -29,6 +29,11 @@ function ageMs(dateLike) {
   return Date.now() - parsed;
 }
 
+function ageHours(dateLike) {
+  const age = ageMs(dateLike);
+  return age == null ? null : age / (60 * 60 * 1000);
+}
+
 async function readJsonIfExists(filePath) {
   try {
     return JSON.parse(await fs.readFile(filePath, "utf8"));
@@ -70,18 +75,65 @@ function duplicateStats(leads) {
   return { duplicateLike: duplicates, uniqueKeys: seen.size };
 }
 
+function hasContact(lead) {
+  return hasDirectOutboundPath(lead) || cleanForms(lead.forms || []).length > 0 || cleanEmails(lead.emails || []).length > 0 || Boolean(lead.bestContact);
+}
+
 function enrichmentQueueStats(leads) {
   let stale = 0;
   let contactless = 0;
   let neverDeep = 0;
+  let eligible = 0;
+  let dueNow = 0;
+  let rotationDue = 0;
+  let enrichedLastHour = 0;
+  let enrichedLast24h = 0;
+  let oldestDeepAgeHours = 0;
+  let running = 0;
+
   for (const lead of leads) {
-    const deepAge = ageMs(lead.lastDeepEnrichedAt);
-    const hasContact = hasDirectOutboundPath(lead) || cleanForms(lead.forms || []).length > 0;
+    const url = String(lead.url || "");
+    const allowedType = ["partner", "recruitment", "institution"].includes(lead.leadType);
+    const eligibleLead = Boolean(lead.id && url && allowedType && !/youtube\.com|youtu\.be/i.test(url));
+    const deepAge = ageHours(lead.lastDeepEnrichedAt);
+    const contact = hasContact(lead);
+
+    if (lead.deepStatus === "running") running += 1;
     if (!lead.lastDeepEnrichedAt) neverDeep += 1;
-    if (deepAge == null || deepAge > 48 * 60 * 60 * 1000) stale += 1;
-    if (!hasContact) contactless += 1;
+    if (deepAge == null || deepAge > 48) stale += 1;
+    if (!contact) contactless += 1;
+    if (deepAge != null && deepAge <= 1) enrichedLastHour += 1;
+    if (deepAge != null && deepAge <= 24) enrichedLast24h += 1;
+    if (deepAge != null) oldestDeepAgeHours = Math.max(oldestDeepAgeHours, Math.round(deepAge * 10) / 10);
+
+    if (!eligibleLead) continue;
+    eligible += 1;
+    if (!lead.lastDeepEnrichedAt) {
+      dueNow += 1;
+      continue;
+    }
+    if (!contact && deepAge != null && deepAge > 1) {
+      dueNow += 1;
+      continue;
+    }
+    if (deepAge != null && deepAge > 2) {
+      rotationDue += 1;
+      dueNow += 1;
+    }
   }
-  return { stale, contactless, neverDeep };
+
+  return {
+    stale,
+    contactless,
+    neverDeep,
+    eligible,
+    dueNow,
+    rotationDue,
+    enrichedLastHour,
+    enrichedLast24h,
+    oldestDeepAgeHours,
+    running
+  };
 }
 
 function tierCounts(leads) {
@@ -109,10 +161,10 @@ export async function healthSnapshot() {
   const rawLeads = db.leads || [];
   const qualifiedLeads = filterAndDedupeLeads(rawLeads);
   const workingLeads = filterWorkingLeads(rawLeads);
-  const contactableLeads = workingLeads.filter((lead) => hasDirectOutboundPath(lead) || cleanForms(lead.forms || []).length > 0);
+  const contactableLeads = workingLeads.filter((lead) => hasDirectOutboundPath(lead) || cleanForms(lead.forms || []).length > 0 || cleanEmails(lead.emails || []).length > 0 || Boolean(lead.bestContact));
   const tiers = tierCounts(workingLeads);
   const duplicate = duplicateStats(rawLeads);
-  const enrichmentQueue = enrichmentQueueStats(workingLeads);
+  const enrichmentQueue = enrichmentQueueStats(rawLeads);
 
   const tasks = {};
   for (const name of Object.keys(BACKGROUND_TASKS)) {
