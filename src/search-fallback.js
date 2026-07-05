@@ -4,6 +4,7 @@ import { fetchText, resultFrom } from "./search.js";
 
 const SEARCH_ENGINES = ["bing-rss", "bing", "duckduckgo", "yahoo", "brave-html", "qwant", "google"];
 const NON_TRADING_FOREX_DOMAINS = ["forex.se", "forex.no", "forex.fi", "forexvaluta.dk"];
+const KNOWN_FALSE_POSITIVE_DOMAINS = ["kitco.com", "mambaby.com", "partnershiphp.org", "tipranks.com"];
 const NON_TRADING_FOREX_NOISE = /växla|valuta|valutakurser|valutaomvandlare|reseförsäkring|skicka pengar|western union|kreditkort|travel money|currency exchange|exchange rates|money transfer|travel insurance|buy currency|sell currency/i;
 
 function siteConstraint(query = "") {
@@ -108,27 +109,41 @@ function searchUrl(engine, query, limit) {
   return `https://duckduckgo.com/html/?q=${encodeURIComponent(query)}`;
 }
 
+function isKnownFalsePositive(result = {}) {
+  const domain = domainOf(result.url || "");
+  if (KNOWN_FALSE_POSITIVE_DOMAINS.some((blocked) => domain === blocked || domain.endsWith(`.${blocked}`))) return true;
+  try {
+    const parsed = new URL(result.url || "");
+    const host = parsed.hostname.replace(/^www\./, "").toLowerCase();
+    const path = parsed.pathname.replace(/\/$/, "").toLowerCase();
+    if (/^(?:[a-z]{2}\.)?tradingview\.com$/.test(host) && (!path || path === "")) return true;
+    if (/^(?:www\.)?tradingview\.com$/.test(host) && /^\/(?:markets|chart|symbols)(?:\/|$)/i.test(parsed.pathname)) return true;
+  } catch {}
+  return false;
+}
+
 function isNonTradingForexNoise(result = {}) {
   const domain = domainOf(result.url || "");
   if (NON_TRADING_FOREX_DOMAINS.some((blocked) => domain === blocked || domain.endsWith(`.${blocked}`))) return true;
   const text = `${result.title} ${result.snippet} ${result.url}`;
-  return /\bforex\b/i.test(text) && NON_TRADING_FOREX_NOISE.test(text) && !/forex trading|forex trader|cfd trading|xauusd|copy trading|pamm|mam|introducing broker|forex affiliate|signals/i.test(text);
+  return /\bforex\b/i.test(text) && NON_TRADING_FOREX_NOISE.test(text) && !/forex trading|forex trader|cfd trading|xauusd|copy trading|pamm|\bmam\b|introducing broker|forex affiliate|signals/i.test(text);
 }
 
 function junk(result) {
+  if (isKnownFalsePositive(result)) return true;
   if (isNonTradingForexNoise(result)) return true;
   const text = `${result.title} ${result.snippet} ${result.url}`.toLowerCase();
-  return /w3\.org|schema\.org|xmlns|xhtml|wikipedia|dictionary|definition|investopedia|marketwatch|ishares|msci|weather|currency exchange|google maps|tripadvisor|computational fluid dynamics|forex\.com\/?$/.test(text);
+  return /cache\.aspx|w3\.org|schema\.org|xmlns|xhtml|wikipedia|dictionary|definition|investopedia|marketwatch|ishares|msci|weather|currency exchange|google maps|tripadvisor|computational fluid dynamics|forex\.com\/?$/.test(text);
 }
 
 function hasLeadSignal(result, query) {
   const text = `${result.title} ${result.snippet} ${result.url} ${query}`.toLowerCase();
-  return /forex|\bfx\b|xauusd|gold trader|trading|trader|broker|cfd|cfds|pamm|mam|copy trading|signals|sinais|señales|telegram|whatsapp|discord|linkedin|instagram|myfxbook|mql5|tradingview|introducing broker|affiliate|partnership|academy|mentor|fund manager|portfolio manager|asset manager|prop firm|funded trader|business development/.test(text);
+  return /forex|\bfx\b|xauusd|gold trader|trading|trader|broker|cfd|cfds|pamm|\bmam\b|copy trading|signals|sinais|señales|telegram|whatsapp|discord|linkedin|instagram|myfxbook|mql5|tradingview|introducing broker|affiliate|partnership|academy|mentor|fund manager|portfolio manager|asset manager|prop firm|funded trader|business development/.test(text);
 }
 
 function platformBoost(result) {
   const url = String(result.url || "").toLowerCase();
-  if (/linkedin\.com\/in|linkedin\.com\/company|instagram\.com\/[^/]+|x\.com\/[^/]+|twitter\.com\/[^/]+|t\.me\/[^/]+|discord\.gg\/[^/]+|myfxbook\.com|mql5\.com|tradingview\.com/.test(url)) return true;
+  if (/linkedin\.com\/in|linkedin\.com\/company|instagram\.com\/[^/]+|x\.com\/[^/]+|twitter\.com\/[^/]+|t\.me\/[^/]+|discord\.gg\/[^/]+|myfxbook\.com|mql5\.com|tradingview\.com\/u\//.test(url)) return true;
   return false;
 }
 
@@ -138,7 +153,7 @@ function isSyntheticResult(result = {}) {
 
 function hasActualLeadSignal(result) {
   const text = `${result.title} ${isSyntheticResult(result) ? "" : result.snippet} ${result.url}`.toLowerCase();
-  return /forex|\bfx\b|xauusd|gold trader|trading|trader|broker|cfd|cfds|pamm|mam|copy trading|signals|sinais|senales|telegram|whatsapp|discord|linkedin|instagram|myfxbook|mql5|tradingview|introducing broker|affiliate|partnership|academy|mentor|fund manager|portfolio manager|asset manager|prop firm|funded trader|business development/.test(text);
+  return /forex|\bfx\b|xauusd|gold trader|trading|trader|broker|cfd|cfds|pamm|\bmam\b|copy trading|signals|sinais|senales|telegram|whatsapp|discord|linkedin|instagram|myfxbook|mql5|tradingview\.com\/u\/|introducing broker|affiliate|partnership|academy|mentor|fund manager|portfolio manager|asset manager|prop firm|funded trader|business development/.test(text);
 }
 
 async function runEngine(engine, query, intent, limit) {
