@@ -22,7 +22,28 @@ function launch(name, args) {
   return child.pid;
 }
 
+function launchFocusedHarvester(name, channelArg, offset, maxQueries = 180) {
+  return launch(name, [
+    "src/source-harvester.js",
+    `--workerName=${name}`,
+    `--onlyChannels=${channelArg}`,
+    `--queryOffsetBase=${offset}`,
+    `--maxQueries=${maxQueries}`,
+    "--limitPerQuery=12",
+    "--delayMs=6500",
+    "--fetchPages=true",
+    "--deepEnrich=true",
+    "--exportEvery=3"
+  ]);
+}
+
 const serverPid = launch("server", ["src/server.js"]);
+const focused = [
+  ["source-harvester-linkedin", launchFocusedHarvester("source-harvester-linkedin", "linkedin", 12000, 220)],
+  ["source-harvester-platforms", launchFocusedHarvester("source-harvester-platforms", "myfxbook,mql5,specialist", 15000, 220)],
+  ["source-harvester-registries", launchFocusedHarvester("source-harvester-registries", "ecosystem,recruitment", 18000, 160)]
+];
+
 const managed = await ensureBackgroundTasks([
   "source-harvester",
   "source-harvester-social",
@@ -34,6 +55,9 @@ const managed = await ensureBackgroundTasks([
 ]);
 
 console.log(`serverPid=${serverPid}`);
+for (const [name, pid] of focused) {
+  console.log(`${name}=${pid} (started)`);
+}
 for (const task of managed) {
   console.log(`${task.name}=${task.pid} (${task.status})`);
 }
