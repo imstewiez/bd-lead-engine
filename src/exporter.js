@@ -73,8 +73,26 @@ export function hasActionableContact(lead) {
     emails.length > 0 ||
     forms.length > 0 ||
     links.length > 0 ||
-    hasDirectOutboundPath(lead)
+    hasDirectOutboundPath(lead) ||
+    Boolean(lead.bestContact)
   );
+}
+
+function hasDecisionPath(lead = {}) {
+  return (lead.decisionMakers || []).length > 0 || (lead.decisionMakerLinks || []).length > 0;
+}
+
+function isGenericPlatformPortal(lead = {}) {
+  const url = String(lead.url || "").toLowerCase();
+  const text = `${lead.name || ""} ${lead.title || ""} ${lead.snippet || ""} ${url}`.toLowerCase();
+  return /tradingview\.com\/(?:chart|markets|symbols)|forexfactory\.com\/(?:calendar|news|market|scanner)|mql5\.com\/(?:en\/)?(?:market|forum)\b|pamm\s*(?:rating|rankings?|monitoring|portal|accounts? list)|top pamm|best pamm|ratings? of pamm/.test(text);
+}
+
+function requiresValidatedContactBeforeWorklist(lead = {}) {
+  const bucket = sourceBucket(lead);
+  if (["tradingview", "mql5", "myfxbook", "specialist", "forum"].includes(bucket)) return true;
+  if (isGenericPlatformPortal(lead)) return true;
+  return false;
 }
 
 export function isExportQualified(lead) {
@@ -88,6 +106,7 @@ export function isExportQualified(lead) {
   if (isHardRejectedLead(lead)) return false;
   if (!hasStrictTradingIcp(lead)) return false;
   if (!hasActionableContact(lead)) return false;
+  if (isGenericPlatformPortal(lead)) return false;
   if (/youtube\.com|youtu\.be/i.test(String(lead.url || "")) && !hasSearchableLeadSignal(lead)) return false;
   if (!["partner", "recruitment", "institution"].includes(lead.leadType)) return false;
   const text = `${lead.name} ${lead.title} ${lead.snippet} ${lead.url}`.toLowerCase();
@@ -134,6 +153,7 @@ function rawLeadText(lead = {}) {
     lead.snippet,
     lead.url,
     lead.audience,
+    lead.bestContact,
     ...(lead.socialLinks || []),
     ...(lead.contactLinks || []),
     ...(lead.websiteLinks || []),
@@ -189,6 +209,8 @@ export function isWorkingLead(lead) {
     /\b(?:mql5|myfxbook|fxblue|zulutrade|darwinex|signalstart|collective2|tradingview|forexfactory|babypips|forex|xauusd|pamm|mam|copy trading|signals?)\b/i.test(text);
   if (!actualTradingSignal && !specialistTradingSource) return false;
   if (syntheticSnippet && !actualTradingSignal && !specialistTradingSource) return false;
+  if (isGenericPlatformPortal(lead)) return false;
+  if (requiresValidatedContactBeforeWorklist(lead) && !hasActionableContact(lead) && !hasDecisionPath(lead)) return false;
   const trustedSource = /linkedin|instagram|x|telegram|discord|tiktok|facebook_threads|reddit|myfxbook|mql5|tradingview|forum|specialist|ecosystem/.test(bucket);
   const tradingSignal =
     actualTradingSignal ||
@@ -202,8 +224,8 @@ export function isWorkingLead(lead) {
 }
 
 function sortLeads(a, b) {
-  const contactA = Number(a.contactConfidence || 0);
-  const contactB = Number(b.contactConfidence || 0);
+  const contactA = Number(a.contactConfidence || 0) + Number(Boolean(a.bestContact)) * 25 + Number(hasActionableContact(a)) * 10;
+  const contactB = Number(b.contactConfidence || 0) + Number(Boolean(b.bestContact)) * 25 + Number(hasActionableContact(b)) * 10;
   const platformRank = (lead) => {
     const platform = String(lead.platform || "").toLowerCase();
     const url = String(lead.url || "").toLowerCase();
@@ -211,15 +233,16 @@ function sortLeads(a, b) {
     if (/instagram/.test(platform) || /instagram\.com/.test(url)) return 1;
     if (/x\/twitter|twitter/.test(platform) || /x\.com|twitter\.com/.test(url)) return 2;
     if (/telegram|discord|tiktok|facebook/.test(platform) || /t\.me|telegram|discord|tiktok|facebook/.test(url)) return 3;
-    if (/myfxbook|fxblue|zulutrade|darwinex|signalstart|collective2|tradingview/.test(platform) || /myfxbook|fxblue|zulutrade|darwinex|signalstart|collective2|tradingview/.test(url)) return 4;
+    if (/myfxbook|fxblue|zulutrade|darwinex|signalstart|collective2/.test(platform) || /myfxbook|fxblue|zulutrade|darwinex|signalstart|collective2/.test(url)) return 4;
+    if (/tradingview/.test(platform) || /tradingview/.test(url)) return 10;
     if (/mql5/.test(platform) || /mql5\.com/.test(url)) return 12;
     if (/youtube/.test(platform) || /youtube\.com|youtu\.be/.test(url)) return 30;
     return 8;
   };
   return (
+    contactB - contactA ||
     platformRank(a) - platformRank(b) ||
     (b.score || 0) - (a.score || 0) ||
-    contactB - contactA ||
     String(b.lastSeen || "").localeCompare(String(a.lastSeen || ""))
   );
 }
@@ -271,174 +294,90 @@ export function filterAndDedupeLeads(leads, options = {}) {
 export function filterWorkingLeads(leads, options = {}) {
   const filtered = dedupeLeads(leads.filter(isWorkingLead).sort(sortLeads));
   return limitMql5Share(filtered, {
-    maxMql5Share: Number(options.maxMql5Share ?? process.env.MAX_MQL5_WORKING_SHARE ?? 0.35),
-    minMql5Keep: Number(options.minMql5Keep ?? 60),
+    maxMql5Share: Number(options.maxMql5Share ?? process.env.MAX_MQL5_WORKING_SHARE ?? 0.25),
+    minMql5Keep: Number(options.minMql5Keep ?? 25),
     limit: Number(options.limit || filtered.length)
   });
 }
 
 function formatDecisionMakers(decisionMakers = []) {
-  return decisionMakers
-    .map((person) =>
-      [person.name, person.title, person.url]
-        .filter(Boolean)
-        .join(" | ")
-    )
-    .join("; ");
+  return decisionMakers.map((person) => [person.name, person.title, person.url].filter(Boolean).join(" | "));
 }
 
-function socialProfileLinks(lead) {
-  return cleanContactLinks([lead.url, ...(lead.socialLinks || []), ...(lead.contactLinks || []), ...(lead.relatedLinks || [])], {
-    allowYouTubeChannels: true,
-    allowShorteners: true
-  })
-    .filter((url) => {
-      if (/\/(?:share|sharer|intent)\b|facebook\.com\/tr\?|[?&]ev=PageView|\/p\/signin/i.test(url)) return false;
-      if (isUsefulDirectContactUrl(url)) return true;
-      try {
-        const parsed = new URL(url);
-        const parts = parsed.pathname.split("/").filter(Boolean);
-        const domain = parsed.hostname.replace(/^www\./, "").toLowerCase();
-        if ((domain === "youtube.com" || domain.endsWith(".youtube.com")) && /^\/(?:@|channel\/|c\/|user\/)/i.test(parsed.pathname)) return true;
-        if ((domain === "instagram.com" || domain.endsWith(".instagram.com")) && parts.length === 1) return true;
-        if ((domain === "linkedin.com" || domain.endsWith(".linkedin.com")) && ["in", "company"].includes((parts[0] || "").toLowerCase())) return true;
-        return false;
-      } catch {
-        return false;
-      }
-    })
-    .slice(0, 14);
-}
-
-function postForumLinks(lead) {
-  return unique([lead.url, ...(lead.relatedLinks || []), ...(lead.contactSources || [])])
-    .filter((url) => /linkedin\.com\/(?:posts|feed\/update)|instagram\.com\/p\/|x\.com\/.+\/status|twitter\.com\/.+\/status|reddit\.com\/r\/|forexfactory\.com|babypips\.com|tradingview\.com\/(?:ideas|chart)|facebook\.com\/(?:ads|posts|groups)/i.test(url))
-    .slice(0, 12);
-}
-
-function socialTextFor(lead) {
-  return [
-    lead.url,
-    lead.platform,
-    ...(lead.socialLinks || []),
-    ...(lead.contactLinks || []),
-    ...(lead.relatedLinks || [])
-  ]
-    .filter(Boolean)
-    .join(" ")
-    .toLowerCase();
-}
-
-function researchSummary(lead, qualification) {
-  const platform = lead.platform || platformFromUrl(lead.url);
-  const evidence = (lead.evidence || []).slice(0, 3).join("; ");
-  const audience = lead.audience ? `Audience: ${lead.audience}.` : "";
-  const contact = qualification.bestChannel ? `Best channel: ${qualification.bestChannel}.` : "";
-  const redFlags = qualification.redFlags.length ? `Red flags: ${qualification.redFlags.join("; ")}.` : "";
-  return [
-    `${platform || "Web"} lead in ${lead.segment || "Unclear"} for ${qualification.opportunityPlay}.`,
-    evidence ? `Signals: ${evidence}.` : "",
-    audience,
-    contact,
-    redFlags
-  ]
-    .filter(Boolean)
-    .join(" ");
-}
-
-export function leadToExportRow(lead) {
+function serializeLead(lead) {
   const qualification = qualifyLead(lead);
-  const links = directLinks(lead);
-  const websites = cleanContactLinks(lead.websiteLinks || [], { allowYouTubeChannels: false });
-  const relatedLinks = cleanContactLinks(lead.relatedLinks || [], { allowYouTubeChannels: false });
-  const emails = cleanEmails(lead.emails || []);
-  const phones = cleanPhoneNumbers(lead.phoneNumbers || []);
-  const forms = cleanForms(lead.forms || []);
-  const firstForm = forms[0]?.pageUrl || forms[0]?.action || "";
-  const primaryContact =
-    emails[0] ||
-    links.find((url) => /wa\.me|whatsapp|calendly/i.test(url)) ||
-    links[0] ||
-    firstForm ||
-    websites[0] ||
-    lead.url;
-
-  return {
+  const columns = {
+    commercialScore: lead.commercialScore || "",
+    sourceBucket: lead.sourceBucket || sourceBucket(lead),
+    priority: lead.priority || "",
     icpTier: qualification.icpTier,
     meetingPriority: qualification.meetingPriority,
     opportunityPlay: qualification.opportunityPlay,
-    sourcePlatform: lead.platform || platformFromUrl(lead.url),
     bestChannel: qualification.bestChannel,
     nextAction: qualification.nextAction,
     decisionMakerLikelihood: qualification.decisionMakerLikelihood,
-    decisionMakers: formatDecisionMakers(qualification.decisionMakers),
-    decisionMakerLinks: qualification.decisionMakerLinks.join("; "),
-    whyThisLead: qualification.whyThisLead,
-    researchSummary: researchSummary(lead, qualification),
-    qualificationReasons: qualification.qualificationReasons.join("; "),
-    redFlags: qualification.redFlags.join("; "),
-    priority: lead.priority,
-    score: lead.score,
+    decisionMakers: formatDecisionMakers(qualification.decisionMakers || []),
+    decisionMakerLinks: qualification.decisionMakerLinks || [],
+    score: lead.score || "",
     contactConfidence: lead.contactConfidence || "",
+    bestContact: lead.bestContact || "",
+    bestContactType: lead.bestContactType || "",
+    bestContactSource: lead.bestContactSource || "",
     contactQuality: lead.contactQuality || "",
-    leadType: lead.leadType,
-    segment: lead.segment,
-    stage: lead.stage,
-    name: lead.name,
-    country: lead.country,
-    languages: (lead.languages || []).join("; "),
-    source: lead.source,
-    sourceQuery: lead.query,
-    primaryUrl: lead.url,
-    primaryContact,
-    emails: emails.join("; "),
-    phones: phones.join("; "),
-    forms: formsSummary(lead).join(" | "),
-    directLinks: links.join("; "),
-    socialProfiles: socialProfileLinks(lead).join("; "),
-    postForumLinks: postForumLinks(lead).join("; "),
-    websites: websites.join("; "),
-    relatedLinks: relatedLinks.join("; "),
-    contactSources: cleanContactLinks(lead.contactSources || [], { allowYouTubeChannels: false }).join("; "),
-    evidence: (lead.evidence || []).join("; "),
-    audience: lead.audience || "",
-    context: lead.snippet || "",
+    leadType: lead.leadType || "",
+    segment: lead.segment || "",
+    stage: lead.stage || "",
+    name: lead.name || lead.title || "",
+    country: lead.country || "",
+    languages: lead.languages || [],
+    url: lead.url || "",
+    domain: lead.domain || "",
+    emails: cleanEmails(lead.emails || []),
+    phoneNumbers: cleanPhoneNumbers(lead.phoneNumbers || []),
+    forms: formsSummary(lead),
+    socialLinks: cleanContactLinks(lead.socialLinks || [], { allowYouTubeChannels: false }),
+    contactLinks: cleanContactLinks(lead.contactLinks || [], { allowYouTubeChannels: false, allowShorteners: true }),
+    websiteLinks: cleanContactLinks(lead.websiteLinks || [], { allowYouTubeChannels: false, allowShorteners: true }),
+    contactSources: lead.contactSources || [],
+    evidence: lead.evidence || [],
+    qualificationReasons: qualification.qualificationReasons || [],
+    qualificationRisks: qualification.qualificationRisks || [],
     outboundDm: lead.outbound?.dm || "",
     followUp: lead.outbound?.followUp || "",
-    firstSeen: lead.firstSeen || "",
-    lastSeen: lead.lastSeen || "",
-    lastDeepEnrichedAt: lead.lastDeepEnrichedAt || ""
+    snippet: lead.snippet || ""
   };
+  return Object.values(columns).map(toCsvCell).join(",");
 }
 
 export async function exportLeads(options = {}) {
   const db = await readDb();
-  const leads = filterAndDedupeLeads(db.leads, options);
-  const workingLeads = filterWorkingLeads(db.leads, options);
-  const contactableLeads = leads.filter(hasActionableContact);
-  const hotLeads = leads.filter(isHotLead);
-  const socialLeads = leads.filter((lead) => socialProfileLinks(lead).length || /linkedin|instagram|x\/twitter|facebook|tiktok|threads|reddit|telegram|tradingview/i.test(lead.platform || ""));
-  const instagramLeads = leads.filter((lead) => /instagram\.com/.test(socialTextFor(lead)));
-  const linkedinLeads = leads.filter((lead) => /linkedin\.com/.test(socialTextFor(lead)));
-  const xLeads = leads.filter((lead) => /(x\.com|twitter\.com)/.test(socialTextFor(lead)));
+  const all = db.leads || [];
+  const qualified = filterAndDedupeLeads(all, { limit: options.limit });
+  const working = filterWorkingLeads(all, { limit: options.limit });
+  const contactable = qualified.filter(hasActionableContact);
+  const hot = qualified.filter(isHotLead);
+  const social = qualified.filter((lead) => /linkedin|instagram|x\.com|twitter|telegram|discord|tiktok|facebook|threads|reddit/i.test(`${lead.platform} ${lead.url}`));
+  const instagram = qualified.filter((lead) => /instagram/i.test(`${lead.platform} ${lead.url}`));
+  const linkedin = qualified.filter((lead) => /linkedin/i.test(`${lead.platform} ${lead.url}`));
+  const x = qualified.filter((lead) => /x\/twitter|x\.com|twitter/i.test(`${lead.platform} ${lead.url}`));
 
-  const columns = [
+  const header = [
+    "commercialScore",
+    "sourceBucket",
+    "priority",
     "icpTier",
     "meetingPriority",
     "opportunityPlay",
-    "sourcePlatform",
     "bestChannel",
     "nextAction",
     "decisionMakerLikelihood",
     "decisionMakers",
     "decisionMakerLinks",
-    "whyThisLead",
-    "researchSummary",
-    "qualificationReasons",
-    "redFlags",
-    "priority",
     "score",
     "contactConfidence",
+    "bestContact",
+    "bestContactType",
+    "bestContactSource",
     "contactQuality",
     "leadType",
     "segment",
@@ -446,84 +385,42 @@ export async function exportLeads(options = {}) {
     "name",
     "country",
     "languages",
-    "source",
-    "sourceQuery",
-    "primaryUrl",
-    "primaryContact",
+    "url",
+    "domain",
     "emails",
-    "phones",
+    "phoneNumbers",
     "forms",
-    "directLinks",
-    "socialProfiles",
-    "postForumLinks",
-    "websites",
-    "relatedLinks",
+    "socialLinks",
+    "contactLinks",
+    "websiteLinks",
     "contactSources",
     "evidence",
-    "audience",
-    "context",
+    "qualificationReasons",
+    "qualificationRisks",
     "outboundDm",
     "followUp",
-    "firstSeen",
-    "lastSeen",
-    "lastDeepEnrichedAt"
+    "snippet"
   ];
 
-  const rows = [
-    columns.join(","),
-    ...leads.map((lead) => {
-      const row = leadToExportRow(lead);
-      return columns.map((column) => toCsvCell(row[column])).join(",");
-    })
-  ];
+  const writeCsv = async (filename, leads) => writeFileWithRetry(path.join(rootDir, filename), `${header.join(",")}\n${leads.map(serializeLead).join("\n")}\n`);
+  const writeJson = async (filename, leads) => writeFileWithRetry(path.join(rootDir, filename), `${JSON.stringify(leads, null, 2)}\n`);
 
-  const csvPath = path.join(rootDir, options.csvName || "autopilot-leads.csv");
-  const jsonPath = path.join(rootDir, options.jsonName || "autopilot-leads.json");
-  const contactCsvPath = path.join(rootDir, options.contactCsvName || "autopilot-contactable-leads.csv");
-  const contactJsonPath = path.join(rootDir, options.contactJsonName || "autopilot-contactable-leads.json");
-  const contactRows = [
-    columns.join(","),
-    ...contactableLeads.map((lead) => {
-      const row = leadToExportRow(lead);
-      return columns.map((column) => toCsvCell(row[column])).join(",");
-    })
-  ];
-  const hotCsvPath = path.join(rootDir, options.hotCsvName || "autopilot-hot-leads.csv");
-  const hotJsonPath = path.join(rootDir, options.hotJsonName || "autopilot-hot-leads.json");
-  const rowsFor = (leadSet) => [
-    columns.join(","),
-    ...leadSet.map((lead) => {
-      const row = leadToExportRow(lead);
-      return columns.map((column) => toCsvCell(row[column])).join(",");
-    })
-  ];
-  const hotRows = rowsFor(hotLeads);
-  const socialCsvPath = path.join(rootDir, options.socialCsvName || "autopilot-social-leads.csv");
-  const socialJsonPath = path.join(rootDir, options.socialJsonName || "autopilot-social-leads.json");
-  const instagramCsvPath = path.join(rootDir, options.instagramCsvName || "autopilot-instagram-leads.csv");
-  const instagramJsonPath = path.join(rootDir, options.instagramJsonName || "autopilot-instagram-leads.json");
-  const linkedinCsvPath = path.join(rootDir, options.linkedinCsvName || "autopilot-linkedin-leads.csv");
-  const linkedinJsonPath = path.join(rootDir, options.linkedinJsonName || "autopilot-linkedin-leads.json");
-  const xCsvPath = path.join(rootDir, options.xCsvName || "autopilot-x-leads.csv");
-  const xJsonPath = path.join(rootDir, options.xJsonName || "autopilot-x-leads.json");
-  const workingCsvPath = path.join(rootDir, options.workingCsvName || "autopilot-working-leads.csv");
-  const workingJsonPath = path.join(rootDir, options.workingJsonName || "autopilot-working-leads.json");
-  await writeFileWithRetry(csvPath, `﻿${rows.join("\n")}\n`);
-  await writeFileWithRetry(jsonPath, `${JSON.stringify(leads.map(leadToExportRow), null, 2)}\n`);
-  await writeFileWithRetry(contactCsvPath, `﻿${contactRows.join("\n")}\n`);
-  await writeFileWithRetry(contactJsonPath, `${JSON.stringify(contactableLeads.map(leadToExportRow), null, 2)}\n`);
-  await writeFileWithRetry(hotCsvPath, `﻿${hotRows.join("\n")}\n`);
-  await writeFileWithRetry(hotJsonPath, `${JSON.stringify(hotLeads.map(leadToExportRow), null, 2)}\n`);
-  await writeFileWithRetry(socialCsvPath, `﻿${rowsFor(socialLeads).join("\n")}\n`);
-  await writeFileWithRetry(socialJsonPath, `${JSON.stringify(socialLeads.map(leadToExportRow), null, 2)}\n`);
-  await writeFileWithRetry(instagramCsvPath, `﻿${rowsFor(instagramLeads).join("\n")}\n`);
-  await writeFileWithRetry(instagramJsonPath, `${JSON.stringify(instagramLeads.map(leadToExportRow), null, 2)}\n`);
-  await writeFileWithRetry(linkedinCsvPath, `﻿${rowsFor(linkedinLeads).join("\n")}\n`);
-  await writeFileWithRetry(linkedinJsonPath, `${JSON.stringify(linkedinLeads.map(leadToExportRow), null, 2)}\n`);
-  await writeFileWithRetry(xCsvPath, `﻿${rowsFor(xLeads).join("\n")}\n`);
-  await writeFileWithRetry(xJsonPath, `${JSON.stringify(xLeads.map(leadToExportRow), null, 2)}\n`);
-  await writeFileWithRetry(workingCsvPath, `﻿${rowsFor(workingLeads).join("\n")}\n`);
-  await writeFileWithRetry(workingJsonPath, `${JSON.stringify(workingLeads.map(leadToExportRow), null, 2)}\n`);
+  const csvPath = options.csvName ? await writeCsv(options.csvName, qualified) : null;
+  const jsonPath = options.jsonName ? await writeJson(options.jsonName, qualified) : null;
+  const contactCsvPath = options.contactCsvName ? await writeCsv(options.contactCsvName, contactable) : null;
+  const contactJsonPath = options.contactJsonName ? await writeJson(options.contactJsonName, contactable) : null;
+  const hotCsvPath = options.hotCsvName ? await writeCsv(options.hotCsvName, hot) : null;
+  const hotJsonPath = options.hotJsonName ? await writeJson(options.hotJsonName, hot) : null;
+  const socialCsvPath = await writeCsv("autopilot-social-leads.csv", social);
+  const socialJsonPath = await writeJson("autopilot-social-leads.json", social);
+  const instagramCsvPath = await writeCsv("autopilot-instagram-leads.csv", instagram);
+  const instagramJsonPath = await writeJson("autopilot-instagram-leads.json", instagram);
+  const linkedinCsvPath = await writeCsv("autopilot-linkedin-leads.csv", linkedin);
+  const linkedinJsonPath = await writeJson("autopilot-linkedin-leads.json", linkedin);
+  const xCsvPath = await writeCsv("autopilot-x-leads.csv", x);
+  const xJsonPath = await writeJson("autopilot-x-leads.json", x);
+  const workingCsvPath = await writeCsv("autopilot-working-leads.csv", working);
+  const workingJsonPath = await writeJson("autopilot-working-leads.json", working);
 
   return {
     csvPath,
@@ -542,14 +439,14 @@ export async function exportLeads(options = {}) {
     xJsonPath,
     workingCsvPath,
     workingJsonPath,
-    exported: leads.length,
-    working: workingLeads.length,
-    contactable: contactableLeads.length,
-    hot: hotLeads.length,
-    social: socialLeads.length,
-    instagram: instagramLeads.length,
-    linkedin: linkedinLeads.length,
-    x: xLeads.length,
-    total: db.leads.length
+    exported: qualified.length,
+    working: working.length,
+    contactable: contactable.length,
+    hot: hot.length,
+    social: social.length,
+    instagram: instagram.length,
+    linkedin: linkedin.length,
+    x: x.length,
+    total: all.length
   };
 }
