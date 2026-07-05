@@ -1,5 +1,5 @@
 import * as cheerio from "cheerio";
-import { cleanEmails, cleanLinks, cleanPhoneNumbers, isBlockedLinkUrl, isBrokerOrReferralUrl, isLinkHubUrl, isUsefulDirectContactUrl } from "./contact-cleaner.js";
+import { cleanEmails, cleanLinks, cleanPhoneNumbers, isBlockedLinkUrl, isBrokerOrReferralUrl, isLinkHubUrl, isShortenerUrl, isUsefulDirectContactUrl } from "./contact-cleaner.js";
 import { deepEnrichResult as baseDeepEnrichResult } from "./deep.js";
 import { bareWebsiteUrls, isPlatformProfileDomain, isPlatformProfileUrl, pickBestContact } from "./platform-enrichment.js";
 import { filterDecisionMakerEmails, stripPlatformOwnedContacts } from "./platform-contact-policy.js";
