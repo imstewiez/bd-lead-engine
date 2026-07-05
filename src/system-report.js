@@ -5,7 +5,7 @@ import { filterAndDedupeLeads, filterWorkingLeads, isExportQualified } from "./e
 import { healthSnapshot } from "./health.js";
 import { sourceBucket } from "./mql5-limit.js";
 import { filterDecisionMakerEmails, isPlatformOwnedEmail, stripPlatformOwnedContacts } from "./platform-contact-policy.js";
-import { pickBestContact } from "./platform-enrichment.js";
+import { cleanDecisionContactLinks, isPlatformProfileUrl, pickBestContact } from "./platform-enrichment.js";
 import { getRootDir, readDb } from "./store.js";
 import { nowIso } from "./utils.js";
 
@@ -105,35 +105,52 @@ function hasPlatformContact(lead = {}) {
   return (lead.emails || []).some((email) => isPlatformOwnedEmail(email, lead)) || (lead.bestContactType === "email" && isPlatformOwnedEmail(lead.bestContact, lead));
 }
 
-function contactScore(lead = {}) {
+function bestContactIsPlatformProfile(lead = {}) {
+  return Boolean(lead.bestContact && isPlatformProfileUrl(lead.bestContact));
+}
+
+function realContactParts(lead = {}) {
   const cleaned = preparedLead(lead);
   const emails = filterDecisionMakerEmails(cleaned);
-  const direct = cleanLinks([...(cleaned.contactLinks || []), ...(cleaned.socialLinks || [])], { allowYouTubeChannels: false, allowShorteners: true }).filter(isUsefulDirectContactUrl);
+  const direct = cleanDecisionContactLinks([cleaned.bestContact, ...(cleaned.contactLinks || []), ...(cleaned.socialLinks || [])]);
   const forms = cleanForms(cleaned.forms || []);
   const phones = cleanPhoneNumbers(cleaned.phoneNumbers || []);
+  const bestIsReal = Boolean(cleaned.bestContact && cleaned.bestContactType !== "website" && !isPlatformProfileUrl(cleaned.bestContact));
+  return { cleaned, emails, direct, forms, phones, bestIsReal };
+}
+
+function contactScore(lead = {}) {
+  const { cleaned, emails, direct, forms, phones, bestIsReal } = realContactParts(lead);
   let score = 0;
   if (direct.some((url) => /wa\.me|whatsapp/i.test(url))) score += 40;
   if (direct.some((url) => /t\.me|telegram/i.test(url))) score += 35;
   if (emails.length) score += 30;
   if (phones.length) score += 25;
   if (forms.length) score += 18;
-  if ((cleaned.websiteLinks || []).length) score += 10;
-  if ((cleaned.decisionMakers || []).length || (cleaned.decisionMakerLinks || []).length) score += 20;
-  if (cleaned.bestContact) score += 20;
+  if ((cleaned.websiteLinks || []).filter((url) => !isPlatformProfileUrl(url)).length) score += 5;
+  if ((cleaned.decisionMakers || []).length || (cleaned.decisionMakerLinks || []).length) score += 15;
+  if (bestIsReal) score += 20;
   return score;
 }
 
 function hasRealDecisionContact(lead = {}) {
+  const { emails, direct, forms, phones, bestIsReal } = realContactParts(lead);
+  return emails.length > 0 || direct.length > 0 || forms.length > 0 || phones.length > 0 || bestIsReal;
+}
+
+function isWebsiteOnlyContact(lead = {}) {
   const cleaned = preparedLead(lead);
-  return Boolean(cleaned.bestContact) || filterDecisionMakerEmails(cleaned).length > 0 || (cleaned.contactLinks || []).length > 0 || (cleaned.decisionMakers || []).length > 0 || (cleaned.decisionMakerLinks || []).length > 0;
+  if (hasRealDecisionContact(cleaned)) return false;
+  return Boolean(cleaned.bestContact && cleaned.bestContactType === "website") || (cleaned.websiteLinks || []).some((url) => !isPlatformProfileUrl(url));
 }
 
 function isSalesReadyLead(lead = {}) {
   if (!isExportQualified(lead)) return false;
   const cleaned = preparedLead(lead);
+  if (hasPlatformContact(lead) || bestContactIsPlatformProfile(lead)) return false;
+  if (!hasRealDecisionContact(cleaned)) return false;
   const score = contactScore(cleaned);
   const bucket = sourceBucket(lead);
-  if (hasPlatformContact(lead) && !cleaned.bestContact) return false;
   if (["mql5", "myfxbook", "specialist"].includes(bucket) && score < 55) return false;
   return score >= 45;
 }
@@ -152,10 +169,14 @@ function buildLeadQuality(db) {
   const qualified = filterAndDedupeLeads(leads);
   const working = filterWorkingLeads(leads);
   const exportQualified = leads.filter(isExportQualified);
+  const realContactLeads = leads.filter(hasRealDecisionContact);
   const salesReady = qualified.filter(isSalesReadyLead).sort((a, b) => contactScore(b) - contactScore(a));
   const platformContactLeaks = leads.filter(hasPlatformContact);
+  const platformBestContactLeaks = leads.filter(bestContactIsPlatformProfile);
   const highValueNoContact = leads.filter((lead) => Number(lead.commercialScore || lead.score || 0) >= 75 || lead.priority === "A").filter((lead) => !hasRealDecisionContact(lead));
   const weakSpecialist = leads.filter((lead) => ["mql5", "myfxbook", "specialist"].includes(sourceBucket(lead))).filter((lead) => contactScore(lead) < 45).slice(0, 10);
+  const identityTrailCoverage = leads.filter((lead) => lead.identityTrailSearched || lead.smartTrailWorker || lead.smartTrailDoneAt).length;
+  const websiteOnlyContacts = leads.filter(isWebsiteOnlyContact);
 
   return {
     totals: {
@@ -163,19 +184,31 @@ function buildLeadQuality(db) {
       exportQualified: exportQualified.length,
       qualified: qualified.length,
       working: working.length,
+      realDecisionContacts: realContactLeads.length,
       salesReady: salesReady.length,
       platformContactLeaks: platformContactLeaks.length,
-      highValueNoContact: highValueNoContact.length
+      platformBestContactLeaks: platformBestContactLeaks.length,
+      highValueNoContact: highValueNoContact.length,
+      identityTrailCoverage,
+      websiteOnlyContacts: websiteOnlyContacts.length
     },
     byBucket: countBy(leads, sourceBucket),
     qualifiedByBucket: countBy(qualified, sourceBucket),
     workingByBucket: countBy(working, sourceBucket),
+    realDecisionContactsByBucket: countBy(realContactLeads, sourceBucket),
     salesReadyByBucket: countBy(salesReady, sourceBucket),
     topSalesReady: salesReady.slice(0, 8).map((lead) => ({ name: lead.name || lead.title || lead.url, bucket: sourceBucket(lead), score: lead.commercialScore || lead.score || 0, contactScore: contactScore(lead), contact: preparedLead(lead).bestContact || "" })),
     platformLeakSamples: platformContactLeaks.slice(0, 8).map((lead) => ({ name: lead.name || lead.title || lead.url, bucket: sourceBucket(lead), contact: lead.bestContact || "" })),
+    platformBestContactLeakSamples: platformBestContactLeaks.slice(0, 8).map((lead) => ({ name: lead.name || lead.title || lead.url, bucket: sourceBucket(lead), contact: lead.bestContact || "" })),
     highValueNoContactSamples: highValueNoContact.slice(0, 8).map((lead) => ({ name: lead.name || lead.title || lead.url, bucket: sourceBucket(lead), score: lead.commercialScore || lead.score || 0 })),
-    weakSpecialistSamples: weakSpecialist.map((lead) => ({ name: lead.name || lead.title || lead.url, bucket: sourceBucket(lead), score: lead.commercialScore || lead.score || 0, contactScore: contactScore(lead) }))
+    weakSpecialistSamples: weakSpecialist.map((lead) => ({ name: lead.name || lead.title || lead.url, bucket: sourceBucket(lead), score: lead.commercialScore || lead.score || 0, contactScore: contactScore(lead) })),
+    websiteOnlyContactSamples: websiteOnlyContacts.slice(0, 8).map((lead) => ({ name: lead.name || lead.title || lead.url, bucket: sourceBucket(lead), contact: preparedLead(lead).bestContact || "" }))
   };
+}
+
+function ratio(numerator, denominator) {
+  if (!denominator) return null;
+  return Math.round((Number(numerator || 0) / Number(denominator || 0)) * 1000) / 1000;
 }
 
 function scoreBoard(health, statuses, quality) {
@@ -190,12 +223,16 @@ function scoreBoard(health, statuses, quality) {
     qualified: health.counts.qualified,
     working: health.counts.working,
     contactable: health.counts.contactable,
+    realDecisionContacts: quality.totals.realDecisionContacts,
     aLeads: health.counts.aLeads,
     a1Hot: health.counts.a1Hot,
     a2Strong: health.counts.a2Strong,
     salesReady: quality.totals.salesReady,
     platformContactLeaks: quality.totals.platformContactLeaks,
+    platformBestContactLeaks: quality.totals.platformBestContactLeaks,
     highValueNoContact: quality.totals.highValueNoContact,
+    identityTrailCoverage: quality.totals.identityTrailCoverage,
+    websiteOnlyContacts: quality.totals.websiteOnlyContacts,
     duplicateLike: health.duplicate.duplicateLike,
     uniqueKeys: health.duplicate.uniqueKeys,
     enrichmentDueNow: health.enrichmentQueue.dueNow,
@@ -205,6 +242,9 @@ function scoreBoard(health, statuses, quality) {
     harvesterRawSeen: totalRaw,
     harvesterSavedThisCycle: totalSaved,
     providerErrors: totalProviderErrors,
+    providerErrorsPerSaved: ratio(totalProviderErrors, totalSaved),
+    salesReadyYield: ratio(quality.totals.salesReady, quality.totals.raw),
+    salesReadyPerProviderError: ratio(quality.totals.salesReady, totalProviderErrors),
     staleWorkers,
     issues: health.issues
   };
@@ -244,29 +284,39 @@ function printHuman(report) {
   console.log(`Stale workers: ${s.staleWorkers.length ? s.staleWorkers.join(", ") : "none"}`);
 
   printTopic("2) Lead Funnel");
-  console.log(`Raw=${s.rawLeads} | Qualified=${s.qualified} | Working=${s.working} | Contactable=${s.contactable} | Sales-ready=${s.salesReady}`);
+  console.log(`Raw=${s.rawLeads} | Qualified=${s.qualified} | Working=${s.working} | Contactable=${s.contactable} | Real decision contacts=${s.realDecisionContacts} | Sales-ready=${s.salesReady}`);
   console.log(`A=${s.aLeads} | A1 Hot=${s.a1Hot} | A2 Strong=${s.a2Strong} | Duplicates=${s.duplicateLike} | Unique=${s.uniqueKeys}`);
+  console.log(`Sales-ready yield=${s.salesReadyYield ?? "n/a"} | Sales-ready/provider-error=${s.salesReadyPerProviderError ?? "n/a"}`);
 
   printTopic("3) Quality Control");
-  console.log(`Platform contact leaks=${s.platformContactLeaks} | High-value without real contact=${s.highValueNoContact}`);
+  console.log(`Platform email leaks=${s.platformContactLeaks} | Platform profile as best contact=${s.platformBestContactLeaks} | High-value without real contact=${s.highValueNoContact} | Website-only contacts=${s.websiteOnlyContacts}`);
   printTableObject("Sales-ready by bucket", report.quality.salesReadyByBucket);
+  printTableObject("Real decision contacts by bucket", report.quality.realDecisionContactsByBucket);
   printTableObject("Qualified by bucket", report.quality.qualifiedByBucket);
   if (report.quality.platformLeakSamples.length) {
-    console.log("Platform leak samples:");
+    console.log("Platform email leak samples:");
     for (const item of report.quality.platformLeakSamples) console.log(`  - ${item.bucket}: ${item.name} | ${item.contact}`);
+  }
+  if (report.quality.platformBestContactLeakSamples.length) {
+    console.log("Platform best-contact leak samples:");
+    for (const item of report.quality.platformBestContactLeakSamples) console.log(`  - ${item.bucket}: ${item.name} | ${item.contact}`);
   }
   if (report.quality.highValueNoContactSamples.length) {
     console.log("High-value no-contact samples:");
     for (const item of report.quality.highValueNoContactSamples) console.log(`  - ${item.bucket}: ${item.name} | score=${item.score}`);
   }
+  if (report.quality.websiteOnlyContactSamples.length) {
+    console.log("Website-only contact samples:");
+    for (const item of report.quality.websiteOnlyContactSamples) console.log(`  - ${item.bucket}: ${item.name} | ${item.contact}`);
+  }
 
   printTopic("4) Enrichment");
-  console.log(`Due now=${s.enrichmentDueNow} | Enriched 1h=${s.enrichedLastHour} | Enriched 24h=${s.enrichedLast24h}`);
+  console.log(`Due now=${s.enrichmentDueNow} | Enriched 1h=${s.enrichedLastHour} | Enriched 24h=${s.enrichedLast24h} | Identity trail coverage=${s.identityTrailCoverage}`);
   const smart = report.workers.find((item) => item.name === "smart-enrichment-worker");
   if (smart) console.log(`Smart trail: phase=${smart.phase} processed=${smart.counts.processed ?? "n/a"} stored=${smart.counts.stored ?? "n/a"} errors=${smart.counts.errors ?? 0}${smart.current?.name ? ` | current=${smart.current.name}` : ""}`);
 
   printTopic("5) Sourcing Performance");
-  console.log(`Harvesters=${s.harvesters} | Raw seen=${s.harvesterRawSeen} | Saved this cycle=${s.harvesterSavedThisCycle} | Provider errors=${s.providerErrors}`);
+  console.log(`Harvesters=${s.harvesters} | Raw seen=${s.harvesterRawSeen} | Saved this cycle=${s.harvesterSavedThisCycle} | Provider errors=${s.providerErrors} | Provider errors/saved=${s.providerErrorsPerSaved ?? "n/a"}`);
   for (const item of report.workers.filter((worker) => worker.name.startsWith("source-harvester"))) {
     const c = item.counts;
     console.log(`${item.name.padEnd(34)} age=${String(item.age).padEnd(5)} raw=${String(c.raw).padEnd(5)} saved=${String(c.saved).padEnd(4)} discarded=${String(c.discarded).padEnd(4)} dup=${String(c.duplicates).padEnd(4)} providerErr=${c.providerErrors}`);
@@ -278,7 +328,7 @@ function printHuman(report) {
     const c = item.counts;
     console.log(`${item.name.padEnd(34)} ${String(item.status).padEnd(8)} ${String(item.phase).padEnd(16)} age=${String(item.age).padEnd(5)} processed=${c.processed ?? "-"} stored=${c.stored ?? "-"} errors=${c.errors ?? "-"}`);
     if (item.current?.name) console.log(`  ↳ current: ${item.current.name}`);
-    if (item.lastResult?.name) console.log(`  ↳ last: ${item.lastResult.name} | best=${item.lastResult.bestContact || "-"}`);
+    if (item.lastResult?.name) console.log(`  ↳ last: ${item.lastResult.name} | best=${item.lastResult.bestContact || "-"}${item.lastResult.hasDecisionContact != null ? ` | real=${item.lastResult.hasDecisionContact}` : ""}`);
   }
 
   printTopic("7) Exports");
@@ -290,7 +340,8 @@ function printHuman(report) {
   const actions = [];
   if (s.staleWorkers.length) actions.push(`Restart background if still stale after next supervisor cycle: ${s.staleWorkers.join(", ")}`);
   if (s.providerErrors > Math.max(500, s.harvesterRawSeen)) actions.push("High provider errors: add official search API keys for scale/stability.");
-  if (s.platformContactLeaks) actions.push("Platform-owned contacts found: smart enrichment should replace them with decision-maker contacts.");
+  if (s.platformContactLeaks || s.platformBestContactLeaks) actions.push("Platform-owned contacts found: smart enrichment should replace them with decision-maker contacts.");
+  if (s.websiteOnlyContacts) actions.push("Website-only contacts need another enrichment pass to find WhatsApp, Telegram, email, phone, or form.");
   if (s.salesReady === 0 && s.qualified > 0) actions.push("No sales-ready export yet: let smart enrichment run longer.");
   if (!actions.length) actions.push("No urgent action. Let background run.");
   for (const action of actions) console.log(`- ${action}`);

@@ -4,15 +4,15 @@ import {
   cleanEmails,
   cleanForms,
   cleanLinks as cleanContactLinks,
-  cleanPhoneNumbers,
-  hasDirectOutboundPath,
-  isUsefulDirectContactUrl
+  cleanPhoneNumbers
 } from "./contact-cleaner.js";
 import { getRootDir, readDb } from "./store.js";
 import { hasSearchableLeadSignal, hasStrictTradingIcp, isHardRejectedLead, leadRejectionReasons } from "./lead-quality.js";
 import { classifyLeadEntity, isActualLead, isResearchSource } from "./lead-entity.js";
 import { isHotLead, qualifyLead } from "./qualification.js";
 import { limitMql5Share, sourceBucket } from "./mql5-limit.js";
+import { cleanDecisionContactLinks, isPlatformProfileUrl, pickBestContact } from "./platform-enrichment.js";
+import { filterDecisionMakerEmails, stripPlatformOwnedContacts } from "./platform-contact-policy.js";
 import { platformFromUrl, toCsvCell, unique } from "./utils.js";
 
 const rootDir = getRootDir();
@@ -53,10 +53,14 @@ async function writeFileWithRetry(targetPath, content, attempts = 8) {
   return targetPath;
 }
 
+function preparedLead(lead = {}) {
+  const cleaned = stripPlatformOwnedContacts(lead);
+  return { ...cleaned, ...pickBestContact(cleaned) };
+}
+
 function directLinks(lead) {
-  return cleanContactLinks([lead.url, ...(lead.socialLinks || []), ...(lead.contactLinks || [])], {
-    allowYouTubeChannels: false
-  }).filter(isUsefulDirectContactUrl);
+  const cleaned = preparedLead(lead);
+  return cleanDecisionContactLinks([cleaned.bestContact, cleaned.url, ...(cleaned.socialLinks || []), ...(cleaned.contactLinks || [])]);
 }
 
 function formsSummary(lead) {
@@ -67,16 +71,13 @@ function formsSummary(lead) {
 }
 
 export function hasActionableContact(lead) {
-  const emails = cleanEmails(lead.emails || []);
-  const forms = cleanForms(lead.forms || []);
-  const links = directLinks(lead);
-  return (
-    emails.length > 0 ||
-    forms.length > 0 ||
-    links.length > 0 ||
-    hasDirectOutboundPath(lead) ||
-    Boolean(lead.bestContact)
-  );
+  const cleaned = preparedLead(lead);
+  const emails = filterDecisionMakerEmails(cleaned);
+  const forms = cleanForms(cleaned.forms || []);
+  const phones = cleanPhoneNumbers(cleaned.phoneNumbers || []);
+  const links = directLinks(cleaned);
+  const bestIsReal = Boolean(cleaned.bestContact && cleaned.bestContactType !== "website" && !isPlatformProfileUrl(cleaned.bestContact));
+  return emails.length > 0 || forms.length > 0 || phones.length > 0 || links.length > 0 || bestIsReal;
 }
 
 function hasDecisionPath(lead = {}) {
@@ -241,8 +242,10 @@ export function isResearchExportSource(lead = {}) {
 }
 
 function sortLeads(a, b) {
-  const contactA = Number(a.contactConfidence || 0) + Number(Boolean(a.bestContact)) * 25 + Number(hasActionableContact(a)) * 10;
-  const contactB = Number(b.contactConfidence || 0) + Number(Boolean(b.bestContact)) * 25 + Number(hasActionableContact(b)) * 10;
+  const preparedA = preparedLead(a);
+  const preparedB = preparedLead(b);
+  const contactA = Number(a.contactConfidence || 0) + Number(hasActionableContact(a)) * 35 + Number(Boolean(preparedA.bestContact && preparedA.bestContactType !== "website")) * 10;
+  const contactB = Number(b.contactConfidence || 0) + Number(hasActionableContact(b)) * 35 + Number(Boolean(preparedB.bestContact && preparedB.bestContactType !== "website")) * 10;
   const platformRank = (lead) => {
     const platform = String(lead.platform || "").toLowerCase();
     const url = String(lead.url || "").toLowerCase();
@@ -265,7 +268,7 @@ function sortLeads(a, b) {
 }
 
 function canonicalLeadKey(lead) {
-  const emails = cleanEmails(lead.emails || []);
+  const emails = filterDecisionMakerEmails(preparedLead(lead));
   if (emails.length) return `email:${emails[0]}`;
   try {
     const parsed = new URL(lead.url);
@@ -324,14 +327,15 @@ function formatDecisionMakers(decisionMakers = []) {
 }
 
 function serializeLead(lead) {
-  const qualification = qualifyLead(lead);
-  const entity = classifyLeadEntity(lead);
+  const cleaned = preparedLead(lead);
+  const qualification = qualifyLead(cleaned);
+  const entity = classifyLeadEntity(cleaned);
   const columns = {
-    commercialScore: lead.commercialScore || "",
-    sourceBucket: lead.sourceBucket || sourceBucket(lead),
+    commercialScore: cleaned.commercialScore || "",
+    sourceBucket: cleaned.sourceBucket || sourceBucket(cleaned),
     entityKind: entity.kind,
     entityReason: entity.reason,
-    priority: lead.priority || "",
+    priority: cleaned.priority || "",
     icpTier: qualification.icpTier,
     meetingPriority: qualification.meetingPriority,
     opportunityPlay: qualification.opportunityPlay,
@@ -340,33 +344,33 @@ function serializeLead(lead) {
     decisionMakerLikelihood: qualification.decisionMakerLikelihood,
     decisionMakers: formatDecisionMakers(qualification.decisionMakers || []),
     decisionMakerLinks: qualification.decisionMakerLinks || [],
-    score: lead.score || "",
-    contactConfidence: lead.contactConfidence || "",
-    bestContact: lead.bestContact || "",
-    bestContactType: lead.bestContactType || "",
-    bestContactSource: lead.bestContactSource || "",
-    contactQuality: lead.contactQuality || "",
-    leadType: lead.leadType || "",
-    segment: lead.segment || "",
-    stage: lead.stage || "",
-    name: lead.name || lead.title || "",
-    country: lead.country || "",
-    languages: lead.languages || [],
-    url: lead.url || "",
-    domain: lead.domain || "",
-    emails: cleanEmails(lead.emails || []),
-    phoneNumbers: cleanPhoneNumbers(lead.phoneNumbers || []),
-    forms: formsSummary(lead),
-    socialLinks: cleanContactLinks(lead.socialLinks || [], { allowYouTubeChannels: false }),
-    contactLinks: cleanContactLinks(lead.contactLinks || [], { allowYouTubeChannels: false, allowShorteners: true }),
-    websiteLinks: cleanContactLinks(lead.websiteLinks || [], { allowYouTubeChannels: false, allowShorteners: true }),
-    contactSources: lead.contactSources || [],
-    evidence: lead.evidence || [],
+    score: cleaned.score || "",
+    contactConfidence: cleaned.contactConfidence || "",
+    bestContact: cleaned.bestContact || "",
+    bestContactType: cleaned.bestContactType || "",
+    bestContactSource: cleaned.bestContactSource || "",
+    contactQuality: cleaned.contactQuality || "",
+    leadType: cleaned.leadType || "",
+    segment: cleaned.segment || "",
+    stage: cleaned.stage || "",
+    name: cleaned.name || cleaned.title || "",
+    country: cleaned.country || "",
+    languages: cleaned.languages || [],
+    url: cleaned.url || "",
+    domain: cleaned.domain || "",
+    emails: filterDecisionMakerEmails(cleaned),
+    phoneNumbers: cleanPhoneNumbers(cleaned.phoneNumbers || []),
+    forms: formsSummary(cleaned),
+    socialLinks: cleanContactLinks(cleaned.socialLinks || [], { allowYouTubeChannels: false }),
+    contactLinks: cleanDecisionContactLinks(cleaned.contactLinks || []),
+    websiteLinks: cleanContactLinks(cleaned.websiteLinks || [], { allowYouTubeChannels: false, allowShorteners: true }).filter((url) => !isPlatformProfileUrl(url)),
+    contactSources: cleaned.contactSources || [],
+    evidence: cleaned.evidence || [],
     qualificationReasons: qualification.qualificationReasons || [],
     qualificationRisks: qualification.qualificationRisks || [],
-    outboundDm: lead.outbound?.dm || "",
-    followUp: lead.outbound?.followUp || "",
-    snippet: lead.snippet || ""
+    outboundDm: cleaned.outbound?.dm || "",
+    followUp: cleaned.outbound?.followUp || "",
+    snippet: cleaned.snippet || ""
   };
   return Object.values(columns).map(toCsvCell).join(",");
 }
@@ -428,7 +432,7 @@ export async function exportLeads(options = {}) {
   ];
 
   const writeCsv = async (filename, leads) => writeFileWithRetry(path.join(rootDir, filename), `${header.join(",")}\n${leads.map(serializeLead).join("\n")}\n`);
-  const writeJson = async (filename, leads) => writeFileWithRetry(path.join(rootDir, filename), `${JSON.stringify(leads, null, 2)}\n`);
+  const writeJson = async (filename, leads) => writeFileWithRetry(path.join(rootDir, filename), `${JSON.stringify(leads.map(preparedLead), null, 2)}\n`);
 
   const csvPath = options.csvName ? await writeCsv(options.csvName, qualified) : null;
   const jsonPath = options.jsonName ? await writeJson(options.jsonName, qualified) : null;
