@@ -18,7 +18,7 @@ import { enrichResult } from "./search.js";
 import { searchOne } from "./search-fallback.js";
 import { balancedSelect, countBySource, sourceBucket } from "./mql5-limit.js";
 import { EXTRA_HIGH_VALUE_QUERY_PACKS, isBlockedQueryTemplate } from "./sourcing-policy.js";
-import { idForLead, nowIso, sleep } from "./utils.js";
+import { nowIso, sleep } from "./utils.js";
 
 const HIGH_VALUE_QUERY_PACKS = [
   { text: "site:linkedin.com/in \"forex\" \"introducing broker\" {region}", intent: "partner" },
@@ -196,11 +196,24 @@ function buildQueries(options) {
 }
 
 function makeSourceStats() {
-  return { searches: 0, raw: 0, qualified: 0, saved: 0, discarded: 0, duplicates: 0, errors: 0, reasons: {} };
+  return { searches: 0, raw: 0, qualified: 0, saved: 0, discarded: 0, duplicates: 0, errors: 0, providerErrors: 0, reasons: {} };
 }
 
 function bumpReason(stats, reason) {
   stats.reasons[reason] = (stats.reasons[reason] || 0) + 1;
+}
+
+function recordProviderErrors(stats, providerErrors = []) {
+  if (!providerErrors.length) return;
+  stats.providerErrors = Number(stats.providerErrors || 0) + providerErrors.length;
+  bumpReason(stats, "provider_errors");
+}
+
+async function findResults(query, limit) {
+  const response = await searchOne(query.text, query.intent, limit);
+  if (Array.isArray(response)) return { results: response, providerErrors: response.errors || [] };
+  if (response && Array.isArray(response.results)) return { results: response.results, providerErrors: response.errors || [] };
+  return { results: [], providerErrors: [`Unexpected search response for ${query.text}`] };
 }
 
 function valuableSource(classified = {}, query = {}) {
@@ -223,6 +236,22 @@ function makeSavedCandidate(classified, query, reason) {
   };
 }
 
+async function prepareLead(raw, query, settings) {
+  let enriched = await enrichResult(raw, query.intent);
+  enriched.sourceIntent = query.intent;
+  enriched.sourceQuery = query.text;
+  if (settings.fetchPages) {
+    enriched = await deepEnrichResult(enriched, {
+      searchContacts: settings.searchContacts,
+      maxContactPages: settings.maxContactPages,
+      maxExternalWebsites: settings.maxExternalWebsites,
+      maxTrailQueries: settings.maxTrailQueries,
+      trailLimit: settings.trailLimit
+    });
+  }
+  return classifyResult(enriched, query.intent);
+}
+
 export async function runScan(options = {}, onProgress = () => {}) {
   const settings = { ...DEFAULT_SCAN, ...options };
   const runId = `run_${Date.now()}`;
@@ -233,7 +262,6 @@ export async function runScan(options = {}, onProgress = () => {}) {
   const errors = [];
   const sourceStats = {};
   const persisted = { created: [], updated: [] };
-  const incremental = settings.incremental !== false;
   const exportEvery = Number(settings.exportEvery || 10);
 
   const statFor = (query) => {
@@ -248,7 +276,8 @@ export async function runScan(options = {}, onProgress = () => {}) {
     stats.searches += 1;
     onProgress({ status: "running", message: `Searching [${query.channel}]: ${query.text}`, sourceStats });
     try {
-      const rawResults = await searchOne(query.text, { limit: settings.limitPerQuery });
+      const { results: rawResults, providerErrors } = await findResults(query, settings.limitPerQuery);
+      recordProviderErrors(stats, providerErrors);
       stats.raw += rawResults.length;
       for (const raw of rawResults) {
         const resultKey = `${raw.url || ""}|${raw.title || ""}`.toLowerCase();
@@ -257,19 +286,7 @@ export async function runScan(options = {}, onProgress = () => {}) {
           continue;
         }
         seenResults.set(resultKey, true);
-        let enriched = enrichResult(raw, query.intent);
-        enriched.sourceIntent = query.intent;
-        enriched.sourceQuery = query.text;
-        if (settings.fetchPages) {
-          enriched = await deepEnrichResult(enriched, {
-            searchContacts: settings.searchContacts,
-            maxContactPages: settings.maxContactPages,
-            maxExternalWebsites: settings.maxExternalWebsites,
-            maxTrailQueries: settings.maxTrailQueries,
-            trailLimit: settings.trailLimit
-          });
-        }
-        const classified = classifyResult(enriched, query.intent);
+        const classified = await prepareLead(raw, query, settings);
         if (isHardRejectedLead(classified)) {
           stats.discarded += 1;
           bumpReason(stats, "hard_rejected");
@@ -294,7 +311,8 @@ export async function runScan(options = {}, onProgress = () => {}) {
       }
     } catch (error) {
       stats.errors += 1;
-      errors.push({ query: query.text, error: error.message });
+      errors.push({ query: query.text, error: error.message, stack: error.stack });
+      onProgress({ status: "running", message: `Search failed [${query.channel}]: ${error.message}`, sourceStats });
     }
     await sleep(Number(settings.delayMs || 0));
   }
@@ -303,7 +321,9 @@ export async function runScan(options = {}, onProgress = () => {}) {
   for (const query of fallbackSeeds) {
     const stats = statFor(query);
     try {
-      const rawResults = await searchOne(query.text, { limit: Math.max(3, Math.min(settings.limitPerQuery, 10)) });
+      const { results: rawResults, providerErrors } = await findResults(query, Math.max(3, Math.min(settings.limitPerQuery, 10)));
+      recordProviderErrors(stats, providerErrors);
+      stats.raw += rawResults.length;
       for (const raw of rawResults) {
         const resultKey = `${raw.url || ""}|${raw.title || ""}`.toLowerCase();
         if (seenResults.has(resultKey)) {
@@ -311,19 +331,7 @@ export async function runScan(options = {}, onProgress = () => {}) {
           continue;
         }
         seenResults.set(resultKey, true);
-        let enriched = enrichResult(raw, query.intent);
-        enriched.sourceIntent = query.intent;
-        enriched.sourceQuery = query.text;
-        if (settings.fetchPages) {
-          enriched = await deepEnrichResult(enriched, {
-            searchContacts: settings.searchContacts,
-            maxContactPages: settings.maxContactPages,
-            maxExternalWebsites: settings.maxExternalWebsites,
-            maxTrailQueries: settings.maxTrailQueries,
-            trailLimit: settings.trailLimit
-          });
-        }
-        const classified = classifyResult(enriched, query.intent);
+        const classified = await prepareLead(raw, query, settings);
         if (isHardRejectedLead(classified)) {
           stats.discarded += 1;
           bumpReason(stats, "hard_rejected");
@@ -344,12 +352,12 @@ export async function runScan(options = {}, onProgress = () => {}) {
       }
     } catch (error) {
       stats.errors += 1;
-      errors.push({ query: query.text, error: error.message });
+      errors.push({ query: query.text, error: error.message, stack: error.stack });
     }
   }
 
   const exportResult = await exportLeads({ csvName: "autopilot-leads.csv", jsonName: "autopilot-leads.json" });
-  const run = { id: runId, startedAt, finishedAt: nowIso(), settings, totalQueries: queries.length, rawResults: Object.values(sourceStats).reduce((sum, value) => sum + value.raw, 0), leadsFound: leads.length, created: persisted.created.length, updated: persisted.updated.length, sourceStats, qualifiedBySource: countBySource(leads), exportResult };
+  const run = { id: runId, startedAt, finishedAt: nowIso(), settings, totalQueries: queries.length, rawResults: Object.values(sourceStats).reduce((sum, value) => sum + Number(value.raw || 0), 0), leadsFound: leads.length, created: persisted.created.length, updated: persisted.updated.length, sourceStats, qualifiedBySource: countBySource(leads), exportResult, errors };
   await addRun(run);
   onProgress({ status: "completed", message: `Run completed: ${run.created} new / ${run.updated} updated leads`, sourceStats });
   return run;
