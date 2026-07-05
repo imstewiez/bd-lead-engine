@@ -1,36 +1,36 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-05T23:31:23.328Z
+Updated: 2026-07-05T23:41:33.632Z
 Health: OK
 
 ## Funnel
-Raw: 1288
+Raw: 1277
 Qualified: 96
-Working: 122
-Contactable: 101
+Working: 123
+Contactable: 102
 Sales-ready: 38
-A1 Hot: 38
-A2 Strong: 17
+A1 Hot: 41
+A2 Strong: 15
 
 ## Quality
 Platform contact leaks: 15
-High-value without real contact: 294
+High-value without real contact: 281
 Sales-ready by bucket: {"web":8,"x":7,"myfxbook":6,"mql5":5,"specialist":4,"instagram":3,"tiktok":2,"facebook_threads":1,"linkedin":1,"telegram":1}
 Qualified by bucket: {"linkedin":41,"instagram":13,"x":9,"web":9,"facebook_threads":6,"myfxbook":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
 
 ## Sourcing / Workers
-Provider errors: 1053
+Provider errors: 1241
 Stale workers: engine-control
 Issues: none
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 60
-Stored: 60
+Processed: 67
+Stored: 67
 Errors: 0
-Current: Shady Shata JPYShadySoft 249% growth since 2025 Reliability 100% Algo trading 1 Copy for 100 USD per month
-Last: Parada Soikam Gold trad sc 238% growth since 2024 Reliability 100% Algo trading 1 Copy for 30 USD per month
-Last best contact: +31 10 669 0521
+Current: ) - Instagram
+Last: ) • Instagram photos and videos
+Last best contact: https://www.instagram.com/goldtraderpauls/
 
 ## Recent Errors
 ### qualified-exporter
