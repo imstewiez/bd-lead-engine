@@ -11,7 +11,7 @@ const rootDir = getRootDir();
 const dataDir = path.join(rootDir, "data");
 const dbPath = path.join(dataDir, "leads.json");
 const KNOWN_CURRENCY_EXCHANGE_DOMAINS = ["forex.se", "forex.no", "forex.fi", "forexvaluta.dk"];
-const KNOWN_GENERIC_FALSE_POSITIVE_DOMAINS = ["kitco.com", "mambaby.com", "partnershiphp.org", "tipranks.com"];
+const KNOWN_GENERIC_FALSE_POSITIVE_DOMAINS = ["kitco.com", "mambaby.com", "partnershiphp.org", "tipranks.com", "tradersunion.com", "latammediareport.com"];
 
 function stamp() {
   return new Date().toISOString().replace(/[:.]/g, "-");
@@ -88,6 +88,15 @@ function isKnownGenericFalsePositive(lead = {}) {
   return false;
 }
 
+function isGenericArticleOrPressLead(lead = {}) {
+  const text = leadText(lead);
+  const url = String(lead.url || "").toLowerCase();
+  if (/press release|newswire|latammediareport\.com\/article/.test(text)) return true;
+  if (/tradersunion\.com\/.*(?:interesting-articles|top-\d+|top\d+|best-forex|forex-educators|forex-mentors)/.test(url)) return true;
+  if (/\btop\s*\d+\s+forex\b|\bbest\s+forex\s+(?:educators|mentors|brokers|signals)\b/.test(text)) return true;
+  return false;
+}
+
 function hardNoiseReason(lead = {}) {
   const text = leadText(lead);
   const url = String(lead.url || "").toLowerCase();
@@ -95,6 +104,7 @@ function hardNoiseReason(lead = {}) {
 
   if (isKnownCurrencyExchangeLead(lead)) return "known_currency_exchange_false_positive";
   if (isKnownGenericFalsePositive(lead)) return "known_generic_false_positive";
+  if (isGenericArticleOrPressLead(lead)) return "generic_article_or_press_release";
   if (/cache\.aspx/.test(url)) return "generic_cache_page";
   if (/tradingview\.com\/(?:chart|markets|symbols)|\/chart\/?$/.test(url)) return "tradingview_chart_or_market_page";
   if (/\bt\.me\/telegram\b|\btelegram\.org\b|^view @telegram\b/.test(text)) return "official_telegram_page";
