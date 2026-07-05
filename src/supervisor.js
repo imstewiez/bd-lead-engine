@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { exportLeads } from "./exporter.js";
 import { healthSnapshot } from "./health.js";
-import { ensureBackgroundTasks } from "./process-manager.js";
+import { BACKGROUND_TASKS, ensureBackgroundTasks } from "./process-manager.js";
 import { getRootDir } from "./store.js";
 import { nowIso, sleep } from "./utils.js";
 
@@ -25,14 +25,7 @@ function numberArg(name, fallback) {
 }
 
 const intervalMs = Math.max(15000, numberArg("intervalMs", 60000));
-const managedTasks = [
-  "source-harvester",
-  "source-harvester-social",
-  "source-harvester-specialist",
-  "source-harvester-ecosystem",
-  "enrichment-worker",
-  "qualified-exporter"
-];
+const managedTasks = Object.keys(BACKGROUND_TASKS).filter((name) => name !== "supervisor");
 
 async function writeStatus(status) {
   await fs.mkdir(dataDir, { recursive: true });
@@ -84,13 +77,11 @@ async function superviseOnce(cycle) {
   });
 
   const issueText = snapshot.issues.length ? ` issues=${snapshot.issues.map((issue) => issue.code).join(",")}` : "";
-  console.log(
-    `[supervisor] ${nowIso()} cycle=${cycle} ok=${snapshot.ok} raw=${snapshot.counts.raw} working=${snapshot.counts.working} a=${snapshot.counts.aLeads}${issueText}`
-  );
+  console.log(`[supervisor] ${nowIso()} cycle=${cycle} ok=${snapshot.ok} raw=${snapshot.counts.raw} working=${snapshot.counts.working} a=${snapshot.counts.aLeads}${issueText}`);
 }
 
 let cycle = 0;
-await writeStatus({ status: "starting", intervalMs });
+await writeStatus({ status: "starting", intervalMs, managedTasks });
 
 while (!(await stopRequested())) {
   cycle += 1;
