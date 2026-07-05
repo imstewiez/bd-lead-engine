@@ -1,0 +1,2642 @@
+{
+  "ok": true,
+  "generatedAt": "2026-07-05T19:04:20.172Z",
+  "summary": {
+    "ok": true,
+    "rawLeads": 1373,
+    "qualified": 117,
+    "working": 148,
+    "contactable": 131,
+    "aLeads": 47,
+    "a1Hot": 31,
+    "a2Strong": 16,
+    "salesReady": 37,
+    "platformContactLeaks": 0,
+    "highValueNoContact": 156,
+    "duplicateLike": 93,
+    "uniqueKeys": 1280,
+    "enrichmentDueNow": 865,
+    "enrichedLastHour": 150,
+    "enrichedLast24h": 784,
+    "harvesters": 9,
+    "harvesterRawSeen": 0,
+    "harvesterSavedThisCycle": 0,
+    "providerErrors": 0,
+    "staleWorkers": [],
+    "issues": []
+  },
+  "health": {
+    "ok": true,
+    "updatedAt": "2026-07-05T19:04:18.540Z",
+    "counts": {
+      "raw": 1373,
+      "qualified": 117,
+      "working": 148,
+      "contactable": 131,
+      "aLeads": 47,
+      "a1Hot": 31,
+      "a2Strong": 16,
+      "bNurture": 67,
+      "cResearch": 34,
+      "sourceOnly": 0
+    },
+    "duplicate": {
+      "duplicateLike": 93,
+      "uniqueKeys": 1280
+    },
+    "enrichmentQueue": {
+      "stale": 429,
+      "contactless": 419,
+      "neverDeep": 229,
+      "eligible": 1039,
+      "dueNow": 865,
+      "rotationDue": 530,
+      "enrichedLastHour": 150,
+      "enrichedLast24h": 784,
+      "oldestDeepAgeHours": 55.6,
+      "running": 6
+    },
+    "tasks": {
+      "source-harvester": {
+        "pid": 30204,
+        "running": true
+      },
+      "source-harvester-social": {
+        "pid": 16232,
+        "running": true
+      },
+      "source-harvester-specialist": {
+        "pid": 13708,
+        "running": true
+      },
+      "source-harvester-ecosystem": {
+        "pid": 31944,
+        "running": true
+      },
+      "source-harvester-linkedin": {
+        "pid": 21240,
+        "running": true
+      },
+      "source-harvester-instagram": {
+        "pid": 30076,
+        "running": true
+      },
+      "source-harvester-platforms": {
+        "pid": 30256,
+        "running": true
+      },
+      "source-harvester-communities": {
+        "pid": 31128,
+        "running": true
+      },
+      "source-harvester-events": {
+        "pid": 13304,
+        "running": true
+      },
+      "enrichment-worker": {
+        "pid": 28504,
+        "running": true
+      },
+      "smart-enrichment-worker": {
+        "pid": 2304,
+        "running": true
+      },
+      "lead-cleaner": {
+        "pid": 32148,
+        "running": true
+      },
+      "qualified-exporter": {
+        "pid": 12680,
+        "running": true
+      },
+      "cloud-logger-worker": {
+        "pid": 28288,
+        "running": true
+      },
+      "supervisor": {
+        "pid": 10320,
+        "running": true
+      }
+    },
+    "statuses": {
+      "source-harvester": {
+        "exists": true,
+        "updatedAt": "2026-07-05T19:04:17.272Z",
+        "ageMs": 1265,
+        "status": {
+          "status": "running",
+          "workerName": "source-harvester",
+          "phase": "scan",
+          "cycle": 1,
+          "options": {
+            "limitPerQuery": 10,
+            "maxQueries": 140,
+            "fetchPages": true,
+            "deepEnrich": true,
+            "searchContacts": true,
+            "queryOffset": 0,
+            "includePartners": true,
+            "includeRecruitment": true,
+            "includeIntentPosts": true,
+            "includeEcosystem": true,
+            "includeSocialProfiles": true,
+            "includeForums": true,
+            "includeSpecialistSources": true,
+            "includeYouTube": false,
+            "regionSet": "global",
+            "delayMs": 6000,
+            "queryOffsetBase": 0,
+            "maxCycles": 0,
+            "maxContactPages": 8,
+            "maxExternalWebsites": 6,
+            "maxTrailQueries": 24,
+            "trailLimit": 8,
+            "exportEvery": 3,
+            "incremental": true,
+            "onlyIntents": "partner,intent",
+            "onlyChannels": ""
+          },
+          "totals": {
+            "total": 0,
+            "exported": 0
+          },
+          "heartbeatAt": "2026-07-05T19:04:17.249Z",
+          "progress": {
+            "message": "Starting scan with 140 balanced queries",
+            "status": "running",
+            "latestLead": null,
+            "sourceStats": {
+              "linkedin": {
+                "searches": 1,
+                "raw": 0,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {}
+              }
+            }
+          },
+          "updatedAt": "2026-07-05T19:04:17.272Z"
+        }
+      },
+      "source-harvester-social": {
+        "exists": true,
+        "updatedAt": "2026-07-05T19:04:17.281Z",
+        "ageMs": 1256,
+        "status": {
+          "status": "running",
+          "workerName": "source-harvester-social",
+          "phase": "scan",
+          "cycle": 1,
+          "options": {
+            "limitPerQuery": 10,
+            "maxQueries": 150,
+            "fetchPages": true,
+            "deepEnrich": true,
+            "searchContacts": true,
+            "queryOffset": 3000,
+            "includePartners": true,
+            "includeRecruitment": true,
+            "includeIntentPosts": true,
+            "includeEcosystem": true,
+            "includeSocialProfiles": true,
+            "includeForums": true,
+            "includeSpecialistSources": true,
+            "includeYouTube": false,
+            "regionSet": "global",
+            "delayMs": 5500,
+            "queryOffsetBase": 3000,
+            "maxCycles": 0,
+            "maxContactPages": 7,
+            "maxExternalWebsites": 6,
+            "maxTrailQueries": 24,
+            "trailLimit": 8,
+            "exportEvery": 3,
+            "incremental": true,
+            "onlyIntents": "social",
+            "onlyChannels": ""
+          },
+          "totals": {
+            "total": 0,
+            "exported": 0
+          },
+          "heartbeatAt": "2026-07-05T19:04:17.234Z",
+          "progress": {
+            "message": "Starting scan with 150 balanced queries",
+            "status": "running",
+            "latestLead": null,
+            "sourceStats": {
+              "linkedin": {
+                "searches": 1,
+                "raw": 0,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {}
+              }
+            }
+          },
+          "updatedAt": "2026-07-05T19:04:17.281Z"
+        }
+      },
+      "source-harvester-specialist": {
+        "exists": true,
+        "updatedAt": "2026-07-05T19:04:17.292Z",
+        "ageMs": 1245,
+        "status": {
+          "status": "running",
+          "workerName": "source-harvester-specialist",
+          "phase": "scan",
+          "cycle": 1,
+          "options": {
+            "limitPerQuery": 10,
+            "maxQueries": 140,
+            "fetchPages": true,
+            "deepEnrich": true,
+            "searchContacts": true,
+            "queryOffset": 6000,
+            "includePartners": true,
+            "includeRecruitment": true,
+            "includeIntentPosts": true,
+            "includeEcosystem": true,
+            "includeSocialProfiles": true,
+            "includeForums": true,
+            "includeSpecialistSources": true,
+            "includeYouTube": false,
+            "regionSet": "global",
+            "delayMs": 6000,
+            "queryOffsetBase": 6000,
+            "maxCycles": 0,
+            "maxContactPages": 8,
+            "maxExternalWebsites": 6,
+            "maxTrailQueries": 24,
+            "trailLimit": 8,
+            "exportEvery": 3,
+            "incremental": true,
+            "onlyIntents": "specialist,forum",
+            "onlyChannels": ""
+          },
+          "totals": {
+            "total": 0,
+            "exported": 0
+          },
+          "heartbeatAt": "2026-07-05T19:04:17.262Z",
+          "progress": {
+            "message": "Starting scan with 135 balanced queries",
+            "status": "running",
+            "latestLead": null,
+            "sourceStats": {
+              "linkedin": {
+                "searches": 1,
+                "raw": 0,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {}
+              }
+            }
+          },
+          "updatedAt": "2026-07-05T19:04:17.292Z"
+        }
+      },
+      "source-harvester-ecosystem": {
+        "exists": true,
+        "updatedAt": "2026-07-05T19:04:17.272Z",
+        "ageMs": 1265,
+        "status": {
+          "status": "running",
+          "workerName": "source-harvester-ecosystem",
+          "phase": "scan",
+          "cycle": 1,
+          "options": {
+            "limitPerQuery": 8,
+            "maxQueries": 110,
+            "fetchPages": true,
+            "deepEnrich": true,
+            "searchContacts": true,
+            "queryOffset": 9000,
+            "includePartners": true,
+            "includeRecruitment": true,
+            "includeIntentPosts": true,
+            "includeEcosystem": true,
+            "includeSocialProfiles": true,
+            "includeForums": true,
+            "includeSpecialistSources": true,
+            "includeYouTube": false,
+            "regionSet": "global",
+            "delayMs": 7000,
+            "queryOffsetBase": 9000,
+            "maxCycles": 0,
+            "maxContactPages": 8,
+            "maxExternalWebsites": 6,
+            "maxTrailQueries": 22,
+            "trailLimit": 8,
+            "exportEvery": 3,
+            "incremental": true,
+            "onlyIntents": "ecosystem,recruitment",
+            "onlyChannels": ""
+          },
+          "totals": {
+            "total": 0,
+            "exported": 0
+          },
+          "heartbeatAt": "2026-07-05T19:04:17.248Z",
+          "progress": {
+            "message": "Starting scan with 110 balanced queries",
+            "status": "running",
+            "latestLead": null,
+            "sourceStats": {
+              "linkedin": {
+                "searches": 1,
+                "raw": 0,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {}
+              }
+            }
+          },
+          "updatedAt": "2026-07-05T19:04:17.272Z"
+        }
+      },
+      "source-harvester-linkedin": {
+        "exists": true,
+        "updatedAt": "2026-07-05T19:04:17.276Z",
+        "ageMs": 1261,
+        "status": {
+          "status": "running",
+          "workerName": "source-harvester-linkedin",
+          "phase": "scan",
+          "cycle": 1,
+          "options": {
+            "limitPerQuery": 15,
+            "maxQueries": 240,
+            "fetchPages": true,
+            "deepEnrich": true,
+            "searchContacts": true,
+            "queryOffset": 12000,
+            "includePartners": true,
+            "includeRecruitment": true,
+            "includeIntentPosts": true,
+            "includeEcosystem": true,
+            "includeSocialProfiles": true,
+            "includeForums": true,
+            "includeSpecialistSources": true,
+            "includeYouTube": false,
+            "regionSet": "global",
+            "delayMs": 4800,
+            "queryOffsetBase": 12000,
+            "maxCycles": 0,
+            "maxContactPages": 8,
+            "maxExternalWebsites": 7,
+            "maxTrailQueries": 28,
+            "trailLimit": 10,
+            "exportEvery": 3,
+            "incremental": true,
+            "onlyIntents": "",
+            "onlyChannels": "linkedin"
+          },
+          "totals": {
+            "total": 0,
+            "exported": 0
+          },
+          "heartbeatAt": "2026-07-05T19:04:17.242Z",
+          "progress": {
+            "message": "Starting scan with 219 balanced queries",
+            "status": "running",
+            "latestLead": null,
+            "sourceStats": {
+              "linkedin": {
+                "searches": 1,
+                "raw": 0,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {}
+              }
+            }
+          },
+          "updatedAt": "2026-07-05T19:04:17.276Z"
+        }
+      },
+      "source-harvester-instagram": {
+        "exists": true,
+        "updatedAt": "2026-07-05T19:04:17.260Z",
+        "ageMs": 1278,
+        "status": {
+          "status": "running",
+          "workerName": "source-harvester-instagram",
+          "phase": "scan",
+          "cycle": 1,
+          "options": {
+            "limitPerQuery": 15,
+            "maxQueries": 210,
+            "fetchPages": true,
+            "deepEnrich": true,
+            "searchContacts": true,
+            "queryOffset": 15000,
+            "includePartners": true,
+            "includeRecruitment": true,
+            "includeIntentPosts": true,
+            "includeEcosystem": true,
+            "includeSocialProfiles": true,
+            "includeForums": true,
+            "includeSpecialistSources": true,
+            "includeYouTube": false,
+            "regionSet": "global",
+            "delayMs": 5200,
+            "queryOffsetBase": 15000,
+            "maxCycles": 0,
+            "maxContactPages": 8,
+            "maxExternalWebsites": 7,
+            "maxTrailQueries": 28,
+            "trailLimit": 10,
+            "exportEvery": 3,
+            "incremental": true,
+            "onlyIntents": "",
+            "onlyChannels": "instagram"
+          },
+          "totals": {
+            "total": 0,
+            "exported": 0
+          },
+          "heartbeatAt": "2026-07-05T19:04:17.238Z",
+          "progress": {
+            "message": "Starting scan with 55 balanced queries",
+            "status": "running",
+            "latestLead": null,
+            "sourceStats": {
+              "instagram": {
+                "searches": 1,
+                "raw": 0,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {}
+              }
+            }
+          },
+          "updatedAt": "2026-07-05T19:04:17.260Z"
+        }
+      },
+      "source-harvester-platforms": {
+        "exists": true,
+        "updatedAt": "2026-07-05T19:04:17.277Z",
+        "ageMs": 1261,
+        "status": {
+          "status": "running",
+          "workerName": "source-harvester-platforms",
+          "phase": "scan",
+          "cycle": 1,
+          "options": {
+            "limitPerQuery": 10,
+            "maxQueries": 180,
+            "fetchPages": true,
+            "deepEnrich": true,
+            "searchContacts": true,
+            "queryOffset": 18000,
+            "includePartners": true,
+            "includeRecruitment": true,
+            "includeIntentPosts": true,
+            "includeEcosystem": true,
+            "includeSocialProfiles": true,
+            "includeForums": true,
+            "includeSpecialistSources": true,
+            "includeYouTube": false,
+            "regionSet": "global",
+            "delayMs": 7000,
+            "queryOffsetBase": 18000,
+            "maxCycles": 0,
+            "maxContactPages": 8,
+            "maxExternalWebsites": 7,
+            "maxTrailQueries": 24,
+            "trailLimit": 8,
+            "exportEvery": 3,
+            "incremental": true,
+            "onlyIntents": "",
+            "onlyChannels": "myfxbook,mql5,specialist",
+            "maxMql5QueryShare": "0.45",
+            "minMql5Queries": "25"
+          },
+          "totals": {
+            "total": 0,
+            "exported": 0
+          },
+          "heartbeatAt": "2026-07-05T19:04:17.244Z",
+          "progress": {
+            "message": "Starting scan with 48 balanced queries",
+            "status": "running",
+            "latestLead": null,
+            "sourceStats": {
+              "myfxbook": {
+                "searches": 1,
+                "raw": 0,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {}
+              }
+            }
+          },
+          "updatedAt": "2026-07-05T19:04:17.277Z"
+        }
+      },
+      "source-harvester-communities": {
+        "exists": true,
+        "updatedAt": "2026-07-05T19:04:17.297Z",
+        "ageMs": 1241,
+        "status": {
+          "status": "running",
+          "workerName": "source-harvester-communities",
+          "phase": "scan",
+          "cycle": 1,
+          "options": {
+            "limitPerQuery": 12,
+            "maxQueries": 220,
+            "fetchPages": true,
+            "deepEnrich": true,
+            "searchContacts": true,
+            "queryOffset": 21000,
+            "includePartners": true,
+            "includeRecruitment": true,
+            "includeIntentPosts": true,
+            "includeEcosystem": true,
+            "includeSocialProfiles": true,
+            "includeForums": true,
+            "includeSpecialistSources": true,
+            "includeYouTube": false,
+            "regionSet": "global",
+            "delayMs": 6000,
+            "queryOffsetBase": 21000,
+            "maxCycles": 0,
+            "maxContactPages": 7,
+            "maxExternalWebsites": 6,
+            "maxTrailQueries": 24,
+            "trailLimit": 10,
+            "exportEvery": 3,
+            "incremental": true,
+            "onlyIntents": "",
+            "onlyChannels": "telegram,discord,forum,x,tiktok,facebook_threads"
+          },
+          "totals": {
+            "total": 0,
+            "exported": 0
+          },
+          "heartbeatAt": "2026-07-05T19:04:17.254Z",
+          "progress": {
+            "message": "Starting scan with 142 balanced queries",
+            "status": "running",
+            "latestLead": null,
+            "sourceStats": {
+              "telegram": {
+                "searches": 1,
+                "raw": 0,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {}
+              }
+            }
+          },
+          "updatedAt": "2026-07-05T19:04:17.297Z"
+        }
+      },
+      "source-harvester-events": {
+        "exists": true,
+        "updatedAt": "2026-07-05T19:04:17.279Z",
+        "ageMs": 1259,
+        "status": {
+          "status": "running",
+          "workerName": "source-harvester-events",
+          "phase": "scan",
+          "cycle": 1,
+          "options": {
+            "limitPerQuery": 10,
+            "maxQueries": 170,
+            "fetchPages": true,
+            "deepEnrich": true,
+            "searchContacts": true,
+            "queryOffset": 24000,
+            "includePartners": true,
+            "includeRecruitment": true,
+            "includeIntentPosts": true,
+            "includeEcosystem": true,
+            "includeSocialProfiles": true,
+            "includeForums": true,
+            "includeSpecialistSources": true,
+            "includeYouTube": false,
+            "regionSet": "global",
+            "delayMs": 6500,
+            "queryOffsetBase": 24000,
+            "maxCycles": 0,
+            "maxContactPages": 8,
+            "maxExternalWebsites": 7,
+            "maxTrailQueries": 22,
+            "trailLimit": 8,
+            "exportEvery": 3,
+            "incremental": true,
+            "onlyIntents": "",
+            "onlyChannels": "ecosystem,recruitment"
+          },
+          "totals": {
+            "total": 0,
+            "exported": 0
+          },
+          "heartbeatAt": "2026-07-05T19:04:17.251Z",
+          "progress": {
+            "message": "Starting scan with 163 balanced queries",
+            "status": "running",
+            "latestLead": null,
+            "sourceStats": {
+              "ecosystem": {
+                "searches": 1,
+                "raw": 0,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {}
+              }
+            }
+          },
+          "updatedAt": "2026-07-05T19:04:17.279Z"
+        }
+      },
+      "enrichment-worker": {
+        "exists": true,
+        "updatedAt": "2026-07-05T19:04:17.238Z",
+        "ageMs": 1300,
+        "status": {
+          "status": "running",
+          "phase": "started",
+          "options": {
+            "delayMs": 2500,
+            "idleMs": 6000,
+            "staleHours": 6,
+            "hotStaleHours": 1,
+            "contactlessStaleHours": 1,
+            "rotationHours": 2,
+            "maxAttempts": 25,
+            "maxContactPages": 8,
+            "maxExternalWebsites": 6,
+            "maxTrailQueries": 24,
+            "trailLimit": 8
+          },
+          "updatedAt": "2026-07-05T19:04:17.238Z"
+        }
+      },
+      "smart-enrichment-worker": {
+        "exists": true,
+        "updatedAt": "2026-07-05T19:04:17.900Z",
+        "ageMs": 638,
+        "status": {
+          "status": "running",
+          "phase": "smart-enriching",
+          "processed": 0,
+          "stored": 0,
+          "errors": 0,
+          "current": {
+            "id": "e4db71aed6bb33cb",
+            "name": "QUAL | Águeda - Facebook",
+            "url": "https://www.facebook.com/qual.pt/",
+            "platform": "Facebook",
+            "bucket": "facebook_threads"
+          },
+          "lastResult": null,
+          "updatedAt": "2026-07-05T19:04:17.900Z"
+        }
+      },
+      "lead-cleaner": {
+        "exists": true,
+        "updatedAt": "2026-07-05T19:04:16.764Z",
+        "ageMs": 1775,
+        "status": {
+          "status": "running",
+          "phase": "started",
+          "intervalMs": 45000,
+          "limit": 1000,
+          "totalRemoved": 0,
+          "updatedAt": "2026-07-05T19:04:16.764Z"
+        }
+      },
+      "qualified-exporter": {
+        "exists": true,
+        "updatedAt": "2026-07-05T19:03:30.511Z",
+        "ageMs": 48028,
+        "status": {
+          "status": "running",
+          "intervalMs": 45000,
+          "lastExport": {
+            "csvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.csv",
+            "jsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.json",
+            "contactCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.csv",
+            "contactJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.json",
+            "hotCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.csv",
+            "hotJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.json",
+            "socialCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
+            "socialJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.json",
+            "instagramCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
+            "instagramJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.json",
+            "linkedinCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
+            "linkedinJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.json",
+            "xCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
+            "xJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.json",
+            "workingCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
+            "workingJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.json",
+            "researchCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.csv",
+            "researchJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.json",
+            "exported": 117,
+            "working": 148,
+            "researchSources": 122,
+            "contactable": 117,
+            "hot": 52,
+            "social": 51,
+            "instagram": 5,
+            "linkedin": 31,
+            "x": 9,
+            "total": 1375
+          },
+          "updatedAt": "2026-07-05T19:03:30.511Z"
+        }
+      },
+      "cloud-logger-worker": {
+        "exists": true,
+        "updatedAt": "2026-07-05T19:04:16.826Z",
+        "ageMs": 1713,
+        "status": {
+          "status": "running",
+          "phase": "started",
+          "intervalMs": 600000,
+          "loop": true,
+          "once": false,
+          "updatedAt": "2026-07-05T19:04:16.826Z"
+        }
+      },
+      "supervisor": {
+        "exists": true,
+        "updatedAt": "2026-07-05T19:04:18.404Z",
+        "ageMs": 135,
+        "status": {
+          "status": "running",
+          "cycle": 1,
+          "intervalMs": 60000,
+          "ensured": [
+            {
+              "name": "source-harvester",
+              "status": "running",
+              "pid": 30204
+            },
+            {
+              "name": "source-harvester-social",
+              "status": "running",
+              "pid": 16232
+            },
+            {
+              "name": "source-harvester-specialist",
+              "status": "running",
+              "pid": 13708
+            },
+            {
+              "name": "source-harvester-ecosystem",
+              "status": "running",
+              "pid": 31944
+            },
+            {
+              "name": "source-harvester-linkedin",
+              "status": "running",
+              "pid": 21240
+            },
+            {
+              "name": "source-harvester-instagram",
+              "status": "running",
+              "pid": 30076
+            },
+            {
+              "name": "source-harvester-platforms",
+              "status": "running",
+              "pid": 30256
+            },
+            {
+              "name": "source-harvester-communities",
+              "status": "running",
+              "pid": 31128
+            },
+            {
+              "name": "source-harvester-events",
+              "status": "running",
+              "pid": 13304
+            },
+            {
+              "name": "enrichment-worker",
+              "status": "running",
+              "pid": 28504
+            },
+            {
+              "name": "smart-enrichment-worker",
+              "status": "running",
+              "pid": 2304
+            },
+            {
+              "name": "lead-cleaner",
+              "status": "running",
+              "pid": 32148
+            },
+            {
+              "name": "qualified-exporter",
+              "status": "running",
+              "pid": 12680
+            },
+            {
+              "name": "cloud-logger-worker",
+              "status": "running",
+              "pid": 28288
+            }
+          ],
+          "exportResult": null,
+          "health": {
+            "ok": true,
+            "counts": {
+              "raw": 1373,
+              "qualified": 117,
+              "working": 148,
+              "contactable": 131,
+              "aLeads": 47,
+              "a1Hot": 31,
+              "a2Strong": 16,
+              "bNurture": 67,
+              "cResearch": 34,
+              "sourceOnly": 0
+            },
+            "enrichmentQueue": {
+              "stale": 429,
+              "contactless": 419,
+              "neverDeep": 229,
+              "eligible": 1039,
+              "dueNow": 865,
+              "rotationDue": 530,
+              "enrichedLastHour": 150,
+              "enrichedLast24h": 784,
+              "oldestDeepAgeHours": 55.6,
+              "running": 6
+            },
+            "issues": []
+          },
+          "updatedAt": "2026-07-05T19:04:18.404Z"
+        }
+      }
+    },
+    "exports": {
+      "autopilot-qualified-leads.csv": {
+        "exists": true,
+        "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.csv",
+        "size": 374894,
+        "updatedAt": "2026-07-05T19:04:18.407Z",
+        "ageMs": 133.37939453125
+      },
+      "autopilot-qualified-contactable-leads.csv": {
+        "exists": true,
+        "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.csv",
+        "size": 374894,
+        "updatedAt": "2026-07-05T19:04:18.494Z",
+        "ageMs": 46.209228515625
+      },
+      "autopilot-hot-leads.csv": {
+        "exists": true,
+        "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.csv",
+        "size": 203046,
+        "updatedAt": "2026-07-05T19:03:40.708Z",
+        "ageMs": 37832.479248046875
+      },
+      "autopilot-working-leads.csv": {
+        "exists": true,
+        "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
+        "size": 402230,
+        "updatedAt": "2026-07-05T19:04:10.586Z",
+        "ageMs": 7954.251708984375
+      },
+      "autopilot-social-leads.csv": {
+        "exists": true,
+        "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
+        "size": 128473,
+        "updatedAt": "2026-07-05T19:04:10.504Z",
+        "ageMs": 8036.328369140625
+      },
+      "autopilot-linkedin-leads.csv": {
+        "exists": true,
+        "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
+        "size": 62458,
+        "updatedAt": "2026-07-05T19:04:10.515Z",
+        "ageMs": 8025.31689453125
+      },
+      "autopilot-instagram-leads.csv": {
+        "exists": true,
+        "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
+        "size": 11534,
+        "updatedAt": "2026-07-05T19:04:10.508Z",
+        "ageMs": 8031.8203125
+      },
+      "autopilot-x-leads.csv": {
+        "exists": true,
+        "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
+        "size": 40663,
+        "updatedAt": "2026-07-05T19:04:10.526Z",
+        "ageMs": 8014.295654296875
+      }
+    },
+    "issues": []
+  },
+  "quality": {
+    "totals": {
+      "raw": 1372,
+      "exportQualified": 323,
+      "qualified": 117,
+      "working": 148,
+      "salesReady": 37,
+      "platformContactLeaks": 0,
+      "highValueNoContact": 156
+    },
+    "byBucket": {
+      "mql5": 385,
+      "web": 366,
+      "linkedin": 144,
+      "facebook_threads": 113,
+      "ecosystem": 67,
+      "recruitment": 58,
+      "instagram": 51,
+      "telegram": 49,
+      "forum": 38,
+      "specialist": 29,
+      "x": 28,
+      "myfxbook": 23,
+      "tiktok": 12,
+      "discord": 9
+    },
+    "qualifiedByBucket": {
+      "linkedin": 31,
+      "mql5": 26,
+      "myfxbook": 21,
+      "web": 10,
+      "x": 9,
+      "facebook_threads": 6,
+      "instagram": 6,
+      "specialist": 4,
+      "discord": 2,
+      "telegram": 1,
+      "tiktok": 1
+    },
+    "workingByBucket": {
+      "linkedin": 47,
+      "mql5": 37,
+      "myfxbook": 21,
+      "web": 15,
+      "tiktok": 8,
+      "instagram": 6,
+      "facebook_threads": 5,
+      "specialist": 4,
+      "telegram": 2,
+      "recruitment": 1,
+      "discord": 1,
+      "ecosystem": 1
+    },
+    "salesReadyByBucket": {
+      "web": 8,
+      "x": 7,
+      "myfxbook": 6,
+      "mql5": 5,
+      "specialist": 4,
+      "instagram": 3,
+      "facebook_threads": 1,
+      "linkedin": 1,
+      "telegram": 1,
+      "tiktok": 1
+    },
+    "topSalesReady": [
+      {
+        "name": "Stanislav Tomilov - stanislav110685 - Trader's profile",
+        "bucket": "mql5",
+        "score": 89,
+        "contactScore": 158,
+        "contact": "fintexea@gmail.com"
+      },
+      {
+        "name": "Introducing Broker (IB) | Forex Forum | Forex Trading Discussion ...",
+        "bucket": "facebook_threads",
+        "score": 68,
+        "contactScore": 148,
+        "contact": "https://wa.me/11783277881"
+      },
+      {
+        "name": "Trading Brasilhttps://onetradingbrasil.com.br › courses › curso-forexCURSO – FX: Introdução ao Forex - One Trading Brasil",
+        "bucket": "web",
+        "score": 100,
+        "contactScore": 143,
+        "contact": "contato@onetradingbrasil.com.br"
+      },
+      {
+        "name": "Curso de Forex – Day Trading Master",
+        "bucket": "web",
+        "score": 100,
+        "contactScore": 143,
+        "contact": "contato@tradingmaster.com.br"
+      },
+      {
+        "name": "onetradingbrasil.com.br",
+        "bucket": "web",
+        "score": 99,
+        "contactScore": 143,
+        "contact": "aluno@onetrading.com"
+      },
+      {
+        "name": "forextester.com",
+        "bucket": "instagram",
+        "score": 65,
+        "contactScore": 138,
+        "contact": "support@forextester.com"
+      },
+      {
+        "name": "Wim Schrynemakers - Profalgo Limited - Trader's profile",
+        "bucket": "mql5",
+        "score": 96,
+        "contactScore": 133,
+        "contact": "wsc_trading@outlook.com"
+      },
+      {
+        "name": "nuno-faleiro_fxsimplesForex Introducing Broker Model: Earn Passive Income with Zero ...",
+        "bucket": "linkedin",
+        "score": 68,
+        "contactScore": 128,
+        "contact": "+35724259325"
+      }
+    ],
+    "platformLeakSamples": [],
+    "highValueNoContactSamples": [
+      {
+        "name": "@TraderArqueiro",
+        "bucket": "telegram",
+        "score": 85
+      },
+      {
+        "name": "@TradeHacker3585",
+        "bucket": "telegram",
+        "score": 85
+      },
+      {
+        "name": "@vivirdeltrading6395",
+        "bucket": "telegram",
+        "score": 81
+      },
+      {
+        "name": "@MrCat206Fx",
+        "bucket": "telegram",
+        "score": 81
+      },
+      {
+        "name": "@fxdavetrades",
+        "bucket": "telegram",
+        "score": 81
+      },
+      {
+        "name": "Ghafoor | Professional Forex Trader - Instagram",
+        "bucket": "instagram",
+        "score": 77
+      },
+      {
+        "name": "@carlosmena3340",
+        "bucket": "telegram",
+        "score": 76
+      },
+      {
+        "name": "@5minutosfaciles",
+        "bucket": "telegram",
+        "score": 76
+      }
+    ],
+    "weakSpecialistSamples": [
+      {
+        "name": "Forex Fund Manager Forex Trading System by Forex Trader supportfx",
+        "bucket": "myfxbook",
+        "score": 100,
+        "contactScore": 20
+      },
+      {
+        "name": "Forex Manager Forex Trading System by Forex Trader upravliaychiy",
+        "bucket": "myfxbook",
+        "score": 80,
+        "contactScore": 20
+      },
+      {
+        "name": "Paula Bianca Van Kerchove CWDT SGU 230% growth since 2025 Reliability 78% Algo trading 0 Copy for 50 USD per month",
+        "bucket": "mql5",
+        "score": 62,
+        "contactScore": 20
+      },
+      {
+        "name": "uan Bach Nguyen Tom Scalper MT5 208% growth since 2025 Reliability 96% Algo trading 0 Copy for 299 USD per month",
+        "bucket": "mql5",
+        "score": 62,
+        "contactScore": 20
+      },
+      {
+        "name": "Muhammad Zahran Rahmadi Putra FAFA 272% growth since 2026 Reliability 100% Algo trading 0 Copy for 800 USD per month",
+        "bucket": "mql5",
+        "score": 62,
+        "contactScore": 20
+      },
+      {
+        "name": "Febry Tri Viantono Cuan Hunter 87% growth since 2025 Reliability 23% Algo trading 0 Copy for 33 USD per month",
+        "bucket": "mql5",
+        "score": 62,
+        "contactScore": 20
+      },
+      {
+        "name": "Henry Robin Roe TT Pro Portfolio 271% growth since 2025 Reliability 100% Algo trading 0 Copy for 4999 USD per month",
+        "bucket": "mql5",
+        "score": 62,
+        "contactScore": 20
+      },
+      {
+        "name": "Guan Xi Liang I288 The present for mother 236% growth since 2021 Reliability 99% Algo trading 0 Copy for 999 USD per month",
+        "bucket": "mql5",
+        "score": 62,
+        "contactScore": 20
+      },
+      {
+        "name": "Thang Chu Nexus Macro Hedge 135% growth since 2025 Reliability 98% Algo trading 0 Copy for 99 USD per month",
+        "bucket": "mql5",
+        "score": 62,
+        "contactScore": 20
+      },
+      {
+        "name": "Orest Petriv Goldibot 295% growth since 2025 Reliability 99% Algo trading 0 Copy for 30 USD per month",
+        "bucket": "mql5",
+        "score": 62,
+        "contactScore": 20
+      }
+    ]
+  },
+  "workers": [
+    {
+      "name": "cloud-logger-worker",
+      "status": "running",
+      "phase": "started",
+      "age": "2s",
+      "ageMs": 1736,
+      "cycle": null,
+      "pid": null,
+      "message": "",
+      "current": null,
+      "lastResult": null,
+      "counts": {
+        "raw": 0,
+        "saved": 0,
+        "discarded": 0,
+        "duplicates": 0,
+        "providerErrors": 0,
+        "total": null,
+        "exported": null,
+        "working": null,
+        "contactable": null,
+        "hot": null,
+        "totalRemoved": null,
+        "processed": null,
+        "stored": null,
+        "errors": null
+      }
+    },
+    {
+      "name": "engine-control",
+      "status": "running",
+      "phase": "started",
+      "age": "7s",
+      "ageMs": 6734,
+      "cycle": null,
+      "pid": null,
+      "message": "",
+      "current": null,
+      "lastResult": null,
+      "counts": {
+        "raw": 0,
+        "saved": 0,
+        "discarded": 0,
+        "duplicates": 0,
+        "providerErrors": 0,
+        "total": null,
+        "exported": null,
+        "working": null,
+        "contactable": null,
+        "hot": null,
+        "totalRemoved": null,
+        "processed": null,
+        "stored": null,
+        "errors": null
+      }
+    },
+    {
+      "name": "enrichment-worker",
+      "status": "running",
+      "phase": "started",
+      "age": "1s",
+      "ageMs": 1325,
+      "cycle": null,
+      "pid": null,
+      "message": "",
+      "current": null,
+      "lastResult": null,
+      "counts": {
+        "raw": 0,
+        "saved": 0,
+        "discarded": 0,
+        "duplicates": 0,
+        "providerErrors": 0,
+        "total": null,
+        "exported": null,
+        "working": null,
+        "contactable": null,
+        "hot": null,
+        "totalRemoved": null,
+        "processed": null,
+        "stored": null,
+        "errors": null
+      }
+    },
+    {
+      "name": "lead-cleaner",
+      "status": "running",
+      "phase": "started",
+      "age": "2s",
+      "ageMs": 1799,
+      "cycle": null,
+      "pid": null,
+      "message": "",
+      "current": null,
+      "lastResult": null,
+      "counts": {
+        "raw": 0,
+        "saved": 0,
+        "discarded": 0,
+        "duplicates": 0,
+        "providerErrors": 0,
+        "total": null,
+        "exported": null,
+        "working": null,
+        "contactable": null,
+        "hot": null,
+        "totalRemoved": 0,
+        "processed": null,
+        "stored": null,
+        "errors": null
+      }
+    },
+    {
+      "name": "qualified-exporter",
+      "status": "running",
+      "phase": "n/a",
+      "age": "48s",
+      "ageMs": 48052,
+      "cycle": null,
+      "pid": null,
+      "message": "",
+      "current": null,
+      "lastResult": null,
+      "counts": {
+        "raw": 0,
+        "saved": 0,
+        "discarded": 0,
+        "duplicates": 0,
+        "providerErrors": 0,
+        "total": 1375,
+        "exported": 117,
+        "working": 148,
+        "contactable": 117,
+        "hot": 52,
+        "totalRemoved": null,
+        "processed": null,
+        "stored": null,
+        "errors": null
+      }
+    },
+    {
+      "name": "smart-enrichment-worker",
+      "status": "running",
+      "phase": "smart-enriching",
+      "age": "1s",
+      "ageMs": 663,
+      "cycle": null,
+      "pid": null,
+      "message": "",
+      "current": {
+        "id": "e4db71aed6bb33cb",
+        "name": "QUAL | Águeda - Facebook",
+        "url": "https://www.facebook.com/qual.pt/",
+        "platform": "Facebook",
+        "bucket": "facebook_threads"
+      },
+      "lastResult": null,
+      "counts": {
+        "raw": 0,
+        "saved": 0,
+        "discarded": 0,
+        "duplicates": 0,
+        "providerErrors": 0,
+        "total": null,
+        "exported": null,
+        "working": null,
+        "contactable": null,
+        "hot": null,
+        "totalRemoved": null,
+        "processed": 0,
+        "stored": 0,
+        "errors": 0
+      }
+    },
+    {
+      "name": "source-harvester",
+      "status": "running",
+      "phase": "scan",
+      "age": "1s",
+      "ageMs": 1293,
+      "cycle": 1,
+      "pid": null,
+      "message": "Starting scan with 140 balanced queries",
+      "current": null,
+      "lastResult": null,
+      "counts": {
+        "raw": 0,
+        "saved": 0,
+        "discarded": 0,
+        "duplicates": 0,
+        "providerErrors": 0,
+        "total": 0,
+        "exported": 0,
+        "working": null,
+        "contactable": null,
+        "hot": null,
+        "totalRemoved": null,
+        "processed": null,
+        "stored": null,
+        "errors": null
+      }
+    },
+    {
+      "name": "source-harvester-communities",
+      "status": "running",
+      "phase": "scan",
+      "age": "1s",
+      "ageMs": 1266,
+      "cycle": 1,
+      "pid": null,
+      "message": "Starting scan with 142 balanced queries",
+      "current": null,
+      "lastResult": null,
+      "counts": {
+        "raw": 0,
+        "saved": 0,
+        "discarded": 0,
+        "duplicates": 0,
+        "providerErrors": 0,
+        "total": 0,
+        "exported": 0,
+        "working": null,
+        "contactable": null,
+        "hot": null,
+        "totalRemoved": null,
+        "processed": null,
+        "stored": null,
+        "errors": null
+      }
+    },
+    {
+      "name": "source-harvester-ecosystem",
+      "status": "running",
+      "phase": "scan",
+      "age": "1s",
+      "ageMs": 1291,
+      "cycle": 1,
+      "pid": null,
+      "message": "Starting scan with 110 balanced queries",
+      "current": null,
+      "lastResult": null,
+      "counts": {
+        "raw": 0,
+        "saved": 0,
+        "discarded": 0,
+        "duplicates": 0,
+        "providerErrors": 0,
+        "total": 0,
+        "exported": 0,
+        "working": null,
+        "contactable": null,
+        "hot": null,
+        "totalRemoved": null,
+        "processed": null,
+        "stored": null,
+        "errors": null
+      }
+    },
+    {
+      "name": "source-harvester-events",
+      "status": "running",
+      "phase": "scan",
+      "age": "1s",
+      "ageMs": 1285,
+      "cycle": 1,
+      "pid": null,
+      "message": "Starting scan with 163 balanced queries",
+      "current": null,
+      "lastResult": null,
+      "counts": {
+        "raw": 0,
+        "saved": 0,
+        "discarded": 0,
+        "duplicates": 0,
+        "providerErrors": 0,
+        "total": 0,
+        "exported": 0,
+        "working": null,
+        "contactable": null,
+        "hot": null,
+        "totalRemoved": null,
+        "processed": null,
+        "stored": null,
+        "errors": null
+      }
+    },
+    {
+      "name": "source-harvester-instagram",
+      "status": "running",
+      "phase": "scan",
+      "age": "1s",
+      "ageMs": 1304,
+      "cycle": 1,
+      "pid": null,
+      "message": "Starting scan with 55 balanced queries",
+      "current": null,
+      "lastResult": null,
+      "counts": {
+        "raw": 0,
+        "saved": 0,
+        "discarded": 0,
+        "duplicates": 0,
+        "providerErrors": 0,
+        "total": 0,
+        "exported": 0,
+        "working": null,
+        "contactable": null,
+        "hot": null,
+        "totalRemoved": null,
+        "processed": null,
+        "stored": null,
+        "errors": null
+      }
+    },
+    {
+      "name": "source-harvester-linkedin",
+      "status": "running",
+      "phase": "scan",
+      "age": "1s",
+      "ageMs": 1288,
+      "cycle": 1,
+      "pid": null,
+      "message": "Starting scan with 219 balanced queries",
+      "current": null,
+      "lastResult": null,
+      "counts": {
+        "raw": 0,
+        "saved": 0,
+        "discarded": 0,
+        "duplicates": 0,
+        "providerErrors": 0,
+        "total": 0,
+        "exported": 0,
+        "working": null,
+        "contactable": null,
+        "hot": null,
+        "totalRemoved": null,
+        "processed": null,
+        "stored": null,
+        "errors": null
+      }
+    },
+    {
+      "name": "source-harvester-platforms",
+      "status": "running",
+      "phase": "scan",
+      "age": "1s",
+      "ageMs": 1287,
+      "cycle": 1,
+      "pid": null,
+      "message": "Starting scan with 48 balanced queries",
+      "current": null,
+      "lastResult": null,
+      "counts": {
+        "raw": 0,
+        "saved": 0,
+        "discarded": 0,
+        "duplicates": 0,
+        "providerErrors": 0,
+        "total": 0,
+        "exported": 0,
+        "working": null,
+        "contactable": null,
+        "hot": null,
+        "totalRemoved": null,
+        "processed": null,
+        "stored": null,
+        "errors": null
+      }
+    },
+    {
+      "name": "source-harvester-social",
+      "status": "running",
+      "phase": "scan",
+      "age": "1s",
+      "ageMs": 1284,
+      "cycle": 1,
+      "pid": null,
+      "message": "Starting scan with 150 balanced queries",
+      "current": null,
+      "lastResult": null,
+      "counts": {
+        "raw": 0,
+        "saved": 0,
+        "discarded": 0,
+        "duplicates": 0,
+        "providerErrors": 0,
+        "total": 0,
+        "exported": 0,
+        "working": null,
+        "contactable": null,
+        "hot": null,
+        "totalRemoved": null,
+        "processed": null,
+        "stored": null,
+        "errors": null
+      }
+    },
+    {
+      "name": "source-harvester-specialist",
+      "status": "running",
+      "phase": "scan",
+      "age": "1s",
+      "ageMs": 1273,
+      "cycle": 1,
+      "pid": null,
+      "message": "Starting scan with 135 balanced queries",
+      "current": null,
+      "lastResult": null,
+      "counts": {
+        "raw": 0,
+        "saved": 0,
+        "discarded": 0,
+        "duplicates": 0,
+        "providerErrors": 0,
+        "total": 0,
+        "exported": 0,
+        "working": null,
+        "contactable": null,
+        "hot": null,
+        "totalRemoved": null,
+        "processed": null,
+        "stored": null,
+        "errors": null
+      }
+    },
+    {
+      "name": "supervisor",
+      "status": "running",
+      "phase": "n/a",
+      "age": "0s",
+      "ageMs": 161,
+      "cycle": 1,
+      "pid": null,
+      "message": "",
+      "current": null,
+      "lastResult": null,
+      "counts": {
+        "raw": 0,
+        "saved": 0,
+        "discarded": 0,
+        "duplicates": 0,
+        "providerErrors": 0,
+        "total": null,
+        "exported": null,
+        "working": null,
+        "contactable": null,
+        "hot": null,
+        "totalRemoved": null,
+        "processed": null,
+        "stored": null,
+        "errors": null
+      }
+    }
+  ],
+  "exports": {
+    "autopilot-qualified-leads.csv": {
+      "exists": true,
+      "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.csv",
+      "size": 374894,
+      "updatedAt": "2026-07-05T19:04:18.407Z",
+      "ageMs": 133.37939453125
+    },
+    "autopilot-qualified-contactable-leads.csv": {
+      "exists": true,
+      "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.csv",
+      "size": 374894,
+      "updatedAt": "2026-07-05T19:04:18.494Z",
+      "ageMs": 46.209228515625
+    },
+    "autopilot-hot-leads.csv": {
+      "exists": true,
+      "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.csv",
+      "size": 203046,
+      "updatedAt": "2026-07-05T19:03:40.708Z",
+      "ageMs": 37832.479248046875
+    },
+    "autopilot-working-leads.csv": {
+      "exists": true,
+      "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
+      "size": 402230,
+      "updatedAt": "2026-07-05T19:04:10.586Z",
+      "ageMs": 7954.251708984375
+    },
+    "autopilot-social-leads.csv": {
+      "exists": true,
+      "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
+      "size": 128473,
+      "updatedAt": "2026-07-05T19:04:10.504Z",
+      "ageMs": 8036.328369140625
+    },
+    "autopilot-linkedin-leads.csv": {
+      "exists": true,
+      "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
+      "size": 62458,
+      "updatedAt": "2026-07-05T19:04:10.515Z",
+      "ageMs": 8025.31689453125
+    },
+    "autopilot-instagram-leads.csv": {
+      "exists": true,
+      "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
+      "size": 11534,
+      "updatedAt": "2026-07-05T19:04:10.508Z",
+      "ageMs": 8031.8203125
+    },
+    "autopilot-x-leads.csv": {
+      "exists": true,
+      "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
+      "size": 40663,
+      "updatedAt": "2026-07-05T19:04:10.526Z",
+      "ageMs": 8014.295654296875
+    }
+  },
+  "recentRuns": [
+    {
+      "id": "run_1783264963896",
+      "startedAt": "2026-07-05T15:22:43.896Z",
+      "finishedAt": "2026-07-05T15:40:43.601Z",
+      "settings": {
+        "limitPerQuery": 12,
+        "maxQueries": 220,
+        "fetchPages": true,
+        "deepEnrich": true,
+        "searchContacts": true,
+        "queryOffset": 22480,
+        "includePartners": true,
+        "includeRecruitment": true,
+        "includeIntentPosts": true,
+        "includeEcosystem": true,
+        "includeSocialProfiles": true,
+        "includeForums": true,
+        "includeSpecialistSources": true,
+        "includeYouTube": false,
+        "regionSet": "global",
+        "delayMs": 6500,
+        "queryOffsetBase": 15000,
+        "maxCycles": 0,
+        "maxContactPages": 5,
+        "maxExternalWebsites": 4,
+        "maxTrailQueries": 16,
+        "trailLimit": 6,
+        "exportEvery": 3,
+        "incremental": true,
+        "onlyIntents": "",
+        "onlyChannels": "myfxbook,mql5,specialist"
+      },
+      "totalQueries": 48,
+      "rawResults": 0,
+      "leadsFound": 0,
+      "created": 0,
+      "updated": 0,
+      "sourceStats": {
+        "myfxbook": {
+          "searches": 19,
+          "raw": 0,
+          "qualified": 0,
+          "saved": 0,
+          "discarded": 0,
+          "duplicates": 0,
+          "errors": 0,
+          "providerErrors": 112,
+          "reasons": {
+            "provider_errors": 28
+          }
+        },
+        "mql5": {
+          "searches": 19,
+          "raw": 0,
+          "qualified": 0,
+          "saved": 0,
+          "discarded": 0,
+          "duplicates": 0,
+          "errors": 0,
+          "providerErrors": 112,
+          "reasons": {
+            "provider_errors": 28
+          }
+        },
+        "specialist": {
+          "searches": 10,
+          "raw": 0,
+          "qualified": 0,
+          "saved": 0,
+          "discarded": 0,
+          "duplicates": 0,
+          "errors": 0,
+          "providerErrors": 72,
+          "reasons": {
+            "provider_errors": 18
+          }
+        }
+      },
+      "qualifiedBySource": {},
+      "exportResult": {
+        "csvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-leads.csv",
+        "jsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-leads.json",
+        "contactCsvPath": null,
+        "contactJsonPath": null,
+        "hotCsvPath": null,
+        "hotJsonPath": null,
+        "socialCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
+        "socialJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.json",
+        "instagramCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
+        "instagramJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.json",
+        "linkedinCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
+        "linkedinJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.json",
+        "xCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
+        "xJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.json",
+        "workingCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
+        "workingJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.json",
+        "researchCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.csv",
+        "researchJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.json",
+        "exported": 107,
+        "working": 131,
+        "researchSources": 135,
+        "contactable": 107,
+        "hot": 49,
+        "social": 43,
+        "instagram": 4,
+        "linkedin": 27,
+        "x": 6,
+        "total": 1438
+      },
+      "errors": []
+    },
+    {
+      "id": "run_1783262387543",
+      "startedAt": "2026-07-05T14:39:47.543Z",
+      "finishedAt": "2026-07-05T15:40:35.673Z",
+      "settings": {
+        "limitPerQuery": 10,
+        "maxQueries": 150,
+        "fetchPages": true,
+        "deepEnrich": true,
+        "searchContacts": true,
+        "queryOffset": 4350,
+        "includePartners": true,
+        "includeRecruitment": true,
+        "includeIntentPosts": true,
+        "includeEcosystem": true,
+        "includeSocialProfiles": true,
+        "includeForums": true,
+        "includeSpecialistSources": true,
+        "includeYouTube": false,
+        "regionSet": "global",
+        "delayMs": 5500,
+        "queryOffsetBase": 3000,
+        "maxCycles": 0,
+        "maxContactPages": 7,
+        "maxExternalWebsites": 6,
+        "maxTrailQueries": 24,
+        "trailLimit": 8,
+        "exportEvery": 3,
+        "incremental": true,
+        "onlyIntents": "social",
+        "onlyChannels": ""
+      },
+      "totalQueries": 145,
+      "rawResults": 189,
+      "leadsFound": 10,
+      "created": 3,
+      "updated": 7,
+      "sourceStats": {
+        "linkedin": {
+          "searches": 50,
+          "raw": 24,
+          "qualified": 1,
+          "saved": 0,
+          "discarded": 1,
+          "duplicates": 23,
+          "errors": 0,
+          "providerErrors": 251,
+          "reasons": {
+            "provider_errors": 63,
+            "hard_rejected": 1
+          }
+        },
+        "instagram": {
+          "searches": 31,
+          "raw": 70,
+          "qualified": 1,
+          "saved": 0,
+          "discarded": 1,
+          "duplicates": 69,
+          "errors": 0,
+          "providerErrors": 176,
+          "reasons": {
+            "provider_errors": 44,
+            "hard_rejected": 1
+          }
+        },
+        "x": {
+          "searches": 22,
+          "raw": 53,
+          "qualified": 3,
+          "saved": 2,
+          "discarded": 2,
+          "duplicates": 49,
+          "errors": 0,
+          "providerErrors": 139,
+          "reasons": {
+            "provider_errors": 35,
+            "hard_rejected": 2
+          }
+        },
+        "telegram": {
+          "searches": 11,
+          "raw": 0,
+          "qualified": 0,
+          "saved": 0,
+          "discarded": 0,
+          "duplicates": 0,
+          "errors": 0,
+          "providerErrors": 88,
+          "reasons": {
+            "provider_errors": 22
+          }
+        },
+        "discord": {
+          "searches": 6,
+          "raw": 2,
+          "qualified": 0,
+          "saved": 0,
+          "discarded": 1,
+          "duplicates": 1,
+          "errors": 0,
+          "providerErrors": 47,
+          "reasons": {
+            "provider_errors": 12,
+            "hard_rejected": 1
+          }
+        },
+        "tiktok": {
+          "searches": 14,
+          "raw": 40,
+          "qualified": 5,
+          "saved": 1,
+          "discarded": 7,
+          "duplicates": 32,
+          "errors": 0,
+          "providerErrors": 103,
+          "reasons": {
+            "provider_errors": 26,
+            "hard_rejected": 7
+          }
+        },
+        "facebook_threads": {
+          "searches": 5,
+          "raw": 0,
+          "qualified": 0,
+          "saved": 0,
+          "discarded": 0,
+          "duplicates": 0,
+          "errors": 0,
+          "providerErrors": 40,
+          "reasons": {
+            "provider_errors": 10
+          }
+        },
+        "web": {
+          "searches": 6,
+          "raw": 0,
+          "qualified": 0,
+          "saved": 0,
+          "discarded": 0,
+          "duplicates": 0,
+          "errors": 0,
+          "providerErrors": 48,
+          "reasons": {
+            "provider_errors": 12
+          }
+        }
+      },
+      "qualifiedBySource": {
+        "instagram": 1,
+        "linkedin": 3,
+        "tiktok": 4,
+        "mql5": 1,
+        "x": 1
+      },
+      "exportResult": {
+        "csvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-leads.csv",
+        "jsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-leads.json",
+        "contactCsvPath": null,
+        "contactJsonPath": null,
+        "hotCsvPath": null,
+        "hotJsonPath": null,
+        "socialCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
+        "socialJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.json",
+        "instagramCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
+        "instagramJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.json",
+        "linkedinCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
+        "linkedinJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.json",
+        "xCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
+        "xJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.json",
+        "workingCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
+        "workingJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.json",
+        "researchCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.csv",
+        "researchJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.json",
+        "exported": 107,
+        "working": 131,
+        "researchSources": 135,
+        "contactable": 107,
+        "hot": 49,
+        "social": 43,
+        "instagram": 4,
+        "linkedin": 27,
+        "x": 6,
+        "total": 1438
+      },
+      "errors": []
+    },
+    {
+      "id": "run_1783259472039",
+      "startedAt": "2026-07-05T13:51:12.039Z",
+      "finishedAt": "2026-07-05T15:35:07.831Z",
+      "settings": {
+        "limitPerQuery": 12,
+        "maxQueries": 160,
+        "fetchPages": true,
+        "deepEnrich": true,
+        "searchContacts": true,
+        "queryOffset": 18800,
+        "includePartners": true,
+        "includeRecruitment": true,
+        "includeIntentPosts": true,
+        "includeEcosystem": true,
+        "includeSocialProfiles": true,
+        "includeForums": true,
+        "includeSpecialistSources": true,
+        "includeYouTube": false,
+        "regionSet": "global",
+        "delayMs": 6500,
+        "queryOffsetBase": 18000,
+        "maxCycles": 0,
+        "maxContactPages": 5,
+        "maxExternalWebsites": 4,
+        "maxTrailQueries": 16,
+        "trailLimit": 6,
+        "exportEvery": 3,
+        "incremental": true,
+        "onlyIntents": "",
+        "onlyChannels": "ecosystem,recruitment"
+      },
+      "totalQueries": 160,
+      "rawResults": 1334,
+      "leadsFound": 32,
+      "created": 9,
+      "updated": 24,
+      "sourceStats": {
+        "ecosystem": {
+          "searches": 69,
+          "raw": 501,
+          "qualified": 2,
+          "saved": 1,
+          "discarded": 47,
+          "duplicates": 452,
+          "errors": 0,
+          "providerErrors": 549,
+          "reasons": {
+            "provider_errors": 138,
+            "hard_rejected": 47
+          }
+        },
+        "recruitment": {
+          "searches": 91,
+          "raw": 833,
+          "qualified": 30,
+          "saved": 8,
+          "discarded": 103,
+          "duplicates": 722,
+          "errors": 0,
+          "providerErrors": 362,
+          "reasons": {
+            "provider_errors": 91,
+            "hard_rejected": 103
+          }
+        }
+      },
+      "qualifiedBySource": {
+        "linkedin": 1,
+        "instagram": 1,
+        "recruitment": 25,
+        "forum": 2,
+        "x": 1,
+        "ecosystem": 1,
+        "tradingview": 1
+      },
+      "exportResult": {
+        "csvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-leads.csv",
+        "jsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-leads.json",
+        "contactCsvPath": null,
+        "contactJsonPath": null,
+        "hotCsvPath": null,
+        "hotJsonPath": null,
+        "socialCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
+        "socialJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.json",
+        "instagramCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
+        "instagramJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.json",
+        "linkedinCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
+        "linkedinJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.json",
+        "xCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
+        "xJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.json",
+        "workingCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
+        "workingJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.json",
+        "researchCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.csv",
+        "researchJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.json",
+        "exported": 108,
+        "working": 131,
+        "researchSources": 134,
+        "contactable": 108,
+        "hot": 49,
+        "social": 44,
+        "instagram": 5,
+        "linkedin": 27,
+        "x": 6,
+        "total": 1438
+      },
+      "errors": []
+    },
+    {
+      "id": "run_1783261589361",
+      "startedAt": "2026-07-05T14:26:29.361Z",
+      "finishedAt": "2026-07-05T15:34:24.980Z",
+      "settings": {
+        "limitPerQuery": 12,
+        "maxQueries": 220,
+        "fetchPages": true,
+        "deepEnrich": true,
+        "searchContacts": true,
+        "queryOffset": 13760,
+        "includePartners": true,
+        "includeRecruitment": true,
+        "includeIntentPosts": true,
+        "includeEcosystem": true,
+        "includeSocialProfiles": true,
+        "includeForums": true,
+        "includeSpecialistSources": true,
+        "includeYouTube": false,
+        "regionSet": "global",
+        "delayMs": 6500,
+        "queryOffsetBase": 12000,
+        "maxCycles": 0,
+        "maxContactPages": 5,
+        "maxExternalWebsites": 4,
+        "maxTrailQueries": 16,
+        "trailLimit": 6,
+        "exportEvery": 3,
+        "incremental": true,
+        "onlyIntents": "",
+        "onlyChannels": "linkedin"
+      },
+      "totalQueries": 199,
+      "rawResults": 54,
+      "leadsFound": 1,
+      "created": 0,
+      "updated": 1,
+      "sourceStats": {
+        "linkedin": {
+          "searches": 199,
+          "raw": 54,
+          "qualified": 1,
+          "saved": 0,
+          "discarded": 1,
+          "duplicates": 53,
+          "errors": 0,
+          "providerErrors": 1111,
+          "reasons": {
+            "provider_errors": 279,
+            "hard_rejected": 1
+          }
+        }
+      },
+      "qualifiedBySource": {
+        "linkedin": 1
+      },
+      "exportResult": {
+        "csvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-leads.csv",
+        "jsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-leads.json",
+        "contactCsvPath": null,
+        "contactJsonPath": null,
+        "hotCsvPath": null,
+        "hotJsonPath": null,
+        "socialCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
+        "socialJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.json",
+        "instagramCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
+        "instagramJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.json",
+        "linkedinCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
+        "linkedinJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.json",
+        "xCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
+        "xJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.json",
+        "workingCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
+        "workingJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.json",
+        "researchCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.csv",
+        "researchJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.json",
+        "exported": 108,
+        "working": 131,
+        "researchSources": 134,
+        "contactable": 108,
+        "hot": 48,
+        "social": 44,
+        "instagram": 5,
+        "linkedin": 27,
+        "x": 6,
+        "total": 1438
+      },
+      "errors": []
+    },
+    {
+      "id": "run_1783263914728",
+      "startedAt": "2026-07-05T15:05:14.728Z",
+      "finishedAt": "2026-07-05T15:22:36.120Z",
+      "settings": {
+        "limitPerQuery": 12,
+        "maxQueries": 220,
+        "fetchPages": true,
+        "deepEnrich": true,
+        "searchContacts": true,
+        "queryOffset": 22260,
+        "includePartners": true,
+        "includeRecruitment": true,
+        "includeIntentPosts": true,
+        "includeEcosystem": true,
+        "includeSocialProfiles": true,
+        "includeForums": true,
+        "includeSpecialistSources": true,
+        "includeYouTube": false,
+        "regionSet": "global",
+        "delayMs": 6500,
+        "queryOffsetBase": 15000,
+        "maxCycles": 0,
+        "maxContactPages": 5,
+        "maxExternalWebsites": 4,
+        "maxTrailQueries": 16,
+        "trailLimit": 6,
+        "exportEvery": 3,
+        "incremental": true,
+        "onlyIntents": "",
+        "onlyChannels": "myfxbook,mql5,specialist"
+      },
+      "totalQueries": 48,
+      "rawResults": 0,
+      "leadsFound": 0,
+      "created": 0,
+      "updated": 0,
+      "sourceStats": {
+        "myfxbook": {
+          "searches": 19,
+          "raw": 0,
+          "qualified": 0,
+          "saved": 0,
+          "discarded": 0,
+          "duplicates": 0,
+          "errors": 0,
+          "providerErrors": 112,
+          "reasons": {
+            "provider_errors": 28
+          }
+        },
+        "mql5": {
+          "searches": 19,
+          "raw": 0,
+          "qualified": 0,
+          "saved": 0,
+          "discarded": 0,
+          "duplicates": 0,
+          "errors": 0,
+          "providerErrors": 112,
+          "reasons": {
+            "provider_errors": 28
+          }
+        },
+        "specialist": {
+          "searches": 10,
+          "raw": 0,
+          "qualified": 0,
+          "saved": 0,
+          "discarded": 0,
+          "duplicates": 0,
+          "errors": 0,
+          "providerErrors": 72,
+          "reasons": {
+            "provider_errors": 18
+          }
+        }
+      },
+      "qualifiedBySource": {},
+      "exportResult": {
+        "csvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-leads.csv",
+        "jsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-leads.json",
+        "contactCsvPath": null,
+        "contactJsonPath": null,
+        "hotCsvPath": null,
+        "hotJsonPath": null,
+        "socialCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
+        "socialJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.json",
+        "instagramCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
+        "instagramJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.json",
+        "linkedinCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
+        "linkedinJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.json",
+        "xCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
+        "xJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.json",
+        "workingCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
+        "workingJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.json",
+        "researchCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.csv",
+        "researchJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.json",
+        "exported": 107,
+        "working": 131,
+        "researchSources": 133,
+        "contactable": 107,
+        "hot": 46,
+        "social": 43,
+        "instagram": 5,
+        "linkedin": 26,
+        "x": 6,
+        "total": 1433
+      },
+      "errors": []
+    }
+  ],
+  "pruneHistory": [
+    {
+      "at": "2026-07-05T19:04:17.245Z",
+      "reason": "lead-cleaner",
+      "removed": 1,
+      "before": 1373,
+      "after": 1372,
+      "byReason": {
+        "hard_rejected:generic broker ranking/review page": 1
+      },
+      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-05T19-04-17-239Z.json"
+    },
+    {
+      "at": "2026-07-05T19:03:39.550Z",
+      "reason": "lead-cleaner",
+      "removed": 2,
+      "before": 1375,
+      "after": 1373,
+      "byReason": {
+        "hard_rejected:official broker/brokerage page": 1,
+        "forexfactory_generic_tool_page": 1
+      },
+      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-05T19-03-39-547Z.json"
+    },
+    {
+      "at": "2026-07-05T19:02:52.468Z",
+      "reason": "lead-cleaner",
+      "removed": 2,
+      "before": 1376,
+      "after": 1374,
+      "byReason": {
+        "hard_rejected:official broker/brokerage page": 2
+      },
+      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-05T19-02-52-464Z.json"
+    },
+    {
+      "at": "2026-07-05T19:02:05.217Z",
+      "reason": "lead-cleaner",
+      "removed": 1,
+      "before": 1377,
+      "after": 1376,
+      "byReason": {
+        "hard_rejected:official broker/brokerage page": 1
+      },
+      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-05T19-02-05-209Z.json"
+    },
+    {
+      "at": "2026-07-05T19:01:17.947Z",
+      "reason": "lead-cleaner",
+      "removed": 1,
+      "before": 1378,
+      "after": 1377,
+      "byReason": {
+        "hard_rejected:official broker/brokerage page": 1
+      },
+      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-05T19-01-17-943Z.json"
+    }
+  ],
+  "cleanupHistory": [
+    {
+      "at": "2026-07-05T00:45:41.075Z",
+      "reason": "cli",
+      "removed": 22,
+      "before": 1220,
+      "after": 1198,
+      "byReason": {
+        "event_exhibitor_list_not_target": 21,
+        "tradingview_not_target_lead": 1
+      },
+      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.strict-cleanup-backup-2026-07-05T00-45-41-072Z.json"
+    },
+    {
+      "at": "2026-07-05T00:40:03.094Z",
+      "reason": "cli",
+      "removed": 17,
+      "before": 1242,
+      "after": 1225,
+      "byReason": {
+        "tradingview_not_target_lead": 15,
+        "sports_reference_noise": 1,
+        "payments_platform_noise": 1
+      },
+      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.strict-cleanup-backup-2026-07-05T00-40-03-090Z.json"
+    }
+  ],
+  "qualityRebuildHistory": [
+    {
+      "at": "2026-07-05T16:48:48.359Z",
+      "platformContactsRemoved": 18,
+      "reclassified": 704,
+      "samples": [
+        {
+          "name": "@Lukebnco",
+          "before": "",
+          "after": "contact@nourtrades.com"
+        },
+        {
+          "name": "@forexsignalroom",
+          "before": "",
+          "after": "info@forexsignalroom.com"
+        },
+        {
+          "name": "@wayond",
+          "before": "",
+          "after": "info@wayond.ae"
+        },
+        {
+          "name": "@forexbrokerbostonmerchantf9007",
+          "before": "",
+          "after": "support@bmfn.com"
+        },
+        {
+          "name": "Análise do Banco Best 2026: opiniões, comissões e produtos | Rankia",
+          "before": "",
+          "after": "contato@rankia.pt"
+        },
+        {
+          "name": "UK Global Health Summit 2026 - Global Health Partnerships",
+          "before": "",
+          "after": "louise.mcgrath@globalhealthpartnerships.org"
+        },
+        {
+          "name": "Compassion UK",
+          "before": "",
+          "after": "blowingthewhistle@compassionuk.org"
+        },
+        {
+          "name": "Compassion Australia – Child Sponsorship | Christian Charity",
+          "before": "",
+          "after": "compassion@compassion.com.au"
+        }
+      ]
+    }
+  ],
+  "smartTrailBoostHistory": [],
+  "logs": {
+    "source-harvester": {
+      "out": [
+        "[source-harvester cycle 1] Searching [discord]: \"forex\" \"discord\" \"trading\" South Africa",
+        "[source-harvester cycle 1] Saved C-lead: lilo org",
+        "[source-harvester cycle 1] Discarded hard-rejected result: GPT Chat - DeepAI",
+        "[source-harvester cycle 1] Searching [facebook_threads]: site:facebook.com \"forex\" \"whatsapp\" \"broker\" UAE",
+        "[source-harvester cycle 1] Searching [forum]: site:reddit.com/r/Forex \"which broker\"",
+        "[source-harvester cycle 1] Searching [ecosystem]: \"trading academy\" \"sponsor\" \"broker\" UAE",
+        "[source-harvester cycle 1] Starting scan with 140 balanced queries",
+        "[source-harvester cycle 1] Searching [linkedin]: site:linkedin.com/in \"introducing broker\" \"forex\" Brazil"
+      ],
+      "err": []
+    },
+    "source-harvester-social": {
+      "out": [
+        "[source-harvester-social cycle 1] Saved D-lead: Gold Spot Price - XAUUSD Chart - ProRealTime",
+        "[source-harvester-social cycle 1] Discarded hard-rejected result: AU/USD (Gold / US Dollar) - Live Exchange Rate & Trend Chart",
+        "[source-harvester-social cycle 1] Discarded hard-rejected result: AU USD Chart & Rate - XAU USD Trading - FOREX.com",
+        "[source-harvester-social cycle 1] Discarded hard-rejected result: (Gold vs US Dollar): Precious Metal Prices & Live Charts",
+        "[source-harvester-social cycle 1] Saved B-lead: .com",
+        "[source-harvester-social cycle 1] Searching [facebook_threads]: site:facebook.com/groups \"forex\" \"trading\" United Kingdom",
+        "[source-harvester-social cycle 1] Starting scan with 150 balanced queries",
+        "[source-harvester-social cycle 1] Searching [linkedin]: site:linkedin.com/posts \"forex\" \"broker\" \"looking for\" Mexico"
+      ],
+      "err": []
+    },
+    "source-harvester-specialist": {
+      "out": [
+        "[source-harvester-specialist cycle 1] Searching [forum]: \"forex community\" \"forum\" \"broker\"",
+        "[source-harvester-specialist cycle 1] Discarded hard-rejected result: Trade Online with an Award-winning Global Forex Broker",
+        "[source-harvester-specialist cycle 1] Saved A-lead: MetaTrader 5 Trading Platform for Forex, Stocks, Futures",
+        "[source-harvester-specialist cycle 1] Discarded hard-rejected result: Online Forex Broker & Crypto Trading | OANDA | US",
+        "[source-harvester-specialist cycle 1] Discarded hard-rejected result: qwantcom",
+        "[source-harvester-specialist cycle 1] Discarded hard-rejected result: Qwant FR",
+        "[source-harvester-specialist cycle 1] Starting scan with 135 balanced queries",
+        "[source-harvester-specialist cycle 1] Searching [linkedin]: site:linkedin.com/company \"copy trading\" \"forex\""
+      ],
+      "err": []
+    },
+    "source-harvester-ecosystem": {
+      "out": [
+        "[source-harvester-ecosystem cycle 1] Discarded hard-rejected result: Exness Global – trading app - Apps on Google Play",
+        "[source-harvester-ecosystem cycle 1] Saved B-lead: Exness | Trusted Global Partner in Financial Trading and Technology",
+        "[source-harvester-ecosystem cycle 1] Saved C-lead: Exness - Download",
+        "[source-harvester-ecosystem cycle 1] Discarded hard-rejected result: Exness MT4/MT5 Download and Installation Instructions | Exness",
+        "[source-harvester-ecosystem cycle 1] Searching [web]: \"forex\" \"company registration\" \"director\" Colombia",
+        "[source-harvester-ecosystem cycle 1] Saved B-lead: Forex Factory | Global markets for the smart money.",
+        "[source-harvester-ecosystem cycle 1] Starting scan with 110 balanced queries",
+        "[source-harvester-ecosystem cycle 1] Searching [linkedin]: site:linkedin.com/in \"Forex Expo Dubai\" \"attendee\""
+      ],
+      "err": []
+    },
+    "source-harvester-linkedin": {
+      "out": [
+        "[source-harvester-linkedin cycle 1] Discarded hard-rejected result: Dee Kelly - Tax and Compliance Manager | LinkedIn",
+        "[source-harvester-linkedin cycle 1] Discarded hard-rejected result: Dee Kelly - Special Counsel | Health Law | LinkedIn",
+        "[source-harvester-linkedin cycle 1] Discarded hard-rejected result: Dee Kelly - Founder, Melt In Essence | LinkedIn",
+        "[source-harvester-linkedin cycle 1] Searching [linkedin]: site:linkedin.com/in \"introducing broker\" \"forex\" \"Mexico\"",
+        "[source-harvester-linkedin cycle 1] Searching [linkedin]: site:linkedin.com/in \"IB partner\" \"forex\" \"Colombia\"",
+        "[source-harvester-linkedin cycle 1] Searching [linkedin]: site:linkedin.com/in \"forex affiliate\" \"Chile\"",
+        "[source-harvester-linkedin cycle 1] Starting scan with 219 balanced queries",
+        "[source-harvester-linkedin cycle 1] Searching [linkedin]: site:linkedin.com/posts \"Money Expo\" \"attending\" \"forex\""
+      ],
+      "err": []
+    },
+    "source-harvester-instagram": {
+      "out": [
+        "[source-harvester-instagram cycle 1] Saved C-lead: reel DAlCzlgRTQe",
+        "[source-harvester-instagram cycle 1] Saved B-lead: reel DM59pRzOpET",
+        "[source-harvester-instagram cycle 1] Searching [instagram]: site:instagram.com \"forex mentor\" \"telegram\" \"Brasil\"",
+        "[source-harvester-instagram cycle 1] Searching [instagram]: site:instagram.com \"xauusd\" \"whatsapp\" \"Mexico\"",
+        "[source-harvester-instagram cycle 1] Searching [instagram]: site:instagram.com \"gold trader\" \"telegram\"",
+        "[source-harvester-instagram cycle 1] Searching [instagram]: site:instagram.com \"forex signals\" \"link in bio\"",
+        "[source-harvester-instagram cycle 1] Starting scan with 55 balanced queries",
+        "[source-harvester-instagram cycle 1] Searching [instagram]: site:instagram.com \"gold trader\" \"telegram\" Colombia"
+      ],
+      "err": []
+    },
+    "source-harvester-platforms": {
+      "out": [
+        "[source-harvester-platforms cycle 1] Searching [specialist]: site:fxblue.com/users \"forex\"",
+        "[source-harvester-platforms cycle 1] Searching [myfxbook]: site:myfxbook.com/reviews/brokers \"introducing broker\"",
+        "[source-harvester-platforms cycle 1] Searching [mql5]: site:mql5.com/en/users \"PAMM\"",
+        "[source-harvester-platforms cycle 1] Searching [specialist]: site:fxblue.com/users \"XAUUSD\"",
+        "[source-harvester-platforms cycle 1] Searching [myfxbook]: site:myfxbook.com/community \"broker\" \"forex\"",
+        "[source-harvester-platforms cycle 1] Searching [mql5]: site:mql5.com/en/forum \"broker\" \"forex\"",
+        "[source-harvester-platforms cycle 1] Starting scan with 48 balanced queries",
+        "[source-harvester-platforms cycle 1] Searching [myfxbook]: site:myfxbook.com/portfolio \"forex\" \"drawdown\""
+      ],
+      "err": []
+    },
+    "source-harvester-communities": {
+      "out": [
+        "[source-harvester-communities cycle 1] Saved B-lead: What means Introducing Broker? | Forex Peace Army - Your Forex …",
+        "[source-harvester-communities cycle 1] Discarded hard-rejected result: 2026 - The Largest Forex Event in the Middle East",
+        "[source-harvester-communities cycle 1] Saved A-lead: PAMM recommendation | Forex Forum by Myfxbook",
+        "[source-harvester-communities cycle 1] Discarded hard-rejected result: forum.forex",
+        "[source-harvester-communities cycle 1] Discarded hard-rejected result: .com",
+        "[source-harvester-communities cycle 1] Saved C-lead: forexpeacearmy.com",
+        "[source-harvester-communities cycle 1] Starting scan with 142 balanced queries",
+        "[source-harvester-communities cycle 1] Searching [telegram]: site:t.me \"forex\" \"copy trading\""
+      ],
+      "err": []
+    },
+    "source-harvester-events": {
+      "out": [
+        "[source-harvester-events cycle 1] Discarded hard-rejected result: Exness - Online Trading Platform | Forex, Stocks, Crypto & More",
+        "[source-harvester-events cycle 1] Searching [ecosystem]: \"Forex Expo Dubai\" \"attending\" \"affiliate\" \"forex\"",
+        "[source-harvester-events cycle 1] Searching [recruitment]: \"XM\" \"affiliate manager\" Chile",
+        "[source-harvester-events cycle 1] Discarded hard-rejected result: Access Global Financial Markets and Start Trading | XM",
+        "[source-harvester-events cycle 1] Saved D-lead: Access Global Financial Markets and Start Trading | XM",
+        "[source-harvester-events cycle 1] Discarded hard-rejected result: XM – Global Broker in Forex and CFD Trading",
+        "[source-harvester-events cycle 1] Starting scan with 163 balanced queries",
+        "[source-harvester-events cycle 1] Searching [ecosystem]: \"Forex Expo Dubai\" \"attending\" \"introducing broker\""
+      ],
+      "err": []
+    },
+    "enrichment-worker": {
+      "out": [
+        "[enrichment-worker] stored contactless_due 65ddce43a65de687 link click; emails=0; links=0; makers=0; best=-",
+        "[enrichment-worker] stored contactless_due f9f7b45a83b7b39d link click; emails=0; links=0; makers=0; best=-",
+        "[enrichment-worker] stored contactless_due 5f3f5edccdf52fde Introductory - Introducing Broker at FXIntroductory | LinkedIn; emails=0; links=0; makers=0; best=https://uk.linkedin.com/in/fx-introductory-525932234",
+        "[enrichment-worker] stored contactless_due c518192415427ad5 link click; emails=0; links=0; makers=0; best=-",
+        "[enrichment-worker] stored contactless_due 13c53053cff20a25 Chandwale‏ - ‏Forex trading professional | introducing Broker (IB ...; emails=0; links=0; makers=0; best=https://ae.linkedin.com/in/adil-chandwale-388452373",
+        "[enrichment-worker] stored contactless_due 6ed3d17ab65207ac link click; emails=0; links=0; makers=0; best=-",
+        "[enrichment-worker] stored contactless_due fa8ad11e5cb51ff8 link click; emails=0; links=0; makers=0; best=-",
+        "[enrichment-worker] Started with {\"delayMs\":2500,\"idleMs\":6000,\"staleHours\":6,\"hotStaleHours\":1,\"contactlessStaleHours\":1,\"rotationHours\":2,\"maxAttempts\":25,\"maxContactPages\":8,\"maxExternalWebsites\":6,\"maxTrailQueries\":24,\"trailLimit\":8}"
+      ],
+      "err": []
+    },
+    "smart-enrichment-worker": {
+      "out": [],
+      "err": []
+    },
+    "lead-cleaner": {
+      "out": [
+        "[lead-cleaner] 2026-07-05T18:58:56.456Z removed=1 totalRemoved=21",
+        "[lead-cleaner] 2026-07-05T18:59:43.695Z removed=1 totalRemoved=22",
+        "[lead-cleaner] 2026-07-05T19:00:32.561Z removed=2 totalRemoved=24",
+        "[lead-cleaner] 2026-07-05T19:01:19.807Z removed=1 totalRemoved=25",
+        "[lead-cleaner] 2026-07-05T19:02:07.028Z removed=1 totalRemoved=26",
+        "[lead-cleaner] 2026-07-05T19:02:54.269Z removed=2 totalRemoved=28",
+        "[lead-cleaner] 2026-07-05T19:03:40.904Z removed=2 totalRemoved=30",
+        "[lead-cleaner] 2026-07-05T19:04:19.092Z removed=1 totalRemoved=1"
+      ],
+      "err": []
+    },
+    "qualified-exporter": {
+      "out": [
+        "[qualified-exporter] 2026-07-05T18:58:49.992Z total=1382 qualified=117 contactable=117 hot=52 social=51 instagram=5 linkedin=31 x=9",
+        "[qualified-exporter] 2026-07-05T18:59:36.763Z total=1381 qualified=117 contactable=117 hot=52 social=51 instagram=5 linkedin=31 x=9",
+        "[qualified-exporter] 2026-07-05T19:00:23.556Z total=1380 qualified=117 contactable=117 hot=52 social=51 instagram=5 linkedin=31 x=9",
+        "[qualified-exporter] 2026-07-05T19:01:10.321Z total=1378 qualified=117 contactable=117 hot=52 social=51 instagram=5 linkedin=31 x=9",
+        "[qualified-exporter] 2026-07-05T19:01:57.083Z total=1377 qualified=117 contactable=117 hot=52 social=51 instagram=5 linkedin=31 x=9",
+        "[qualified-exporter] 2026-07-05T19:02:43.817Z total=1376 qualified=117 contactable=117 hot=52 social=51 instagram=5 linkedin=31 x=9",
+        "[qualified-exporter] 2026-07-05T19:03:30.511Z total=1375 qualified=117 contactable=117 hot=52 social=51 instagram=5 linkedin=31 x=9",
+        "[qualified-exporter] 2026-07-05T19:04:18.762Z total=1373 qualified=117 contactable=117 hot=52 social=51 instagram=5 linkedin=31 x=9"
+      ],
+      "err": []
+    },
+    "cloud-logger-worker": {
+      "out": [],
+      "err": []
+    },
+    "supervisor": {
+      "out": [
+        "[supervisor] 2026-07-05T18:57:41.321Z cycle=9 ok=true raw=1381 working=147 a=47",
+        "[supervisor] 2026-07-05T18:58:42.464Z cycle=10 ok=true raw=1382 working=148 a=47",
+        "[supervisor] 2026-07-05T18:59:43.673Z cycle=11 ok=true raw=1380 working=148 a=47",
+        "[supervisor] 2026-07-05T19:00:44.945Z cycle=12 ok=true raw=1378 working=148 a=47",
+        "[supervisor] 2026-07-05T19:01:46.229Z cycle=13 ok=true raw=1377 working=148 a=47",
+        "[supervisor] 2026-07-05T19:02:47.471Z cycle=14 ok=true raw=1376 working=148 a=47",
+        "[supervisor] 2026-07-05T19:03:48.399Z cycle=15 ok=true raw=1373 working=148 a=47",
+        "[supervisor] 2026-07-05T19:04:18.405Z cycle=1 ok=true raw=1373 working=148 a=47"
+      ],
+      "err": []
+    },
+    "engine-control": {
+      "out": [],
+      "err": []
+    }
+  }
+}
