@@ -1,8 +1,10 @@
 import * as cheerio from "cheerio";
-import { cleanSearchRedirect, domainOf, normalizeWhitespace, platformFromUrl, safeUrl, stripHtml, titleFromUrl, unique } from "./utils.js";
+import { cleanSearchRedirect, domainOf, idForLead, normalizeWhitespace, platformFromUrl, safeUrl, stripHtml, titleFromUrl, unique } from "./utils.js";
 import { fetchText, resultFrom } from "./search.js";
 
 const SEARCH_ENGINES = ["bing-rss", "bing", "duckduckgo", "yahoo", "brave-html", "qwant", "google"];
+const NON_TRADING_FOREX_DOMAINS = ["forex.se", "forex.no", "forex.fi", "forexvaluta.dk"];
+const NON_TRADING_FOREX_NOISE = /växla|valuta|valutakurser|valutaomvandlare|reseförsäkring|skicka pengar|western union|kreditkort|travel money|currency exchange|exchange rates|money transfer|travel insurance|buy currency|sell currency/i;
 
 function siteConstraint(query = "") {
   const match = String(query).match(/\bsite:([a-z0-9.-]+)((?:\/[^\s"]*)?)/i);
@@ -106,7 +108,15 @@ function searchUrl(engine, query, limit) {
   return `https://duckduckgo.com/html/?q=${encodeURIComponent(query)}`;
 }
 
+function isNonTradingForexNoise(result = {}) {
+  const domain = domainOf(result.url || "");
+  if (NON_TRADING_FOREX_DOMAINS.some((blocked) => domain === blocked || domain.endsWith(`.${blocked}`))) return true;
+  const text = `${result.title} ${result.snippet} ${result.url}`;
+  return /\bforex\b/i.test(text) && NON_TRADING_FOREX_NOISE.test(text) && !/forex trading|forex trader|cfd trading|xauusd|copy trading|pamm|mam|introducing broker|forex affiliate|signals/i.test(text);
+}
+
 function junk(result) {
+  if (isNonTradingForexNoise(result)) return true;
   const text = `${result.title} ${result.snippet} ${result.url}`.toLowerCase();
   return /w3\.org|schema\.org|xmlns|xhtml|wikipedia|dictionary|definition|investopedia|marketwatch|ishares|msci|weather|currency exchange|google maps|tripadvisor|computational fluid dynamics|forex\.com\/?$/.test(text);
 }
