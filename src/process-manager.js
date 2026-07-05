@@ -99,6 +99,9 @@ export const BACKGROUND_TASKS = {
       "--trailLimit=8"
     ]
   },
+  "lead-cleaner": {
+    args: ["src/cleanup-worker.js", "--intervalMs=45000", "--limit=1000"]
+  },
   "qualified-exporter": {
     args: ["src/qualified-exporter.js", "--intervalMs=45000"]
   },
