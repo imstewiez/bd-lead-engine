@@ -1,0 +1,162 @@
+import fs from "node:fs/promises";
+import path from "node:path";
+import { cleanEmails, cleanForms, hasDirectOutboundPath } from "./contact-cleaner.js";
+import { exportLeads } from "./exporter.js";
+import { leadRejectionReasons } from "./lead-quality.js";
+import { sourceBucket } from "./mql5-limit.js";
+import { getRootDir, readDb, writeDb } from "./store.js";
+import { nowIso } from "./utils.js";
+
+const rootDir = getRootDir();
+const dataDir = path.join(rootDir, "data");
+const dbPath = path.join(dataDir, "leads.json");
+
+function stamp() {
+  return new Date().toISOString().replace(/[:.]/g, "-");
+}
+
+function leadText(lead = {}) {
+  return [
+    lead.name,
+    lead.title,
+    lead.snippet,
+    lead.url,
+    lead.domain,
+    lead.platform,
+    lead.sourceIntent,
+    lead.segment,
+    lead.leadType,
+    ...(lead.evidence || []),
+    ...(lead.websiteLinks || []),
+    ...(lead.socialLinks || []),
+    ...(lead.contactLinks || []),
+    ...(lead.relatedLinks || [])
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+}
+
+function hasContact(lead = {}) {
+  return Boolean(
+    lead.bestContact ||
+    cleanEmails(lead.emails || []).length ||
+    cleanForms(lead.forms || []).length ||
+    hasDirectOutboundPath(lead)
+  );
+}
+
+function isProtectedLead(lead = {}) {
+  if (lead.manualKeep === true) return true;
+  if (String(lead.notes || "").trim()) return true;
+  const stage = String(lead.stage || "new").toLowerCase();
+  return !["", "new", "research", "rejected"].includes(stage);
+}
+
+function hardNoiseReason(lead = {}) {
+  const text = leadText(lead);
+  const url = String(lead.url || "").toLowerCase();
+  const bucket = sourceBucket(lead);
+
+  if (/tradingview\.com\/(?:chart|markets|symbols)|\/chart\/?$/.test(url)) return "tradingview_chart_or_market_page";
+  if (/\bt\.me\/telegram\b|\btelegram\.org\b|^view @telegram\b/.test(text)) return "official_telegram_page";
+  if (/world health summit|microsoft store|google play|apps no google play|xbox|ko-fi shop|support trading with charm/.test(text)) return "non_financial_platform_noise";
+  if (/oxfordlearnersdictionaries|merriam-webster|cambridge\.org\/dictionary|collinsdictionary|vocabulary\.com|thesaurus\.com|wikipedia\.org|investopedia\.com/.test(text)) return "reference_content_page";
+  if (/forexfactory\.com\/(?:calendar|news|market|scanner)/.test(url)) return "forexfactory_generic_tool_page";
+  if (/\bforex factory\b/.test(text) && !/forexfactory\.com\/thread|forexfactory\.com\/member|introducing broker|affiliate|partnership|telegram|whatsapp|contact/.test(text)) return "forexfactory_generic_page";
+  if (/mql5\.com\/en\/market\b|mql5 market/.test(text) && !/mql5\.com\/en\/users|mql5\.com\/en\/signals|contact|telegram|whatsapp/.test(text)) return "mql5_market_generic_page";
+  if (/tradingview/.test(bucket) && !hasContact(lead) && !/tradingview\.com\/u\//.test(url)) return "tradingview_source_only_noise";
+
+  const hardReasons = leadRejectionReasons(lead).filter((reason) => reason !== "missing strict forex/CFD/trading ICP signal");
+  const pruneableReason = hardReasons.find((reason) =>
+    /official broker|generic article|generic explainer|reference|ranking|review|job listing|careers|third-party tooling|payments|money-transfer|bank|insurance|non-trading|consumer|sports|government|media|broker site/i.test(reason)
+  );
+  if (pruneableReason) return `hard_rejected:${pruneableReason}`;
+
+  if (String(lead.deepStatus || "").toLowerCase() === "rejected" && hardReasons.length && !hasContact(lead)) return `rejected:${hardReasons[0]}`;
+  return "";
+}
+
+export function shouldPruneLead(lead = {}) {
+  if (isProtectedLead(lead)) return { prune: false, reason: "protected_manual_work" };
+  const reason = hardNoiseReason(lead);
+  return reason ? { prune: true, reason } : { prune: false, reason: "keep" };
+}
+
+export async function pruneRejectedLeads(options = {}) {
+  const dryRun = Boolean(options.dryRun);
+  const limit = Math.max(1, Number(options.limit || 5000));
+  const db = await readDb();
+  const leads = db.leads || [];
+  const removed = [];
+  const kept = [];
+
+  for (const lead of leads) {
+    const decision = shouldPruneLead(lead);
+    if (decision.prune && removed.length < limit) removed.push({ lead, reason: decision.reason });
+    else kept.push(lead);
+  }
+
+  const byReason = removed.reduce((acc, item) => {
+    acc[item.reason] = (acc[item.reason] || 0) + 1;
+    return acc;
+  }, {});
+
+  let backupPath = null;
+  let exported = null;
+  if (removed.length && !dryRun) {
+    await fs.mkdir(dataDir, { recursive: true });
+    backupPath = path.join(dataDir, `leads.prune-backup-${stamp()}.json`);
+    await fs.copyFile(dbPath, backupPath).catch(() => {});
+    await writeDb({
+      ...db,
+      leads: kept,
+      pruneHistory: [
+        {
+          at: nowIso(),
+          reason: options.reason || "manual",
+          removed: removed.length,
+          before: leads.length,
+          after: kept.length,
+          byReason,
+          backupPath
+        },
+        ...(db.pruneHistory || [])
+      ].slice(0, 50)
+    });
+    exported = await exportLeads({
+      csvName: "autopilot-qualified-leads.csv",
+      jsonName: "autopilot-qualified-leads.json",
+      contactCsvName: "autopilot-qualified-contactable-leads.csv",
+      contactJsonName: "autopilot-qualified-contactable-leads.json",
+      hotCsvName: "autopilot-hot-leads.csv",
+      hotJsonName: "autopilot-hot-leads.json"
+    });
+  }
+
+  return {
+    ok: true,
+    dryRun,
+    before: leads.length,
+    removed: removed.length,
+    after: dryRun ? leads.length : kept.length,
+    backupPath,
+    byReason,
+    sample: removed.slice(0, 20).map(({ lead, reason }) => ({ id: lead.id, name: lead.name, url: lead.url, reason })),
+    exported
+  };
+}
+
+if (process.argv[1]?.endsWith("lead-pruner.js")) {
+  const args = new Map(process.argv.slice(2).map((arg) => arg.split("=")).filter(([key]) => key?.startsWith("--")).map(([key, value]) => [key.replace(/^--/, ""), value ?? "true"]));
+  pruneRejectedLeads({
+    dryRun: args.get("dryRun") === "true",
+    limit: Number(args.get("limit") || 5000),
+    reason: "cli"
+  })
+    .then((result) => console.log(JSON.stringify(result, null, 2)))
+    .catch((error) => {
+      console.error(error);
+      process.exitCode = 1;
+    });
+}
