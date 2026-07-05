@@ -4,7 +4,7 @@ import { fetchText, resultFrom } from "./search.js";
 
 const SEARCH_ENGINES = ["bing-rss", "bing", "duckduckgo", "yahoo", "brave-html", "qwant", "google"];
 const NON_TRADING_FOREX_DOMAINS = ["forex.se", "forex.no", "forex.fi", "forexvaluta.dk"];
-const KNOWN_FALSE_POSITIVE_DOMAINS = ["kitco.com", "mambaby.com", "partnershiphp.org", "tipranks.com"];
+const KNOWN_FALSE_POSITIVE_DOMAINS = ["kitco.com", "mambaby.com", "partnershiphp.org", "tipranks.com", "tradersunion.com", "latammediareport.com"];
 const NON_TRADING_FOREX_NOISE = /växla|valuta|valutakurser|valutaomvandlare|reseförsäkring|skicka pengar|western union|kreditkort|travel money|currency exchange|exchange rates|money transfer|travel insurance|buy currency|sell currency/i;
 
 function siteConstraint(query = "") {
@@ -133,7 +133,7 @@ function junk(result) {
   if (isKnownFalsePositive(result)) return true;
   if (isNonTradingForexNoise(result)) return true;
   const text = `${result.title} ${result.snippet} ${result.url}`.toLowerCase();
-  return /cache\.aspx|w3\.org|schema\.org|xmlns|xhtml|wikipedia|dictionary|definition|investopedia|marketwatch|ishares|msci|weather|currency exchange|google maps|tripadvisor|computational fluid dynamics|forex\.com\/?$/.test(text);
+  return /cache\.aspx|press release|newswire|top\s*\d+\s+forex|best\s+forex\s+(?:educators|mentors)|w3\.org|schema\.org|xmlns|xhtml|wikipedia|dictionary|definition|investopedia|marketwatch|ishares|msci|weather|currency exchange|google maps|tripadvisor|computational fluid dynamics|forex\.com\/?$/.test(text);
 }
 
 function hasLeadSignal(result, query) {
