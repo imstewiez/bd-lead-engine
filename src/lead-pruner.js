@@ -10,6 +10,7 @@ import { nowIso } from "./utils.js";
 const rootDir = getRootDir();
 const dataDir = path.join(rootDir, "data");
 const dbPath = path.join(dataDir, "leads.json");
+const KNOWN_CURRENCY_EXCHANGE_DOMAINS = ["forex.se", "forex.no", "forex.fi", "forexvaluta.dk"];
 
 function stamp() {
   return new Date().toISOString().replace(/[:.]/g, "-");
@@ -53,11 +54,25 @@ function isProtectedLead(lead = {}) {
   return !["", "new", "research", "rejected"].includes(stage);
 }
 
+function domainFromLead(lead = {}) {
+  try {
+    return new URL(lead.url || "").hostname.replace(/^www\./, "").toLowerCase();
+  } catch {
+    return String(lead.domain || "").replace(/^www\./, "").toLowerCase();
+  }
+}
+
+function isKnownCurrencyExchangeLead(lead = {}) {
+  const domain = domainFromLead(lead);
+  return KNOWN_CURRENCY_EXCHANGE_DOMAINS.some((blocked) => domain === blocked || domain.endsWith(`.${blocked}`));
+}
+
 function hardNoiseReason(lead = {}) {
   const text = leadText(lead);
   const url = String(lead.url || "").toLowerCase();
   const bucket = sourceBucket(lead);
 
+  if (isKnownCurrencyExchangeLead(lead)) return "known_currency_exchange_false_positive";
   if (/tradingview\.com\/(?:chart|markets|symbols)|\/chart\/?$/.test(url)) return "tradingview_chart_or_market_page";
   if (/\bt\.me\/telegram\b|\btelegram\.org\b|^view @telegram\b/.test(text)) return "official_telegram_page";
   if (/world health summit|microsoft store|google play|apps no google play|xbox|ko-fi shop|support trading with charm/.test(text)) return "non_financial_platform_noise";
