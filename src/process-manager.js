@@ -13,6 +13,9 @@ function harvesterArgs(name, extra = []) {
 }
 
 export const BACKGROUND_TASKS = {
+  server: {
+    args: ["src/server.js"]
+  },
   "source-harvester": {
     args: harvesterArgs("source-harvester", ["--onlyIntents=partner,intent", "--maxQueries=140", "--limitPerQuery=10", "--delayMs=6000", "--fetchPages=true", "--deepEnrich=true", "--searchContacts=true", "--maxContactPages=8", "--maxExternalWebsites=6", "--maxTrailQueries=24", "--trailLimit=8", "--exportEvery=3"])
   },
@@ -51,6 +54,9 @@ export const BACKGROUND_TASKS = {
   },
   "qualified-exporter": {
     args: ["src/qualified-exporter.js", "--intervalMs=45000"]
+  },
+  "cloud-logger-worker": {
+    args: ["src/cloud-logger.js", "--loop=true", "--intervalMs=600000"]
   },
   supervisor: {
     args: ["src/supervisor.js", "--intervalMs=60000"]
