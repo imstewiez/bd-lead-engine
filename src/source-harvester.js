@@ -44,7 +44,10 @@ const options = {
   includeForums: boolArg("includeForums", true),
   includeSpecialistSources: boolArg("includeSpecialistSources", true),
   includeYouTube: boolArg("includeYouTube", false),
-  onlyIntents: args.get("onlyIntents") || ""
+  onlyIntents: args.get("onlyIntents") || "",
+  onlyChannels: args.get("onlyChannels") || "",
+  maxMql5QueryShare: args.get("maxMql5QueryShare") || undefined,
+  minMql5Queries: args.get("minMql5Queries") || undefined
 };
 
 async function writeStatus(status) {
