@@ -4,61 +4,77 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>BD Lead Engine</title>
-    <link rel="stylesheet" href="/styles.css?v=clean-3" />
+    <link rel="stylesheet" href="/styles.css?v=pipeline-1" />
     <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-    <script defer src="/app.js?v=clean-5"></script>
+    <script defer src="/app.js?v=pipeline-1"></script>
   </head>
   <body>
     <div class="app-shell">
       <header class="topbar">
-        <div>
-          <p class="eyebrow">Sales intelligence</p>
-          <h1>BD Lead Engine</h1>
+        <div class="brand-lockup">
+          <div class="brand-mark">BD</div>
+          <div>
+            <p class="eyebrow">Lead operating system</p>
+            <h1>BD Lead Engine</h1>
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <span id="runBadge" class="badge muted">Pronto</span>
+          <a class="icon-link" href="/autopilot-working-leads.csv"><i data-lucide="download"></i> Export</a>
         </div>
       </header>
 
-      <main class="auto-workspace">
-        <section class="main-panel hero-panel">
-          <div class="hero-row">
-            <div>
-              <p class="eyebrow">Pipeline ativo</p>
-              <h2>Leads qualificadas para outbound.</h2>
-              <p id="runMessage" class="hero-copy">A procurar e enriquecer oportunidades automaticamente.</p>
+      <main class="crm-shell">
+        <section class="ops-rail">
+          <article class="run-card">
+            <div class="run-orbit"></div>
+            <div class="panel-title">
+              <div>
+                <p class="eyebrow">Autopilot</p>
+                <h2>Motor ativo, pipeline controlado.</h2>
+              </div>
+              <i data-lucide="radar"></i>
             </div>
-            <span id="runBadge" class="badge muted">Ativo</span>
-          </div>
-          <div class="progress-track hero-progress"><div id="progressBar" class="progress-bar"></div></div>
-          <div id="systemHealth" class="health-strip"></div>
-          <div class="event-list compact" id="eventList"></div>
-        </section>
+            <p id="runMessage" class="hero-copy">A procurar, qualificar e enriquecer oportunidades automaticamente.</p>
+            <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+            <div id="systemHealth" class="health-strip"></div>
+            <div class="event-list compact" id="eventList"></div>
+          </article>
 
-        <section class="main-panel">
-          <div class="metric-strip">
-            <div class="metric"><span id="metricTotalLabel">Qualified</span><strong id="metricTotal">0</strong></div>
-            <div class="metric raw"><span>Guardadas</span><strong id="metricRawTotal">0</strong></div>
-            <div class="metric hot"><span>A leads</span><strong id="metricA">0</strong></div>
+          <section class="metric-strip">
+            <div class="metric hot"><span id="metricTotalLabel">Qualificadas</span><strong id="metricTotal">0</strong></div>
+            <div class="metric raw"><span>Base</span><strong id="metricRawTotal">0</strong></div>
+            <div class="metric"><span>A leads</span><strong id="metricA">0</strong></div>
             <div class="metric"><span>Parceiros</span><strong id="metricPartners">0</strong></div>
             <div class="metric"><span>Recruta</span><strong id="metricRecruitment">0</strong></div>
             <div class="metric booked"><span>Reuniões</span><strong id="metricBooked">0</strong></div>
             <div class="metric contact"><span>Contactáveis</span><strong id="metricContactable">0</strong></div>
             <div class="metric"><span>Contacto</span><strong id="metricEmailForm">0</strong></div>
-          </div>
+          </section>
+        </section>
 
-          <div class="toolbar single-search">
-            <div class="search-box"><i data-lucide="search"></i><input id="searchInput" placeholder="Pesquisar leads qualificadas..." /></div>
-          </div>
-
-          <div class="source-strip" id="platformStrip"></div>
-
-          <div class="split-view">
-            <div class="lead-table-wrap">
-              <table class="lead-table">
-                <thead><tr><th>Lead</th><th>Origem</th><th>Tipo</th><th>Nota</th><th>País</th><th>Estado</th></tr></thead>
-                <tbody id="leadRows"></tbody>
-              </table>
+        <section class="work-grid">
+          <section class="pipeline-panel">
+            <div class="workspace-header">
+              <div>
+                <p class="eyebrow">CRM Pipeline</p>
+                <h2>Gerir leads por estado</h2>
+              </div>
+              <div class="search-box">
+                <i data-lucide="search"></i>
+                <input id="searchInput" placeholder="Pesquisar lead, país, fonte, segmento..." />
+              </div>
             </div>
-            <aside class="detail-panel" id="detailPanel"><div class="empty-state"><i data-lucide="target"></i><p>Seleciona uma lead.</p></div></aside>
-          </div>
+            <div class="source-strip" id="platformStrip"></div>
+            <div class="pipeline-board" id="leadRows"></div>
+          </section>
+
+          <aside class="detail-panel" id="detailPanel">
+            <div class="empty-state">
+              <i data-lucide="mouse-pointer-2"></i>
+              <p>Seleciona uma lead para abrir o dossiê comercial.</p>
+            </div>
+          </aside>
         </section>
       </main>
 
