@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { filterAndDedupeLeads, filterWorkingLeads, hasActionableContact } from "./exporter.js";
+import { filterAndDedupeLeads, filterResearchSources, filterWorkingLeads, hasActionableContact } from "./exporter.js";
+import { classifyLeadEntity } from "./lead-entity.js";
 import { countBySource, sourceBucket } from "./mql5-limit.js";
 import { qualifyLead } from "./qualification.js";
 import { domainOf, platformFromUrl, nowIso } from "./utils.js";
@@ -88,19 +89,24 @@ function cleanDisplayName(lead = {}) {
 }
 
 function sampleLeads(leads = []) {
-  return leads.slice(0, 10).map((lead) => ({
-    name: cleanDisplayName(lead),
-    url: lead.url || "",
-    domain: domainOf(lead.url || ""),
-    platform: lead.platform || platformFromUrl(lead.url || ""),
-    discoveredFrom: sourceBucket(lead),
-    score: lead.score || 0,
-    priority: lead.priority || "",
-    segment: lead.segment || "",
-    bestContactType: lead.bestContactType || "",
-    bestChannel: qualifyLead(lead).bestChannel,
-    tier: qualifyLead(lead).icpTier
-  }));
+  return leads.slice(0, 10).map((lead) => {
+    const entity = classifyLeadEntity(lead);
+    return {
+      name: cleanDisplayName(lead),
+      url: lead.url || "",
+      domain: domainOf(lead.url || ""),
+      platform: lead.platform || platformFromUrl(lead.url || ""),
+      discoveredFrom: sourceBucket(lead),
+      entityKind: entity.kind,
+      entityReason: entity.reason,
+      score: lead.score || 0,
+      priority: lead.priority || "",
+      segment: lead.segment || "",
+      bestContactType: lead.bestContactType || "",
+      bestChannel: qualifyLead(lead).bestChannel,
+      tier: qualifyLead(lead).icpTier
+    };
+  });
 }
 
 function recommendations({ counts, search, cleaner }) {
@@ -115,7 +121,10 @@ function recommendations({ counts, search, cleaner }) {
     out.push("Strict qualified ratio is below 5%: keep strict export gates, but improve sourcing inputs instead of loosening quality blindly.");
   }
   if (counts.workingRatio < 8) {
-    out.push("Working list is thin: review source queries and add higher-intent source packs before scaling outreach.");
+    out.push("Working list is thin: review source queries and add higher-intent actual-lead source packs before scaling outreach.");
+  }
+  if (counts.researchSources > counts.working) {
+    out.push("Many useful pages are research sources, not direct outreach leads; keep them for manual mining instead of mixing them into the pipeline.");
   }
   if (cleaner?.lastRun?.removed) {
     out.push(`Cleaner removed ${cleaner.lastRun.removed} noisy records in the latest run.`);
@@ -129,6 +138,7 @@ async function main() {
   const raw = db.leads || [];
   const qualified = filterAndDedupeLeads(raw);
   const working = filterWorkingLeads(raw);
+  const researchSources = filterResearchSources(raw);
   const contactable = working.filter(hasActionableContact);
 
   const statuses = {};
@@ -141,14 +151,17 @@ async function main() {
     raw: raw.length,
     qualified: qualified.length,
     working: working.length,
+    researchSources: researchSources.length,
     contactable: contactable.length,
     qualifiedRatio: pct(qualified.length, raw.length),
     workingRatio: pct(working.length, raw.length),
+    researchSourceRatio: pct(researchSources.length, raw.length),
     contactableWorkingRatio: pct(contactable.length, working.length),
     tiers: tierCounts(working),
     rawBySource: countBySource(raw),
     workingBySource: countBySource(working),
-    qualifiedBySource: countBySource(qualified)
+    qualifiedBySource: countBySource(qualified),
+    researchBySource: countBySource(researchSources)
   };
 
   const audit = {
@@ -162,7 +175,8 @@ async function main() {
     recommendations: recommendations({ counts, search, cleaner: statuses["lead-cleaner"] }),
     samples: {
       qualified: sampleLeads(qualified),
-      working: sampleLeads(working)
+      working: sampleLeads(working),
+      researchSources: sampleLeads(researchSources)
     }
   };
 
