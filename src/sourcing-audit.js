@@ -3,8 +3,8 @@ import path from "node:path";
 import { filterAndDedupeLeads, filterWorkingLeads, hasActionableContact } from "./exporter.js";
 import { countBySource, sourceBucket } from "./mql5-limit.js";
 import { qualifyLead } from "./qualification.js";
+import { domainOf, platformFromUrl, nowIso } from "./utils.js";
 import { getRootDir, readDb } from "./store.js";
-import { nowIso } from "./utils.js";
 
 const rootDir = getRootDir();
 const dataDir = path.join(rootDir, "data");
@@ -78,16 +78,28 @@ function tierCounts(leads = []) {
   return counts;
 }
 
+function cleanDisplayName(lead = {}) {
+  const raw = String(lead.name || lead.title || "").trim();
+  const cleaned = raw
+    .replace(/^\)?\s*\/\s*posts\s*\/\s*x(?:\s*-\s*twitter)?/i, "X profile/post")
+    .replace(/^thread\s*›\s*/i, "ForexFactory thread: ")
+    .replace(/^past-events\s*›\s*/i, "Event: ");
+  return cleaned || domainOf(lead.url || "") || "Unknown lead";
+}
+
 function sampleLeads(leads = []) {
   return leads.slice(0, 10).map((lead) => ({
-    name: lead.name || lead.title || "",
+    name: cleanDisplayName(lead),
     url: lead.url || "",
-    sourceBucket: sourceBucket(lead),
+    domain: domainOf(lead.url || ""),
+    platform: lead.platform || platformFromUrl(lead.url || ""),
+    discoveredFrom: sourceBucket(lead),
     score: lead.score || 0,
     priority: lead.priority || "",
     segment: lead.segment || "",
     bestContactType: lead.bestContactType || "",
-    bestChannel: qualifyLead(lead).bestChannel
+    bestChannel: qualifyLead(lead).bestChannel,
+    tier: qualifyLead(lead).icpTier
   }));
 }
 
