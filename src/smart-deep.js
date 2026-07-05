@@ -1,7 +1,7 @@
 import * as cheerio from "cheerio";
-import { cleanEmails, cleanLinks, cleanPhoneNumbers, isBlockedLinkUrl, isBrokerOrReferralUrl, isLinkHubUrl, isUsefulDirectContactUrl } from "./contact-cleaner.js";
+import { cleanEmails, cleanLinks, cleanPhoneNumbers, isBlockedLinkUrl, isBrokerOrReferralUrl, isLinkHubUrl, isShortenerUrl, isUsefulDirectContactUrl } from "./contact-cleaner.js";
 import { deepEnrichResult as baseDeepEnrichResult } from "./deep.js";
-import { bareWebsiteUrls, isPlatformProfileDomain, isPlatformProfileUrl, pickBestContact } from "./platform-enrichment.js";
+import { bareWebsiteUrls, cleanDecisionContactLinks, isDecisionContactUrl, isPlatformProfileDomain, isPlatformProfileUrl, pickBestContact } from "./platform-enrichment.js";
 import { filterDecisionMakerEmails, stripPlatformOwnedContacts } from "./platform-contact-policy.js";
 import { domainOf, normalizeWhitespace, safeUrl, sleep, titleFromUrl, unique } from "./utils.js";
 import { extractEmails, fetchHtml, resolveFinalUrl, searchOne } from "./search.js";
@@ -71,7 +71,7 @@ function mineUrls(text = "", baseUrl = "") {
 
 function isDirectUrl(url = "") {
   const domain = domainOf(url);
-  return isUsefulDirectContactUrl(url) || isLinkHubUrl(url) || rootMatch(domain, DIRECT_ROOTS);
+  return isDecisionContactUrl(url) || isLinkHubUrl(url) || rootMatch(domain, DIRECT_ROOTS);
 }
 
 function canRead(url = "", sourceUrl = "") {
@@ -79,7 +79,7 @@ function canRead(url = "", sourceUrl = "") {
   if (!domain || domain === domainOf(sourceUrl) || isBlockedLinkUrl(url) || isBrokerOrReferralUrl(url)) return false;
   if (isLinkHubUrl(url)) return true;
   if (isPlatformProfileDomain(domain)) return rootMatch(domain, READABLE_PLATFORM_ROOTS);
-  if (isDirectUrl(url) && !isUsefulDirectContactUrl(url)) return false;
+  if (isDirectUrl(url) && !isDecisionContactUrl(url)) return false;
   return !/\.(?:png|jpe?g|gif|webp|svg|css|js|pdf)(?:[?#].*)?$/i.test(url);
 }
 
@@ -102,7 +102,10 @@ async function readPage(url) {
       title,
       emails: extractEmails(text),
       phoneNumbers: cleanPhoneNumbers(text.match(/(?:\+?\d[\d\s().-]{7,}\d)/g) || []),
-      contactLinks: links.filter((link) => isUsefulDirectContactUrl(link) || /contact|about|partner|affiliate|whatsapp|telegram|calendly/i.test(link)).slice(0, 20),
+      contactLinks: unique([
+        ...cleanDecisionContactLinks(links),
+        ...links.filter((link) => !isPlatformProfileUrl(link) && /contact|about|partner|affiliate|whatsapp|telegram|calendly/i.test(link))
+      ]).slice(0, 20),
       socialLinks: links.filter(isDirectUrl).slice(0, 20),
       websiteLinks: links.filter((link) => !isDirectUrl(link) && !isPlatformProfileUrl(link)).slice(0, 20)
     };
@@ -132,7 +135,7 @@ async function enrichIdentityTrail(lead = {}, options = {}) {
   const current = stripPlatformOwnedContacts(lead);
   const identity = identityFor(current);
   if (!identity.names.length && !identity.tokens.length) return current;
-  const strong = Boolean(current.bestContact && current.bestContactType !== "email") || (current.contactLinks || []).some(isUsefulDirectContactUrl);
+  const strong = Boolean(current.bestContact && current.bestContactType !== "email" && current.bestContactType !== "website") || cleanDecisionContactLinks(current.contactLinks || []).length > 0;
   if (strong && Number(current.contactConfidence || 0) >= 80) return current;
 
   const names = identity.names.length ? identity.names.slice(0, 4) : [identity.tokens.slice(0, 3).join(" ")].filter(Boolean);
