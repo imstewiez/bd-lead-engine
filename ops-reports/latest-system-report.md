@@ -1,15 +1,15 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-05T22:16:16.543Z
+Updated: 2026-07-05T22:16:18.771Z
 Health: OK
 
 ## Funnel
-Raw: 1335
-Qualified: 95
-Working: 119
-Contactable: 99
+Raw: 1333
+Qualified: 94
+Working: 118
+Contactable: 98
 Sales-ready: 39
-A1 Hot: 38
+A1 Hot: 37
 A2 Strong: 15
 
 ## Quality
