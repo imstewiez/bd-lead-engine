@@ -107,3 +107,37 @@ async function retireStaleHarvester(name, pid) {
   await fsp.rm(pidPathFor(name), { force: true }).catch(() => {});
   return true;
 }
+
+export async function startBackgroundTask(name) {
+  const task = BACKGROUND_TASKS[name];
+  if (!task) return { name, status: "unknown_task", pid: null };
+  await fsp.mkdir(dataDir, { recursive: true });
+  const out = fs.openSync(path.join(dataDir, `${name}.out.log`), "a");
+  const err = fs.openSync(path.join(dataDir, `${name}.err.log`), "a");
+  const child = spawn(process.execPath, task.args, {
+    cwd: rootDir,
+    detached: true,
+    stdio: ["ignore", out, err],
+    windowsHide: true,
+    env: process.env
+  });
+  child.unref();
+  await fsp.writeFile(pidPathFor(name), `${child.pid}\n${new Date().toISOString()}\n`, "utf8");
+  return { name, pid: child.pid, status: "started" };
+}
+
+export async function ensureBackgroundTasks(names = Object.keys(BACKGROUND_TASKS)) {
+  const results = [];
+  for (const name of names) {
+    const pid = await readPid(name);
+    if (pid && isPidRunning(pid)) {
+      const retired = await retireStaleHarvester(name, pid);
+      if (!retired) {
+        results.push({ name, pid, status: "running" });
+        continue;
+      }
+    }
+    results.push(await startBackgroundTask(name));
+  }
+  return results;
+}
