@@ -26,6 +26,25 @@ export function isPlatformProfileUrl(url = "") {
   return isPlatformProfileDomain(domainOf(url));
 }
 
+function platformRoot(domain = "") {
+  const clean = String(domain || "").replace(/^www\./i, "").toLowerCase();
+  return PLATFORM_DOMAINS.find((platform) => isDomainOrSubdomain(clean, platform)) || "";
+}
+
+export function isPlatformOwnedEmail(email = "", lead = {}) {
+  const clean = String(email || "").trim().toLowerCase();
+  const [local = "", emailDomain = ""] = clean.split("@");
+  const emailRoot = platformRoot(emailDomain);
+  if (!emailRoot) return false;
+  const sourceRoot = platformRoot(domainOf(lead.url || lead.bestContactSource || ""));
+  if (sourceRoot && sourceRoot === emailRoot) return true;
+  return /^(?:support|help|info|contact|sales|partner|affiliate|hello|team|admin)(?:[+._-].*)?$/i.test(local);
+}
+
+export function filterPlatformOwnedEmails(lead = {}) {
+  return cleanEmails(lead.emails || []).filter((email) => !isPlatformOwnedEmail(email, lead));
+}
+
 export function bareWebsiteUrls(text = "") {
   return unique(
     [...String(text).matchAll(/(?:^|[\s"'(>])((?:www\.)[a-z0-9][a-z0-9.-]+\.[a-z]{2,24}(?:\/[^\s"'<>)}\]]*)?)/gi)]
@@ -45,7 +64,7 @@ export function isGenericContactTrailName(name = "") {
 }
 
 export function pickBestContact(lead = {}) {
-  const emails = cleanEmails(lead.emails || []);
+  const emails = filterPlatformOwnedEmails(lead);
   const phones = cleanPhoneNumbers(lead.phoneNumbers || []);
   const direct = cleanLinks([lead.url, ...(lead.socialLinks || []), ...(lead.contactLinks || [])], {
     allowYouTubeChannels: false,
