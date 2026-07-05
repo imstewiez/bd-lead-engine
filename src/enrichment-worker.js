@@ -32,16 +32,35 @@ function numberArg(name, fallback) {
 
 const options = {
   delayMs: Math.max(500, numberArg("delayMs", 2500)),
-  idleMs: Math.max(5000, numberArg("idleMs", 30000)),
-  staleHours: Math.max(1, numberArg("staleHours", 72)),
-  hotStaleHours: Math.max(1, numberArg("hotStaleHours", 12)),
-  contactlessStaleHours: Math.max(1, numberArg("contactlessStaleHours", 18)),
-  maxAttempts: Math.max(1, numberArg("maxAttempts", 8)),
+  idleMs: Math.max(3000, numberArg("idleMs", 8000)),
+  staleHours: Math.max(0.25, numberArg("staleHours", 6)),
+  hotStaleHours: Math.max(0.1, numberArg("hotStaleHours", 1)),
+  contactlessStaleHours: Math.max(0.1, numberArg("contactlessStaleHours", 1)),
+  rotationHours: Math.max(0.25, numberArg("rotationHours", 2)),
+  maxAttempts: Math.max(1, numberArg("maxAttempts", 25)),
   maxContactPages: Math.max(1, Math.min(numberArg("maxContactPages", 6), 14)),
   maxExternalWebsites: Math.max(0, Math.min(numberArg("maxExternalWebsites", 4), 10)),
   maxTrailQueries: Math.max(2, Math.min(numberArg("maxTrailQueries", 14), 28)),
   trailLimit: Math.max(2, Math.min(numberArg("trailLimit", 6), 14))
 };
+
+const TRUSTED_ENRICHMENT_BUCKETS = new Set([
+  "linkedin",
+  "instagram",
+  "x",
+  "telegram",
+  "discord",
+  "tiktok",
+  "facebook_threads",
+  "reddit",
+  "myfxbook",
+  "mql5",
+  "tradingview",
+  "specialist",
+  "forum",
+  "ecosystem",
+  "recruitment"
+]);
 
 async function appendLog(message) {
   await fs.mkdir(dataDir, { recursive: true });
@@ -68,31 +87,16 @@ async function clearStopFile() {
   await fs.rm(stopPath, { force: true }).catch(() => {});
 }
 
+function ageHours(dateLike = "") {
+  const parsed = Date.parse(dateLike || "");
+  if (!Number.isFinite(parsed)) return Infinity;
+  return Math.max(0, (Date.now() - parsed) / (60 * 60 * 1000));
+}
+
 function hasFreshRunningStatus(lead) {
   if (lead.deepStatus !== "running") return false;
   const started = Date.parse(lead.deepStartedAt || "");
   return Number.isFinite(started) && Date.now() - started < 60 * 60 * 1000;
-}
-
-function needsEnrichment(lead) {
-  if (!lead?.id || !lead.url) return false;
-  if (/youtube\.com|youtu\.be/i.test(String(lead.url))) return false;
-  if (!["partner", "recruitment", "institution"].includes(lead.leadType)) return false;
-  if (lead.segment === "Broker Site" && lead.leadType !== "recruitment") return false;
-  if (hasFreshRunningStatus(lead)) return false;
-  if (!isWorkingLead(lead) && !hasStrictTradingIcp(lead)) return false;
-  if ((lead.enrichmentAttempts || 0) >= options.maxAttempts && contactCompleteness(lead) < 20) return false;
-
-  const last = Date.parse(lead.lastDeepEnrichedAt || "");
-  if (!Number.isFinite(last)) return true;
-  const commercialScore = commercialScoreForLead(lead);
-  const refreshHours =
-    contactCompleteness(lead) < 35
-      ? options.contactlessStaleHours
-      : commercialScore >= 78 || lead.priority === "A"
-        ? options.hotStaleHours
-        : options.staleHours;
-  return Date.now() - last > refreshHours * 60 * 60 * 1000;
 }
 
 function contactCompleteness(lead) {
@@ -102,8 +106,40 @@ function contactCompleteness(lead) {
   if ((lead.forms || []).length) score += 20;
   if ((lead.websiteLinks || []).length) score += 10;
   if ((lead.decisionMakers || []).length) score += 20;
+  if ((lead.decisionMakerLinks || []).length) score += 15;
   if ((lead.contactLinks || []).length) score += 10;
+  if (lead.bestContact) score += 25;
   return score;
+}
+
+function refreshHoursFor(lead) {
+  const commercialScore = commercialScoreForLead(lead);
+  if (contactCompleteness(lead) < 35) return options.contactlessStaleHours;
+  if (commercialScore >= 78 || lead.priority === "A") return options.hotStaleHours;
+  return options.staleHours;
+}
+
+function isEligibleForEnrichment(lead) {
+  if (!lead?.id || !lead.url) return false;
+  if (/youtube\.com|youtu\.be/i.test(String(lead.url))) return false;
+  if (!['partner', 'recruitment', 'institution'].includes(lead.leadType)) return false;
+  if (lead.segment === "Broker Site" && lead.leadType !== "recruitment") return false;
+  if (hasFreshRunningStatus(lead)) return false;
+
+  const bucket = sourceBucket(lead);
+  if (isWorkingLead(lead) || hasStrictTradingIcp(lead) || TRUSTED_ENRICHMENT_BUCKETS.has(bucket)) return true;
+  return false;
+}
+
+function enrichmentDueReason(lead) {
+  if (!isEligibleForEnrichment(lead)) return "";
+  if (!lead.lastDeepEnrichedAt) return "never";
+
+  const age = ageHours(lead.lastDeepEnrichedAt);
+  const scheduledHours = refreshHoursFor(lead);
+  if (age >= scheduledHours) return contactCompleteness(lead) < 35 ? "contactless_due" : "scheduled_due";
+  if (age >= options.rotationHours) return "rotation_due";
+  return "";
 }
 
 function platformRank(lead) {
@@ -116,22 +152,69 @@ function platformRank(lead) {
   return 5;
 }
 
+function duePriority(reason = "") {
+  if (reason === "never") return 0;
+  if (reason === "contactless_due") return 1;
+  if (reason === "scheduled_due") return 2;
+  if (reason === "rotation_due") return 3;
+  return 9;
+}
+
+function enrichmentQueueStats(leads = []) {
+  const stats = {
+    eligible: 0,
+    dueNow: 0,
+    never: 0,
+    contactlessDue: 0,
+    scheduledDue: 0,
+    rotationDue: 0,
+    recentlyEnriched1h: 0,
+    recentlyEnriched24h: 0,
+    blockedRunning: 0,
+    oldestDeepAgeHours: 0
+  };
+
+  for (const lead of leads) {
+    if (hasFreshRunningStatus(lead)) stats.blockedRunning += 1;
+    if (!isEligibleForEnrichment(lead)) continue;
+    stats.eligible += 1;
+    const age = ageHours(lead.lastDeepEnrichedAt);
+    if (Number.isFinite(age)) {
+      if (age <= 1) stats.recentlyEnriched1h += 1;
+      if (age <= 24) stats.recentlyEnriched24h += 1;
+      stats.oldestDeepAgeHours = Math.max(stats.oldestDeepAgeHours, Math.round(age * 10) / 10);
+    }
+    const reason = enrichmentDueReason(lead);
+    if (!reason) continue;
+    stats.dueNow += 1;
+    if (reason === "never") stats.never += 1;
+    if (reason === "contactless_due") stats.contactlessDue += 1;
+    if (reason === "scheduled_due") stats.scheduledDue += 1;
+    if (reason === "rotation_due") stats.rotationDue += 1;
+  }
+  return stats;
+}
+
 function pickNextLead(leads) {
   return leads
-    .filter(needsEnrichment)
+    .map((lead) => ({ lead, dueReason: enrichmentDueReason(lead) }))
+    .filter((item) => item.dueReason)
     .sort((a, b) => {
-      const completenessA = contactCompleteness(a);
-      const completenessB = contactCompleteness(b);
-      const commercialA = commercialScoreForLead(a);
-      const commercialB = commercialScoreForLead(b);
+      const leadA = a.lead;
+      const leadB = b.lead;
+      const completenessA = contactCompleteness(leadA);
+      const completenessB = contactCompleteness(leadB);
+      const commercialA = commercialScoreForLead(leadA);
+      const commercialB = commercialScoreForLead(leadB);
       return (
+        duePriority(a.dueReason) - duePriority(b.dueReason) ||
         Number(completenessB < 35) - Number(completenessA < 35) ||
-        Number(b.priority === "A") - Number(a.priority === "A") ||
+        Number(leadB.priority === "A") - Number(leadA.priority === "A") ||
         commercialB - commercialA ||
-        platformRank(a) - platformRank(b) ||
+        platformRank(leadA) - platformRank(leadB) ||
         completenessA - completenessB ||
-        (b.score || 0) - (a.score || 0) ||
-        String(a.lastDeepEnrichedAt || "").localeCompare(String(b.lastDeepEnrichedAt || ""))
+        (leadB.score || 0) - (leadA.score || 0) ||
+        ageHours(leadB.lastDeepEnrichedAt) - ageHours(leadA.lastDeepEnrichedAt)
       );
     })[0];
 }
@@ -179,10 +262,11 @@ function mergeLeadEnrichment(base, enriched) {
   };
 }
 
-async function enrichOne(lead) {
+async function enrichOne(lead, dueReason = "") {
   await updateLead(lead.id, {
     deepStatus: "running",
     deepStartedAt: nowIso(),
+    deepDueReason: dueReason,
     enrichmentAttempts: Number(lead.enrichmentAttempts || 0) + 1
   });
 
@@ -199,6 +283,7 @@ async function enrichOne(lead) {
   const finalLead = {
     ...classified,
     deepStatus: "done",
+    deepDueReason: dueReason,
     deepFinishedAt: nowIso(),
     lastDeepEnrichedAt: nowIso(),
     enrichmentWorker: true
@@ -208,6 +293,7 @@ async function enrichOne(lead) {
   if (reasons.length) {
     await updateLead(lead.id, {
       deepStatus: "rejected",
+      deepDueReason: dueReason,
       deepFinishedAt: nowIso(),
       lastDeepEnrichedAt: nowIso(),
       rejectionReasons: reasons
@@ -230,17 +316,23 @@ await writeStatus({ status: "running", phase: "started", options });
 let processed = 0;
 let rejected = 0;
 let errors = 0;
+let idleCycles = 0;
+let lastResult = null;
 
 while (!(await stopRequested())) {
   const db = await readDb();
-  const lead = pickNextLead(db.leads || []);
+  const queue = enrichmentQueueStats(db.leads || []);
+  const selected = pickNextLead(db.leads || []);
 
-  if (!lead) {
-    await writeStatus({ status: "running", phase: "idle", options, processed, rejected, errors, total: db.leads.length });
+  if (!selected) {
+    idleCycles += 1;
+    await writeStatus({ status: "running", phase: "idle", options, processed, rejected, errors, idleCycles, queue, lastResult, total: db.leads.length });
     await sleep(options.idleMs);
     continue;
   }
 
+  idleCycles = 0;
+  const { lead, dueReason } = selected;
   await writeStatus({
     status: "running",
     phase: "enriching",
@@ -248,24 +340,39 @@ while (!(await stopRequested())) {
     processed,
     rejected,
     errors,
-    current: { id: lead.id, name: lead.name, url: lead.url, platform: lead.platform }
+    idleCycles,
+    queue,
+    current: { id: lead.id, name: lead.name, url: lead.url, platform: lead.platform, dueReason }
   });
 
   try {
-    const result = await enrichOne(lead);
+    const result = await enrichOne(lead, dueReason);
     processed += 1;
     if (result.status === "rejected") rejected += 1;
+    lastResult = {
+      status: result.status,
+      id: lead.id,
+      name: lead.name || lead.url,
+      dueReason,
+      at: nowIso(),
+      emails: (result.lead.emails || []).length,
+      links: (result.lead.contactLinks || []).length,
+      makers: (result.lead.decisionMakers || []).length,
+      bestContact: result.lead.bestContact || ""
+    };
     await appendLog(
-      `[enrichment-worker] ${result.status} ${lead.id} ${lead.name || lead.url}; emails=${(result.lead.emails || []).length}; links=${(result.lead.contactLinks || []).length}; makers=${(result.lead.decisionMakers || []).length}`
+      `[enrichment-worker] ${result.status} ${dueReason} ${lead.id} ${lead.name || lead.url}; emails=${lastResult.emails}; links=${lastResult.links}; makers=${lastResult.makers}; best=${lastResult.bestContact || "-"}`
     );
   } catch (error) {
     errors += 1;
+    lastResult = { status: "error", id: lead.id, name: lead.name || lead.url, dueReason, at: nowIso(), error: error.message };
     await updateLead(lead.id, {
       deepStatus: "error",
+      deepDueReason: dueReason,
       deepFinishedAt: nowIso(),
       enrichmentErrors: unique([...(lead.enrichmentErrors || []), error.message]).slice(0, 8)
     }).catch(() => {});
-    await appendLog(`[enrichment-worker] error ${lead.id} ${error.stack || error.message}`);
+    await appendLog(`[enrichment-worker] error ${dueReason} ${lead.id} ${error.stack || error.message}`);
   }
 
   if (!(await stopRequested())) await sleep(options.delayMs);
@@ -275,5 +382,5 @@ await exportLeads({
   csvName: "autopilot-leads.csv",
   jsonName: "autopilot-leads.json"
 });
-await writeStatus({ status: "stopped", phase: "stopped", options, processed, rejected, errors });
+await writeStatus({ status: "stopped", phase: "stopped", options, processed, rejected, errors, lastResult });
 await appendLog(`[enrichment-worker] Stopped. processed=${processed}; rejected=${rejected}; errors=${errors}`);
