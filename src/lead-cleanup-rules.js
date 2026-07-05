@@ -31,5 +31,7 @@ export function extraCleanupReason(lead = {}) {
   if (combined.includes("payments.google.com") || combined.includes("google payments") || combined.includes("google pay")) return "payments_platform_noise";
   if (combined.includes("basketball-reference.com") || combined.includes("basketball standings") || combined.includes("nba standings")) return "sports_reference_noise";
   if (combined.includes("overleaf.com") || combined.includes("latex templates")) return "document_template_noise";
+  if ((combined.includes("expo") || combined.includes("conference") || combined.includes("fair")) && (combined.includes("exhibitor") || combined.includes("all exhibitors") || combined.includes("booth list") || combined.includes("exhibitor list"))) return "event_exhibitor_list_not_target";
+  if (combined.includes("forex expo") && combined.includes("scribd.com")) return "event_exhibitor_document_not_target";
   return "";
 }
