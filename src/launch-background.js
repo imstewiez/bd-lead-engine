@@ -8,6 +8,15 @@ const rootDir = getRootDir();
 const dataDir = path.join(rootDir, "data");
 fs.mkdirSync(dataDir, { recursive: true });
 
+const RETIRED_WORKERS = ["source-harvester-registries"];
+for (const name of RETIRED_WORKERS) {
+  for (const suffix of ["-status.json", "-pid.txt", ".out.log", ".err.log", "-stop"]) {
+    try {
+      fs.rmSync(path.join(dataDir, `${name}${suffix}`), { force: true });
+    } catch {}
+  }
+}
+
 function launch(name, args) {
   const out = fs.openSync(path.join(dataDir, `${name}.out.log`), "a");
   const err = fs.openSync(path.join(dataDir, `${name}.err.log`), "a");
