@@ -13,9 +13,6 @@ function harvesterArgs(name, extra = []) {
 }
 
 export const BACKGROUND_TASKS = {
-  server: {
-    args: ["src/server.js"]
-  },
   "source-harvester": {
     args: harvesterArgs("source-harvester", ["--onlyIntents=partner,intent", "--maxQueries=140", "--limitPerQuery=10", "--delayMs=6000", "--fetchPages=true", "--deepEnrich=true", "--searchContacts=true", "--maxContactPages=8", "--maxExternalWebsites=6", "--maxTrailQueries=24", "--trailLimit=8", "--exportEvery=3"])
   },
@@ -117,12 +114,7 @@ export async function launchDetachedTask(name) {
   await fsp.mkdir(dataDir, { recursive: true });
   const out = fs.openSync(path.join(dataDir, `${name}.out.log`), "a");
   const err = fs.openSync(path.join(dataDir, `${name}.err.log`), "a");
-  const child = spawn(process.execPath, task.args, {
-    cwd: rootDir,
-    detached: true,
-    stdio: ["ignore", out, err],
-    windowsHide: true
-  });
+  const child = spawn(process.execPath, task.args, { cwd: rootDir, detached: true, stdio: ["ignore", out, err], windowsHide: true });
   child.unref();
   await fsp.writeFile(pidPathFor(name), `${child.pid}\n${new Date().toISOString()}\n`, "utf8");
   return { name, status: "started", pid: child.pid };
@@ -149,8 +141,6 @@ function normalizeTaskNames(names = Object.keys(BACKGROUND_TASKS)) {
 
 export async function ensureBackgroundTasks(names = Object.keys(BACKGROUND_TASKS)) {
   const results = [];
-  for (const name of normalizeTaskNames(names)) {
-    results.push(await ensureTask(name));
-  }
+  for (const name of normalizeTaskNames(names)) results.push(await ensureTask(name));
   return results;
 }
