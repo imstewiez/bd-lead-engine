@@ -1,6 +1,6 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-05T20:17:55.321Z
+Updated: 2026-07-05T21:54:13.771Z
 Health: CHECK
 
 ## Funnel
@@ -20,8 +20,8 @@ Qualified by bucket: {"linkedin":33,"x":9,"web":9,"instagram":7,"facebook_thread
 
 ## Sourcing / Workers
 Provider errors: 981
-Stale workers: none
-Issues: critical:source-harvester_not_running, critical:source-harvester-social_not_running, critical:source-harvester-specialist_not_running, critical:source-harvester-ecosystem_not_running, critical:source-harvester-linkedin_not_running, critical:source-harvester-instagram_not_running, critical:source-harvester-platforms_not_running, critical:source-harvester-communities_not_running, critical:source-harvester-events_not_running, critical:enrichment-worker_not_running, critical:smart-enrichment-worker_not_running, critical:lead-cleaner_not_running, critical:qualified-exporter_not_running, critical:cloud-logger-worker_not_running, warning:supervisor_not_running
+Stale workers: enrichment-worker, lead-cleaner, qualified-exporter, smart-enrichment-worker, source-harvester, source-harvester-communities, source-harvester-ecosystem, source-harvester-events, source-harvester-instagram, source-harvester-linkedin, source-harvester-platforms, source-harvester-social, source-harvester-specialist, supervisor
+Issues: critical:source-harvester_not_running, critical:source-harvester-social_not_running, critical:source-harvester-specialist_not_running, critical:source-harvester-ecosystem_not_running, critical:source-harvester-linkedin_not_running, critical:source-harvester-instagram_not_running, critical:source-harvester-platforms_not_running, critical:source-harvester-communities_not_running, critical:source-harvester-events_not_running, critical:enrichment-worker_not_running, critical:smart-enrichment-worker_not_running, critical:lead-cleaner_not_running, critical:qualified-exporter_not_running, critical:cloud-logger-worker_not_running, warning:supervisor_not_running, warning:source-harvester_stale_status, warning:source-harvester-social_stale_status, warning:source-harvester-specialist_stale_status, warning:source-harvester-ecosystem_stale_status, warning:source-harvester-linkedin_stale_status, warning:source-harvester-instagram_stale_status, warning:source-harvester-platforms_stale_status, warning:source-harvester-communities_stale_status, warning:source-harvester-events_stale_status, warning:enrichment-worker_stale_status, warning:smart-enrichment-worker_stale_status, warning:lead-cleaner_stale_status, warning:qualified-exporter_stale_status, warning:stale_export, warning:stale_export, warning:stale_export, warning:stale_export, warning:stale_export, warning:stale_export, warning:stale_export, warning:stale_export
 
 ## Smart Enrichment
 Phase: smart-enriching
