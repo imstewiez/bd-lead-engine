@@ -1,9 +1,9 @@
 {
   "ok": true,
-  "generatedAt": "2026-07-05T19:20:21.869Z",
+  "generatedAt": "2026-07-05T19:20:24.390Z",
   "summary": {
     "ok": true,
-    "rawLeads": 1373,
+    "rawLeads": 1372,
     "qualified": 116,
     "working": 148,
     "contactable": 131,
@@ -14,10 +14,10 @@
     "platformContactLeaks": 0,
     "highValueNoContact": 163,
     "duplicateLike": 92,
-    "uniqueKeys": 1281,
+    "uniqueKeys": 1280,
     "enrichmentDueNow": 838,
-    "enrichedLastHour": 178,
-    "enrichedLast24h": 787,
+    "enrichedLastHour": 177,
+    "enrichedLast24h": 786,
     "harvesters": 9,
     "harvesterRawSeen": 0,
     "harvesterSavedThisCycle": 0,
@@ -27,9 +27,9 @@
   },
   "health": {
     "ok": true,
-    "updatedAt": "2026-07-05T19:20:19.980Z",
+    "updatedAt": "2026-07-05T19:20:22.784Z",
     "counts": {
-      "raw": 1373,
+      "raw": 1372,
       "qualified": 116,
       "working": 148,
       "contactable": 131,
@@ -42,17 +42,17 @@
     },
     "duplicate": {
       "duplicateLike": 92,
-      "uniqueKeys": 1281
+      "uniqueKeys": 1280
     },
     "enrichmentQueue": {
       "stale": 435,
       "contactless": 421,
       "neverDeep": 229,
-      "eligible": 1039,
+      "eligible": 1038,
       "dueNow": 838,
       "rotationDue": 528,
-      "enrichedLastHour": 178,
-      "enrichedLast24h": 787,
+      "enrichedLastHour": 177,
+      "enrichedLast24h": 786,
       "oldestDeepAgeHours": 55.9,
       "running": 7
     },
@@ -122,7 +122,7 @@
       "source-harvester": {
         "exists": true,
         "updatedAt": "2026-07-05T19:20:19.346Z",
-        "ageMs": 629,
+        "ageMs": 3433,
         "status": {
           "status": "running",
           "workerName": "source-harvester",
@@ -185,7 +185,7 @@
       "source-harvester-social": {
         "exists": true,
         "updatedAt": "2026-07-05T19:20:19.321Z",
-        "ageMs": 654,
+        "ageMs": 3458,
         "status": {
           "status": "running",
           "workerName": "source-harvester-social",
@@ -248,7 +248,7 @@
       "source-harvester-specialist": {
         "exists": true,
         "updatedAt": "2026-07-05T19:20:19.317Z",
-        "ageMs": 658,
+        "ageMs": 3463,
         "status": {
           "status": "running",
           "workerName": "source-harvester-specialist",
@@ -311,7 +311,7 @@
       "source-harvester-ecosystem": {
         "exists": true,
         "updatedAt": "2026-07-05T19:20:19.326Z",
-        "ageMs": 649,
+        "ageMs": 3454,
         "status": {
           "status": "running",
           "workerName": "source-harvester-ecosystem",
@@ -374,7 +374,7 @@
       "source-harvester-linkedin": {
         "exists": true,
         "updatedAt": "2026-07-05T19:20:19.329Z",
-        "ageMs": 647,
+        "ageMs": 3451,
         "status": {
           "status": "running",
           "workerName": "source-harvester-linkedin",
@@ -437,7 +437,7 @@
       "source-harvester-instagram": {
         "exists": true,
         "updatedAt": "2026-07-05T19:20:19.319Z",
-        "ageMs": 657,
+        "ageMs": 3461,
         "status": {
           "status": "running",
           "workerName": "source-harvester-instagram",
@@ -500,7 +500,7 @@
       "source-harvester-platforms": {
         "exists": true,
         "updatedAt": "2026-07-05T19:20:19.309Z",
-        "ageMs": 667,
+        "ageMs": 3472,
         "status": {
           "status": "running",
           "workerName": "source-harvester-platforms",
@@ -565,7 +565,7 @@
       "source-harvester-communities": {
         "exists": true,
         "updatedAt": "2026-07-05T19:20:19.339Z",
-        "ageMs": 638,
+        "ageMs": 3442,
         "status": {
           "status": "running",
           "workerName": "source-harvester-communities",
@@ -628,7 +628,7 @@
       "source-harvester-events": {
         "exists": true,
         "updatedAt": "2026-07-05T19:20:19.340Z",
-        "ageMs": 637,
+        "ageMs": 3441,
         "status": {
           "status": "running",
           "workerName": "source-harvester-events",
@@ -690,11 +690,11 @@
       },
       "enrichment-worker": {
         "exists": true,
-        "updatedAt": "2026-07-05T19:20:19.285Z",
-        "ageMs": 692,
+        "updatedAt": "2026-07-05T19:20:21.760Z",
+        "ageMs": 1022,
         "status": {
           "status": "running",
-          "phase": "started",
+          "phase": "enriching",
           "options": {
             "delayMs": 2500,
             "idleMs": 6000,
@@ -708,13 +708,36 @@
             "maxTrailQueries": 24,
             "trailLimit": 8
           },
-          "updatedAt": "2026-07-05T19:20:19.285Z"
+          "processed": 0,
+          "rejected": 0,
+          "errors": 0,
+          "idleCycles": 0,
+          "queue": {
+            "eligible": 780,
+            "dueNow": 603,
+            "never": 181,
+            "contactlessDue": 68,
+            "scheduledDue": 352,
+            "rotationDue": 2,
+            "recentlyEnriched1h": 174,
+            "recentlyEnriched24h": 590,
+            "blockedRunning": 4,
+            "oldestDeepAgeHours": 42.9
+          },
+          "current": {
+            "id": "edee3989997c4cfd",
+            "name": "forex instagram influencers",
+            "url": "https://influencers.feedspot.com/forex_instagram_influencers/",
+            "platform": "Web",
+            "dueReason": "contactless_due"
+          },
+          "updatedAt": "2026-07-05T19:20:21.760Z"
         }
       },
       "smart-enrichment-worker": {
         "exists": true,
         "updatedAt": "2026-07-05T19:20:19.908Z",
-        "ageMs": 70,
+        "ageMs": 2874,
         "status": {
           "status": "running",
           "phase": "smart-enriching",
@@ -734,21 +757,72 @@
       },
       "lead-cleaner": {
         "exists": true,
-        "updatedAt": "2026-07-05T19:20:18.141Z",
-        "ageMs": 1837,
+        "updatedAt": "2026-07-05T19:20:20.547Z",
+        "ageMs": 2235,
         "status": {
           "status": "running",
-          "phase": "started",
+          "phase": "waiting",
+          "cycle": 1,
           "intervalMs": 45000,
           "limit": 1000,
-          "totalRemoved": 0,
-          "updatedAt": "2026-07-05T19:20:18.141Z"
+          "totalRemoved": 1,
+          "errors": 0,
+          "lastRun": {
+            "ok": true,
+            "dryRun": false,
+            "before": 1373,
+            "removed": 1,
+            "after": 1372,
+            "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-05T19-20-18-589Z.json",
+            "byReason": {
+              "official_telegram_page": 1
+            },
+            "sample": [
+              {
+                "id": "d9114264bbc2dc97",
+                "name": "Mzanzi Forex Community. - Telegram Group",
+                "url": "https://telegramgroups.co/group/safxtraders",
+                "reason": "official_telegram_page"
+              }
+            ],
+            "exported": {
+              "csvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.csv",
+              "jsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.json",
+              "contactCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.csv",
+              "contactJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.json",
+              "hotCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.csv",
+              "hotJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.json",
+              "socialCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
+              "socialJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.json",
+              "instagramCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
+              "instagramJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.json",
+              "linkedinCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
+              "linkedinJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.json",
+              "xCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
+              "xJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.json",
+              "workingCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
+              "workingJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.json",
+              "researchCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.csv",
+              "researchJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.json",
+              "exported": 116,
+              "working": 148,
+              "researchSources": 122,
+              "contactable": 116,
+              "hot": 51,
+              "social": 50,
+              "instagram": 5,
+              "linkedin": 30,
+              "x": 9,
+              "total": 1372
+            }
+          },
+          "updatedAt": "2026-07-05T19:20:20.547Z"
         }
       },
       "qualified-exporter": {
         "exists": true,
-        "updatedAt": "2026-07-05T19:19:50.598Z",
-        "ageMs": 29380,
+        "updatedAt": "2026-07-05T19:20:20.256Z",
+        "ageMs": 2526,
         "status": {
           "status": "running",
           "intervalMs": 45000,
@@ -773,35 +847,35 @@
             "researchJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.json",
             "exported": 116,
             "working": 148,
-            "researchSources": 122,
+            "researchSources": 123,
             "contactable": 116,
             "hot": 51,
             "social": 50,
             "instagram": 5,
             "linkedin": 30,
             "x": 9,
-            "total": 1372
+            "total": 1373
           },
-          "updatedAt": "2026-07-05T19:19:50.598Z"
+          "updatedAt": "2026-07-05T19:20:20.256Z"
         }
       },
       "cloud-logger-worker": {
         "exists": true,
-        "updatedAt": "2026-07-05T19:20:18.190Z",
-        "ageMs": 1789,
+        "updatedAt": "2026-07-05T19:20:21.765Z",
+        "ageMs": 1018,
         "status": {
           "status": "running",
           "phase": "started",
           "intervalMs": 600000,
-          "loop": true,
-          "once": false,
-          "updatedAt": "2026-07-05T19:20:18.190Z"
+          "loop": false,
+          "once": true,
+          "updatedAt": "2026-07-05T19:20:21.765Z"
         }
       },
       "supervisor": {
         "exists": true,
         "updatedAt": "2026-07-05T19:20:19.820Z",
-        "ageMs": 159,
+        "ageMs": 2963,
         "status": {
           "status": "running",
           "cycle": 1,
@@ -916,57 +990,57 @@
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.csv",
         "size": 374686,
-        "updatedAt": "2026-07-05T19:20:19.875Z",
-        "ageMs": 105.0439453125
+        "updatedAt": "2026-07-05T19:20:20.174Z",
+        "ageMs": 2610.042724609375
       },
       "autopilot-qualified-contactable-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.csv",
         "size": 374686,
-        "updatedAt": "2026-07-05T19:19:50.287Z",
-        "ageMs": 29692.620361328125
+        "updatedAt": "2026-07-05T19:20:20.255Z",
+        "ageMs": 2529.1865234375
       },
       "autopilot-hot-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.csv",
         "size": 201934,
-        "updatedAt": "2026-07-05T19:19:50.355Z",
-        "ageMs": 29625.288818359375
+        "updatedAt": "2026-07-05T19:20:20.311Z",
+        "ageMs": 2473.38330078125
       },
       "autopilot-working-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
         "size": 404415,
-        "updatedAt": "2026-07-05T19:20:03.677Z",
-        "ageMs": 16302.939208984375
+        "updatedAt": "2026-07-05T19:20:20.439Z",
+        "ageMs": 2345.174072265625
       },
       "autopilot-social-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
         "size": 128265,
-        "updatedAt": "2026-07-05T19:20:03.578Z",
-        "ageMs": 16401.94091796875
+        "updatedAt": "2026-07-05T19:20:20.336Z",
+        "ageMs": 2448.210693359375
       },
       "autopilot-linkedin-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
         "size": 61671,
-        "updatedAt": "2026-07-05T19:20:03.591Z",
-        "ageMs": 16389.432861328125
+        "updatedAt": "2026-07-05T19:20:20.348Z",
+        "ageMs": 2435.6943359375
       },
       "autopilot-instagram-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
         "size": 11670,
-        "updatedAt": "2026-07-05T19:20:03.582Z",
-        "ageMs": 16397.941162109375
+        "updatedAt": "2026-07-05T19:20:20.341Z",
+        "ageMs": 2443.207763671875
       },
       "autopilot-x-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
         "size": 40663,
-        "updatedAt": "2026-07-05T19:20:03.607Z",
-        "ageMs": 16373.1455078125
+        "updatedAt": "2026-07-05T19:20:20.364Z",
+        "ageMs": 2419.67919921875
       }
     },
     "issues": []
@@ -1205,8 +1279,8 @@
       "name": "cloud-logger-worker",
       "status": "running",
       "phase": "started",
-      "age": "2s",
-      "ageMs": 1814,
+      "age": "1s",
+      "ageMs": 1043,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -1233,8 +1307,8 @@
       "name": "engine-control",
       "status": "running",
       "phase": "started",
-      "age": "8s",
-      "ageMs": 7561,
+      "age": "10s",
+      "ageMs": 10364,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -1260,13 +1334,19 @@
     {
       "name": "enrichment-worker",
       "status": "running",
-      "phase": "started",
+      "phase": "enriching",
       "age": "1s",
-      "ageMs": 720,
+      "ageMs": 1048,
       "cycle": null,
       "pid": null,
       "message": "",
-      "current": null,
+      "current": {
+        "id": "edee3989997c4cfd",
+        "name": "forex instagram influencers",
+        "url": "https://influencers.feedspot.com/forex_instagram_influencers/",
+        "platform": "Web",
+        "dueReason": "contactless_due"
+      },
       "lastResult": null,
       "counts": {
         "raw": 0,
@@ -1280,18 +1360,18 @@
         "contactable": null,
         "hot": null,
         "totalRemoved": null,
-        "processed": null,
+        "processed": 0,
         "stored": null,
-        "errors": null
+        "errors": 0
       }
     },
     {
       "name": "lead-cleaner",
       "status": "running",
-      "phase": "started",
+      "phase": "waiting",
       "age": "2s",
-      "ageMs": 1864,
-      "cycle": null,
+      "ageMs": 2261,
+      "cycle": 1,
       "pid": null,
       "message": "",
       "current": null,
@@ -1303,22 +1383,51 @@
         "duplicates": 0,
         "providerErrors": 0,
         "total": null,
-        "exported": null,
+        "exported": {
+          "csvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.csv",
+          "jsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.json",
+          "contactCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.csv",
+          "contactJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.json",
+          "hotCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.csv",
+          "hotJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.json",
+          "socialCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
+          "socialJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.json",
+          "instagramCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
+          "instagramJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.json",
+          "linkedinCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
+          "linkedinJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.json",
+          "xCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
+          "xJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.json",
+          "workingCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
+          "workingJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.json",
+          "researchCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.csv",
+          "researchJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.json",
+          "exported": 116,
+          "working": 148,
+          "researchSources": 122,
+          "contactable": 116,
+          "hot": 51,
+          "social": 50,
+          "instagram": 5,
+          "linkedin": 30,
+          "x": 9,
+          "total": 1372
+        },
         "working": null,
         "contactable": null,
         "hot": null,
-        "totalRemoved": 0,
+        "totalRemoved": 1,
         "processed": null,
         "stored": null,
-        "errors": null
+        "errors": 0
       }
     },
     {
       "name": "qualified-exporter",
       "status": "running",
       "phase": "n/a",
-      "age": "29s",
-      "ageMs": 29408,
+      "age": "3s",
+      "ageMs": 2553,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -1330,7 +1439,7 @@
         "discarded": 0,
         "duplicates": 0,
         "providerErrors": 0,
-        "total": 1372,
+        "total": 1373,
         "exported": 116,
         "working": 148,
         "contactable": 116,
@@ -1345,8 +1454,8 @@
       "name": "smart-enrichment-worker",
       "status": "running",
       "phase": "smart-enriching",
-      "age": "0s",
-      "ageMs": 98,
+      "age": "3s",
+      "ageMs": 2901,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -1379,8 +1488,8 @@
       "name": "source-harvester",
       "status": "running",
       "phase": "scan",
-      "age": "1s",
-      "ageMs": 662,
+      "age": "3s",
+      "ageMs": 3465,
       "cycle": 1,
       "pid": null,
       "message": "Starting scan with 140 balanced queries",
@@ -1407,8 +1516,8 @@
       "name": "source-harvester-communities",
       "status": "running",
       "phase": "scan",
-      "age": "1s",
-      "ageMs": 667,
+      "age": "3s",
+      "ageMs": 3470,
       "cycle": 1,
       "pid": null,
       "message": "Starting scan with 142 balanced queries",
@@ -1435,8 +1544,8 @@
       "name": "source-harvester-ecosystem",
       "status": "running",
       "phase": "scan",
-      "age": "1s",
-      "ageMs": 680,
+      "age": "3s",
+      "ageMs": 3484,
       "cycle": 1,
       "pid": null,
       "message": "Starting scan with 110 balanced queries",
@@ -1463,8 +1572,8 @@
       "name": "source-harvester-events",
       "status": "running",
       "phase": "scan",
-      "age": "1s",
-      "ageMs": 666,
+      "age": "3s",
+      "ageMs": 3470,
       "cycle": 1,
       "pid": null,
       "message": "Starting scan with 163 balanced queries",
@@ -1491,8 +1600,8 @@
       "name": "source-harvester-instagram",
       "status": "running",
       "phase": "scan",
-      "age": "1s",
-      "ageMs": 688,
+      "age": "3s",
+      "ageMs": 3491,
       "cycle": 1,
       "pid": null,
       "message": "Starting scan with 55 balanced queries",
@@ -1519,8 +1628,8 @@
       "name": "source-harvester-linkedin",
       "status": "running",
       "phase": "scan",
-      "age": "1s",
-      "ageMs": 678,
+      "age": "3s",
+      "ageMs": 3481,
       "cycle": 1,
       "pid": null,
       "message": "Starting scan with 219 balanced queries",
@@ -1547,8 +1656,8 @@
       "name": "source-harvester-platforms",
       "status": "running",
       "phase": "scan",
-      "age": "1s",
-      "ageMs": 698,
+      "age": "4s",
+      "ageMs": 3502,
       "cycle": 1,
       "pid": null,
       "message": "Starting scan with 48 balanced queries",
@@ -1575,8 +1684,8 @@
       "name": "source-harvester-social",
       "status": "running",
       "phase": "scan",
-      "age": "1s",
-      "ageMs": 686,
+      "age": "3s",
+      "ageMs": 3490,
       "cycle": 1,
       "pid": null,
       "message": "Starting scan with 150 balanced queries",
@@ -1603,8 +1712,8 @@
       "name": "source-harvester-specialist",
       "status": "running",
       "phase": "scan",
-      "age": "1s",
-      "ageMs": 690,
+      "age": "3s",
+      "ageMs": 3494,
       "cycle": 1,
       "pid": null,
       "message": "Starting scan with 135 balanced queries",
@@ -1631,8 +1740,8 @@
       "name": "supervisor",
       "status": "running",
       "phase": "n/a",
-      "age": "0s",
-      "ageMs": 188,
+      "age": "3s",
+      "ageMs": 2991,
       "cycle": 1,
       "pid": null,
       "message": "",
@@ -1661,57 +1770,57 @@
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.csv",
       "size": 374686,
-      "updatedAt": "2026-07-05T19:20:19.875Z",
-      "ageMs": 105.0439453125
+      "updatedAt": "2026-07-05T19:20:20.174Z",
+      "ageMs": 2610.042724609375
     },
     "autopilot-qualified-contactable-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.csv",
       "size": 374686,
-      "updatedAt": "2026-07-05T19:19:50.287Z",
-      "ageMs": 29692.620361328125
+      "updatedAt": "2026-07-05T19:20:20.255Z",
+      "ageMs": 2529.1865234375
     },
     "autopilot-hot-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.csv",
       "size": 201934,
-      "updatedAt": "2026-07-05T19:19:50.355Z",
-      "ageMs": 29625.288818359375
+      "updatedAt": "2026-07-05T19:20:20.311Z",
+      "ageMs": 2473.38330078125
     },
     "autopilot-working-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
       "size": 404415,
-      "updatedAt": "2026-07-05T19:20:03.677Z",
-      "ageMs": 16302.939208984375
+      "updatedAt": "2026-07-05T19:20:20.439Z",
+      "ageMs": 2345.174072265625
     },
     "autopilot-social-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
       "size": 128265,
-      "updatedAt": "2026-07-05T19:20:03.578Z",
-      "ageMs": 16401.94091796875
+      "updatedAt": "2026-07-05T19:20:20.336Z",
+      "ageMs": 2448.210693359375
     },
     "autopilot-linkedin-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
       "size": 61671,
-      "updatedAt": "2026-07-05T19:20:03.591Z",
-      "ageMs": 16389.432861328125
+      "updatedAt": "2026-07-05T19:20:20.348Z",
+      "ageMs": 2435.6943359375
     },
     "autopilot-instagram-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
       "size": 11670,
-      "updatedAt": "2026-07-05T19:20:03.582Z",
-      "ageMs": 16397.941162109375
+      "updatedAt": "2026-07-05T19:20:20.341Z",
+      "ageMs": 2443.207763671875
     },
     "autopilot-x-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
       "size": 40663,
-      "updatedAt": "2026-07-05T19:20:03.607Z",
-      "ageMs": 16373.1455078125
+      "updatedAt": "2026-07-05T19:20:20.364Z",
+      "ageMs": 2419.67919921875
     }
   },
   "recentRuns": [
