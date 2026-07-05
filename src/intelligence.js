@@ -49,23 +49,56 @@ function unique(values = []) {
   return [...new Set(values.filter(Boolean))];
 }
 
+function directContactScore(lead = {}) {
+  let score = 0;
+  if (cleanEmails(lead.emails || []).length) score += 24;
+  if (cleanForms(lead.forms || []).length) score += 14;
+  if (hasDirectOutboundPath(lead)) score += 16;
+  if ((lead.phoneNumbers || []).length) score += 14;
+  if (lead.bestContact) score += 18;
+  if ((lead.decisionMakers || []).length) score += 14;
+  if ((lead.decisionMakerLinks || []).length) score += 10;
+  return score;
+}
+
+function isPlatformSourceOnly(lead = {}) {
+  const bucket = sourceBucket(lead);
+  if (!["mql5", "myfxbook", "tradingview", "specialist", "forum"].includes(bucket)) return false;
+  return directContactScore(lead) <= 0 && !(lead.websiteLinks || []).length;
+}
+
+function hasGenericPlatformNoise(lead = {}) {
+  const url = String(lead.url || "").toLowerCase();
+  const text = `${lead.name || ""} ${lead.title || ""} ${lead.snippet || ""} ${url}`.toLowerCase();
+  return /tradingview\.com\/(?:chart|markets|symbols)|\/chart\/?$|pamm\s*(?:rating|rankings?|monitoring|portal|accounts? list)|top pamm|best pamm|ratings? of pamm|forexfactory\.com\/(?:calendar|news|market|scanner)|mql5\.com\/(?:en\/)?(?:market|forum)\b/.test(text);
+}
+
 export function commercialScoreForLead(lead = {}) {
   let score = 0;
   const bucket = sourceBucket(lead);
   const emails = cleanEmails(lead.emails || []);
   const forms = cleanForms(lead.forms || []);
+  const contactScore = directContactScore(lead);
+
   if (lead.leadType === "partner") score += 25;
   if (lead.leadType === "institution") score += 22;
   if (lead.leadType === "recruitment") score += 14;
-  if (["linkedin", "instagram", "x", "telegram", "myfxbook", "tradingview"].includes(bucket)) score += 18;
+  if (["linkedin", "instagram", "x", "telegram"].includes(bucket)) score += 20;
+  if (["myfxbook", "mql5", "specialist"].includes(bucket)) score += contactScore > 0 ? 12 : 2;
+  if (bucket === "tradingview") score += contactScore > 0 ? 6 : 0;
   if (emails.length) score += 20;
   if (forms.length) score += 12;
   if (hasDirectOutboundPath(lead)) score += 12;
   if ((lead.decisionMakers || []).length) score += 12;
   if (/latam|brazil|brasil|mexico|colombia|chile|peru|portugal|spain|espanha/i.test(`${lead.country} ${lead.snippet} ${lead.name}`)) score += 8;
   score += Math.min(25, Number(lead.score || 0) / 4);
-  if (bucket === "mql5") score -= 8;
-  if (lead.priority === "A") score += 10;
+
+  if (bucket === "mql5" && contactScore <= 0) score -= 18;
+  if (bucket === "tradingview") score -= contactScore > 0 ? 8 : 25;
+  if (isPlatformSourceOnly(lead)) score -= 30;
+  if (hasGenericPlatformNoise(lead)) score -= 40;
+  if (lead.priority === "A" && contactScore > 0) score += 10;
+  if (lead.priority === "A" && contactScore <= 0) score -= 10;
   if (lead.priority === "D") score -= 20;
   return Math.max(0, Math.min(100, Math.round(score)));
 }
@@ -147,7 +180,7 @@ export async function emailQuality(email = "", lead = {}) {
 export function rankLeadsCommercially(leads = []) {
   return [...leads]
     .map((lead) => ({ ...lead, commercialScore: commercialScoreForLead(lead), sourceBucket: lead.sourceBucket || sourceBucket(lead), entityKey: entityKeyForLead(lead) }))
-    .sort((a, b) => Number(b.commercialScore || 0) - Number(a.commercialScore || 0) || Number(b.score || 0) - Number(a.score || 0));
+    .sort((a, b) => Number(b.commercialScore || 0) - Number(a.commercialScore || 0) || Number(b.contactConfidence || 0) - Number(a.contactConfidence || 0) || Number(b.score || 0) - Number(a.score || 0));
 }
 
 export async function enrichLeadIntelligence(lead = {}) {
