@@ -65,12 +65,36 @@ async function withDbLock(fn) {
   }
 }
 
+async function renameWithRetry(tempPath, finalPath) {
+  let lastError = null;
+  for (let attempt = 1; attempt <= 15; attempt += 1) {
+    try {
+      await fs.rename(tempPath, finalPath);
+      return;
+    } catch (error) {
+      lastError = error;
+      if (!["EPERM", "EACCES", "EBUSY"].includes(error.code)) throw error;
+      await sleep(80 * attempt + Math.floor(Math.random() * 120));
+    }
+  }
+
+  try {
+    await fs.copyFile(tempPath, finalPath);
+    await fs.rm(tempPath, { force: true });
+    return;
+  } catch (fallbackError) {
+    await fs.rm(tempPath, { force: true }).catch(() => {});
+    fallbackError.message = `${fallbackError.message}; rename retry failed after ${lastError?.code || "unknown"}: ${lastError?.message || ""}`;
+    throw fallbackError;
+  }
+}
+
 export async function writeDb(db) {
   await fs.mkdir(dataDir, { recursive: true });
   db.updatedAt = nowIso();
   const tempPath = `${dbPath}.${process.pid}.${Date.now()}.tmp`;
   await fs.writeFile(tempPath, `${JSON.stringify(db, null, 2)}\n`, "utf8");
-  await fs.rename(tempPath, dbPath);
+  await renameWithRetry(tempPath, dbPath);
 }
 
 export async function upsertLeads(incoming, runId) {
