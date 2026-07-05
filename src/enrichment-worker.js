@@ -4,7 +4,7 @@ import { classifyResult } from "./classify.js";
 import { cleanEmails, cleanForms, cleanLinks, cleanPhoneNumbers } from "./contact-cleaner.js";
 import { deepEnrichResult } from "./deep.js";
 import { exportLeads, isWorkingLead } from "./exporter.js";
-import { hasStrictTradingIcp, leadRejectionReasons } from "./lead-quality.js";
+import { hasSearchableLeadSignal, hasStrictTradingIcp, leadRejectionReasons } from "./lead-quality.js";
 import { commercialScoreForLead } from "./intelligence.js";
 import { sourceBucket } from "./mql5-limit.js";
 import { isPlatformProfileUrl } from "./platform-enrichment.js";
@@ -44,23 +44,7 @@ const options = {
   trailLimit: Math.max(2, Math.min(numberArg("trailLimit", 6), 14))
 };
 
-const TRUSTED_ENRICHMENT_BUCKETS = new Set([
-  "linkedin",
-  "instagram",
-  "x",
-  "telegram",
-  "discord",
-  "tiktok",
-  "facebook_threads",
-  "reddit",
-  "myfxbook",
-  "mql5",
-  "tradingview",
-  "specialist",
-  "forum",
-  "ecosystem",
-  "recruitment"
-]);
+const PRIORITY_BUCKETS = new Set(["linkedin", "instagram", "x", "telegram", "discord", "tiktok", "facebook_threads", "myfxbook", "mql5", "specialist", "forum", "ecosystem", "recruitment"]);
 
 async function appendLog(message) {
   await fs.mkdir(dataDir, { recursive: true });
@@ -93,6 +77,27 @@ function ageHours(dateLike = "") {
   return Math.max(0, (Date.now() - parsed) / (60 * 60 * 1000));
 }
 
+function leadText(lead = {}) {
+  return normalizeWhitespace([
+    lead.name,
+    lead.title,
+    lead.snippet,
+    lead.url,
+    lead.domain,
+    lead.platform,
+    lead.sourceIntent,
+    ...(lead.evidence || []),
+    ...(lead.websiteLinks || []),
+    ...(lead.socialLinks || []),
+    ...(lead.contactLinks || [])
+  ].filter(Boolean).join(" ")).toLowerCase();
+}
+
+function isObviousEnrichmentNoise(lead = {}) {
+  const text = leadText(lead);
+  return /world health summit|microsoft store|google play|apps no google play|xbox|support trading with charm|ko-fi shop|^view @telegram\b|t\.me\/telegram\b|telegram\.org\b|tradingview\.com\/(?:chart|markets|symbols)|forexfactory\.com\/(?:calendar|news|market|scanner)|\bforex factory\b(?!.*(?:thread|member|profile|contact|telegram|whatsapp|introducing broker|affiliate|partnership))/.test(text);
+}
+
 function hasFreshRunningStatus(lead) {
   if (lead.deepStatus !== "running") return false;
   const started = Date.parse(lead.deepStartedAt || "");
@@ -119,16 +124,27 @@ function refreshHoursFor(lead) {
   return options.staleHours;
 }
 
+function hardReasons(lead) {
+  return leadRejectionReasons(lead).filter((reason) => reason !== "missing strict forex/CFD/trading ICP signal");
+}
+
+function hasMinimumEnrichmentSignal(lead) {
+  if (isWorkingLead(lead)) return true;
+  if (hasStrictTradingIcp(lead)) return true;
+  if (hasSearchableLeadSignal(lead)) return true;
+  const text = leadText(lead);
+  return /myfxbook\.com\/(?:members|portfolio)|mql5\.com\/en\/(?:signals|users)|fxblue\.com\/users|zulutrade\.com\/trader|darwinex\.com\/darwin|signalstart\.com\/analysis|collective2\.com/.test(text);
+}
+
 function isEligibleForEnrichment(lead) {
   if (!lead?.id || !lead.url) return false;
   if (/youtube\.com|youtu\.be/i.test(String(lead.url))) return false;
-  if (!['partner', 'recruitment', 'institution'].includes(lead.leadType)) return false;
+  if (!["partner", "recruitment", "institution"].includes(lead.leadType)) return false;
   if (lead.segment === "Broker Site" && lead.leadType !== "recruitment") return false;
   if (hasFreshRunningStatus(lead)) return false;
-
-  const bucket = sourceBucket(lead);
-  if (isWorkingLead(lead) || hasStrictTradingIcp(lead) || TRUSTED_ENRICHMENT_BUCKETS.has(bucket)) return true;
-  return false;
+  if (isObviousEnrichmentNoise(lead)) return false;
+  if (hardReasons(lead).length) return false;
+  return hasMinimumEnrichmentSignal(lead);
 }
 
 function enrichmentDueReason(lead) {
@@ -153,26 +169,15 @@ function platformRank(lead) {
 }
 
 function duePriority(reason = "") {
-  if (reason === "never") return 0;
-  if (reason === "contactless_due") return 1;
+  if (reason === "contactless_due") return 0;
+  if (reason === "never") return 1;
   if (reason === "scheduled_due") return 2;
   if (reason === "rotation_due") return 3;
   return 9;
 }
 
 function enrichmentQueueStats(leads = []) {
-  const stats = {
-    eligible: 0,
-    dueNow: 0,
-    never: 0,
-    contactlessDue: 0,
-    scheduledDue: 0,
-    rotationDue: 0,
-    recentlyEnriched1h: 0,
-    recentlyEnriched24h: 0,
-    blockedRunning: 0,
-    oldestDeepAgeHours: 0
-  };
+  const stats = { eligible: 0, dueNow: 0, never: 0, contactlessDue: 0, scheduledDue: 0, rotationDue: 0, recentlyEnriched1h: 0, recentlyEnriched24h: 0, blockedRunning: 0, oldestDeepAgeHours: 0 };
 
   for (const lead of leads) {
     if (hasFreshRunningStatus(lead)) stats.blockedRunning += 1;
@@ -206,10 +211,13 @@ function pickNextLead(leads) {
       const completenessB = contactCompleteness(leadB);
       const commercialA = commercialScoreForLead(leadA);
       const commercialB = commercialScoreForLead(leadB);
+      const bucketA = sourceBucket(leadA);
+      const bucketB = sourceBucket(leadB);
       return (
         duePriority(a.dueReason) - duePriority(b.dueReason) ||
         Number(completenessB < 35) - Number(completenessA < 35) ||
         Number(leadB.priority === "A") - Number(leadA.priority === "A") ||
+        Number(PRIORITY_BUCKETS.has(bucketB)) - Number(PRIORITY_BUCKETS.has(bucketA)) ||
         commercialB - commercialA ||
         platformRank(leadA) - platformRank(leadB) ||
         completenessA - completenessB ||
@@ -228,33 +236,18 @@ function mergeLeadEnrichment(base, enriched) {
   return {
     ...base,
     ...enriched,
-    snippet: normalizeWhitespace([
-      base.snippet,
-      enriched.snippet,
-      enriched.pageDescription
-    ].filter(Boolean).join(" ")).slice(0, 1400),
+    snippet: normalizeWhitespace([base.snippet, enriched.snippet, enriched.pageDescription].filter(Boolean).join(" ")).slice(0, 1400),
     emails: cleanEmails([...maybeBaseValues(base, resetPlatformContacts, "emails"), ...(enriched.emails || [])]),
     phoneNumbers: cleanPhoneNumbers([...maybeBaseValues(base, resetPlatformContacts, "phoneNumbers"), ...(enriched.phoneNumbers || [])]),
     forms: cleanForms([...maybeBaseValues(base, resetPlatformContacts, "forms"), ...(enriched.forms || [])]),
-    contactLinks: cleanLinks([...maybeBaseValues(base, resetPlatformContacts, "contactLinks"), ...(enriched.contactLinks || [])], {
-      allowYouTubeChannels: false,
-      allowShorteners: true
-    }),
-    socialLinks: cleanLinks([base.url, ...maybeBaseValues(base, resetPlatformContacts, "socialLinks"), ...(enriched.socialLinks || [])], {
-      allowYouTubeChannels: false,
-      allowShorteners: true
-    }),
-    websiteLinks: cleanLinks([...maybeBaseValues(base, resetPlatformContacts, "websiteLinks"), ...(enriched.websiteLinks || [])], {
-      allowYouTubeChannels: false,
-      allowShorteners: true
-    }),
+    contactLinks: cleanLinks([...maybeBaseValues(base, resetPlatformContacts, "contactLinks"), ...(enriched.contactLinks || [])], { allowYouTubeChannels: false, allowShorteners: true }),
+    socialLinks: cleanLinks([base.url, ...maybeBaseValues(base, resetPlatformContacts, "socialLinks"), ...(enriched.socialLinks || [])], { allowYouTubeChannels: false, allowShorteners: true }),
+    websiteLinks: cleanLinks([...maybeBaseValues(base, resetPlatformContacts, "websiteLinks"), ...(enriched.websiteLinks || [])], { allowYouTubeChannels: false, allowShorteners: true }),
     relatedLinks: unique([...maybeBaseValues(base, resetPlatformContacts, "relatedLinks"), ...(enriched.relatedLinks || [])]).slice(0, 35),
     contactSources: unique([...maybeBaseValues(base, resetPlatformContacts, "contactSources"), ...(enriched.contactSources || [])]).slice(0, 25),
     decisionMakerLinks: unique([...(base.decisionMakerLinks || []), ...(enriched.decisionMakerLinks || [])]).slice(0, 12),
     decisionMakers: [...(base.decisionMakers || []), ...(enriched.decisionMakers || [])].slice(0, 10),
-    contactConfidence: resetPlatformContacts
-      ? Number(enriched.contactConfidence || 0)
-      : Math.max(Number(base.contactConfidence || 0), Number(enriched.contactConfidence || 0)),
+    contactConfidence: resetPlatformContacts ? Number(enriched.contactConfidence || 0) : Math.max(Number(base.contactConfidence || 0), Number(enriched.contactConfidence || 0)),
     bestContact: enriched.bestContact || (resetPlatformContacts ? "" : base.bestContact || ""),
     bestContactType: enriched.bestContactType || (resetPlatformContacts ? "" : base.bestContactType || ""),
     bestContactSource: enriched.bestContactSource || (resetPlatformContacts ? "" : base.bestContactSource || ""),
@@ -263,49 +256,22 @@ function mergeLeadEnrichment(base, enriched) {
 }
 
 async function enrichOne(lead, dueReason = "") {
-  await updateLead(lead.id, {
-    deepStatus: "running",
-    deepStartedAt: nowIso(),
-    deepDueReason: dueReason,
-    enrichmentAttempts: Number(lead.enrichmentAttempts || 0) + 1
-  });
+  await updateLead(lead.id, { deepStatus: "running", deepStartedAt: nowIso(), deepDueReason: dueReason, enrichmentAttempts: Number(lead.enrichmentAttempts || 0) + 1 });
 
-  const enriched = await deepEnrichResult(lead, {
-    searchContacts: true,
-    maxContactPages: options.maxContactPages,
-    maxExternalWebsites: options.maxExternalWebsites,
-    maxTrailQueries: options.maxTrailQueries,
-    trailLimit: options.trailLimit
-  });
+  const enriched = await deepEnrichResult(lead, { searchContacts: true, maxContactPages: options.maxContactPages, maxExternalWebsites: options.maxExternalWebsites, maxTrailQueries: options.maxTrailQueries, trailLimit: options.trailLimit });
 
   const merged = mergeLeadEnrichment(lead, enriched);
   const classified = classifyResult(merged, merged.sourceIntent || merged.leadType || "partner");
-  const finalLead = {
-    ...classified,
-    deepStatus: "done",
-    deepDueReason: dueReason,
-    deepFinishedAt: nowIso(),
-    lastDeepEnrichedAt: nowIso(),
-    enrichmentWorker: true
-  };
+  const finalLead = { ...classified, deepStatus: "done", deepDueReason: dueReason, deepFinishedAt: nowIso(), lastDeepEnrichedAt: nowIso(), enrichmentWorker: true };
 
   const reasons = leadRejectionReasons(finalLead);
   if (reasons.length) {
-    await updateLead(lead.id, {
-      deepStatus: "rejected",
-      deepDueReason: dueReason,
-      deepFinishedAt: nowIso(),
-      lastDeepEnrichedAt: nowIso(),
-      rejectionReasons: reasons
-    });
+    await updateLead(lead.id, { deepStatus: "rejected", deepDueReason: dueReason, deepFinishedAt: nowIso(), lastDeepEnrichedAt: nowIso(), rejectionReasons: reasons });
     return { status: "rejected", lead: finalLead, reasons };
   }
 
   const stored = await upsertLeads([finalLead], `enrichment_worker_${Date.now()}`);
-  const exported = await exportLeads({
-    csvName: "autopilot-leads.csv",
-    jsonName: "autopilot-leads.json"
-  });
+  const exported = await exportLeads({ csvName: "autopilot-leads.csv", jsonName: "autopilot-leads.json" });
   return { status: "stored", lead: finalLead, stored, exported };
 }
 
@@ -333,54 +299,24 @@ while (!(await stopRequested())) {
 
   idleCycles = 0;
   const { lead, dueReason } = selected;
-  await writeStatus({
-    status: "running",
-    phase: "enriching",
-    options,
-    processed,
-    rejected,
-    errors,
-    idleCycles,
-    queue,
-    current: { id: lead.id, name: lead.name, url: lead.url, platform: lead.platform, dueReason }
-  });
+  await writeStatus({ status: "running", phase: "enriching", options, processed, rejected, errors, idleCycles, queue, current: { id: lead.id, name: lead.name, url: lead.url, platform: lead.platform, dueReason } });
 
   try {
     const result = await enrichOne(lead, dueReason);
     processed += 1;
     if (result.status === "rejected") rejected += 1;
-    lastResult = {
-      status: result.status,
-      id: lead.id,
-      name: lead.name || lead.url,
-      dueReason,
-      at: nowIso(),
-      emails: (result.lead.emails || []).length,
-      links: (result.lead.contactLinks || []).length,
-      makers: (result.lead.decisionMakers || []).length,
-      bestContact: result.lead.bestContact || ""
-    };
-    await appendLog(
-      `[enrichment-worker] ${result.status} ${dueReason} ${lead.id} ${lead.name || lead.url}; emails=${lastResult.emails}; links=${lastResult.links}; makers=${lastResult.makers}; best=${lastResult.bestContact || "-"}`
-    );
+    lastResult = { status: result.status, id: lead.id, name: lead.name || lead.url, dueReason, at: nowIso(), emails: (result.lead.emails || []).length, links: (result.lead.contactLinks || []).length, makers: (result.lead.decisionMakers || []).length, bestContact: result.lead.bestContact || "" };
+    await appendLog(`[enrichment-worker] ${result.status} ${dueReason} ${lead.id} ${lead.name || lead.url}; emails=${lastResult.emails}; links=${lastResult.links}; makers=${lastResult.makers}; best=${lastResult.bestContact || "-"}`);
   } catch (error) {
     errors += 1;
     lastResult = { status: "error", id: lead.id, name: lead.name || lead.url, dueReason, at: nowIso(), error: error.message };
-    await updateLead(lead.id, {
-      deepStatus: "error",
-      deepDueReason: dueReason,
-      deepFinishedAt: nowIso(),
-      enrichmentErrors: unique([...(lead.enrichmentErrors || []), error.message]).slice(0, 8)
-    }).catch(() => {});
+    await updateLead(lead.id, { deepStatus: "error", deepDueReason: dueReason, deepFinishedAt: nowIso(), enrichmentErrors: unique([...(lead.enrichmentErrors || []), error.message]).slice(0, 8) }).catch(() => {});
     await appendLog(`[enrichment-worker] error ${dueReason} ${lead.id} ${error.stack || error.message}`);
   }
 
   if (!(await stopRequested())) await sleep(options.delayMs);
 }
 
-await exportLeads({
-  csvName: "autopilot-leads.csv",
-  jsonName: "autopilot-leads.json"
-});
+await exportLeads({ csvName: "autopilot-leads.csv", jsonName: "autopilot-leads.json" });
 await writeStatus({ status: "stopped", phase: "stopped", options, processed, rejected, errors, lastResult });
 await appendLog(`[enrichment-worker] Stopped. processed=${processed}; rejected=${rejected}; errors=${errors}`);
