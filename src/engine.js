@@ -17,7 +17,7 @@ import { addRun, upsertLeads } from "./store.js";
 import { enrichResult } from "./search.js";
 import { searchOne } from "./search-fallback.js";
 import { balancedSelect, countBySource, sourceBucket } from "./mql5-limit.js";
-import { EXTRA_HIGH_VALUE_QUERY_PACKS, isBlockedQueryTemplate } from "./sourcing-policy.js";
+import { CHANNEL_EXPANSION_QUERY_PACKS, EXTRA_HIGH_VALUE_QUERY_PACKS, isBlockedQueryTemplate } from "./sourcing-policy.js";
 import { nowIso, sleep } from "./utils.js";
 
 const HIGH_VALUE_QUERY_PACKS = [
@@ -126,6 +126,10 @@ const HIGH_VALUE_QUERY_PACKS = [
   { text: "site:mql5.com/en/signals \"XAUUSD\"", intent: "specialist" }
 ];
 
+function setFromCsv(value = "") {
+  return new Set(String(value || "").split(",").map((item) => item.trim()).filter(Boolean));
+}
+
 function isYouTubeTemplate(template = "") {
   return /youtube\.com|youtu\.be|\byoutube\b/i.test(String(template));
 }
@@ -171,27 +175,31 @@ function buildQueries(options) {
     }
   }
 
-  const highValuePacks = [...HIGH_VALUE_QUERY_PACKS, ...EXTRA_HIGH_VALUE_QUERY_PACKS];
+  const highValuePacks = [...HIGH_VALUE_QUERY_PACKS, ...EXTRA_HIGH_VALUE_QUERY_PACKS, ...CHANNEL_EXPANSION_QUERY_PACKS];
   queries.push(...highValuePacks.filter((query) => !isBlockedQueryTemplate(query.text)).filter((query) => settings.includeYouTube === true || !isYouTubeTemplate(query.text)).map((query, index) => materializeQuery(query, profile, index)));
-  const onlyIntents = new Set(
-    String(settings.onlyIntents || "")
-      .split(",")
-      .map((item) => item.trim())
-      .filter(Boolean)
-  );
+
+  const onlyIntents = setFromCsv(settings.onlyIntents || "");
+  const onlyChannels = setFromCsv(settings.onlyChannels || "");
   const seen = new Set();
-  const deduped = queries.filter((query) => !onlyIntents.size || onlyIntents.has(query.intent)).filter((query) => settings.includeYouTube === true || !isYouTubeTemplate(query.text)).filter((query) => !isBlockedQueryTemplate(query.text)).filter((query) => {
-    const key = query.text.toLowerCase();
-    if (seen.has(key)) return false;
-    seen.add(key);
-    return true;
-  }).map((query) => ({ ...query, channel: sourceBucket(query) }));
+  const deduped = queries
+    .filter((query) => !onlyIntents.size || onlyIntents.has(query.intent))
+    .filter((query) => settings.includeYouTube === true || !isYouTubeTemplate(query.text))
+    .filter((query) => !isBlockedQueryTemplate(query.text))
+    .filter((query) => {
+      const key = query.text.toLowerCase();
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    })
+    .map((query) => ({ ...query, channel: sourceBucket(query) }))
+    .filter((query) => !onlyChannels.size || onlyChannels.has(query.channel));
 
   return balancedSelect(deduped, {
     limit: Number(settings.maxQueries) || DEFAULT_SCAN.maxQueries,
     offset: Number(settings.queryOffset || 0),
-    maxMql5Share: Number(settings.maxMql5QueryShare ?? process.env.MAX_MQL5_QUERY_SHARE ?? 0.12),
-    minMql5Keep: Number(settings.minMql5Queries ?? 2)
+    order: onlyChannels.size ? [...onlyChannels] : undefined,
+    maxMql5Share: onlyChannels.has("mql5") ? 1 : Number(settings.maxMql5QueryShare ?? process.env.MAX_MQL5_QUERY_SHARE ?? 0.12),
+    minMql5Keep: onlyChannels.has("mql5") ? Number(settings.maxQueries || DEFAULT_SCAN.maxQueries) : Number(settings.minMql5Queries ?? 2)
   });
 }
 
