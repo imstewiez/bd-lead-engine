@@ -1,67 +1,69 @@
 {
   "ok": true,
-  "generatedAt": "2026-07-05T22:40:24.341Z",
+  "generatedAt": "2026-07-05T22:50:36.982Z",
   "summary": {
     "ok": true,
-    "rawLeads": 1331,
-    "qualified": 95,
+    "rawLeads": 1318,
+    "qualified": 94,
     "working": 122,
     "contactable": 101,
     "realDecisionContacts": 723,
-    "aLeads": 52,
+    "aLeads": 55,
     "a1Hot": 37,
-    "a2Strong": 15,
+    "a2Strong": 18,
     "salesReady": 38,
     "platformContactLeaks": 15,
-    "platformBestContactLeaks": 133,
-    "highValueNoContact": 343,
+    "platformBestContactLeaks": 120,
+    "highValueNoContact": 330,
     "identityTrailCoverage": 12,
     "websiteOnlyContacts": 30,
     "duplicateLike": 96,
-    "uniqueKeys": 1235,
-    "enrichmentDueNow": 884,
-    "enrichedLastHour": 113,
-    "enrichedLast24h": 741,
+    "uniqueKeys": 1222,
+    "enrichmentDueNow": 826,
+    "enrichedLastHour": 158,
+    "enrichedLast24h": 724,
     "harvesters": 9,
-    "harvesterRawSeen": 169,
-    "harvesterSavedThisCycle": 14,
-    "providerErrors": 117,
-    "providerErrorsPerSaved": 8.357,
+    "harvesterRawSeen": 309,
+    "harvesterSavedThisCycle": 15,
+    "providerErrors": 270,
+    "providerErrorsPerSaved": 18,
     "salesReadyYield": 0.029,
-    "salesReadyPerProviderError": 0.325,
-    "staleWorkers": [],
+    "salesReadyPerProviderError": 0.141,
+    "staleWorkers": [
+      "engine-control"
+    ],
     "issues": []
   },
   "health": {
     "ok": true,
-    "updatedAt": "2026-07-05T22:40:19.180Z",
+    "updatedAt": "2026-07-05T22:50:31.266Z",
     "counts": {
-      "raw": 1331,
-      "qualified": 95,
+      "raw": 1318,
+      "qualified": 94,
       "working": 122,
       "contactable": 101,
-      "aLeads": 52,
+      "aLeads": 55,
       "a1Hot": 37,
-      "a2Strong": 15,
-      "bNurture": 37,
+      "a2Strong": 18,
+      "bNurture": 34,
       "cResearch": 33,
       "sourceOnly": 0
     },
     "duplicate": {
       "duplicateLike": 96,
-      "uniqueKeys": 1235
+      "uniqueKeys": 1222
     },
     "enrichmentQueue": {
-      "stale": 474,
+      "stale": 475,
       "contactless": 430,
       "neverDeep": 229,
-      "eligible": 997,
-      "dueNow": 884,
-      "rotationDue": 520,
-      "enrichedLastHour": 113,
-      "enrichedLast24h": 741,
-      "oldestDeepAgeHours": 59.2,
-      "running": 9
+      "eligible": 984,
+      "dueNow": 826,
+      "rotationDue": 473,
+      "enrichedLastHour": 158,
+      "enrichedLast24h": 724,
+      "oldestDeepAgeHours": 59.4,
+      "running": 10
     },
     "tasks": {
       "source-harvester": {
@@ -132,8 +134,8 @@
     "statuses": {
       "source-harvester": {
         "exists": true,
-        "updatedAt": "2026-07-05T22:39:13.633Z",
-        "ageMs": 65542,
+        "updatedAt": "2026-07-05T22:50:30.271Z",
+        "ageMs": 990,
         "status": {
           "status": "running",
           "workerName": "source-harvester",
@@ -171,9 +173,9 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-05T22:39:13.633Z",
+          "heartbeatAt": "2026-07-05T22:50:30.270Z",
           "progress": {
-            "message": "Discarded hard-rejected result: invite vjhCHnFMkw",
+            "message": "Discarded hard-rejected result: E*TRADE | Investing, Trading & Retirement",
             "status": "running",
             "latestLead": null,
             "sourceStats": {
@@ -202,16 +204,90 @@
                 "reasons": {
                   "hard_rejected": 9
                 }
+              },
+              "x": {
+                "searches": 1,
+                "raw": 1,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 1,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "hard_rejected": 1
+                }
+              },
+              "telegram": {
+                "searches": 1,
+                "raw": 12,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 12,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {}
+              },
+              "discord": {
+                "searches": 1,
+                "raw": 12,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 12,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {}
+              },
+              "facebook_threads": {
+                "searches": 1,
+                "raw": 0,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 9,
+                "reasons": {
+                  "provider_errors": 1
+                }
+              },
+              "forum": {
+                "searches": 1,
+                "raw": 0,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 9,
+                "reasons": {
+                  "provider_errors": 1
+                }
+              },
+              "ecosystem": {
+                "searches": 1,
+                "raw": 12,
+                "qualified": 1,
+                "saved": 0,
+                "discarded": 6,
+                "duplicates": 1,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "hard_rejected": 6
+                }
               }
             }
           },
-          "updatedAt": "2026-07-05T22:39:13.633Z"
+          "updatedAt": "2026-07-05T22:50:30.271Z"
         }
       },
       "source-harvester-social": {
         "exists": true,
-        "updatedAt": "2026-07-05T22:40:15.469Z",
-        "ageMs": 3706,
+        "updatedAt": "2026-07-05T22:50:26.878Z",
+        "ageMs": 4383,
         "status": {
           "status": "running",
           "workerName": "source-harvester-social",
@@ -249,9 +325,9 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-05T22:40:15.469Z",
+          "heartbeatAt": "2026-07-05T22:50:26.873Z",
           "progress": {
-            "message": "Discarded hard-rejected result: invite vjhCHnFMkw",
+            "message": "Searching [web]: site:linktr.ee \"forex trader\" United Kingdom",
             "status": "running",
             "latestLead": null,
             "sourceStats": {
@@ -293,16 +369,79 @@
                 "reasons": {
                   "hard_rejected": 8
                 }
+              },
+              "telegram": {
+                "searches": 1,
+                "raw": 1,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 1,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "hard_rejected": 1
+                }
+              },
+              "discord": {
+                "searches": 1,
+                "raw": 2,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 1,
+                "duplicates": 1,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "hard_rejected": 1
+                }
+              },
+              "tiktok": {
+                "searches": 1,
+                "raw": 12,
+                "qualified": 3,
+                "saved": 0,
+                "discarded": 4,
+                "duplicates": 8,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "hard_rejected": 4
+                }
+              },
+              "facebook_threads": {
+                "searches": 1,
+                "raw": 0,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 9,
+                "reasons": {
+                  "provider_errors": 1
+                }
+              },
+              "web": {
+                "searches": 1,
+                "raw": 0,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {}
               }
             }
           },
-          "updatedAt": "2026-07-05T22:40:15.469Z"
+          "updatedAt": "2026-07-05T22:50:26.878Z"
         }
       },
       "source-harvester-specialist": {
         "exists": true,
-        "updatedAt": "2026-07-05T22:39:37.654Z",
-        "ageMs": 41522,
+        "updatedAt": "2026-07-05T22:48:41.576Z",
+        "ageMs": 109686,
         "status": {
           "status": "running",
           "workerName": "source-harvester-specialist",
@@ -340,289 +479,11 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-05T22:39:37.654Z",
+          "heartbeatAt": "2026-07-05T22:48:41.572Z",
           "progress": {
-            "message": "Saved A-lead: calendar.forexfactory.com",
+            "message": "Searching [web]: site:forex-station.com \"XAUUSD\" \"indicator\"",
             "status": "running",
-            "latestLead": {
-              "id": "136ec57018434bf7",
-              "source": "bing",
-              "sourceIntent": "forum",
-              "query": "\"forexfactory.com\" \"forex\" \"telegram\"",
-              "url": "https://calendar.forexfactory.com/",
-              "domain": "calendar.forexfactory.com",
-              "platform": "ForexFactory",
-              "title": "calendar.forexfactory.com",
-              "name": "calendar.forexfactory.com",
-              "snippet": "Forex Factory connects traders to global financial markets with real-time data, charts, news, and the internet’s most trusted economic calendar for over 20 years.",
-              "fetchStatus": "deep-ok",
-              "sourceQuery": "site:forexfactory.com \"forex\" \"telegram\"",
-              "emails": [],
-              "socialLinks": [
-                "https://www.forexfactory.com/thread/1362090-gold-with-no-drama?goto=lastpost&userid=2049259",
-                "https://www.forexfactory.com/thread/1362090-gold-with-no-drama?goto=lastpost&userid=2153318",
-                "https://www.forexfactory.com/thread/1362090-gold-with-no-drama?goto=lastpost&userid=338573",
-                "https://www.forexfactory.com/thread/1407142-the-grail-of-the-knights-of-the-round?goto=lastpost&userid=2074491",
-                "https://www.forexfactory.com/thread/1390932-a-dont-wake-up-late-a-time-based-trading?goto=lastpost&userid=2161297",
-                "https://www.forexfactory.com/thread/1389347-bitcoin-trading-calls?goto=lastpost&userid=107219",
-                "https://www.forexfactory.com/thread/1389347-bitcoin-trading-calls?goto=lastpost&userid=825778",
-                "https://www.forexfactory.com/thread/10378-cable-update-gbpusd?goto=lastpost&userid=2459259",
-                "https://www.forexfactory.com/thread/10378-cable-update-gbpusd?goto=lastpost&userid=1034686",
-                "https://www.forexfactory.com/thread/10378-cable-update-gbpusd?goto=lastpost&userid=2532603",
-                "https://www.forexfactory.com/thread/930946-aussi-my-thread-and-anything-i-want-to?goto=lastpost&userid=128895",
-                "https://www.forexfactory.com/thread/930946-aussi-my-thread-and-anything-i-want-to?goto=lastpost&userid=1860170",
-                "https://www.forexfactory.com/thread/1406767-the-market-is-tricky?goto=lastpost&userid=2012074",
-                "https://www.forexfactory.com/thread/1399627-orderflow-trading?goto=lastpost&userid=2174463",
-                "https://www.forexfactory.com/thread/1399627-orderflow-trading?goto=lastpost&userid=2217878",
-                "https://www.forexfactory.com/thread/1375882-i-am-all-for-gold?goto=lastpost&userid=2160076",
-                "https://www.forexfactory.com/thread/1404237-the-tradition-buy-low-sell-high?goto=lastpost&userid=1988932",
-                "https://www.forexfactory.com/thread/699860-eurusd-only?goto=lastpost&userid=373397",
-                "https://www.forexfactory.com/thread/1399628-dance-of-the-wick?goto=lastpost&userid=642895",
-                "https://www.forexfactory.com/thread/1377326-dax-futures-2026?goto=lastpost&userid=380447",
-                "https://www.facebook.com/metalsmine",
-                "https://twitter.com/MetalsMine",
-                "https://www.forexfactory.com/",
-                "https://mds-api.forexfactory.com/",
-                "https://bds-api.forexfactory.com/",
-                "https://explorer-api.forexfactory.com/api.php/",
-                "https://www.facebook.com/energyexch",
-                "https://twitter.com/EnergyEXCH",
-                "https://www.facebook.com/cryptocraftdotcom",
-                "https://twitter.com/CryptoCraft"
-              ],
-              "contactLinks": [
-                "https://www.facebook.com/forexfactory/",
-                "https://twitter.com/ForexFactory",
-                "https://www.metalsmine.com/contact",
-                "https://www.facebook.com/metalsmine",
-                "https://twitter.com/MetalsMine",
-                "https://www.metalsmine.com/contact?subject=technical",
-                "https://www.energyexch.com/contact",
-                "https://www.facebook.com/energyexch",
-                "https://twitter.com/EnergyEXCH",
-                "https://www.energyexch.com/contact?subject=technical",
-                "https://www.cryptocraft.com/contact",
-                "https://www.facebook.com/cryptocraftdotcom",
-                "https://twitter.com/CryptoCraft",
-                "https://www.cryptocraft.com/contact?subject=technical",
-                "https://www.linkedin.com/company/fair-economy",
-                "https://cdn.prod.website-files.com/6671d848ac83c72666c7cf54/6672c1237d1ecc7c61c58bdf_about-ligh-mode-poster-00001.jpg&quot",
-                "https://cdn.prod.website-files.com/6671d848ac83c72666c7cf54/667434bf5d9d30cf3a4649ea_about-dark-mode-poster-00001.jpg&quot"
-              ],
-              "websiteLinks": [
-                "https://www.metalsmine.com/",
-                "https://www.energyexch.com/",
-                "https://www.cryptocraft.com/",
-                "https://www.faireconomy.com/",
-                "https://resources.faireconomy.media/",
-                "https://assets.faireconomy.media/",
-                "https://assets.faireconomy.media/images/misc",
-                "https://www.metalsmine.com/forums",
-                "https://www.metalsmine.com/calendar",
-                "https://www.metalsmine.com/market",
-                "https://www.metalsmine.com/search",
-                "https://www.metalsmine.com/create-account",
-                "https://www.metalsmine.com/timezone",
-                "https://www.metalsmine.com/resetpassword",
-                "https://www.metalsmine.com/mission",
-                "https://www.metalsmine.com/products",
-                "https://www.metalsmine.com/blog",
-                "https://www.metalsmine.com/bug-bounty",
-                "https://www.metalsmine.com/userguide",
-                "https://www.metalsmine.com/traders",
-                "https://www.energyexch.com/calendar",
-                "https://www.energyexch.com/market",
-                "https://www.energyexch.com/search",
-                "https://www.energyexch.com/create-account",
-                "https://www.energyexch.com/timezone",
-                "https://www.energyexch.com/resetpassword",
-                "https://www.energyexch.com/mission",
-                "https://www.energyexch.com/products",
-                "https://www.energyexch.com/blog",
-                "https://www.energyexch.com/bug-bounty"
-              ],
-              "phoneNumbers": [
-                "005261793429"
-              ],
-              "forms": [
-                {
-                  "pageUrl": "https://www.metalsmine.com/contact",
-                  "action": "https://www.metalsmine.com/search",
-                  "method": "GET",
-                  "fields": [
-                    "search"
-                  ],
-                  "label": "Form 1"
-                },
-                {
-                  "pageUrl": "https://www.metalsmine.com/contact",
-                  "action": "https://www.metalsmine.com/contact",
-                  "method": "POST",
-                  "fields": [
-                    "_csrf",
-                    "url",
-                    "subject",
-                    "other_subject",
-                    "name",
-                    "email",
-                    "message"
-                  ],
-                  "label": "Subject: Website Feedback Feature Request Help Request Other Name: Email: Message: Submit:"
-                },
-                {
-                  "pageUrl": "https://www.energyexch.com/contact",
-                  "action": "https://www.energyexch.com/search",
-                  "method": "GET",
-                  "fields": [
-                    "search"
-                  ],
-                  "label": "Form 1"
-                },
-                {
-                  "pageUrl": "https://www.energyexch.com/contact",
-                  "action": "https://www.energyexch.com/contact",
-                  "method": "POST",
-                  "fields": [
-                    "_csrf",
-                    "url",
-                    "subject",
-                    "other_subject",
-                    "name",
-                    "email",
-                    "message"
-                  ],
-                  "label": "Subject: Website Feedback Feature Request Help Request Other Name: Email: Message: Submit:"
-                },
-                {
-                  "pageUrl": "https://www.cryptocraft.com/contact",
-                  "action": "https://www.cryptocraft.com/search",
-                  "method": "GET",
-                  "fields": [
-                    "search"
-                  ],
-                  "label": "Form 1"
-                },
-                {
-                  "pageUrl": "https://www.cryptocraft.com/contact",
-                  "action": "https://www.cryptocraft.com/contact",
-                  "method": "POST",
-                  "fields": [
-                    "_csrf",
-                    "url",
-                    "subject",
-                    "other_subject",
-                    "name",
-                    "email",
-                    "message"
-                  ],
-                  "label": "Subject: Website Feedback Feature Request Help Request Other Name: Email: Message: Submit:"
-                },
-                {
-                  "pageUrl": "https://www.faireconomy.com/",
-                  "action": "https://www.faireconomy.com/",
-                  "method": "POST",
-                  "fields": [
-                    "Name",
-                    "Email",
-                    "Message"
-                  ],
-                  "label": "Form 1"
-                }
-              ],
-              "contactSources": [
-                "https://calendar.forexfactory.com/",
-                "https://www.metalsmine.com/",
-                "https://www.metalsmine.com/contact",
-                "https://www.metalsmine.com/contact-us",
-                "https://www.metalsmine.com/contacto",
-                "https://www.metalsmine.com/contato",
-                "https://www.metalsmine.com/about",
-                "https://www.metalsmine.com/about-us",
-                "https://www.metalsmine.com/sobre",
-                "https://www.metalsmine.com/partnership",
-                "https://www.metalsmine.com/partnerships",
-                "https://www.energyexch.com/",
-                "https://www.energyexch.com/contact",
-                "https://www.energyexch.com/contact-us",
-                "https://www.energyexch.com/contacto",
-                "https://www.energyexch.com/contato",
-                "https://www.energyexch.com/about",
-                "https://www.energyexch.com/about-us",
-                "https://www.energyexch.com/sobre",
-                "https://www.energyexch.com/partnership"
-              ],
-              "relatedLinks": [],
-              "decisionMakerLinks": [
-                "https://www.linkedin.com/company/fair-economy"
-              ],
-              "decisionMakers": [],
-              "pageTitle": "Forex Factory | Global markets for the smart money.",
-              "pageDescription": "Forex Factory connects traders to global financial markets with real-time data, charts, news, and the internet’s most trusted economic calendar for over 20 years.",
-              "pageText": "Forex Factory | Global markets for the smart money. Forums Trades News Calendar Market Brokers 11:39pm Search User/Email: Password: Create Account Login Forums Trades News Calendar Market Brokers Forums Trades News Calendar Market Brokers Login Create Account 11:39pm Traders Online 52,414 Page Layout Forex Trader Search Log In / Create Account User/Email: Password: Not registered yet? Forgot your password? Traders Online 52,414 Page Layout Forex Trader Forex Broker Activity Live Forex Spreads Live Gold Spreads Broker Guide Updates Majors About EUR/USD GBP/USD USD/JPY USD/CHF USD/CAD AUD/USD NZD/USD Gold/USD News / Latest Stories Stream World Cup fans spent anywhere from $2,500 to $150,000 to see matches—they say it was worth it From cnbc.com | 43 min ago Eye-watering World Cup prices haven’t stopped soccer fans from around the world from opening their wallets. As of July 2, some of the best resale seats for marquee knockout matches were listed for roughly $20,000 on StubHub. Many upper-level resale seats were listed for around $5,000. But tickets are just one part of the cost. Add airfare, hotels, rental ... Japan Bankruptcies Surge To All-Time High As A Result Of Plunging Yen From zerohedge.com | 1 hr 43 min ago In recent months one of the more frequent questions in FX trading has been the relentless collapse in the yen, which recently sank below a 40 year low despite rate differentials stubbornly headed in the opposite direction, and is increasingly flirting with levels which on previous occasions always prompted BOJ intervention. chart Among the reasons cited ... The Weekly Look at the Global Economy and Market From mohamedelerian.substack.com | 2 hr 43 min ago Despite the World Cup and a shortened week due to the US Independence Day holiday, last week delivered a slew of interesting economic data and market action. The overarching themes were a cooling of the US labor market, which helped moderate recent rate-hike fears, mixed legal judgments regarding the outlook for Federal Reserve independence, and further ... OPEC+ approves further oil output increase as Hormuz exports start to recover From cnbc.com | 6 hr ago OPEC+ has agreed to a further increase in output targets from August, the group said in a statement on Sunday, adding to global supply at a time when oil prices are falling amid the gradual reopening of the Strait of Hormuz for oil exports. The oil-producing group agreed during an online meeting to increase quotas by 188,000 barrels per day from August, on ... More News / Hot Story Saudi Arabia, Russia, Iraq, Kuwait, Kazakhstan, Algeria, and Oman adjust production and reaffirm commitment to market stability From opec.org | 11 hr ago | 3 comments The seven OPEC+ countries, which previously announced additional voluntary adjustments in April and November 2023, namely Saudi Arabia, Russia, Iraq, Kuwait, Kazakhstan, Algeria, and Oman met virtually on 5 July 2026, to review global market conditions and outlook. In their collective commitment to support oil market stability, the seven participating ... More Today: Jul 5 Filter Date 11:39pm Currency Impact Alerts Detail Actual Forecast Previous Graph 11:39pm Actual Sun Jul 5 Sun Jul 5 More Sessions Forums / Latest Replies Obdyx2 replied 8 min ago D1 is saying we have an unfinished business with 4242. Who will give it to us? Asia or London? Gold with No Drama HumanAI replied 11 min ago Key Technical Levels Critical Resistance 2: 4221�4225 (4H Bollinger Band upper limit / Structure target) Critical Resistance 1: 4195�4200 (Previous swing high / Psychological ... I am all for Gold HokageNeptun replied 13 min ago hmmmm , don't know about this much but this aligns with my theory of GOLD going much higher to reach it 8 year's cycle high , maybe this could be the reason to push it higher Gold with No Drama akmaljzln replied 15 min ago Entering short Gold with No Drama ChiForex replied 16 min ago Sell Gold 4220-30 TP1 4175 TP2 4130 Buy 4120 TP 4175 Gold HarpexMars replied 18 min ago Thanks a lot for your view. Tomorrow important data for Germany before open. Probably big move thereafter. On the other hand when I wrote overbought I meant from a fundamental ... DAX Futures 2026 digger1 replied 36 min ago jr , do believe the ignore button was made for ones who dont know what the word actually means ,you earned none 0 zilch none , least the crap dont show , stay on your level , and ... \"AUSSI\" my thread and anything I want to put here Dzap replied 38 min ago jeesh happy 4th i sure did whatever the fuck i wanted some people need to live a little image a chart of course. balances out the yapping \"AUSSI\" my thread and anything I want to put here Ahmedskaf replied 54 min ago Just try to show some respect and don't belittle anyone. I�ll say it again: I didn't want to speak this way�I respect my elders�but you forced me to. It was the only way to tell ... \"AUSSI\" my thread and anything I want to put here Ahmedskaf replied 1 hr 1 min ago America is great, but I know it suffers from mentally ill people like you, you old man. Now I can see exactly why your condition is so bad. I imagine you are obese and consume ... \"AUSSI\" my thread and anything I want to put here digger1 replied 1 hr 4 min ago jr , ha people are funny feel like it some days , ha Im an old man , nobody forced you do anything , whatever , stick to 'observing\" the uro , you will be fine \"AUSSI\" my thread and anything I want to put here Ahmedskaf replied 1 hr 8 min ago Listen, I�m going to tell you something, you lonely, miserable old man. I turned 19 a few days ago, and I�m proud of my achievements; in just a year and a half in this field, I�ve ... \"AUSSI\" my thread and anything I want to put here Paramour replied 1 hr 9 min ago I think BUY over 1.1390 to 1.1435 and maybe 1.1450 EURUSD only Negakai replied 1 hr 11 min ago I trade synthetic indices exclusively. I honestly think they are far better than traditional forex pairs. However while I can do that manually, I use an EA on mql5 market place to ... Volatility Index & Boom/Crash Trading Discussion Ata-Turkoglu replied 1 hr 11 min ago H4 candle has opened above 1.1426 which means bulls have the upper hand BUT.... Now we are also below 1.1441, which means: bears can not continue higher while candles open below ... EURUSD only More Forums / Most Replied 12H Gold with No Drama leads|Interactive Trading|61,286 replies Obdyx2 replied 11 min ago D1 is saying we have an unfinished business with 4242. Who will give it to us? Asia or London? The Grail of the Knights of the Round Table leads|Trading Systems|10 replies 255k replied 7 hr ago You can also try out the Grail in the roulette game. {url} {image} ⏰ Don�t Wake Up Late ⏰ (Time-Based Trading Experiment) leads|Trading Journals|288 replies rosy440 replied 3 hr ago For convenience, I display timings from July 6 - July 10, 2026. for various financial ... Bitcoin trading calls leads|Interactive Trading|1,889 replies MaGiix replied 1 hr 19 min ago trade manual closed with little profit. Cable Update (GBPUSD) leads|Interactive Trading|875,590 replies Paramour replied 1 hr 55 min ago I think BUY Over 1.3290 to 1.3390 and 1.3420 \"AUSSI\" my thread and anything I want to put here leads|Interactive Trading|83,107 replies digger1 replied 39 min ago jr , do believe the ignore button was made for ones who dont know what the word actually means ... The Market Is Tricky leads|Trading Journals|152 replies Th3W1z4rd replied 5 hr ago Yeah, these are good insights. It's a matter of testing it out. Whatever works. Sharing ideas ... Orderflow trading leads|Interactive Trading|937 replies notabdullah1 replied 4 hr ago I mean orderflow is only good for centralized market....such as nq es...but as for that if you ... I am all for Gold leads|Interactive Trading|461 replies HumanAI replied 14 min ago Key Technical Levels Critical Resistance 2: 4221�4225 (4H Bollinger Band upper limit / ... The tradition, buy low, sell high leads|Trading Systems|47 replies msqk replied 6 hr ago ..... especially when it come to the structures, I'll be very discrete. I know nothing SPECIAL ... EURUSD only leads|Interactive Trading|229,116 replies Paramour replied 1 hr 12 min ago I think BUY over 1.1390 to 1.1435 and maybe 1.1450 Dance of the wick leads|Trading Systems|444 replies ghbdr replied 2 hr 14 min ago Thats the reason for switching to HTFs during holidays. I like to watch live the price action ... DAX Futures 2026 leads|Trading Journals|3,023 replies HarpexMars replied 21 min ago Thanks a lot for your view. Tomorrow important data for Germany before open. Probably big move ... Weekly Top-Down Technical Analyses leads|Interactive Trading|2,390 replies KeenPips replied 2 hr 5 min ago GBPUSD Weekly Technical Outlook In June, the GBPUSD market operation on the monthly time frame ... More Positions / Live Accounts Instrument Long Traders Long Lots Long Traders / Lots Short Traders Short Lots Short Traders / Lots Detail Gold/USD 61% 101 Traders 65 Traders 39% 6% 6.2 Lots 103.3 Lots 94% Lots not available for this instrument. Open Gold/USD Position Detail Exit Detail View EUR/USD 56% 80 Traders 63 Traders 44% 64% 74.3 Lots 40.9 Lots 36% Open EUR/USD Position Detail Exit Detail View GBP/USD 38% 30 Traders 49 Traders 62% 33% 7.1 Lots 14.1 Lots 67% Open GBP/USD Position Detail Exit Detail View Expand Minors About GBP/JPY EUR/JPY EUR/GBP AUD/JPY EUR/AUD AUD/CAD GBP/AUD CAD/CHF Top of Page Default Page About FF Mission Products User Guide Media Kit Blog Contact FF Products Forums Trades Calendar News Market Brokers Trade Explorer FF Website Homepage Search Traders Report a Problem Follow FF FF Sister Sites: Forex Factory® is a brand of Fair Economy, Inc. Terms of Service / ©2026",
-              "contactConfidence": 90,
-              "contactQuality": "phone",
-              "lastDeepEnrichedAt": "2026-07-05T22:39:31.517Z",
-              "bestContact": "005261793429",
-              "bestContactType": "phone",
-              "bestContactSource": "https://calendar.forexfactory.com/",
-              "enrichmentAudit": {
-                "sourceDomain": "calendar.forexfactory.com",
-                "contactQuality": "phone",
-                "contactConfidence": 90,
-                "profileFirst": true,
-                "searchTrailUsed": false,
-                "websiteCandidates": [
-                  "https://www.metalsmine.com/",
-                  "https://www.energyexch.com/",
-                  "https://www.cryptocraft.com/",
-                  "https://www.faireconomy.com/",
-                  "https://resources.faireconomy.media/",
-                  "https://assets.faireconomy.media/",
-                  "https://assets.faireconomy.media/images/misc",
-                  "https://www.metalsmine.com/forums",
-                  "https://www.metalsmine.com/calendar",
-                  "https://www.metalsmine.com/market"
-                ],
-                "contactSources": [
-                  "https://calendar.forexfactory.com/",
-                  "https://www.metalsmine.com/",
-                  "https://www.metalsmine.com/contact",
-                  "https://www.metalsmine.com/contact-us",
-                  "https://www.metalsmine.com/contacto",
-                  "https://www.metalsmine.com/contato",
-                  "https://www.metalsmine.com/about",
-                  "https://www.metalsmine.com/about-us",
-                  "https://www.metalsmine.com/sobre",
-                  "https://www.metalsmine.com/partnership"
-                ],
-                "relatedEvidenceCount": 0,
-                "note": "Contacts are prioritized from the source profile and its discovered website/linkhub before any public-search trail evidence."
-              },
-              "leadType": "partner",
-              "segment": "Fintech / Payments",
-              "countries": [
-                "United Kingdom"
-              ],
-              "country": "United Kingdom",
-              "languages": [
-                "English",
-                "Spanish",
-                "Portuguese"
-              ],
-              "evidence": [
-                "Trading education",
-                "Community/audience",
-                "Fintech/payments angle",
-                "Contact path"
-              ],
-              "score": 92,
-              "priority": "A",
-              "outbound": {
-                "opener": "Vi Forex Factory connects traders to global financial markets with real-time data, charts, news, and the internet’s most trusted economic calendar for over 20 years. e parece haver uma ligação clara a trading education.",
-                "dm": "Olá, vi o teu trabalho ligado a trading/forex e pareceu-me que pode haver uma conversa interessante de parceria. Lidero Business Development e trabalho com parceiros, comunidades e afiliados em mercados globais. Faz sentido falarmos 15 minutos esta semana?",
-                "followUp": "Acho que há potencial para uma conversa objetiva: audiência/comunidade de trading, estrutura de parceria e crescimento com uma corretora regulada. Tens disponibilidade esta semana?"
-              }
-            },
+            "latestLead": null,
             "sourceStats": {
               "linkedin": {
                 "searches": 1,
@@ -662,16 +523,79 @@
                 "reasons": {
                   "hard_rejected": 1
                 }
+              },
+              "myfxbook": {
+                "searches": 1,
+                "raw": 0,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 9,
+                "reasons": {
+                  "provider_errors": 1
+                }
+              },
+              "specialist": {
+                "searches": 1,
+                "raw": 0,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 9,
+                "reasons": {
+                  "provider_errors": 1
+                }
+              },
+              "forum": {
+                "searches": 1,
+                "raw": 12,
+                "qualified": 1,
+                "saved": 0,
+                "discarded": 8,
+                "duplicates": 4,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "hard_rejected": 8
+                }
+              },
+              "ecosystem": {
+                "searches": 1,
+                "raw": 0,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 9,
+                "reasons": {
+                  "provider_errors": 1
+                }
+              },
+              "web": {
+                "searches": 1,
+                "raw": 0,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {}
               }
             }
           },
-          "updatedAt": "2026-07-05T22:39:37.654Z"
+          "updatedAt": "2026-07-05T22:48:41.576Z"
         }
       },
       "source-harvester-ecosystem": {
         "exists": true,
-        "updatedAt": "2026-07-05T22:40:13.164Z",
-        "ageMs": 6012,
+        "updatedAt": "2026-07-05T22:49:48.439Z",
+        "ageMs": 42823,
         "status": {
           "status": "running",
           "workerName": "source-harvester-ecosystem",
@@ -709,11 +633,172 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-05T22:40:13.164Z",
+          "heartbeatAt": "2026-07-05T22:49:48.438Z",
           "progress": {
-            "message": "Discarded hard-rejected result: invite vjhCHnFMkw",
+            "message": "Saved D-lead: Prices - FINVIZ.com",
             "status": "running",
-            "latestLead": null,
+            "latestLead": {
+              "id": "aab6e3425505871d",
+              "source": "bing",
+              "sourceIntent": "ecosystem",
+              "query": "\"forex\" \"company registration\" \"director\" Colombia",
+              "url": "https://finviz.com/forex",
+              "domain": "finviz.com",
+              "platform": "Web",
+              "title": "Prices - FINVIZ.com",
+              "name": "Prices - FINVIZ.com",
+              "snippet": "Stock screener for investors and traders, financial visualizations.",
+              "pageTitle": "Forex Prices",
+              "pageDescription": "Stock screener for investors and traders, financial visualizations.",
+              "pageText": "HomeNewsScreenerChartsMapsGroupsPortfolioInsiderFuturesForexCryptoCalendarPricing Theme Help Login Register Summer Sale Get Elite for just $199.50 00 Days 00 Hours 00 Mins 00 Sec Claim Now Forex Prices Affiliate • Advertise • Careers • Contact • Blog • Help • Privacy • Follow us on X • Privacy Settings Quotes delayed 15 minutes for NASDAQ, NYSE and AMEX. Copyright © 2007-2026 Finviz.com. All Rights Reserved. Export All Screener Data (CSV) × Upgrade your Finviz experience Join thousands of traders who make more informed decisions with our premium features. Real-time quotes, advanced visualizations, alerts, and much more. Learn more about Finviz Elite",
+              "emails": [],
+              "socialLinks": [
+                "https://x.com/finviz_com"
+              ],
+              "contactLinks": [
+                "https://finviz.com/affiliate",
+                "https://finviz.com/contact",
+                "https://x.com/finviz_com"
+              ],
+              "fetchStatus": "deep-ok",
+              "sourceQuery": "\"forex\" \"company registration\" \"director\" Colombia",
+              "websiteLinks": [
+                "https://finviz.com/",
+                "https://finviz.com/screener",
+                "https://finviz.com/map",
+                "https://finviz.com/groups",
+                "https://finviz.com/portfolio",
+                "https://finviz.com/insidertrading",
+                "https://finviz.com/futures",
+                "https://finviz.com/forex",
+                "https://finviz.com/crypto",
+                "https://finviz.com/calendar/economic",
+                "https://finviz.com/elite",
+                "https://finviz.com/knowledge-base",
+                "https://finviz.com/advertise",
+                "https://finviz.com/careers",
+                "https://finviz.com/blog",
+                "https://finviz.com/privacy",
+                "https://finviz.com/api/v1/screener-export-csv",
+                "https://www.clarity.ms/tag/",
+                "https://charts2-node.finviz.com/",
+                "https://secure/",
+                "https://finviz.com/help/faq",
+                "https://finviz.com/stock?t=CLRO",
+                "https://finviz.com/screener?v=340&s=ta_topgainers",
+                "https://finviz.com/stock?t=CWD",
+                "https://finviz.com/stock?t=DSY",
+                "https://finviz.com/stock?t=SURG",
+                "https://finviz.com/stock?t=SLBT",
+                "https://finviz.com/stock?t=USDE",
+                "https://finviz.com/stock?t=CMMB",
+                "https://finviz.com/screener?v=110"
+              ],
+              "phoneNumbers": [],
+              "forms": [
+                {
+                  "pageUrl": "https://finviz.com/affiliate",
+                  "action": "https://finviz.com/affiliate",
+                  "method": "GET",
+                  "fields": [
+                    "Search ticker, company or profile"
+                  ],
+                  "label": "Form 1"
+                },
+                {
+                  "pageUrl": "https://finviz.com/contact",
+                  "action": "https://finviz.com/contact_submit",
+                  "method": "POST",
+                  "fields": [
+                    "name",
+                    "email",
+                    "message",
+                    "issue",
+                    "resolution"
+                  ],
+                  "label": "Your name Your email Message"
+                }
+              ],
+              "contactSources": [
+                "https://finviz.com/forex",
+                "https://finviz.com/affiliate",
+                "https://finviz.com/contact",
+                "https://finviz.com/contact-us",
+                "https://finviz.com/contacto",
+                "https://finviz.com/contato",
+                "https://finviz.com/",
+                "https://finviz.com/about-us",
+                "https://finviz.com/sobre",
+                "https://finviz.com/partnership",
+                "https://finviz.com/screener",
+                "https://finviz.com/map",
+                "https://finviz.com/groups",
+                "https://finviz.com/partnerships",
+                "https://finviz.com/insidertrading",
+                "https://finviz.com/futures"
+              ],
+              "relatedLinks": [],
+              "decisionMakerLinks": [],
+              "decisionMakers": [],
+              "contactConfidence": 86,
+              "contactQuality": "form",
+              "lastDeepEnrichedAt": "2026-07-05T22:49:37.826Z",
+              "bestContact": "https://x.com/finviz_com",
+              "bestContactType": "social",
+              "bestContactSource": "https://x.com/finviz_com",
+              "enrichmentAudit": {
+                "sourceDomain": "finviz.com",
+                "contactQuality": "form",
+                "contactConfidence": 86,
+                "profileFirst": true,
+                "searchTrailUsed": false,
+                "websiteCandidates": [
+                  "https://finviz.com/",
+                  "https://finviz.com/screener",
+                  "https://finviz.com/map",
+                  "https://finviz.com/groups",
+                  "https://finviz.com/portfolio",
+                  "https://finviz.com/insidertrading",
+                  "https://finviz.com/futures",
+                  "https://finviz.com/forex",
+                  "https://finviz.com/crypto",
+                  "https://finviz.com/calendar/economic"
+                ],
+                "contactSources": [
+                  "https://finviz.com/forex",
+                  "https://finviz.com/affiliate",
+                  "https://finviz.com/contact",
+                  "https://finviz.com/contact-us",
+                  "https://finviz.com/contacto",
+                  "https://finviz.com/contato",
+                  "https://finviz.com/",
+                  "https://finviz.com/about-us",
+                  "https://finviz.com/sobre",
+                  "https://finviz.com/partnership"
+                ],
+                "relatedEvidenceCount": 0,
+                "note": "Contacts are prioritized from the source profile and its discovered website/linkhub before any public-search trail evidence."
+              },
+              "leadType": "partner",
+              "segment": "Affiliate",
+              "countries": [],
+              "country": "",
+              "languages": [
+                "English",
+                "Portuguese"
+              ],
+              "evidence": [
+                "Affiliate angle",
+                "Contact path"
+              ],
+              "score": 35,
+              "priority": "D",
+              "outbound": {
+                "opener": "Vi Stock screener for investors and traders, financial visualizations. e parece haver uma ligação clara a affiliate angle.",
+                "dm": "Olá, vi o teu trabalho ligado a trading/forex e pareceu-me que pode haver uma conversa interessante de parceria. Lidero Business Development e trabalho com parceiros, comunidades e afiliados em mercados globais. Faz sentido falarmos 15 minutos esta semana?",
+                "followUp": "Acho que há potencial para uma conversa objetiva: audiência/comunidade de trading, estrutura de parceria e crescimento com uma corretora regulada. Tens disponibilidade esta semana?"
+              }
+            },
             "sourceStats": {
               "linkedin": {
                 "searches": 1,
@@ -757,25 +842,51 @@
               "ecosystem": {
                 "searches": 1,
                 "raw": 8,
-                "qualified": 1,
+                "qualified": 2,
                 "saved": 0,
-                "discarded": 4,
-                "duplicates": 0,
+                "discarded": 6,
+                "duplicates": 2,
                 "errors": 0,
                 "providerErrors": 0,
                 "reasons": {
-                  "hard_rejected": 4
+                  "hard_rejected": 6
+                }
+              },
+              "recruitment": {
+                "searches": 1,
+                "raw": 7,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 1,
+                "duplicates": 6,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "hard_rejected": 1
+                }
+              },
+              "web": {
+                "searches": 1,
+                "raw": 10,
+                "qualified": 3,
+                "saved": 1,
+                "discarded": 5,
+                "duplicates": 4,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "hard_rejected": 5
                 }
               }
             }
           },
-          "updatedAt": "2026-07-05T22:40:13.164Z"
+          "updatedAt": "2026-07-05T22:49:48.439Z"
         }
       },
       "source-harvester-linkedin": {
         "exists": true,
-        "updatedAt": "2026-07-05T22:39:38.546Z",
-        "ageMs": 40630,
+        "updatedAt": "2026-07-05T22:49:01.599Z",
+        "ageMs": 89663,
         "status": {
           "status": "running",
           "workerName": "source-harvester-linkedin",
@@ -813,35 +924,35 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-05T22:39:38.540Z",
+          "heartbeatAt": "2026-07-05T22:49:01.594Z",
           "progress": {
-            "message": "Searching [linkedin]: site:linkedin.com/in \"introducing broker\" \"forex\" \"Mexico\"",
+            "message": "Searching [linkedin]: site:linkedin.com/in \"fund manager\" \"forex\" \"Portugal\"",
             "status": "running",
             "latestLead": null,
             "sourceStats": {
               "linkedin": {
-                "searches": 6,
+                "searches": 11,
                 "raw": 10,
                 "qualified": 8,
                 "saved": 0,
                 "discarded": 2,
                 "duplicates": 8,
                 "errors": 0,
-                "providerErrors": 36,
+                "providerErrors": 81,
                 "reasons": {
                   "hard_rejected": 2,
-                  "provider_errors": 4
+                  "provider_errors": 9
                 }
               }
             }
           },
-          "updatedAt": "2026-07-05T22:39:38.546Z"
+          "updatedAt": "2026-07-05T22:49:01.599Z"
         }
       },
       "source-harvester-instagram": {
         "exists": true,
-        "updatedAt": "2026-07-05T22:39:47.521Z",
-        "ageMs": 31655,
+        "updatedAt": "2026-07-05T22:49:05.904Z",
+        "ageMs": 85358,
         "status": {
           "status": "running",
           "workerName": "source-harvester-instagram",
@@ -879,92 +990,34 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-05T22:39:47.518Z",
+          "heartbeatAt": "2026-07-05T22:49:05.904Z",
           "progress": {
-            "message": "Saved B-lead: reel DL9gxWqRcxh",
+            "message": "Discarded hard-rejected result: ) • Instagram photos and videos",
             "status": "running",
-            "latestLead": {
-              "id": "47c913a62b2de90e",
-              "source": "bing",
-              "sourceIntent": "social",
-              "query": "\"forex trader\" \"whatsapp\" \"Brazil\"",
-              "url": "https://www.instagram.com/reel/DL9gxWqRcxh/",
-              "domain": "instagram.com",
-              "platform": "Instagram",
-              "title": "reel DL9gxWqRcxh",
-              "name": "reel DL9gxWqRcxh",
-              "snippet": "samer_trader on July 11, 2025: \"Free Vip WhatsApp Group ( Link in bio ) [ Forex, Forextrading, Tradingmemes, Forextrader, XAUUSD, Tradergirl, Forexmeme, BSE, Trader, Investment, …",
-              "fetchStatus": "skipped-social-or-platform",
-              "sourceQuery": "site:instagram.com \"forex trader\" \"whatsapp\" \"Brazil\"",
-              "emails": [],
-              "socialLinks": [],
-              "contactLinks": [],
-              "websiteLinks": [],
-              "phoneNumbers": [],
-              "forms": [],
-              "contactSources": [],
-              "relatedLinks": [],
-              "decisionMakerLinks": [],
-              "decisionMakers": [],
-              "trailSearched": true,
-              "contactConfidence": 15,
-              "contactQuality": "no-contact-yet",
-              "lastDeepEnrichedAt": "2026-07-05T22:39:43.814Z",
-              "bestContact": "",
-              "bestContactType": "",
-              "bestContactSource": "",
-              "enrichmentAudit": {
-                "sourceDomain": "instagram.com",
-                "contactQuality": "no-contact-yet",
-                "contactConfidence": 15,
-                "profileFirst": true,
-                "searchTrailUsed": true,
-                "websiteCandidates": [],
-                "contactSources": [],
-                "relatedEvidenceCount": 0,
-                "note": "Contacts are prioritized from the source profile and its discovered website/linkhub before any public-search trail evidence."
-              },
-              "leadType": "partner",
-              "segment": "Creator / Influencer",
-              "countries": [],
-              "country": "",
-              "languages": [
-                "Portuguese"
-              ],
-              "evidence": [
-                "Contact path"
-              ],
-              "score": 60,
-              "priority": "B",
-              "outbound": {
-                "opener": "Vi samer_trader on July 11, 2025: \"Free Vip WhatsApp Group ( Link in bio ) [ Forex, Forextrading, Tradingmemes, Forextrader, XAUUSD, Tradergirl, Forexmeme, BSE, Trader, Investment, … e parece haver uma ligação clara a contact path.",
-                "dm": "Olá, vi o teu trabalho ligado a trading/forex e pareceu-me que pode haver uma conversa interessante de parceria. Lidero Business Development e trabalho com parceiros, comunidades e afiliados em mercados globais. Faz sentido falarmos 15 minutos esta semana?",
-                "followUp": "Acho que há potencial para uma conversa objetiva: audiência/comunidade de trading, estrutura de parceria e crescimento com uma corretora regulada. Tens disponibilidade esta semana?"
-              }
-            },
+            "latestLead": null,
             "sourceStats": {
               "instagram": {
-                "searches": 4,
-                "raw": 44,
-                "qualified": 15,
+                "searches": 9,
+                "raw": 75,
+                "qualified": 17,
                 "saved": 0,
-                "discarded": 9,
-                "duplicates": 33,
+                "discarded": 10,
+                "duplicates": 65,
                 "errors": 0,
                 "providerErrors": 0,
                 "reasons": {
-                  "hard_rejected": 9
+                  "hard_rejected": 10
                 }
               }
             }
           },
-          "updatedAt": "2026-07-05T22:39:47.521Z"
+          "updatedAt": "2026-07-05T22:49:05.904Z"
         }
       },
       "source-harvester-platforms": {
         "exists": true,
-        "updatedAt": "2026-07-05T22:39:14.934Z",
-        "ageMs": 64242,
+        "updatedAt": "2026-07-05T22:49:59.141Z",
+        "ageMs": 32121,
         "status": {
           "status": "running",
           "workerName": "source-harvester-platforms",
@@ -1004,60 +1057,60 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-05T22:39:14.931Z",
+          "heartbeatAt": "2026-07-05T22:49:59.137Z",
           "progress": {
-            "message": "Searching [specialist]: site:fxblue.com/users \"XAUUSD\"",
+            "message": "Searching [specialist]: site:zulutrade.com/trader \"forex\"",
             "status": "running",
             "latestLead": null,
             "sourceStats": {
               "myfxbook": {
-                "searches": 2,
+                "searches": 4,
                 "raw": 0,
                 "qualified": 0,
                 "saved": 0,
                 "discarded": 0,
                 "duplicates": 0,
                 "errors": 0,
-                "providerErrors": 18,
+                "providerErrors": 36,
                 "reasons": {
-                  "provider_errors": 2
+                  "provider_errors": 4
                 }
               },
               "mql5": {
-                "searches": 2,
+                "searches": 4,
                 "raw": 0,
                 "qualified": 0,
                 "saved": 0,
                 "discarded": 0,
                 "duplicates": 0,
                 "errors": 0,
-                "providerErrors": 18,
+                "providerErrors": 36,
                 "reasons": {
-                  "provider_errors": 2
+                  "provider_errors": 4
                 }
               },
               "specialist": {
-                "searches": 2,
+                "searches": 4,
                 "raw": 0,
                 "qualified": 0,
                 "saved": 0,
                 "discarded": 0,
                 "duplicates": 0,
                 "errors": 0,
-                "providerErrors": 9,
+                "providerErrors": 27,
                 "reasons": {
-                  "provider_errors": 1
+                  "provider_errors": 3
                 }
               }
             }
           },
-          "updatedAt": "2026-07-05T22:39:14.934Z"
+          "updatedAt": "2026-07-05T22:49:59.141Z"
         }
       },
       "source-harvester-communities": {
         "exists": true,
-        "updatedAt": "2026-07-05T22:39:38.186Z",
-        "ageMs": 40991,
+        "updatedAt": "2026-07-05T22:49:16.429Z",
+        "ageMs": 74834,
         "status": {
           "status": "running",
           "workerName": "source-harvester-communities",
@@ -1095,9 +1148,9 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-05T22:39:38.186Z",
+          "heartbeatAt": "2026-07-05T22:49:16.428Z",
           "progress": {
-            "message": "Discarded hard-rejected result: What is Forex (FX) Trading: How Does it Work? - Investing.com",
+            "message": "Discarded hard-rejected result: Trending Topics & Today's News | X - Twitter",
             "status": "running",
             "latestLead": null,
             "sourceStats": {
@@ -1117,25 +1170,51 @@
               "discord": {
                 "searches": 1,
                 "raw": 14,
-                "qualified": 2,
+                "qualified": 5,
                 "saved": 0,
-                "discarded": 5,
-                "duplicates": 2,
+                "discarded": 9,
+                "duplicates": 5,
                 "errors": 0,
                 "providerErrors": 0,
                 "reasons": {
-                  "hard_rejected": 5
+                  "hard_rejected": 9
+                }
+              },
+              "forum": {
+                "searches": 1,
+                "raw": 15,
+                "qualified": 5,
+                "saved": 0,
+                "discarded": 4,
+                "duplicates": 11,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "hard_rejected": 4
+                }
+              },
+              "x": {
+                "searches": 1,
+                "raw": 1,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 1,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "hard_rejected": 1
                 }
               }
             }
           },
-          "updatedAt": "2026-07-05T22:39:38.186Z"
+          "updatedAt": "2026-07-05T22:49:16.429Z"
         }
       },
       "source-harvester-events": {
         "exists": true,
-        "updatedAt": "2026-07-05T22:38:59.556Z",
-        "ageMs": 79621,
+        "updatedAt": "2026-07-05T22:50:16.905Z",
+        "ageMs": 14358,
         "status": {
           "status": "running",
           "workerName": "source-harvester-events",
@@ -1173,9 +1252,9 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-05T22:38:59.555Z",
+          "heartbeatAt": "2026-07-05T22:50:16.900Z",
           "progress": {
-            "message": "Discarded hard-rejected result: Forex Expo Dubai 2025 Conference to Feature 150+ Global FX and …",
+            "message": "Discarded hard-rejected result: discordapp.com",
             "status": "running",
             "latestLead": null,
             "sourceStats": {
@@ -1184,23 +1263,36 @@
                 "raw": 12,
                 "qualified": 2,
                 "saved": 1,
-                "discarded": 7,
+                "discarded": 10,
                 "duplicates": 1,
                 "errors": 0,
                 "providerErrors": 0,
                 "reasons": {
-                  "hard_rejected": 7
+                  "hard_rejected": 10
+                }
+              },
+              "recruitment": {
+                "searches": 1,
+                "raw": 12,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 11,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "hard_rejected": 11
                 }
               }
             }
           },
-          "updatedAt": "2026-07-05T22:38:59.556Z"
+          "updatedAt": "2026-07-05T22:50:16.905Z"
         }
       },
       "enrichment-worker": {
         "exists": true,
-        "updatedAt": "2026-07-05T22:40:14.219Z",
-        "ageMs": 4958,
+        "updatedAt": "2026-07-05T22:50:08.931Z",
+        "ageMs": 22332,
         "status": {
           "status": "running",
           "phase": "enriching",
@@ -1217,121 +1309,140 @@
             "maxTrailQueries": 26,
             "trailLimit": 10
           },
-          "processed": 36,
+          "processed": 75,
           "rejected": 3,
           "errors": 0,
           "idleCycles": 0,
           "queue": {
-            "eligible": 735,
-            "dueNow": 624,
+            "eligible": 723,
+            "dueNow": 567,
             "never": 181,
-            "contactlessDue": 162,
-            "scheduledDue": 271,
-            "rotationDue": 10,
-            "recentlyEnriched1h": 111,
-            "recentlyEnriched24h": 539,
+            "contactlessDue": 121,
+            "scheduledDue": 257,
+            "rotationDue": 8,
+            "recentlyEnriched1h": 156,
+            "recentlyEnriched24h": 522,
             "blockedRunning": 5,
-            "oldestDeepAgeHours": 46.2
+            "oldestDeepAgeHours": 46.4
           },
           "current": {
-            "id": "6ace9025e61cdfae",
-            "name": "zibran sardar - Forex Introducing Broker | Connecting People ...",
-            "url": "https://in.linkedin.com/in/zibran-sardar-aa192677",
-            "platform": "LinkedIn",
+            "id": "3b12a4b5b2ab52ac",
+            "name": "link click",
+            "url": "https://ad.doubleclick.net/searchads/link/click?lid=43700075838835089&ds_s_kwgid=58700008340308309&ds_a_cid=562361439&ds_a_caid=19901868913&ds_a_agid=147824145739&ds_a_lid=kwd-612343801&&ds_e_adid=83838160983595&ds_e_target_id=kwd-83838930984145:loc-190&&ds_e_network=o&ds_url_v=2&ds_dest_url=https://www.bing.com/ack/rlinkping.htm?t=8aea26b534d44b6cb2ff487e2f212bcb_2&ds_cid=19901868913&network=o&ds_k=fx+trading+platforms&gadcampaignId=602943604&gadgclid={clickidentifier}&gadkeyword=fx%20trading%20platforms&gadmatchtype=p&gadnetwork=o&gadcreative=&gadadposition=&gaddevice=c&gclid=8fa086ed1852119a013ceca76c2c3230&gclsrc=3p.ds&gclid=8fa086ed1852119a013ceca76c2c3230&gclsrc=3p.ds&msclkid=8fa086ed1852119a013ceca76c2c3230&utm_source=bing&utm_medium=cpc&utm_campaign=OC_US_Forex_Trading_WMG_MSA_Search_(US_en)_(Forex_Trading)_Dynamic_Conv_CPA_Maximise_Testing&utm_term=fx%20trading%20platforms&utm_content=Keywords_Forex_LinkedIn_Industry&gb=1",
+            "platform": "Web",
             "dueReason": "contactless_due"
           },
-          "updatedAt": "2026-07-05T22:40:14.219Z"
+          "updatedAt": "2026-07-05T22:50:08.931Z"
         }
       },
       "smart-enrichment-worker": {
         "exists": true,
-        "updatedAt": "2026-07-05T22:40:18.508Z",
-        "ageMs": 669,
+        "updatedAt": "2026-07-05T22:50:25.055Z",
+        "ageMs": 6208,
         "status": {
           "status": "running",
           "phase": "smart-enriching",
-          "processed": 13,
-          "stored": 13,
+          "processed": 26,
+          "stored": 26,
           "errors": 0,
           "current": {
-            "id": "5417806f400d14eb",
-            "name": "Papada Pitchayachananon Eightcap 491 447% growth since 2025 Reliability 100% Algo trading 0 Copy for 30 USD per month",
-            "url": "https://www.mql5.com/en/signals/2294461?source=Site+Signals+MT4+Tile+All",
+            "id": "5601d27bb567fe9d",
+            "name": "Wijanarko Putro Santoso NS 1433504 Semi Otomatis 614% growth since 2023 Reliability 88% Algo trading 0 Copy for 30 USD per month",
+            "url": "https://www.mql5.com/en/signals/2118394?source=Site+Signals+MT4+Tile+All",
             "platform": "MQL5",
             "bucket": "mql5"
           },
           "lastResult": {
-            "id": "1cf2723904b9b067",
-            "name": "Vladimira Sepelakova TwoHundredPercentAnnually 536% growth since 2023 Reliability 100% Algo trading 0 Copy for 30 USD per month",
+            "id": "0186ff5e105b016c",
+            "name": "Muhamad Ihwan Gold Digger TrailStop 238% growth since 2025 Reliability 98% Algo trading 0 Copy for 30 USD per month",
             "bucket": "mql5",
             "bestContact": "+31 10 669 0521",
             "contactLinks": 30,
             "websites": 30,
             "related": 0,
             "hasDecisionContact": true,
-            "at": "2026-07-05T22:40:12.731Z"
+            "at": "2026-07-05T22:50:19.386Z"
           },
-          "updatedAt": "2026-07-05T22:40:18.508Z"
+          "updatedAt": "2026-07-05T22:50:25.055Z"
         }
       },
       "contact-gap-worker": {
         "exists": true,
-        "updatedAt": "2026-07-05T22:39:51.287Z",
-        "ageMs": 27891,
+        "updatedAt": "2026-07-05T22:50:28.886Z",
+        "ageMs": 2378,
         "status": {
           "status": "running",
           "phase": "enriching-gap",
-          "processed": 12,
-          "stored": 12,
+          "processed": 25,
+          "stored": 25,
           "errors": 0,
           "current": {
-            "id": "1cf2723904b9b067",
-            "name": "Vladimira Sepelakova TwoHundredPercentAnnually 536% growth since 2023 Reliability 100% Algo trading 0 Copy for 30 USD per month",
-            "url": "https://www.mql5.com/en/signals/2172246?source=Site+Signals+MT4+Tile+All",
+            "id": "5601d27bb567fe9d",
+            "name": "Wijanarko Putro Santoso NS 1433504 Semi Otomatis 614% growth since 2023 Reliability 88% Algo trading 0 Copy for 30 USD per month",
+            "url": "https://www.mql5.com/en/signals/2118394?source=Site+Signals+MT4+Tile+All",
             "bucket": "mql5",
             "score": 342
           },
           "lastResult": {
-            "id": "33e51681793f6ee9",
-            "name": "Vladimira Sepelakova MySingalStart 3 530% growth since 2017 Reliability 99% Algo trading 2 Copy for 30 USD per month",
+            "id": "0186ff5e105b016c",
+            "name": "Muhamad Ihwan Gold Digger TrailStop 238% growth since 2025 Reliability 98% Algo trading 0 Copy for 30 USD per month",
             "bucket": "mql5",
             "bestContact": "+31 10 669 0521",
             "contactLinks": 30,
             "websites": 30,
             "hasRealContact": true,
-            "at": "2026-07-05T22:39:45.050Z"
+            "at": "2026-07-05T22:50:22.106Z"
           },
-          "updatedAt": "2026-07-05T22:39:51.287Z"
+          "updatedAt": "2026-07-05T22:50:28.886Z"
         }
       },
       "lead-cleaner": {
         "exists": true,
-        "updatedAt": "2026-07-05T22:40:09.533Z",
-        "ageMs": 9645,
+        "updatedAt": "2026-07-05T22:49:37.821Z",
+        "ageMs": 53443,
         "status": {
           "status": "running",
           "phase": "waiting",
-          "cycle": 13,
+          "cycle": 24,
           "intervalMs": 45000,
           "limit": 1000,
-          "totalRemoved": 38,
+          "totalRemoved": 60,
           "errors": 0,
           "lastRun": {
             "ok": true,
             "dryRun": false,
-            "before": 1332,
-            "removed": 1,
-            "after": 1331,
-            "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-05T22-40-05-423Z.json",
+            "before": 1322,
+            "removed": 4,
+            "after": 1318,
+            "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-05T22-49-22-818Z.json",
             "byReason": {
-              "hard_rejected:official broker/brokerage page": 1
+              "hard_rejected:official broker/brokerage page": 3,
+              "forexfactory_generic_tool_page": 1
             },
             "sample": [
               {
-                "id": "33e51681793f6ee9",
-                "name": "Vladimira Sepelakova MySingalStart 3 530% growth since 2017 Reliability 99% Algo trading 2 Copy for 30 USD per month",
-                "url": "https://www.mql5.com/en/signals/1760039?source=Site+Signals+MT4+Tile+All",
+                "id": "68d01f6dbd9bc130",
+                "name": "Andrey Chernous Trading Hero 20k 596% growth since 2019 Reliability 100% Algo trading 0 Copy for 200 USD per month",
+                "url": "https://www.mql5.com/en/signals/544163?source=Site+Signals+MT4+Tile+All",
                 "reason": "hard_rejected:official broker/brokerage page"
+              },
+              {
+                "id": "31b0e75a1c128489",
+                "name": "Agung Setyohadi EA RDIP HPro 5P 352% growth since 2025 Reliability 99% Algo trading 0 Copy for 50 USD per month",
+                "url": "https://www.mql5.com/en/signals/2336904?source=Site+Signals+MT4+Tile+All",
+                "reason": "hard_rejected:official broker/brokerage page"
+              },
+              {
+                "id": "039ed74069f39dee",
+                "name": "Wing Cheong Chu Multi currency Trade 222% growth since 2023 Reliability 100% Algo trading 0 Copy for 30 USD per month",
+                "url": "https://www.mql5.com/en/signals/2317676?source=Site+Signals+MT4+Tile+All",
+                "reason": "hard_rejected:official broker/brokerage page"
+              },
+              {
+                "id": "35023390fbb93edf",
+                "name": "Forex Factory",
+                "url": "https://www.forexfactory.com/calendar",
+                "reason": "forexfactory_generic_tool_page"
               }
             ],
             "exported": {
@@ -1353,25 +1464,25 @@
               "workingJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.json",
               "researchCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.csv",
               "researchJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.json",
-              "exported": 96,
+              "exported": 94,
               "working": 122,
               "researchSources": 129,
-              "contactable": 96,
-              "hot": 58,
-              "social": 69,
-              "instagram": 12,
-              "linkedin": 41,
+              "contactable": 94,
+              "hot": 61,
+              "social": 67,
+              "instagram": 11,
+              "linkedin": 40,
               "x": 9,
-              "total": 1331
+              "total": 1318
             }
           },
-          "updatedAt": "2026-07-05T22:40:09.533Z"
+          "updatedAt": "2026-07-05T22:49:37.821Z"
         }
       },
       "qualified-exporter": {
         "exists": true,
-        "updatedAt": "2026-07-05T22:39:58.329Z",
-        "ageMs": 20849,
+        "updatedAt": "2026-07-05T22:49:48.367Z",
+        "ageMs": 42897,
         "status": {
           "status": "running",
           "intervalMs": 45000,
@@ -1394,54 +1505,54 @@
             "workingJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.json",
             "researchCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.csv",
             "researchJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.json",
-            "exported": 96,
+            "exported": 94,
             "working": 122,
             "researchSources": 129,
-            "contactable": 96,
-            "hot": 58,
-            "social": 69,
-            "instagram": 12,
-            "linkedin": 41,
+            "contactable": 94,
+            "hot": 61,
+            "social": 67,
+            "instagram": 11,
+            "linkedin": 40,
             "x": 9,
-            "total": 1332
+            "total": 1318
           },
-          "updatedAt": "2026-07-05T22:39:58.329Z"
+          "updatedAt": "2026-07-05T22:49:48.367Z"
         }
       },
       "cloud-logger-worker": {
         "exists": true,
-        "updatedAt": "2026-07-05T22:30:18.912Z",
-        "ageMs": 600266,
+        "updatedAt": "2026-07-05T22:40:28.454Z",
+        "ageMs": 602810,
         "status": {
           "status": "running",
-          "phase": "done",
+          "phase": "waiting",
           "intervalMs": 600000,
-          "cycles": 1,
+          "cycles": 2,
           "errors": 0,
           "lastResult": {
             "summary": {
-              "at": "2026-07-05T22:30:16.511Z",
+              "at": "2026-07-05T22:40:24.341Z",
               "ok": true,
-              "raw": 1343,
-              "qualified": 94,
+              "raw": 1331,
+              "qualified": 95,
               "working": 122,
               "contactable": 101,
               "salesReady": 38,
-              "a1Hot": 36,
-              "a2Strong": 16,
+              "a1Hot": 37,
+              "a2Strong": 15,
               "platformContactLeaks": 15,
-              "highValueNoContact": 356,
-              "providerErrors": 0,
+              "highValueNoContact": 343,
+              "providerErrors": 117,
               "staleWorkers": [],
               "issues": [],
               "smartTrail": {
                 "phase": "smart-enriching",
-                "processed": 0,
-                "stored": 0,
+                "processed": 13,
+                "stored": 13,
                 "errors": 0,
-                "current": "Tanapisit Tepawarapruek Farmed Hedge Yield II 658% growth since 2026 Reliability 100% Algo trading 0 Copy for 39 USD per month",
-                "last": "",
-                "best": ""
+                "current": "Papada Pitchayachananon Eightcap 491 447% growth since 2025 Reliability 100% Algo trading 0 Copy for 30 USD per month",
+                "last": "Vladimira Sepelakova TwoHundredPercentAnnually 536% growth since 2023 Reliability 100% Algo trading 0 Copy for 30 USD per month",
+                "best": "+31 10 669 0521"
               },
               "salesReadyByBucket": {
                 "web": 8,
@@ -1456,7 +1567,7 @@
                 "telegram": 1
               },
               "qualifiedByBucket": {
-                "linkedin": 40,
+                "linkedin": 41,
                 "instagram": 12,
                 "x": 9,
                 "web": 9,
@@ -1472,19 +1583,19 @@
               "ok": true,
               "committed": true,
               "pushed": true,
-              "commit": "[main b7781ca] ops: update engine cloud report 2026-07-05T22:30:16.647Z\n 3 files changed, 194 insertions(+), 107 deletions(-)\n"
+              "commit": "[main d30f08b] ops: update engine cloud report 2026-07-05T22:40:25.233Z\n 3 files changed, 1159 insertions(+), 509 deletions(-)\n"
             }
           },
-          "updatedAt": "2026-07-05T22:30:18.912Z"
+          "updatedAt": "2026-07-05T22:40:28.454Z"
         }
       },
       "supervisor": {
         "exists": true,
-        "updatedAt": "2026-07-05T22:39:37.007Z",
-        "ageMs": 42172,
+        "updatedAt": "2026-07-05T22:50:10.181Z",
+        "ageMs": 21084,
         "status": {
           "status": "running",
-          "cycle": 10,
+          "cycle": 20,
           "intervalMs": 60000,
           "ensured": [
             {
@@ -1567,32 +1678,32 @@
           "health": {
             "ok": true,
             "counts": {
-              "raw": 1332,
-              "qualified": 96,
+              "raw": 1318,
+              "qualified": 94,
               "working": 122,
               "contactable": 101,
-              "aLeads": 52,
+              "aLeads": 55,
               "a1Hot": 37,
-              "a2Strong": 15,
-              "bNurture": 37,
+              "a2Strong": 18,
+              "bNurture": 34,
               "cResearch": 33,
               "sourceOnly": 0
             },
             "enrichmentQueue": {
-              "stale": 474,
+              "stale": 475,
               "contactless": 430,
               "neverDeep": 229,
-              "eligible": 998,
-              "dueNow": 888,
-              "rotationDue": 523,
-              "enrichedLastHour": 110,
-              "enrichedLast24h": 743,
-              "oldestDeepAgeHours": 59.2,
+              "eligible": 984,
+              "dueNow": 827,
+              "rotationDue": 474,
+              "enrichedLastHour": 157,
+              "enrichedLast24h": 724,
+              "oldestDeepAgeHours": 59.4,
               "running": 9
             },
             "issues": []
           },
-          "updatedAt": "2026-07-05T22:39:37.007Z"
+          "updatedAt": "2026-07-05T22:50:10.181Z"
         }
       }
     },
@@ -1600,94 +1711,94 @@
       "autopilot-qualified-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.csv",
-        "size": 296683,
-        "updatedAt": "2026-07-05T22:40:08.773Z",
-        "ageMs": 10406.745361328125
+        "size": 296632,
+        "updatedAt": "2026-07-05T22:49:47.628Z",
+        "ageMs": 43636.71337890625
       },
       "autopilot-qualified-contactable-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.csv",
-        "size": 296683,
-        "updatedAt": "2026-07-05T22:40:08.946Z",
-        "ageMs": 10234.18603515625
+        "size": 296632,
+        "updatedAt": "2026-07-05T22:49:47.787Z",
+        "ageMs": 43479.18115234375
       },
       "autopilot-hot-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.csv",
-        "size": 193406,
-        "updatedAt": "2026-07-05T22:40:09.070Z",
-        "ageMs": 10109.615478515625
+        "size": 200318,
+        "updatedAt": "2026-07-05T22:49:47.926Z",
+        "ageMs": 43339.665283203125
       },
       "autopilot-working-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
-        "size": 317611,
-        "updatedAt": "2026-07-05T22:40:19.075Z",
-        "ageMs": 105.0419921875
+        "size": 321870,
+        "updatedAt": "2026-07-05T22:50:21.905Z",
+        "ageMs": 9360.544921875
       },
       "autopilot-social-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
-        "size": 155075,
-        "updatedAt": "2026-07-05T22:40:18.939Z",
-        "ageMs": 241.243408203125
+        "size": 156031,
+        "updatedAt": "2026-07-05T22:50:21.735Z",
+        "ageMs": 9530.612060546875
       },
       "autopilot-linkedin-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
-        "size": 82917,
-        "updatedAt": "2026-07-05T22:40:18.964Z",
-        "ageMs": 216.17138671875
+        "size": 83662,
+        "updatedAt": "2026-07-05T22:50:21.763Z",
+        "ageMs": 9502.82861328125
       },
       "autopilot-instagram-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
-        "size": 18437,
-        "updatedAt": "2026-07-05T22:40:18.953Z",
-        "ageMs": 226.686767578125
+        "size": 18709,
+        "updatedAt": "2026-07-05T22:50:21.750Z",
+        "ageMs": 9515.59130859375
       },
       "autopilot-x-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
         "size": 39239,
-        "updatedAt": "2026-07-05T22:40:18.983Z",
-        "ageMs": 197.155517578125
+        "updatedAt": "2026-07-05T22:50:21.791Z",
+        "ageMs": 9475.3046875
       }
     },
     "issues": []
   },
   "quality": {
     "totals": {
-      "raw": 1331,
-      "exportQualified": 106,
-      "qualified": 95,
+      "raw": 1318,
+      "exportQualified": 105,
+      "qualified": 94,
       "working": 122,
       "realDecisionContacts": 723,
       "salesReady": 38,
       "platformContactLeaks": 15,
-      "platformBestContactLeaks": 133,
-      "highValueNoContact": 343,
+      "platformBestContactLeaks": 120,
+      "highValueNoContact": 330,
       "identityTrailCoverage": 12,
       "websiteOnlyContacts": 30
     },
     "byBucket": {
       "web": 368,
-      "mql5": 303,
+      "mql5": 290,
       "linkedin": 168,
       "facebook_threads": 113,
-      "ecosystem": 66,
+      "ecosystem": 67,
       "recruitment": 61,
       "instagram": 59,
-      "telegram": 49,
-      "forum": 37,
+      "telegram": 48,
+      "forum": 38,
       "specialist": 30,
       "x": 28,
       "myfxbook": 23,
       "tiktok": 16,
-      "discord": 10
+      "discord": 9
     },
     "qualifiedByBucket": {
-      "linkedin": 41,
+      "linkedin": 40,
       "instagram": 12,
       "x": 9,
       "web": 9,
@@ -1718,15 +1829,15 @@
       "linkedin": 147,
       "facebook_threads": 68,
       "instagram": 34,
-      "ecosystem": 31,
+      "ecosystem": 32,
       "recruitment": 24,
       "x": 23,
       "specialist": 22,
-      "telegram": 14,
+      "telegram": 13,
       "tiktok": 7,
       "myfxbook": 6,
-      "forum": 5,
-      "discord": 3
+      "forum": 6,
+      "discord": 2
     },
     "salesReadyByBucket": {
       "web": 8,
@@ -1753,7 +1864,7 @@
         "bucket": "facebook_threads",
         "score": 68,
         "contactScore": 143,
-        "contact": "https://wa.me/11783280040"
+        "contact": "https://wa.me/11783291324"
       },
       {
         "name": "Trading Brasilhttps://onetradingbrasil.com.br › courses › curso-forexCURSO – FX: Introdução ao Forex - One Trading Brasil",
@@ -1852,34 +1963,34 @@
         "contact": "https://www.mql5.com/en/signals/2292732?source=Site+Signals+MT5+Tile+All"
       },
       {
-        "name": "Papada Pitchayachananon Eightcap 491 447% growth since 2025 Reliability 100% Algo trading 0 Copy for 30 USD per month",
+        "name": "Wijanarko Putro Santoso NS 1433504 Semi Otomatis 614% growth since 2023 Reliability 88% Algo trading 0 Copy for 30 USD per month",
         "bucket": "mql5",
-        "contact": "https://www.mql5.com/en/signals/2294461?source=Site+Signals+MT4+Tile+All"
+        "contact": "https://www.mql5.com/en/signals/2118394?source=Site+Signals+MT4+Tile+All"
       },
       {
-        "name": "Vladimira Sepelakova 3.67 (1) MySingalStart 2 425% growth since 2020 Reliability 99% Algo trading 1 Copy for 30 USD per month",
+        "name": "Wim Schrynemakers Stable growth pro 207% growth since 2022 Reliability 94% Algo trading 0 Copy for 75 USD per month",
         "bucket": "mql5",
-        "contact": "https://www.mql5.com/en/signals/840474?source=Site+Signals+MT4+Tile+All"
+        "contact": "https://www.mql5.com/en/signals/1737977?source=Site+Signals+MT4+Tile+All"
       },
       {
-        "name": "Martin Sabljak Algoverse Portfolio 567% growth since 2025 Reliability 100% Algo trading 0 Copy for 30 USD per month",
+        "name": "Lai Cong Nhat Long Gold 1102 197% growth since 2025 Reliability 0% Algo trading 0 Copy for 35 USD per month",
         "bucket": "mql5",
-        "contact": "https://www.mql5.com/en/signals/2377503?source=Site+Signals+MT4+Tile+All"
+        "contact": "https://www.mql5.com/en/signals/2366314?source=Site+Signals+MT4+Tile+All"
       },
       {
-        "name": "Anton Rybin Golden System 2 557% growth since 2022 Reliability 100% Algo trading 0 Copy for 30 USD per month",
+        "name": "Eric Louis Perdigau EA Safe 1 214% growth since 2023 Reliability 99% Algo trading 0 Copy for 50 USD per month",
         "bucket": "mql5",
-        "contact": "https://www.mql5.com/en/signals/2250577?source=Site+Signals+MT4+Tile+All"
+        "contact": "https://www.mql5.com/en/signals/1927666?source=Site+Signals+MT4+Tile+All"
       },
       {
-        "name": "Papada Pitchayachananon IC 992 404% growth since 2025 Reliability 99% Algo trading 0 Copy for 30 USD per month",
+        "name": "Ki Kwong Choi Yhqtv tmgm202 187% growth since 2025 Reliability 100% Algo trading 0 Copy for 30 USD per month",
         "bucket": "mql5",
-        "contact": "https://www.mql5.com/en/signals/2294770?source=Site+Signals+MT4+Tile+All"
+        "contact": "https://www.mql5.com/en/signals/2341355?source=Site+Signals+MT4+Tile+All"
       },
       {
-        "name": "Marco Solito Dark Nova 3 Pairs 964% growth since 2024 Reliability 100% Algo trading 0 Copy for 999 USD per month",
+        "name": "Dany Wardiyanto Turtle One XM 202% growth since 2025 Reliability 100% Algo trading 1 Copy for 30 USD per month",
         "bucket": "mql5",
-        "contact": "https://www.mql5.com/en/signals/2312398?source=Site+Signals+MT4+Tile+All"
+        "contact": "https://www.mql5.com/en/signals/2351355?source=Site+Signals+MT4+Tile+All"
       }
     ],
     "highValueNoContactSamples": [
@@ -1950,37 +2061,37 @@
         "contactScore": 0
       },
       {
-        "name": "Papada Pitchayachananon Eightcap 491 447% growth since 2025 Reliability 100% Algo trading 0 Copy for 30 USD per month",
+        "name": "Wijanarko Putro Santoso NS 1433504 Semi Otomatis 614% growth since 2023 Reliability 88% Algo trading 0 Copy for 30 USD per month",
         "bucket": "mql5",
         "score": 62,
         "contactScore": 0
       },
       {
-        "name": "Vladimira Sepelakova 3.67 (1) MySingalStart 2 425% growth since 2020 Reliability 99% Algo trading 1 Copy for 30 USD per month",
+        "name": "Wim Schrynemakers Stable growth pro 207% growth since 2022 Reliability 94% Algo trading 0 Copy for 75 USD per month",
         "bucket": "mql5",
         "score": 62,
         "contactScore": 0
       },
       {
-        "name": "Martin Sabljak Algoverse Portfolio 567% growth since 2025 Reliability 100% Algo trading 0 Copy for 30 USD per month",
+        "name": "Lai Cong Nhat Long Gold 1102 197% growth since 2025 Reliability 0% Algo trading 0 Copy for 35 USD per month",
         "bucket": "mql5",
         "score": 62,
         "contactScore": 0
       },
       {
-        "name": "Anton Rybin Golden System 2 557% growth since 2022 Reliability 100% Algo trading 0 Copy for 30 USD per month",
+        "name": "Eric Louis Perdigau EA Safe 1 214% growth since 2023 Reliability 99% Algo trading 0 Copy for 50 USD per month",
         "bucket": "mql5",
         "score": 62,
         "contactScore": 0
       },
       {
-        "name": "Papada Pitchayachananon IC 992 404% growth since 2025 Reliability 99% Algo trading 0 Copy for 30 USD per month",
+        "name": "Ki Kwong Choi Yhqtv tmgm202 187% growth since 2025 Reliability 100% Algo trading 0 Copy for 30 USD per month",
         "bucket": "mql5",
         "score": 62,
         "contactScore": 0
       },
       {
-        "name": "Marco Solito Dark Nova 3 Pairs 964% growth since 2024 Reliability 100% Algo trading 0 Copy for 999 USD per month",
+        "name": "Dany Wardiyanto Turtle One XM 202% growth since 2025 Reliability 100% Algo trading 1 Copy for 30 USD per month",
         "bucket": "mql5",
         "score": 62,
         "contactScore": 0
@@ -2033,37 +2144,37 @@
     {
       "name": "cloud-logger-worker",
       "status": "running",
-      "phase": "done",
+      "phase": "waiting",
       "age": "10m",
-      "ageMs": 600289,
+      "ageMs": 602833,
       "cycle": null,
       "pid": null,
       "message": "",
       "current": null,
       "lastResult": {
         "summary": {
-          "at": "2026-07-05T22:30:16.511Z",
+          "at": "2026-07-05T22:40:24.341Z",
           "ok": true,
-          "raw": 1343,
-          "qualified": 94,
+          "raw": 1331,
+          "qualified": 95,
           "working": 122,
           "contactable": 101,
           "salesReady": 38,
-          "a1Hot": 36,
-          "a2Strong": 16,
+          "a1Hot": 37,
+          "a2Strong": 15,
           "platformContactLeaks": 15,
-          "highValueNoContact": 356,
-          "providerErrors": 0,
+          "highValueNoContact": 343,
+          "providerErrors": 117,
           "staleWorkers": [],
           "issues": [],
           "smartTrail": {
             "phase": "smart-enriching",
-            "processed": 0,
-            "stored": 0,
+            "processed": 13,
+            "stored": 13,
             "errors": 0,
-            "current": "Tanapisit Tepawarapruek Farmed Hedge Yield II 658% growth since 2026 Reliability 100% Algo trading 0 Copy for 39 USD per month",
-            "last": "",
-            "best": ""
+            "current": "Papada Pitchayachananon Eightcap 491 447% growth since 2025 Reliability 100% Algo trading 0 Copy for 30 USD per month",
+            "last": "Vladimira Sepelakova TwoHundredPercentAnnually 536% growth since 2023 Reliability 100% Algo trading 0 Copy for 30 USD per month",
+            "best": "+31 10 669 0521"
           },
           "salesReadyByBucket": {
             "web": 8,
@@ -2078,7 +2189,7 @@
             "telegram": 1
           },
           "qualifiedByBucket": {
-            "linkedin": 40,
+            "linkedin": 41,
             "instagram": 12,
             "x": 9,
             "web": 9,
@@ -2094,7 +2205,7 @@
           "ok": true,
           "committed": true,
           "pushed": true,
-          "commit": "[main b7781ca] ops: update engine cloud report 2026-07-05T22:30:16.647Z\n 3 files changed, 194 insertions(+), 107 deletions(-)\n"
+          "commit": "[main d30f08b] ops: update engine cloud report 2026-07-05T22:40:25.233Z\n 3 files changed, 1159 insertions(+), 509 deletions(-)\n"
         }
       },
       "counts": {
@@ -2118,27 +2229,27 @@
       "name": "contact-gap-worker",
       "status": "running",
       "phase": "enriching-gap",
-      "age": "28s",
-      "ageMs": 27914,
+      "age": "2s",
+      "ageMs": 2401,
       "cycle": null,
       "pid": null,
       "message": "",
       "current": {
-        "id": "1cf2723904b9b067",
-        "name": "Vladimira Sepelakova TwoHundredPercentAnnually 536% growth since 2023 Reliability 100% Algo trading 0 Copy for 30 USD per month",
-        "url": "https://www.mql5.com/en/signals/2172246?source=Site+Signals+MT4+Tile+All",
+        "id": "5601d27bb567fe9d",
+        "name": "Wijanarko Putro Santoso NS 1433504 Semi Otomatis 614% growth since 2023 Reliability 88% Algo trading 0 Copy for 30 USD per month",
+        "url": "https://www.mql5.com/en/signals/2118394?source=Site+Signals+MT4+Tile+All",
         "bucket": "mql5",
         "score": 342
       },
       "lastResult": {
-        "id": "33e51681793f6ee9",
-        "name": "Vladimira Sepelakova MySingalStart 3 530% growth since 2017 Reliability 99% Algo trading 2 Copy for 30 USD per month",
+        "id": "0186ff5e105b016c",
+        "name": "Muhamad Ihwan Gold Digger TrailStop 238% growth since 2025 Reliability 98% Algo trading 0 Copy for 30 USD per month",
         "bucket": "mql5",
         "bestContact": "+31 10 669 0521",
         "contactLinks": 30,
         "websites": 30,
         "hasRealContact": true,
-        "at": "2026-07-05T22:39:45.050Z"
+        "at": "2026-07-05T22:50:22.106Z"
       },
       "counts": {
         "raw": 0,
@@ -2152,8 +2263,8 @@
         "contactable": null,
         "hot": null,
         "totalRemoved": null,
-        "processed": 12,
-        "stored": 12,
+        "processed": 25,
+        "stored": 25,
         "errors": 0
       }
     },
@@ -2161,8 +2272,8 @@
       "name": "engine-control",
       "status": "done",
       "phase": "done",
-      "age": "10m",
-      "ageMs": 591562,
+      "age": "20m",
+      "ageMs": 1203649,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -2189,16 +2300,16 @@
       "name": "enrichment-worker",
       "status": "running",
       "phase": "enriching",
-      "age": "5s",
-      "ageMs": 4982,
+      "age": "22s",
+      "ageMs": 22357,
       "cycle": null,
       "pid": null,
       "message": "",
       "current": {
-        "id": "6ace9025e61cdfae",
-        "name": "zibran sardar - Forex Introducing Broker | Connecting People ...",
-        "url": "https://in.linkedin.com/in/zibran-sardar-aa192677",
-        "platform": "LinkedIn",
+        "id": "3b12a4b5b2ab52ac",
+        "name": "link click",
+        "url": "https://ad.doubleclick.net/searchads/link/click?lid=43700075838835089&ds_s_kwgid=58700008340308309&ds_a_cid=562361439&ds_a_caid=19901868913&ds_a_agid=147824145739&ds_a_lid=kwd-612343801&&ds_e_adid=83838160983595&ds_e_target_id=kwd-83838930984145:loc-190&&ds_e_network=o&ds_url_v=2&ds_dest_url=https://www.bing.com/ack/rlinkping.htm?t=8aea26b534d44b6cb2ff487e2f212bcb_2&ds_cid=19901868913&network=o&ds_k=fx+trading+platforms&gadcampaignId=602943604&gadgclid={clickidentifier}&gadkeyword=fx%20trading%20platforms&gadmatchtype=p&gadnetwork=o&gadcreative=&gadadposition=&gaddevice=c&gclid=8fa086ed1852119a013ceca76c2c3230&gclsrc=3p.ds&gclid=8fa086ed1852119a013ceca76c2c3230&gclsrc=3p.ds&msclkid=8fa086ed1852119a013ceca76c2c3230&utm_source=bing&utm_medium=cpc&utm_campaign=OC_US_Forex_Trading_WMG_MSA_Search_(US_en)_(Forex_Trading)_Dynamic_Conv_CPA_Maximise_Testing&utm_term=fx%20trading%20platforms&utm_content=Keywords_Forex_LinkedIn_Industry&gb=1",
+        "platform": "Web",
         "dueReason": "contactless_due"
       },
       "lastResult": null,
@@ -2214,7 +2325,7 @@
         "contactable": null,
         "hot": null,
         "totalRemoved": null,
-        "processed": 36,
+        "processed": 75,
         "stored": null,
         "errors": 0
       }
@@ -2223,9 +2334,9 @@
       "name": "lead-cleaner",
       "status": "running",
       "phase": "waiting",
-      "age": "10s",
-      "ageMs": 9668,
-      "cycle": 13,
+      "age": "53s",
+      "ageMs": 53467,
+      "cycle": 24,
       "pid": null,
       "message": "",
       "current": null,
@@ -2256,21 +2367,21 @@
           "workingJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.json",
           "researchCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.csv",
           "researchJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.json",
-          "exported": 96,
+          "exported": 94,
           "working": 122,
           "researchSources": 129,
-          "contactable": 96,
-          "hot": 58,
-          "social": 69,
-          "instagram": 12,
-          "linkedin": 41,
+          "contactable": 94,
+          "hot": 61,
+          "social": 67,
+          "instagram": 11,
+          "linkedin": 40,
           "x": 9,
-          "total": 1331
+          "total": 1318
         },
         "working": null,
         "contactable": null,
         "hot": null,
-        "totalRemoved": 38,
+        "totalRemoved": 60,
         "processed": null,
         "stored": null,
         "errors": 0
@@ -2280,8 +2391,8 @@
       "name": "qualified-exporter",
       "status": "running",
       "phase": "n/a",
-      "age": "21s",
-      "ageMs": 20873,
+      "age": "43s",
+      "ageMs": 42922,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -2293,11 +2404,11 @@
         "discarded": 0,
         "duplicates": 0,
         "providerErrors": 0,
-        "total": 1332,
-        "exported": 96,
+        "total": 1318,
+        "exported": 94,
         "working": 122,
-        "contactable": 96,
-        "hot": 58,
+        "contactable": 94,
+        "hot": 61,
         "totalRemoved": null,
         "processed": null,
         "stored": null,
@@ -2308,28 +2419,28 @@
       "name": "smart-enrichment-worker",
       "status": "running",
       "phase": "smart-enriching",
-      "age": "1s",
-      "ageMs": 694,
+      "age": "6s",
+      "ageMs": 6234,
       "cycle": null,
       "pid": null,
       "message": "",
       "current": {
-        "id": "5417806f400d14eb",
-        "name": "Papada Pitchayachananon Eightcap 491 447% growth since 2025 Reliability 100% Algo trading 0 Copy for 30 USD per month",
-        "url": "https://www.mql5.com/en/signals/2294461?source=Site+Signals+MT4+Tile+All",
+        "id": "5601d27bb567fe9d",
+        "name": "Wijanarko Putro Santoso NS 1433504 Semi Otomatis 614% growth since 2023 Reliability 88% Algo trading 0 Copy for 30 USD per month",
+        "url": "https://www.mql5.com/en/signals/2118394?source=Site+Signals+MT4+Tile+All",
         "platform": "MQL5",
         "bucket": "mql5"
       },
       "lastResult": {
-        "id": "1cf2723904b9b067",
-        "name": "Vladimira Sepelakova TwoHundredPercentAnnually 536% growth since 2023 Reliability 100% Algo trading 0 Copy for 30 USD per month",
+        "id": "0186ff5e105b016c",
+        "name": "Muhamad Ihwan Gold Digger TrailStop 238% growth since 2025 Reliability 98% Algo trading 0 Copy for 30 USD per month",
         "bucket": "mql5",
         "bestContact": "+31 10 669 0521",
         "contactLinks": 30,
         "websites": 30,
         "related": 0,
         "hasDecisionContact": true,
-        "at": "2026-07-05T22:40:12.731Z"
+        "at": "2026-07-05T22:50:19.386Z"
       },
       "counts": {
         "raw": 0,
@@ -2343,8 +2454,8 @@
         "contactable": null,
         "hot": null,
         "totalRemoved": null,
-        "processed": 13,
-        "stored": 13,
+        "processed": 26,
+        "stored": 26,
         "errors": 0
       }
     },
@@ -2352,19 +2463,19 @@
       "name": "source-harvester",
       "status": "running",
       "phase": "scan",
-      "age": "1m",
-      "ageMs": 65571,
+      "age": "1s",
+      "ageMs": 1020,
       "cycle": 1,
       "pid": null,
-      "message": "Discarded hard-rejected result: invite vjhCHnFMkw",
+      "message": "Discarded hard-rejected result: E*TRADE | Investing, Trading & Retirement",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 12,
+        "raw": 49,
         "saved": 1,
-        "discarded": 9,
-        "duplicates": 2,
-        "providerErrors": 9,
+        "discarded": 16,
+        "duplicates": 27,
+        "providerErrors": 27,
         "total": 0,
         "exported": 0,
         "working": null,
@@ -2380,18 +2491,18 @@
       "name": "source-harvester-communities",
       "status": "running",
       "phase": "scan",
-      "age": "41s",
-      "ageMs": 41016,
+      "age": "1m",
+      "ageMs": 74860,
       "cycle": 1,
       "pid": null,
-      "message": "Discarded hard-rejected result: What is Forex (FX) Trading: How Does it Work? - Investing.com",
+      "message": "Discarded hard-rejected result: Trending Topics & Today's News | X - Twitter",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 25,
+        "raw": 41,
         "saved": 9,
-        "discarded": 7,
-        "duplicates": 2,
+        "discarded": 16,
+        "duplicates": 16,
         "providerErrors": 0,
         "total": 0,
         "exported": 0,
@@ -2408,18 +2519,18 @@
       "name": "source-harvester-ecosystem",
       "status": "running",
       "phase": "scan",
-      "age": "6s",
-      "ageMs": 6038,
+      "age": "43s",
+      "ageMs": 42850,
       "cycle": 1,
       "pid": null,
-      "message": "Discarded hard-rejected result: invite vjhCHnFMkw",
+      "message": "Saved D-lead: Prices - FINVIZ.com",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 28,
-        "saved": 0,
-        "discarded": 24,
-        "duplicates": 0,
+        "raw": 45,
+        "saved": 1,
+        "discarded": 32,
+        "duplicates": 12,
         "providerErrors": 9,
         "total": 0,
         "exported": 0,
@@ -2436,17 +2547,17 @@
       "name": "source-harvester-events",
       "status": "running",
       "phase": "scan",
-      "age": "1m",
-      "ageMs": 79646,
+      "age": "14s",
+      "ageMs": 14384,
       "cycle": 1,
       "pid": null,
-      "message": "Discarded hard-rejected result: Forex Expo Dubai 2025 Conference to Feature 150+ Global FX and …",
+      "message": "Discarded hard-rejected result: discordapp.com",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 12,
+        "raw": 24,
         "saved": 1,
-        "discarded": 7,
+        "discarded": 21,
         "duplicates": 1,
         "providerErrors": 0,
         "total": 0,
@@ -2464,18 +2575,18 @@
       "name": "source-harvester-instagram",
       "status": "running",
       "phase": "scan",
-      "age": "32s",
-      "ageMs": 31681,
+      "age": "1m",
+      "ageMs": 85386,
       "cycle": 1,
       "pid": null,
-      "message": "Saved B-lead: reel DL9gxWqRcxh",
+      "message": "Discarded hard-rejected result: ) • Instagram photos and videos",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 44,
+        "raw": 75,
         "saved": 0,
-        "discarded": 9,
-        "duplicates": 33,
+        "discarded": 10,
+        "duplicates": 65,
         "providerErrors": 0,
         "total": 0,
         "exported": 0,
@@ -2492,11 +2603,11 @@
       "name": "source-harvester-linkedin",
       "status": "running",
       "phase": "scan",
-      "age": "41s",
-      "ageMs": 40656,
+      "age": "1m",
+      "ageMs": 89691,
       "cycle": 1,
       "pid": null,
-      "message": "Searching [linkedin]: site:linkedin.com/in \"introducing broker\" \"forex\" \"Mexico\"",
+      "message": "Searching [linkedin]: site:linkedin.com/in \"fund manager\" \"forex\" \"Portugal\"",
       "current": null,
       "lastResult": null,
       "counts": {
@@ -2504,7 +2615,7 @@
         "saved": 0,
         "discarded": 2,
         "duplicates": 8,
-        "providerErrors": 36,
+        "providerErrors": 81,
         "total": 0,
         "exported": 0,
         "working": null,
@@ -2520,11 +2631,11 @@
       "name": "source-harvester-platforms",
       "status": "running",
       "phase": "scan",
-      "age": "1m",
-      "ageMs": 64269,
+      "age": "32s",
+      "ageMs": 32149,
       "cycle": 1,
       "pid": null,
-      "message": "Searching [specialist]: site:fxblue.com/users \"XAUUSD\"",
+      "message": "Searching [specialist]: site:zulutrade.com/trader \"forex\"",
       "current": null,
       "lastResult": null,
       "counts": {
@@ -2532,7 +2643,7 @@
         "saved": 0,
         "discarded": 0,
         "duplicates": 0,
-        "providerErrors": 45,
+        "providerErrors": 99,
         "total": 0,
         "exported": 0,
         "working": null,
@@ -2549,18 +2660,18 @@
       "status": "running",
       "phase": "scan",
       "age": "4s",
-      "ageMs": 3734,
+      "ageMs": 4412,
       "cycle": 1,
       "pid": null,
-      "message": "Discarded hard-rejected result: invite vjhCHnFMkw",
+      "message": "Searching [web]: site:linktr.ee \"forex trader\" United Kingdom",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 18,
+        "raw": 33,
         "saved": 0,
-        "discarded": 13,
-        "duplicates": 5,
-        "providerErrors": 9,
+        "discarded": 19,
+        "duplicates": 14,
+        "providerErrors": 18,
         "total": 0,
         "exported": 0,
         "working": null,
@@ -2576,19 +2687,19 @@
       "name": "source-harvester-specialist",
       "status": "running",
       "phase": "scan",
-      "age": "42s",
-      "ageMs": 41549,
+      "age": "2m",
+      "ageMs": 109714,
       "cycle": 1,
       "pid": null,
-      "message": "Saved A-lead: calendar.forexfactory.com",
+      "message": "Searching [web]: site:forex-station.com \"XAUUSD\" \"indicator\"",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 20,
+        "raw": 32,
         "saved": 3,
-        "discarded": 7,
-        "duplicates": 10,
-        "providerErrors": 9,
+        "discarded": 15,
+        "duplicates": 14,
+        "providerErrors": 36,
         "total": 0,
         "exported": 0,
         "working": null,
@@ -2604,9 +2715,9 @@
       "name": "supervisor",
       "status": "running",
       "phase": "n/a",
-      "age": "42s",
-      "ageMs": 42197,
-      "cycle": 10,
+      "age": "21s",
+      "ageMs": 21110,
+      "cycle": 20,
       "pid": null,
       "message": "",
       "current": null,
@@ -2633,58 +2744,58 @@
     "autopilot-qualified-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.csv",
-      "size": 296683,
-      "updatedAt": "2026-07-05T22:40:08.773Z",
-      "ageMs": 10406.745361328125
+      "size": 296632,
+      "updatedAt": "2026-07-05T22:49:47.628Z",
+      "ageMs": 43636.71337890625
     },
     "autopilot-qualified-contactable-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.csv",
-      "size": 296683,
-      "updatedAt": "2026-07-05T22:40:08.946Z",
-      "ageMs": 10234.18603515625
+      "size": 296632,
+      "updatedAt": "2026-07-05T22:49:47.787Z",
+      "ageMs": 43479.18115234375
     },
     "autopilot-hot-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.csv",
-      "size": 193406,
-      "updatedAt": "2026-07-05T22:40:09.070Z",
-      "ageMs": 10109.615478515625
+      "size": 200318,
+      "updatedAt": "2026-07-05T22:49:47.926Z",
+      "ageMs": 43339.665283203125
     },
     "autopilot-working-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
-      "size": 317611,
-      "updatedAt": "2026-07-05T22:40:19.075Z",
-      "ageMs": 105.0419921875
+      "size": 321870,
+      "updatedAt": "2026-07-05T22:50:21.905Z",
+      "ageMs": 9360.544921875
     },
     "autopilot-social-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
-      "size": 155075,
-      "updatedAt": "2026-07-05T22:40:18.939Z",
-      "ageMs": 241.243408203125
+      "size": 156031,
+      "updatedAt": "2026-07-05T22:50:21.735Z",
+      "ageMs": 9530.612060546875
     },
     "autopilot-linkedin-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
-      "size": 82917,
-      "updatedAt": "2026-07-05T22:40:18.964Z",
-      "ageMs": 216.17138671875
+      "size": 83662,
+      "updatedAt": "2026-07-05T22:50:21.763Z",
+      "ageMs": 9502.82861328125
     },
     "autopilot-instagram-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
-      "size": 18437,
-      "updatedAt": "2026-07-05T22:40:18.953Z",
-      "ageMs": 226.686767578125
+      "size": 18709,
+      "updatedAt": "2026-07-05T22:50:21.750Z",
+      "ageMs": 9515.59130859375
     },
     "autopilot-x-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
       "size": 39239,
-      "updatedAt": "2026-07-05T22:40:18.983Z",
-      "ageMs": 197.155517578125
+      "updatedAt": "2026-07-05T22:50:21.791Z",
+      "ageMs": 9475.3046875
     }
   },
   "recentRuns": [
@@ -3296,63 +3407,61 @@
   ],
   "pruneHistory": [
     {
-      "at": "2026-07-05T22:40:05.427Z",
-      "reason": "lead-cleaner",
-      "removed": 1,
-      "before": 1332,
-      "after": 1331,
-      "byReason": {
-        "hard_rejected:official broker/brokerage page": 1
-      },
-      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-05T22-40-05-423Z.json"
-    },
-    {
-      "at": "2026-07-05T22:39:16.040Z",
-      "reason": "lead-cleaner",
-      "removed": 2,
-      "before": 1334,
-      "after": 1332,
-      "byReason": {
-        "hard_rejected:official broker/brokerage page": 1,
-        "forexfactory_generic_tool_page": 1
-      },
-      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-05T22-39-16-037Z.json"
-    },
-    {
-      "at": "2026-07-05T22:38:26.459Z",
+      "at": "2026-07-05T22:49:22.821Z",
       "reason": "lead-cleaner",
       "removed": 4,
-      "before": 1337,
-      "after": 1333,
+      "before": 1322,
+      "after": 1318,
       "byReason": {
-        "hard_rejected:official broker/brokerage page": 1,
-        "hard_rejected:generic broker ranking/review page": 1,
-        "forexfactory_generic_tool_page": 2
+        "hard_rejected:official broker/brokerage page": 3,
+        "forexfactory_generic_tool_page": 1
       },
-      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-05T22-38-26-455Z.json"
+      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-05T22-49-22-818Z.json"
     },
     {
-      "at": "2026-07-05T22:36:44.104Z",
+      "at": "2026-07-05T22:47:32.631Z",
+      "reason": "lead-cleaner",
+      "removed": 1,
+      "before": 1322,
+      "after": 1321,
+      "byReason": {
+        "hard_rejected:official broker/brokerage page": 1
+      },
+      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-05T22-47-32-627Z.json"
+    },
+    {
+      "at": "2026-07-05T22:46:42.904Z",
       "reason": "lead-cleaner",
       "removed": 2,
-      "before": 1337,
-      "after": 1335,
+      "before": 1324,
+      "after": 1322,
       "byReason": {
         "hard_rejected:official broker/brokerage page": 1,
         "forexfactory_generic_tool_page": 1
       },
-      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-05T22-36-44-100Z.json"
+      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-05T22-46-42-901Z.json"
     },
     {
-      "at": "2026-07-05T22:35:55.393Z",
+      "at": "2026-07-05T22:45:53.432Z",
       "reason": "lead-cleaner",
       "removed": 1,
-      "before": 1337,
-      "after": 1336,
+      "before": 1324,
+      "after": 1323,
       "byReason": {
         "hard_rejected:official broker/brokerage page": 1
       },
-      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-05T22-35-55-390Z.json"
+      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-05T22-45-53-429Z.json"
+    },
+    {
+      "at": "2026-07-05T22:45:04.693Z",
+      "reason": "lead-cleaner",
+      "removed": 1,
+      "before": 1325,
+      "after": 1324,
+      "byReason": {
+        "hard_rejected:official broker/brokerage page": 1
+      },
+      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-05T22-45-04-689Z.json"
     }
   ],
   "cleanupHistory": [
@@ -3435,131 +3544,131 @@
   "logs": {
     "source-harvester": {
       "out": [
-        "[source-harvester cycle 1] Discarded hard-rejected result: As melhores corretoras de Forex em Portugal para 2026",
-        "[source-harvester cycle 1] Discarded hard-rejected result: What is Forex (FX) Trading: How Does it Work? - Investing.com",
-        "[source-harvester cycle 1] Saved D-lead: Prices - FINVIZ.com",
-        "[source-harvester cycle 1] Discarded hard-rejected result: qwantcom",
-        "[source-harvester cycle 1] Discarded hard-rejected result: Qwant FR",
-        "[source-harvester cycle 1] Discarded hard-rejected result: company qwant",
-        "[source-harvester cycle 1] Discarded hard-rejected result: invite vjhCHnFMkw",
-        "[source-harvester cycle 1] Searching [x]: site:x.com \"looking for broker\" \"forex\""
+        "[source-harvester cycle 1] Searching [ecosystem]: \"trading academy\" \"sponsor\" \"broker\" UAE",
+        "[source-harvester cycle 1] Discarded hard-rejected result: Investimento sem comissões para todos | Trading 212",
+        "[source-harvester cycle 1] Discarded hard-rejected result: Trading: o que é e como funciona? - Rankia",
+        "[source-harvester cycle 1] Discarded hard-rejected result: Trading: Como Funciona e Estratégias para Investidores | XTB",
+        "[source-harvester cycle 1] Saved A-lead: simul8or - Trading Simulator - Practice Day Trading for Free - No ...",
+        "[source-harvester cycle 1] Discarded hard-rejected result: Commission-free investing for everyone | Trading 212",
+        "[source-harvester cycle 1] Discarded hard-rejected result: O que é Trading e como funciona? Aprenda a operar no mercado ...",
+        "[source-harvester cycle 1] Discarded hard-rejected result: E*TRADE | Investing, Trading & Retirement"
       ],
       "err": []
     },
     "source-harvester-social": {
       "out": [
-        "[source-harvester-social cycle 1] Saved C-lead: Forex Factory",
-        "[source-harvester-social cycle 1] Discarded hard-rejected result: As melhores corretoras de Forex em Portugal para 2026",
-        "[source-harvester-social cycle 1] Discarded hard-rejected result: What is Forex (FX) Trading: How Does it Work? - Investing.com",
-        "[source-harvester-social cycle 1] Saved D-lead: Prices - FINVIZ.com",
-        "[source-harvester-social cycle 1] Discarded hard-rejected result: Qwant FR",
-        "[source-harvester-social cycle 1] Discarded hard-rejected result: company qwant",
-        "[source-harvester-social cycle 1] Discarded hard-rejected result: invite vjhCHnFMkw",
-        "[source-harvester-social cycle 1] Searching [telegram]: site:t.me \"forex dubai\" \"signals\""
+        "[source-harvester-social cycle 1] Saved D-lead: Gold Spot Price - XAUUSD Chart - ProRealTime",
+        "[source-harvester-social cycle 1] Discarded hard-rejected result: (Gold vs US Dollar): Precious Metal Prices & Live Charts - MQL5",
+        "[source-harvester-social cycle 1] Discarded hard-rejected result: AU/USD (Gold / US Dollar) - Live Exchange Rate & Trend Chart",
+        "[source-harvester-social cycle 1] Discarded hard-rejected result: AU USD Chart & Rate - XAU USD Trading - FOREX.com",
+        "[source-harvester-social cycle 1] Saved B-lead: .com",
+        "[source-harvester-social cycle 1] Saved C-lead: company murenamobile",
+        "[source-harvester-social cycle 1] Searching [facebook_threads]: site:facebook.com/groups \"forex\" \"trading\" United Kingdom",
+        "[source-harvester-social cycle 1] Searching [web]: site:linktr.ee \"forex trader\" United Kingdom"
       ],
       "err": []
     },
     "source-harvester-specialist": {
       "out": [
-        "[source-harvester-specialist cycle 1] Saved B-lead: Forex Factory",
-        "[source-harvester-specialist cycle 1] Saved D-lead: Forex Factory",
-        "[source-harvester-specialist cycle 1] Saved C-lead: Forex Factory",
-        "[source-harvester-specialist cycle 1] Discarded hard-rejected result: Forex Factory | Global markets for the smart money.",
-        "[source-harvester-specialist cycle 1] Saved C-lead: EUR/USD | Forex Factory",
-        "[source-harvester-specialist cycle 1] Saved C-lead: Forex Factory",
-        "[source-harvester-specialist cycle 1] Saved A-lead: calendar.forexfactory.com",
-        "[source-harvester-specialist cycle 1] Searching [myfxbook]: site:myfxbook.com/members \"money manager\""
+        "[source-harvester-specialist cycle 1] Discarded hard-rejected result: What is Forex (FX) Trading: How Does it Work? - Investing.com",
+        "[source-harvester-specialist cycle 1] Saved D-lead: Prices - FINVIZ.com",
+        "[source-harvester-specialist cycle 1] Discarded hard-rejected result: qwantcom",
+        "[source-harvester-specialist cycle 1] Discarded hard-rejected result: Qwant FR",
+        "[source-harvester-specialist cycle 1] Discarded hard-rejected result: invite vjhCHnFMkw",
+        "[source-harvester-specialist cycle 1] Searching [ecosystem]: site:adviserinfo.sec.gov \"foreign exchange\" \"investment adviser\"",
+        "[source-harvester-specialist cycle 1] Searching [web]: site:forex-station.com \"XAUUSD\" \"indicator\"",
+        "[source-harvester-specialist cycle 1] Searching [mql5]: site:mql5.com/en/signals \"XAUUSD\" \"growth\""
       ],
       "err": []
     },
     "source-harvester-ecosystem": {
       "out": [
-        "[source-harvester-ecosystem cycle 1] Discarded hard-rejected result: Discord - Official Site",
-        "[source-harvester-ecosystem cycle 1] Searching [ecosystem]: \"Traders Fair\" \"speaker\" \"forex\" Portugal",
-        "[source-harvester-ecosystem cycle 1] Discarded hard-rejected result: qwantcom",
-        "[source-harvester-ecosystem cycle 1] Discarded hard-rejected result: Qwant FR",
-        "[source-harvester-ecosystem cycle 1] Discarded hard-rejected result: company qwant",
-        "[source-harvester-ecosystem cycle 1] Discarded hard-rejected result: invite vjhCHnFMkw",
-        "[source-harvester-ecosystem cycle 1] Saved A-lead: lilo org",
-        "[source-harvester-ecosystem cycle 1] Saved A-lead: company murenamobile"
+        "[source-harvester-ecosystem cycle 1] Saved A-lead: Forex Factory | Global markets for the smart money.",
+        "[source-harvester-ecosystem cycle 1] Discarded hard-rejected result: Mercado Forex: o que é, como funciona e como investir - Santander",
+        "[source-harvester-ecosystem cycle 1] Discarded hard-rejected result: Forex: O que é e como funciona? - Doutor Finanças",
+        "[source-harvester-ecosystem cycle 1] Saved B-lead: Forex Factory",
+        "[source-harvester-ecosystem cycle 1] Discarded hard-rejected result: As melhores corretoras de Forex em Portugal para 2026",
+        "[source-harvester-ecosystem cycle 1] Discarded hard-rejected result: What is Forex (FX) Trading: How Does it Work? - Investing.com",
+        "[source-harvester-ecosystem cycle 1] Saved D-lead: Prices - FINVIZ.com",
+        "[source-harvester-ecosystem cycle 1] Searching [linkedin]: site:linkedin.com/in \"iFX EXPO\" \"attendee\" \"forex\""
       ],
       "err": []
     },
     "source-harvester-linkedin": {
       "out": [
-        "[source-harvester-linkedin cycle 1] Saved B-lead: #multibankgroup #moneyexpoabudhabi #trading #investing #forex …",
-        "[source-harvester-linkedin cycle 1] Saved A-lead: Attending the Money Expo at the Jio Convention Centre ... - LinkedIn",
-        "[source-harvester-linkedin cycle 1] Discarded hard-rejected result: Who's Attending Money Expo Abu Dhabi? | Money Expo Abu Dhabi",
-        "[source-harvester-linkedin cycle 1] Searching [linkedin]: site:linkedin.com/posts \"Wiki Finance Expo\" \"attending\" \"forex\"",
-        "[source-harvester-linkedin cycle 1] Searching [linkedin]: site:linkedin.com/posts \"Finance Magnates\" \"attending\" \"forex\"",
         "[source-harvester-linkedin cycle 1] Searching [linkedin]: site:linkedin.com/in \"Forex Expo Dubai\" \"attendee\"",
         "[source-harvester-linkedin cycle 1] Searching [linkedin]: site:linkedin.com/in \"iFX EXPO\" \"attendee\" \"forex\"",
-        "[source-harvester-linkedin cycle 1] Searching [linkedin]: site:linkedin.com/in \"introducing broker\" \"forex\" \"Mexico\""
+        "[source-harvester-linkedin cycle 1] Searching [linkedin]: site:linkedin.com/in \"introducing broker\" \"forex\" \"Mexico\"",
+        "[source-harvester-linkedin cycle 1] Searching [linkedin]: site:linkedin.com/in \"IB partner\" \"forex\" \"Colombia\"",
+        "[source-harvester-linkedin cycle 1] Searching [linkedin]: site:linkedin.com/in \"forex affiliate\" \"Chile\"",
+        "[source-harvester-linkedin cycle 1] Searching [linkedin]: site:linkedin.com/in \"CPA affiliate\" \"forex\" \"Argentina\"",
+        "[source-harvester-linkedin cycle 1] Searching [linkedin]: site:linkedin.com/in \"revenue share\" \"forex\" \"Peru\"",
+        "[source-harvester-linkedin cycle 1] Searching [linkedin]: site:linkedin.com/in \"fund manager\" \"forex\" \"Portugal\""
       ],
       "err": []
     },
     "source-harvester-instagram": {
       "out": [
-        "[source-harvester-instagram cycle 1] Saved A-lead: ⚜️Forex Trader⚜️ | * Signals Whatsapp Community Link In Bio",
-        "[source-harvester-instagram cycle 1] Saved A-lead: Abdullah Ghafoor | Professional Forex Trader - Instagram",
-        "[source-harvester-instagram cycle 1] Saved C-lead: GWATAVRI'S FOREX TRADING EXP …",
-        "[source-harvester-instagram cycle 1] Discarded hard-rejected result: reel DL2phX2iJh8",
-        "[source-harvester-instagram cycle 1] Saved B-lead: ) - Instagram",
-        "[source-harvester-instagram cycle 1] Saved B-lead: reel DL9gxWqRcxh",
-        "[source-harvester-instagram cycle 1] Saved C-lead: reel DAlCzlgRTQe",
-        "[source-harvester-instagram cycle 1] Saved B-lead: reel DM59pRzOpET"
+        "[source-harvester-instagram cycle 1] Saved B-lead: reel DM59pRzOpET",
+        "[source-harvester-instagram cycle 1] Searching [instagram]: site:instagram.com \"forex mentor\" \"telegram\" \"Brasil\"",
+        "[source-harvester-instagram cycle 1] Searching [instagram]: site:instagram.com \"xauusd\" \"whatsapp\" \"Mexico\"",
+        "[source-harvester-instagram cycle 1] Searching [instagram]: site:instagram.com \"gold trader\" \"telegram\"",
+        "[source-harvester-instagram cycle 1] Searching [instagram]: site:instagram.com \"forex signals\" \"link in bio\"",
+        "[source-harvester-instagram cycle 1] Searching [instagram]: site:instagram.com \"sinais forex\" \"whatsapp\" \"Brasil\"",
+        "[source-harvester-instagram cycle 1] Discarded hard-rejected result: ) • Instagram photos and videos",
+        "[source-harvester-instagram cycle 1] Searching [instagram]: site:instagram.com \"forex Brasil\" \"telegram\""
       ],
       "err": []
     },
     "source-harvester-platforms": {
       "out": [
-        "[source-harvester-platforms cycle 1] Searching [mql5]: site:mql5.com/en/forum \"broker\" \"forex\"",
-        "[source-harvester-platforms cycle 1] Starting scan with 48 balanced queries",
-        "[source-harvester-platforms cycle 1] Searching [myfxbook]: site:myfxbook.com/portfolio \"forex\" \"drawdown\"",
-        "[source-harvester-platforms cycle 1] Searching [mql5]: site:mql5.com/en/users \"XAUUSD\"",
-        "[source-harvester-platforms cycle 1] Searching [specialist]: site:fxblue.com/users \"forex\"",
-        "[source-harvester-platforms cycle 1] Searching [myfxbook]: site:myfxbook.com/reviews/brokers \"introducing broker\"",
         "[source-harvester-platforms cycle 1] Searching [mql5]: site:mql5.com/en/users \"PAMM\"",
-        "[source-harvester-platforms cycle 1] Searching [specialist]: site:fxblue.com/users \"XAUUSD\""
+        "[source-harvester-platforms cycle 1] Searching [specialist]: site:fxblue.com/users \"XAUUSD\"",
+        "[source-harvester-platforms cycle 1] Searching [myfxbook]: site:myfxbook.com/community \"broker\" \"forex\"",
+        "[source-harvester-platforms cycle 1] Searching [mql5]: site:mql5.com/en/forum \"broker\" \"forex\"",
+        "[source-harvester-platforms cycle 1] Searching [specialist]: site:fxblue.com/users \"gold\"",
+        "[source-harvester-platforms cycle 1] Searching [myfxbook]: site:myfxbook.com/community \"copy trading\" \"forex\"",
+        "[source-harvester-platforms cycle 1] Searching [mql5]: site:mql5.com/en/forum \"introducing broker\"",
+        "[source-harvester-platforms cycle 1] Searching [specialist]: site:zulutrade.com/trader \"forex\""
       ],
       "err": []
     },
     "source-harvester-communities": {
       "out": [
-        "[source-harvester-communities cycle 1] Saved A-lead: Forex Factory | Global markets for the smart money.",
-        "[source-harvester-communities cycle 1] Discarded hard-rejected result: Mercado Forex: o que é, como funciona e como investir - Santander",
-        "[source-harvester-communities cycle 1] Discarded hard-rejected result: Forex: O que é e como funciona? - Doutor Finanças",
-        "[source-harvester-communities cycle 1] Saved C-lead: Forex Factory",
-        "[source-harvester-communities cycle 1] Discarded hard-rejected result: As melhores corretoras de Forex em Portugal para 2026",
-        "[source-harvester-communities cycle 1] Discarded hard-rejected result: What is Forex (FX) Trading: How Does it Work? - Investing.com",
-        "[source-harvester-communities cycle 1] Saved D-lead: Prices - FINVIZ.com",
-        "[source-harvester-communities cycle 1] Discarded hard-rejected result: qwantcom"
+        "[source-harvester-communities cycle 1] Saved A-lead: introducing broker | Forex Forum - EarnForex",
+        "[source-harvester-communities cycle 1] Saved B-lead: What means Introducing Broker? | Forex Peace Army - Your Forex …",
+        "[source-harvester-communities cycle 1] Discarded hard-rejected result: 2026 - The Largest Forex Event in the Middle East",
+        "[source-harvester-communities cycle 1] Saved A-lead: PAMM recommendation | Forex Forum by Myfxbook",
+        "[source-harvester-communities cycle 1] Discarded hard-rejected result: forum.forex",
+        "[source-harvester-communities cycle 1] Searching [x]: site:x.com \"xauusd\" \"signals\"",
+        "[source-harvester-communities cycle 1] Discarded hard-rejected result: Trending Topics & Today's News | X - Twitter",
+        "[source-harvester-communities cycle 1] Searching [tiktok]: \"xauusd\" \"tiktok.com/@\" \"trader\""
       ],
       "err": []
     },
     "source-harvester-events": {
       "out": [
-        "[source-harvester-events cycle 1] Discarded hard-rejected result: Mercado Forex: o que é, como funciona e como investir - Santander",
-        "[source-harvester-events cycle 1] Discarded hard-rejected result: Forex: O que é e como funciona? - Doutor Finanças",
-        "[source-harvester-events cycle 1] Saved B-lead: Forex Factory",
-        "[source-harvester-events cycle 1] Discarded hard-rejected result: As melhores corretoras de Forex em Portugal para 2026",
-        "[source-harvester-events cycle 1] Discarded hard-rejected result: Forex Expo Dubai - The Largest Forex Event in the Middle East",
-        "[source-harvester-events cycle 1] Discarded hard-rejected result: Forex Expo Dubai 2025 Conference to Feature 150+ Global FX and …",
-        "[source-harvester-events cycle 1] Discarded hard-rejected result: Forex Expo Dubai 2025 Conference to Feature 150+ Global FX and …",
-        "[source-harvester-events cycle 1] Discarded hard-rejected result: Forex Expo Dubai 2025 Conference to Feature 150+ Global FX and …"
+        "[source-harvester-events cycle 1] Discarded hard-rejected result: Starting Your First Discord Server",
+        "[source-harvester-events cycle 1] Discarded hard-rejected result: Policy",
+        "[source-harvester-events cycle 1] Discarded hard-rejected result: DISCORD BLOG",
+        "[source-harvester-events cycle 1] Discarded hard-rejected result: of Service | Discord",
+        "[source-harvester-events cycle 1] Discarded hard-rejected result: Discord - Group Chat That’s All Fun & Games",
+        "[source-harvester-events cycle 1] Discarded hard-rejected result: Discord Community Guidelines",
+        "[source-harvester-events cycle 1] Discarded hard-rejected result: Discord’s Next Chapter",
+        "[source-harvester-events cycle 1] Discarded hard-rejected result: discordapp.com"
       ],
       "err": []
     },
     "enrichment-worker": {
       "out": [
-        "[enrichment-worker] stored contactless_due 42876a82ce6a19eb forex-broker-2024_readForex broker 2024 on LinkedIn: Read our Oxtrades review to ...; emails=0; links=0; makers=0; best=https://www.linkedin.com/posts/forex-broker-2024_read-our-oxtrades-review-to-see-whywedo-activity-7195202973252149249-iiqC",
-        "[enrichment-worker] stored contactless_due dc9f3ab48d6dadd5 forex-brokers-argentinaArgentina Assets Fall Despite Milei's Reforms | Forex Brokers ...; emails=0; links=0; makers=0; best=https://www.linkedin.com/posts/forex-brokers-argentina_argentinatrading-marketnews2025-investinginvolatility-activity-7412463436015624192-6T3Z",
-        "[enrichment-worker] stored contactless_due 75455e05462cc08f FX Introductory - Introducing Broker at FXIntroductory | LinkedIn; emails=0; links=0; makers=0; best=https://uk.linkedin.com/in/fx-introductory-525932234",
-        "[enrichment-worker] stored contactless_due 0343ce3f7195ffc6 Remode Ramachandran - Forex IB (Introducing Broker) | MT4/MT5 ...; emails=0; links=0; makers=0; best=https://in.linkedin.com/in/getremo",
-        "[enrichment-worker] stored contactless_due d5f5ebff1a21f1d7 Rahul fx - Introducing Broker || Forex || BDM | LinkedIn; emails=0; links=0; makers=0; best=https://in.linkedin.com/in/rahul-fx-b8abb5257",
-        "[enrichment-worker] stored contactless_due 5132e53407660be7 Srikanth Peddagolla - Introducing broker | LinkedIn; emails=0; links=0; makers=0; best=https://in.linkedin.com/in/srikanth-peddagolla-3b706880",
-        "[enrichment-worker] stored contactless_due 9958cd4c461039c1 Noções básicas de CFDs | Revolut Portugal; emails=0; links=0; makers=0; best=-",
-        "[enrichment-worker] stored contactless_due 6ace9025e61cdfae zibran sardar - Forex Introducing Broker | Connecting People ...; emails=0; links=0; makers=0; best=https://in.linkedin.com/in/zibran-sardar-aa192677"
+        "[enrichment-worker] stored contactless_due 05bac6a9cfaa45bb ‏Mani Hamza‏ - ‏Senior Partnership Manager | Forex & CFD ...; emails=0; links=0; makers=0; best=https://ae.linkedin.com/in/mani-hamza-551912361",
+        "[enrichment-worker] stored contactless_due 697ef53d9d9effb8 Andrew O. - Senior Partnership Manager | Forex & CFD ...; emails=0; links=0; makers=0; best=https://cy.linkedin.com/in/andrewonoufriou",
+        "[enrichment-worker] stored contactless_due c6518f858cb8c8f8 thierryblForex Manager Forex Trading System by Forex Trader thierrybl; emails=0; links=0; makers=0; best=-",
+        "[enrichment-worker] stored contactless_due 4b4079664c36a8b4 ForexManagerDBAPiggy Bank Forex Trading System by Forex Trader ForexManagerDBA; emails=0; links=0; makers=0; best=-",
+        "[enrichment-worker] stored contactless_due 23c571e9c81781b2 Forex Manager Forex Trading System by Forex Trader upravliaychiy; emails=0; links=0; makers=0; best=-",
+        "[enrichment-worker] stored contactless_due 516984246166b93c Myfxbook; emails=0; links=0; makers=0; best=-",
+        "[enrichment-worker] stored contactless_due a3bef8960e15f78c Myfxbook; emails=0; links=0; makers=0; best=-",
+        "[enrichment-worker] stored contactless_due 2c87d7932d10e7ff creators.instagram.com; emails=0; links=0; makers=0; best=-"
       ],
       "err": []
     },
@@ -3573,27 +3682,27 @@
     },
     "lead-cleaner": {
       "out": [
-        "[lead-cleaner] 2026-07-05T22:34:21.279Z removed=1 totalRemoved=23",
-        "[lead-cleaner] 2026-07-05T22:35:10.099Z removed=3 totalRemoved=26",
-        "[lead-cleaner] 2026-07-05T22:35:58.789Z removed=1 totalRemoved=27",
-        "[lead-cleaner] 2026-07-05T22:36:48.579Z removed=2 totalRemoved=29",
-        "[lead-cleaner] 2026-07-05T22:37:41.110Z removed=2 totalRemoved=31",
-        "[lead-cleaner] 2026-07-05T22:38:30.764Z removed=4 totalRemoved=35",
-        "[lead-cleaner] 2026-07-05T22:39:20.141Z removed=2 totalRemoved=37",
-        "[lead-cleaner] 2026-07-05T22:40:09.533Z removed=1 totalRemoved=38"
+        "[lead-cleaner] 2026-07-05T22:43:30.160Z removed=3 totalRemoved=47",
+        "[lead-cleaner] 2026-07-05T22:44:19.344Z removed=1 totalRemoved=48",
+        "[lead-cleaner] 2026-07-05T22:45:08.154Z removed=1 totalRemoved=49",
+        "[lead-cleaner] 2026-07-05T22:45:57.540Z removed=1 totalRemoved=50",
+        "[lead-cleaner] 2026-07-05T22:46:47.314Z removed=2 totalRemoved=52",
+        "[lead-cleaner] 2026-07-05T22:47:44.255Z removed=1 totalRemoved=53",
+        "[lead-cleaner] 2026-07-05T22:48:37.475Z removed=3 totalRemoved=56",
+        "[lead-cleaner] 2026-07-05T22:49:37.821Z removed=4 totalRemoved=60"
       ],
       "err": []
     },
     "qualified-exporter": {
       "out": [
-        "[qualified-exporter] 2026-07-05T22:34:15.726Z total=1339 qualified=96 contactable=96 hot=58 social=69 instagram=12 linkedin=41 x=9",
-        "[qualified-exporter] 2026-07-05T22:35:04.744Z total=1339 qualified=96 contactable=96 hot=58 social=69 instagram=12 linkedin=41 x=9",
-        "[qualified-exporter] 2026-07-05T22:35:53.303Z total=1337 qualified=96 contactable=96 hot=58 social=69 instagram=12 linkedin=41 x=9",
-        "[qualified-exporter] 2026-07-05T22:36:42.528Z total=1337 qualified=96 contactable=96 hot=58 social=69 instagram=12 linkedin=41 x=9",
-        "[qualified-exporter] 2026-07-05T22:37:31.738Z total=1336 qualified=96 contactable=96 hot=58 social=69 instagram=12 linkedin=41 x=9",
-        "[qualified-exporter] 2026-07-05T22:38:20.931Z total=1337 qualified=96 contactable=96 hot=58 social=69 instagram=12 linkedin=41 x=9",
-        "[qualified-exporter] 2026-07-05T22:39:10.102Z total=1334 qualified=96 contactable=96 hot=58 social=69 instagram=12 linkedin=41 x=9",
-        "[qualified-exporter] 2026-07-05T22:39:58.329Z total=1332 qualified=96 contactable=96 hot=58 social=69 instagram=12 linkedin=41 x=9"
+        "[qualified-exporter] 2026-07-05T22:44:04.299Z total=1326 qualified=94 contactable=94 hot=61 social=67 instagram=11 linkedin=40 x=9",
+        "[qualified-exporter] 2026-07-05T22:44:53.303Z total=1325 qualified=94 contactable=94 hot=61 social=67 instagram=11 linkedin=40 x=9",
+        "[qualified-exporter] 2026-07-05T22:45:42.440Z total=1324 qualified=94 contactable=94 hot=61 social=67 instagram=11 linkedin=40 x=9",
+        "[qualified-exporter] 2026-07-05T22:46:31.785Z total=1324 qualified=94 contactable=94 hot=61 social=67 instagram=11 linkedin=40 x=9",
+        "[qualified-exporter] 2026-07-05T22:47:20.197Z total=1322 qualified=94 contactable=94 hot=61 social=67 instagram=11 linkedin=40 x=9",
+        "[qualified-exporter] 2026-07-05T22:48:09.651Z total=1322 qualified=94 contactable=94 hot=61 social=67 instagram=11 linkedin=40 x=9",
+        "[qualified-exporter] 2026-07-05T22:48:58.907Z total=1322 qualified=94 contactable=94 hot=61 social=67 instagram=11 linkedin=40 x=9",
+        "[qualified-exporter] 2026-07-05T22:49:48.367Z total=1318 qualified=94 contactable=94 hot=61 social=67 instagram=11 linkedin=40 x=9"
       ],
       "err": []
     },
@@ -3603,14 +3712,14 @@
     },
     "supervisor": {
       "out": [
-        "[supervisor] 2026-07-05T22:32:14.740Z cycle=3 ok=true raw=1347 working=125 a=55",
-        "[supervisor] 2026-07-05T22:33:17.526Z cycle=4 ok=true raw=1351 working=127 a=57",
-        "[supervisor] 2026-07-05T22:34:20.923Z cycle=5 ok=true raw=1339 working=122 a=52",
-        "[supervisor] 2026-07-05T22:35:24.112Z cycle=6 ok=true raw=1337 working=122 a=52",
-        "[supervisor] 2026-07-05T22:36:27.129Z cycle=7 ok=true raw=1336 working=122 a=52",
-        "[supervisor] 2026-07-05T22:37:30.439Z cycle=8 ok=true raw=1336 working=122 a=52",
-        "[supervisor] 2026-07-05T22:38:33.689Z cycle=9 ok=true raw=1333 working=122 a=52",
-        "[supervisor] 2026-07-05T22:39:37.007Z cycle=10 ok=true raw=1332 working=122 a=52"
+        "[supervisor] 2026-07-05T22:42:46.964Z cycle=13 ok=true raw=1329 working=122 a=55",
+        "[supervisor] 2026-07-05T22:43:50.230Z cycle=14 ok=true raw=1326 working=122 a=55",
+        "[supervisor] 2026-07-05T22:44:53.615Z cycle=15 ok=true raw=1325 working=122 a=55",
+        "[supervisor] 2026-07-05T22:45:57.102Z cycle=16 ok=true raw=1323 working=122 a=55",
+        "[supervisor] 2026-07-05T22:46:59.955Z cycle=17 ok=true raw=1322 working=122 a=55",
+        "[supervisor] 2026-07-05T22:48:03.297Z cycle=18 ok=true raw=1322 working=122 a=55",
+        "[supervisor] 2026-07-05T22:49:06.837Z cycle=19 ok=true raw=1322 working=122 a=55",
+        "[supervisor] 2026-07-05T22:50:10.181Z cycle=20 ok=true raw=1318 working=122 a=55"
       ],
       "err": []
     },
