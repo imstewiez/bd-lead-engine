@@ -9,6 +9,11 @@ const PIPELINE_STAGES = [
   { key: "lost", label: "Perdido" }
 ];
 
+const MAX_LEADS_FETCH = 360;
+const MAX_CARDS_PER_LANE = 90;
+const DASHBOARD_REFRESH_MS = 6000;
+const LEADS_REFRESH_WHEN_RUNNING_MS = 14000;
+
 const state = {
   leads: [],
   selectedId: null,
@@ -21,13 +26,26 @@ const state = {
     stage: "",
     platform: "",
     viewMode: "qualified"
+  },
+  ui: {
+    leadsSignature: "",
+    lastLeadFetchAt: 0,
+    loadingLeads: false,
+    dragging: false,
+    running: false,
+    iconRefreshQueued: false
   }
 };
 
 const $ = (selector) => document.querySelector(selector);
 
 function iconRefresh() {
-  if (window.lucide) window.lucide.createIcons();
+  if (!window.lucide || state.ui.iconRefreshQueued) return;
+  state.ui.iconRefreshQueued = true;
+  requestAnimationFrame(() => {
+    window.lucide.createIcons();
+    state.ui.iconRefreshQueued = false;
+  });
 }
 
 function escapeHtml(value = "") {
@@ -67,8 +85,14 @@ function filterQueryString({ includeLimit = false } = {}) {
   if (state.filters.leadType) params.set("leadType", state.filters.leadType);
   if (state.filters.stage) params.set("stage", state.filters.stage);
   if (state.filters.platform) params.set("platform", state.filters.platform);
-  if (includeLimit) params.set("limit", "700");
+  if (includeLimit) params.set("limit", String(MAX_LEADS_FETCH));
   return params.toString();
+}
+
+function leadsSignature(leads = []) {
+  return leads
+    .map((lead) => [lead.id, lead.stage, lead.score, lead.contactConfidence, lead.lastSeen, lead.updatedAt].join(":"))
+    .join("|");
 }
 
 async function loadSummary() {
@@ -77,15 +101,31 @@ async function loadSummary() {
   renderSummary();
 }
 
-async function loadLeads() {
-  const data = await api(`/api/leads?${filterQueryString({ includeLimit: true })}`);
-  state.leads = data.leads || [];
-  if (!state.selectedId && state.leads.length) state.selectedId = state.leads[0].id;
-  if (state.selectedId && !state.leads.some((lead) => lead.id === state.selectedId)) {
-    state.selectedId = state.leads[0]?.id || null;
+async function loadLeads({ force = false } = {}) {
+  if (state.ui.loadingLeads) return;
+  state.ui.loadingLeads = true;
+  const selectedBefore = state.selectedId;
+  try {
+    const data = await api(`/api/leads?${filterQueryString({ includeLimit: true })}`);
+    const leads = data.leads || [];
+    const signature = leadsSignature(leads);
+
+    state.leads = leads;
+    if (!state.selectedId && state.leads.length) state.selectedId = state.leads[0].id;
+    if (state.selectedId && !state.leads.some((lead) => lead.id === state.selectedId)) {
+      state.selectedId = state.leads[0]?.id || null;
+    }
+
+    const selectionChanged = selectedBefore !== state.selectedId;
+    if (!force && !selectionChanged && signature === state.ui.leadsSignature) return;
+
+    state.ui.leadsSignature = signature;
+    renderLeads();
+    renderDetail();
+  } finally {
+    state.ui.loadingLeads = false;
+    state.ui.lastLeadFetchAt = Date.now();
   }
-  renderLeads();
-  renderDetail();
 }
 
 async function loadRun() {
@@ -164,7 +204,7 @@ function renderPlatformStrip() {
 
   $("#platformStrip").innerHTML = buttons
     .filter(([, , count], index) => index === 0 || Number(count || 0) > 0)
-    .slice(0, 12)
+    .slice(0, 16)
     .map(([value, label, count]) => {
       const active = String(state.filters.platform || "") === String(value || "") ? "active" : "";
       return `
@@ -181,7 +221,8 @@ function renderPlatformStrip() {
       state.filters.platform = button.dataset.platform || "";
       $("#platformFilter").value = state.filters.platform;
       state.selectedId = null;
-      await Promise.all([loadSummary(), loadLeads()]);
+      state.ui.leadsSignature = "";
+      await Promise.all([loadSummary(), loadLeads({ force: true })]);
     });
   });
 }
@@ -190,6 +231,7 @@ function renderRun(run) {
   const badge = $("#runBadge");
   const continuous = run.continuous || {};
   const isRunning = run.status === "running" || continuous.status === "running" || continuous.status === "stopping";
+  state.ui.running = isRunning;
   badge.textContent = isRunning ? "Autopilot ativo" : "Pronto";
   badge.className = isRunning ? "badge" : "badge muted";
   $("#scanButton").disabled = isRunning;
@@ -203,7 +245,6 @@ function renderRun(run) {
   const pct = total ? Math.round((completed / total) * 100) : run.status === "completed" ? 100 : 0;
   $("#progressBar").style.width = `${Math.min(100, pct)}%`;
   $("#eventList").innerHTML = "";
-  iconRefresh();
 }
 
 function typeLabel(value = "") {
@@ -247,6 +288,10 @@ function priorityClass(priority) {
   return String(priority || "d").toLowerCase();
 }
 
+function contactConfidence(lead = {}) {
+  return Math.max(0, Math.min(100, Number(lead.contactConfidence || 0)));
+}
+
 function leadTitle(lead = {}) {
   const value = lead.name || lead.title || "Untitled";
   return String(value)
@@ -257,7 +302,8 @@ function leadTitle(lead = {}) {
 
 function dealCard(lead) {
   const selected = lead.id === state.selectedId ? "selected" : "";
-  const snippet = (lead.snippet || lead.outbound?.opener || "").slice(0, 140);
+  const snippet = (lead.snippet || lead.outbound?.opener || "").slice(0, 96);
+  const confidence = contactConfidence(lead);
   return `
     <article class="deal-card ${selected}" data-id="${escapeHtml(lead.id)}" draggable="true">
       <div class="deal-top">
@@ -273,7 +319,8 @@ function dealCard(lead) {
       </div>
       <div class="deal-note">${escapeHtml(segmentLabel(lead.segment) || countryLabel(lead.country))}</div>
       ${snippet ? `<div class="deal-note">${escapeHtml(snippet)}</div>` : ""}
-      <div class="deal-score">Score ${Number(lead.score || 0)} · Contacto ${Number(lead.contactConfidence || 0)}%</div>
+      <div class="deal-score"><span>Score ${Number(lead.score || 0)}</span><span>Contacto ${confidence}%</span></div>
+      <div class="deal-quality" title="Confiança do contacto"><span style="width:${confidence}%"></span></div>
     </article>
   `;
 }
@@ -284,11 +331,21 @@ function groupedLeads() {
   return groups;
 }
 
+function selectLead(id) {
+  state.selectedId = id;
+  document.querySelectorAll(".deal-card").forEach((card) => {
+    card.classList.toggle("selected", card.dataset.id === id);
+  });
+  renderDetail();
+}
+
 function renderLeads() {
   const groups = groupedLeads();
   const total = state.leads.length;
   $("#leadRows").innerHTML = PIPELINE_STAGES.map((stage) => {
     const leads = groups[stage.key] || [];
+    const visible = leads.slice(0, MAX_CARDS_PER_LANE);
+    const hidden = Math.max(0, leads.length - visible.length);
     return `
       <section class="pipeline-lane" data-stage="${stage.key}">
         <header class="lane-head">
@@ -296,7 +353,8 @@ function renderLeads() {
           <span class="lane-count">${compactNumber(leads.length)}</span>
         </header>
         <div class="lane-body">
-          ${leads.length ? leads.map(dealCard).join("") : `<div class="empty-lane">${total ? "Arrasta leads para aqui." : "Sem leads nesta vista."}</div>`}
+          ${visible.length ? visible.map(dealCard).join("") : `<div class="empty-lane">${total ? "Arrasta leads para aqui." : "Sem leads nesta vista."}</div>`}
+          ${hidden ? `<div class="lane-more">+${compactNumber(hidden)} ocultas nesta coluna. Usa pesquisa ou filtros.</div>` : ""}
         </div>
       </section>
     `;
@@ -305,15 +363,17 @@ function renderLeads() {
   document.querySelectorAll(".deal-card").forEach((card) => {
     card.addEventListener("click", (event) => {
       if (event.target.closest("a, button, select")) return;
-      state.selectedId = card.dataset.id;
-      renderLeads();
-      renderDetail();
+      selectLead(card.dataset.id);
     });
     card.addEventListener("dragstart", (event) => {
+      state.ui.dragging = true;
       card.classList.add("dragging");
       event.dataTransfer.setData("text/plain", card.dataset.id);
     });
-    card.addEventListener("dragend", () => card.classList.remove("dragging"));
+    card.addEventListener("dragend", () => {
+      state.ui.dragging = false;
+      card.classList.remove("dragging");
+    });
   });
 
   document.querySelectorAll(".pipeline-lane").forEach((lane) => {
@@ -325,6 +385,7 @@ function renderLeads() {
     lane.addEventListener("drop", async (event) => {
       event.preventDefault();
       lane.classList.remove("drag-over");
+      state.ui.dragging = false;
       const id = event.dataTransfer.getData("text/plain");
       const stage = lane.dataset.stage;
       if (!id || !stage) return;
@@ -483,11 +544,11 @@ function renderDetail() {
       <h3>Outbound</h3>
       <div class="message-box">
         <p>${escapeHtml(lead.outbound?.dm || "")}</p>
-        <button class="copy-button" data-copy="${escapeHtml(lead.outbound?.dm || "")}"><i data-lucide="copy"></i> Copy DM</button>
+        <button class="copy-button" data-copy="${escapeHtml(lead.outbound?.dm || "")}"><i data-lucide="copy"></i> Copiar DM</button>
       </div>
       <div class="message-box">
         <p>${escapeHtml(lead.outbound?.followUp || "")}</p>
-        <button class="copy-button" data-copy="${escapeHtml(lead.outbound?.followUp || "")}"><i data-lucide="copy"></i> Copy follow-up</button>
+        <button class="copy-button" data-copy="${escapeHtml(lead.outbound?.followUp || "")}"><i data-lucide="copy"></i> Copiar follow-up</button>
       </div>
     </div>
 
@@ -503,7 +564,7 @@ function renderDetail() {
   document.querySelectorAll(".copy-button").forEach((button) => {
     button.addEventListener("click", async () => {
       await navigator.clipboard.writeText(button.dataset.copy || "");
-      button.textContent = "Copied";
+      button.textContent = "Copiado";
       setTimeout(renderDetail, 700);
     });
   });
@@ -518,7 +579,8 @@ async function updateLeadStage(id, stage) {
     body: JSON.stringify({ stage })
   });
   state.selectedId = id;
-  await Promise.all([loadSummary(), loadLeads()]);
+  state.ui.leadsSignature = "";
+  await Promise.all([loadSummary(), loadLeads({ force: true })]);
 }
 
 async function startScan() {
@@ -557,6 +619,11 @@ async function stopContinuous() {
   await loadRun();
 }
 
+function resetLeadView() {
+  state.selectedId = null;
+  state.ui.leadsSignature = "";
+}
+
 function bindControls() {
   $("#scanButton").addEventListener("click", async () => {
     try { await startScan(); } catch (error) { alert(error.message); }
@@ -571,49 +638,51 @@ function bindControls() {
     state.filters.q = event.target.value;
     clearTimeout(window.searchTimer);
     window.searchTimer = setTimeout(() => {
-      state.selectedId = null;
-      Promise.all([loadSummary(), loadLeads()]).catch((error) => console.error(error));
-    }, 220);
+      resetLeadView();
+      Promise.all([loadSummary(), loadLeads({ force: true })]).catch((error) => console.error(error));
+    }, 320);
   });
   $("#viewModeFilter").addEventListener("change", async (event) => {
     state.filters.viewMode = event.target.value;
-    state.selectedId = null;
-    await Promise.all([loadSummary(), loadLeads()]);
+    resetLeadView();
+    await Promise.all([loadSummary(), loadLeads({ force: true })]);
   });
   $("#platformFilter").addEventListener("change", async (event) => {
     state.filters.platform = event.target.value;
-    state.selectedId = null;
-    await Promise.all([loadSummary(), loadLeads()]);
+    resetLeadView();
+    await Promise.all([loadSummary(), loadLeads({ force: true })]);
   });
   $("#priorityFilter").addEventListener("change", async (event) => {
     state.filters.priority = event.target.value;
-    state.selectedId = null;
-    await Promise.all([loadSummary(), loadLeads()]);
+    resetLeadView();
+    await Promise.all([loadSummary(), loadLeads({ force: true })]);
   });
   $("#typeFilter").addEventListener("change", async (event) => {
     state.filters.leadType = event.target.value;
-    state.selectedId = null;
-    await Promise.all([loadSummary(), loadLeads()]);
+    resetLeadView();
+    await Promise.all([loadSummary(), loadLeads({ force: true })]);
   });
   $("#stageFilter").addEventListener("change", async (event) => {
     state.filters.stage = event.target.value;
-    state.selectedId = null;
-    await Promise.all([loadSummary(), loadLeads()]);
+    resetLeadView();
+    await Promise.all([loadSummary(), loadLeads({ force: true })]);
   });
 }
 
-async function tick() {
+async function tick({ forceLeads = false } = {}) {
   await Promise.all([loadSummary(), loadRun(), loadHealth()]);
-  await loadLeads();
+  await loadLeads({ force: forceLeads });
 }
 
 bindControls();
-tick().catch((error) => console.error(error));
+tick({ forceLeads: true }).catch((error) => console.error(error));
 setInterval(() => {
+  if (document.visibilityState === "hidden" || state.ui.dragging) return;
   Promise.all([loadSummary(), loadRun(), loadHealth()])
     .then(() => {
-      const running = state.summary?.activeRun?.status === "running";
-      if (running) return loadLeads();
+      const staleLeads = Date.now() - state.ui.lastLeadFetchAt > LEADS_REFRESH_WHEN_RUNNING_MS;
+      if (state.ui.running && staleLeads) return loadLeads();
+      return null;
     })
     .catch((error) => console.error(error));
-}, 2500);
+}, DASHBOARD_REFRESH_MS);
