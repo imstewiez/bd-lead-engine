@@ -17,6 +17,7 @@ import { addRun, upsertLeads } from "./store.js";
 import { enrichResult } from "./search.js";
 import { searchOne } from "./search-fallback.js";
 import { balancedSelect, countBySource, sourceBucket } from "./mql5-limit.js";
+import { EXTRA_HIGH_VALUE_QUERY_PACKS, isBlockedQueryTemplate } from "./sourcing-policy.js";
 import { idForLead, nowIso, sleep } from "./utils.js";
 
 const HIGH_VALUE_QUERY_PACKS = [
@@ -86,10 +87,6 @@ const HIGH_VALUE_QUERY_PACKS = [
   { text: "site:myfxbook.com/portfolio \"forex\" \"public\"", intent: "specialist" },
   { text: "site:myfxbook.com/members \"PAMM\" \"forex\"", intent: "specialist" },
   { text: "site:fxblue.com/users \"xauusd\"", intent: "specialist" },
-  { text: "site:tradingview.com/u/ \"forex\" \"signals\"", intent: "forum" },
-  { text: "site:tradingview.com/ideas \"forex\" \"broker\"", intent: "forum" },
-  { text: "site:tradingview.com/u/ \"xauusd\" \"signals\"", intent: "forum" },
-  { text: "site:tradingview.com/scripts \"forex\" \"strategy\"", intent: "specialist" },
   { text: "site:fxblue.com/users \"forex\"", intent: "specialist" },
   { text: "site:zulutrade.com/trader \"forex\"", intent: "specialist" },
   { text: "site:darwinex.com/darwin \"forex\"", intent: "specialist" },
@@ -103,9 +100,7 @@ const HIGH_VALUE_QUERY_PACKS = [
   { text: "site:forums.babypips.com \"forex signals\" \"telegram\"", intent: "forum" },
   { text: "site:earnforex.com/forum \"introducing broker\"", intent: "forum" },
   { text: "site:forexpeacearmy.com/community \"which broker\"", intent: "forum" },
-  { text: "\"forex expo\" \"exhibitors\" {region}", intent: "ecosystem" },
   { text: "\"trading expo\" \"speakers\" {region}", intent: "ecosystem" },
-  { text: "\"money expo\" \"forex\" \"exhibitors\" {region}", intent: "ecosystem" },
   { text: "\"iFX EXPO\" \"attendees\" \"forex\"", intent: "ecosystem" },
   { text: "\"Finance Magnates\" \"forex\" \"speaker\" {region}", intent: "ecosystem" },
   { text: "\"Traders Fair\" \"speaker\" \"forex\" {region}", intent: "ecosystem" },
@@ -137,6 +132,7 @@ function isYouTubeTemplate(template = "") {
 
 function addAllowedTemplate(target, template, intent, settings) {
   if (settings.includeYouTube !== true && isYouTubeTemplate(template)) return;
+  if (isBlockedQueryTemplate(template)) return;
   target.push({ template, intent });
 }
 
@@ -175,7 +171,8 @@ function buildQueries(options) {
     }
   }
 
-  queries.push(...HIGH_VALUE_QUERY_PACKS.filter((query) => settings.includeYouTube === true || !isYouTubeTemplate(query.text)).map((query, index) => materializeQuery(query, profile, index)));
+  const highValuePacks = [...HIGH_VALUE_QUERY_PACKS, ...EXTRA_HIGH_VALUE_QUERY_PACKS];
+  queries.push(...highValuePacks.filter((query) => !isBlockedQueryTemplate(query.text)).filter((query) => settings.includeYouTube === true || !isYouTubeTemplate(query.text)).map((query, index) => materializeQuery(query, profile, index)));
   const onlyIntents = new Set(
     String(settings.onlyIntents || "")
       .split(",")
@@ -183,7 +180,7 @@ function buildQueries(options) {
       .filter(Boolean)
   );
   const seen = new Set();
-  const deduped = queries.filter((query) => !onlyIntents.size || onlyIntents.has(query.intent)).filter((query) => settings.includeYouTube === true || !isYouTubeTemplate(query.text)).filter((query) => {
+  const deduped = queries.filter((query) => !onlyIntents.size || onlyIntents.has(query.intent)).filter((query) => settings.includeYouTube === true || !isYouTubeTemplate(query.text)).filter((query) => !isBlockedQueryTemplate(query.text)).filter((query) => {
     const key = query.text.toLowerCase();
     if (seen.has(key)) return false;
     seen.add(key);
@@ -208,7 +205,7 @@ function bumpReason(stats, reason) {
 
 function valuableSource(classified = {}, query = {}) {
   const text = `${classified.url} ${classified.platform} ${classified.title} ${classified.snippet}`.toLowerCase();
-  return /linkedin\.com\/in|linkedin\.com\/company|instagram\.com\/[^/]+|x\.com\/[^/]+|twitter\.com\/[^/]+|t\.me\/[^/]+|discord\.gg\/[^/]+|myfxbook\.com|mql5\.com|tradingview\.com|forexfactory\.com|babypips\.com|forex|xauusd|copy trading|signals|introducing broker|affiliate|partnership|fund manager|portfolio manager|trading academy|forex academy|mentor/.test(text);
+  return /linkedin\.com\/in|linkedin\.com\/company|instagram\.com\/[^/]+|x\.com\/[^/]+|twitter\.com\/[^/]+|t\.me\/[^/]+|discord\.gg\/[^/]+|myfxbook\.com|mql5\.com|forexfactory\.com\/thread|babypips\.com|forex|xauusd|copy trading|signals|introducing broker|affiliate|partnership|fund manager|portfolio manager|trading academy|forex academy|mentor|attending|visitor|delegate|speaker|panelist/.test(text);
 }
 
 function makeSavedCandidate(classified, query, reason) {
@@ -240,94 +237,120 @@ export async function runScan(options = {}, onProgress = () => {}) {
   const exportEvery = Number(settings.exportEvery || 10);
 
   const statFor = (query) => {
-    const bucket = query.channel || sourceBucket(query);
-    if (!sourceStats[bucket]) sourceStats[bucket] = makeSourceStats();
-    return sourceStats[bucket];
+    if (!sourceStats[query.channel]) sourceStats[query.channel] = makeSourceStats();
+    return sourceStats[query.channel];
   };
 
-  onProgress({ runId, status: "running", message: `Starting scan with ${queries.length} balanced queries`, startedAt, totalQueries: queries.length, completedQueries: 0, leadsFound: 0, sourceStats });
-
-  let completedQueries = 0;
+  onProgress({ status: "running", message: `Starting scan with ${queries.length} balanced queries`, sourceStats });
 
   for (const query of queries) {
     const stats = statFor(query);
     stats.searches += 1;
-    onProgress({ runId, status: "running", message: `Searching [${query.channel}]: ${query.text}`, currentQuery: query.text, completedQueries, totalQueries: queries.length, leadsFound: leads.length, sourceStats });
-
-    const { results, errors: searchErrors } = await searchOne(query.text, query.intent, settings.limitPerQuery);
-    stats.raw += results.length;
-    if (searchErrors.length) stats.errors += searchErrors.length;
-    errors.push(...searchErrors.map((message) => ({ query: query.text, channel: query.channel, message })));
-
-    for (const result of results) {
-      const key = result.url.replace(/\/$/, "").toLowerCase();
-      if (seenResults.has(key)) {
-        stats.duplicates += 1;
-        continue;
+    onProgress({ status: "running", message: `Searching [${query.channel}]: ${query.text}`, sourceStats });
+    try {
+      const rawResults = await searchOne(query.text, { limit: settings.limitPerQuery });
+      stats.raw += rawResults.length;
+      for (const raw of rawResults) {
+        const resultKey = `${raw.url || ""}|${raw.title || ""}`.toLowerCase();
+        if (seenResults.has(resultKey)) {
+          stats.duplicates += 1;
+          continue;
+        }
+        seenResults.set(resultKey, true);
+        let enriched = enrichResult(raw, query.intent);
+        enriched.sourceIntent = query.intent;
+        enriched.sourceQuery = query.text;
+        if (settings.fetchPages) {
+          enriched = await deepEnrichResult(enriched, {
+            searchContacts: settings.searchContacts,
+            maxContactPages: settings.maxContactPages,
+            maxExternalWebsites: settings.maxExternalWebsites,
+            maxTrailQueries: settings.maxTrailQueries,
+            trailLimit: settings.trailLimit
+          });
+        }
+        const classified = classifyResult(enriched, query.intent);
+        if (isHardRejectedLead(classified)) {
+          stats.discarded += 1;
+          bumpReason(stats, "hard_rejected");
+          onProgress({ status: "running", message: `Discarded hard-rejected result: ${classified.name}`, sourceStats });
+          continue;
+        }
+        if (classified.qualificationStatus === "rejected") {
+          stats.discarded += 1;
+          bumpReason(stats, "low_score");
+          onProgress({ status: "running", message: `Discarded low-fit result: ${classified.name}`, sourceStats });
+          continue;
+        }
+        stats.qualified += 1;
+        leads.push(classified);
+        const storedBatch = await upsertLeads([classified], runId);
+        persisted.created.push(...storedBatch.created);
+        persisted.updated.push(...storedBatch.updated);
+        stats.saved += storedBatch.created.length;
+        if (!storedBatch.created.length && storedBatch.updated.length) stats.duplicates += 1;
+        if (leads.length % exportEvery === 0) await exportLeads({ csvName: "autopilot-leads.csv", jsonName: "autopilot-leads.json" });
+        onProgress({ status: "running", message: `Saved ${classified.priority || "?"}-lead: ${classified.name}`, latestLead: classified, sourceStats });
       }
-      seenResults.set(key, result);
-
-      const enriched = settings.deepEnrich
-        ? await deepEnrichResult(result, { searchContacts: settings.searchContacts !== false, maxContactPages: settings.maxContactPages || 5, maxExternalWebsites: settings.maxExternalWebsites || 3, maxTrailQueries: settings.maxTrailQueries || 10, trailLimit: settings.trailLimit || 5 })
-        : settings.fetchPages
-          ? await enrichResult(result)
-          : result;
-      const classified = classifyResult({ ...enriched, id: enriched.id || idForLead(enriched.url, enriched.title), sourceBucket: query.channel }, query.intent);
-
-      const lacksActionPath = classified.segment === "Unclear" && !(classified.emails || []).length && !(classified.socialLinks || []).length && classified.source !== "youtube";
-      const genericNonPerson = classified.source !== "youtube" && /metatrader|login|download|review|spreads|how to open an account|trading platform|trusted global partner|ishares|marketwatch|etf|msci|quality factor|definition|pronunciation|usage notes|dictionary|oxfordlearnersdictionaries|merriam-webster|cambridge dictionary|collins dictionary|vocabulary\.com|thesaurus/i.test(`${classified.title} ${classified.snippet} ${classified.url}`);
-      const hardRejected = isHardRejectedLead(classified);
-      const lowScore = (classified.score || 0) < 28;
-      const brokerSite = classified.segment === "Broker Site";
-      const canSaveResearch = !brokerSite && !genericNonPerson && !hardRejected && valuableSource(classified, query);
-
-      if (brokerSite || genericNonPerson || hardRejected || (lowScore && !canSaveResearch) || (lacksActionPath && !canSaveResearch)) {
-        stats.discarded += 1;
-        if (lowScore) bumpReason(stats, "low_score");
-        if (brokerSite) bumpReason(stats, "broker_site");
-        if (lacksActionPath) bumpReason(stats, "no_action_path");
-        if (genericNonPerson) bumpReason(stats, "generic_non_person");
-        if (hardRejected) bumpReason(stats, "hard_rejected");
-        onProgress({ runId, status: "running", message: `Discarded low-fit result: ${classified.name}`, currentQuery: query.text, completedQueries, totalQueries: queries.length, leadsFound: leads.length, sourceStats });
-        continue;
-      }
-
-      const finalLead = lowScore || lacksActionPath ? makeSavedCandidate(classified, query, lowScore ? "Low score but strong source/query signal" : "No contact yet, queued for enrichment") : makeSavedCandidate(classified, query, "Qualified by source/query signal");
-      if (lowScore || lacksActionPath) stats.saved += 1;
-      stats.qualified += 1;
-      leads.push(finalLead);
-      if (incremental) {
-        const storedLead = await upsertLeads([finalLead], runId);
-        persisted.created.push(...storedLead.created);
-        persisted.updated.push(...storedLead.updated);
-        if (exportEvery > 0 && leads.length % exportEvery === 0) await exportLeads();
-      }
-      onProgress({
-        runId,
-        status: "running",
-        message: `Saved ${finalLead.priority}-lead: ${finalLead.name}`,
-        currentQuery: query.text,
-        completedQueries,
-        totalQueries: queries.length,
-        leadsFound: leads.length,
-        sourceStats,
-        latestLead: { id: finalLead.id, name: finalLead.name, score: finalLead.score, priority: finalLead.priority, leadType: finalLead.leadType, platform: finalLead.platform, sourceBucket: query.channel }
-      });
-      await sleep(250);
+    } catch (error) {
+      stats.errors += 1;
+      errors.push({ query: query.text, error: error.message });
     }
-
-    completedQueries += 1;
-    await sleep(650);
+    await sleep(Number(settings.delayMs || 0));
   }
 
-  const stored = incremental ? persisted : await upsertLeads(leads, runId);
-  if (incremental) await exportLeads();
-  const finishedAt = nowIso();
-  const run = { id: runId, startedAt, finishedAt, settings, totalQueries: queries.length, rawResults: seenResults.size, leadsFound: leads.length, created: stored.created.length, updated: stored.updated.length, sourceStats, qualifiedBySource: countBySource(leads), errors };
-  await addRun(run);
+  const fallbackSeeds = queries.filter((query) => ["partner", "social", "intent", "ecosystem", "forum", "specialist"].includes(query.intent)).slice(0, Math.max(15, Math.min(80, Math.floor(queries.length * 0.55))));
+  for (const query of fallbackSeeds) {
+    const stats = statFor(query);
+    try {
+      const rawResults = await searchOne(query.text, { limit: Math.max(3, Math.min(settings.limitPerQuery, 10)) });
+      for (const raw of rawResults) {
+        const resultKey = `${raw.url || ""}|${raw.title || ""}`.toLowerCase();
+        if (seenResults.has(resultKey)) {
+          stats.duplicates += 1;
+          continue;
+        }
+        seenResults.set(resultKey, true);
+        let enriched = enrichResult(raw, query.intent);
+        enriched.sourceIntent = query.intent;
+        enriched.sourceQuery = query.text;
+        if (settings.fetchPages) {
+          enriched = await deepEnrichResult(enriched, {
+            searchContacts: settings.searchContacts,
+            maxContactPages: settings.maxContactPages,
+            maxExternalWebsites: settings.maxExternalWebsites,
+            maxTrailQueries: settings.maxTrailQueries,
+            trailLimit: settings.trailLimit
+          });
+        }
+        const classified = classifyResult(enriched, query.intent);
+        if (isHardRejectedLead(classified)) {
+          stats.discarded += 1;
+          bumpReason(stats, "hard_rejected");
+          continue;
+        }
+        if (classified.qualificationStatus === "rejected") {
+          const fallbackLead = makeSavedCandidate(classified, query, "Low-fit but searchable public lead for manual review");
+          const storedBatch = await upsertLeads([fallbackLead], runId);
+          persisted.created.push(...storedBatch.created);
+          persisted.updated.push(...storedBatch.updated);
+          stats.saved += storedBatch.created.length;
+          continue;
+        }
+        const storedBatch = await upsertLeads([classified], runId);
+        persisted.created.push(...storedBatch.created);
+        persisted.updated.push(...storedBatch.updated);
+        stats.saved += storedBatch.created.length;
+      }
+    } catch (error) {
+      stats.errors += 1;
+      errors.push({ query: query.text, error: error.message });
+    }
+  }
 
-  onProgress({ runId, status: "completed", message: `Scan complete: ${stored.created.length} new, ${stored.updated.length} updated`, completedQueries, totalQueries: queries.length, leadsFound: leads.length, created: stored.created.length, updated: stored.updated.length, sourceStats, finishedAt });
+  const exportResult = await exportLeads({ csvName: "autopilot-leads.csv", jsonName: "autopilot-leads.json" });
+  const run = { id: runId, startedAt, finishedAt: nowIso(), settings, totalQueries: queries.length, rawResults: Object.values(sourceStats).reduce((sum, value) => sum + value.raw, 0), leadsFound: leads.length, created: persisted.created.length, updated: persisted.updated.length, sourceStats, qualifiedBySource: countBySource(leads), exportResult };
+  await addRun(run);
+  onProgress({ status: "completed", message: `Run completed: ${run.created} new / ${run.updated} updated leads`, sourceStats });
   return run;
 }
-
-export { buildQueries };
