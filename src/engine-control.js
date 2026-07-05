@@ -87,6 +87,11 @@ async function stopEngine() {
   return { killed, portKills, stopFiles };
 }
 
+async function sanitizeContacts() {
+  await log("[engine] sanitizing platform contacts");
+  return run(process.execPath, ["src/contact-sanitizer.js"], { stdio: "inherit" });
+}
+
 async function startEngine() {
   await log("[engine] starting background tasks");
   const result = run(process.execPath, ["src/launch-background.js"], { stdio: "inherit" });
@@ -115,8 +120,9 @@ const startedAt = nowIso();
 await writeStatus({ status: "running", phase: "started", startedAt });
 const pull = await pullLatest();
 const stop = await stopEngine();
+const sanitize = await sanitizeContacts();
 const start = await startEngine();
 const cloud = await cloudSnapshot();
 const report = await printReport();
-await writeStatus({ status: "done", phase: "done", startedAt, finishedAt: nowIso(), pull, stop, start, cloud, report });
+await writeStatus({ status: "done", phase: "done", startedAt, finishedAt: nowIso(), pull, stop, sanitize, start, cloud, report });
 await log("[engine] ready");
