@@ -22,26 +22,33 @@ function launch(name, args) {
   return child.pid;
 }
 
-function launchFocusedHarvester(name, channelArg, offset, maxQueries = 180) {
+function launchFocusedHarvester(name, channelArg, offset, maxQueries = 180, limitPerQuery = 12, delayMs = 6000) {
   return launch(name, [
     "src/source-harvester.js",
     `--workerName=${name}`,
     `--onlyChannels=${channelArg}`,
     `--queryOffsetBase=${offset}`,
     `--maxQueries=${maxQueries}`,
-    "--limitPerQuery=12",
-    "--delayMs=6500",
+    `--limitPerQuery=${limitPerQuery}`,
+    `--delayMs=${delayMs}`,
     "--fetchPages=true",
     "--deepEnrich=true",
+    "--searchContacts=true",
+    "--maxContactPages=8",
+    "--maxExternalWebsites=7",
+    "--maxTrailQueries=28",
+    "--trailLimit=10",
     "--exportEvery=3"
   ]);
 }
 
 const serverPid = launch("server", ["src/server.js"]);
 const focused = [
-  ["source-harvester-linkedin", launchFocusedHarvester("source-harvester-linkedin", "linkedin", 12000, 220)],
-  ["source-harvester-platforms", launchFocusedHarvester("source-harvester-platforms", "myfxbook,mql5,specialist", 15000, 220)],
-  ["source-harvester-registries", launchFocusedHarvester("source-harvester-registries", "ecosystem,recruitment", 18000, 160)]
+  ["source-harvester-linkedin", launchFocusedHarvester("source-harvester-linkedin", "linkedin", 12000, 240, 15, 4800)],
+  ["source-harvester-instagram", launchFocusedHarvester("source-harvester-instagram", "instagram", 15000, 210, 15, 5200)],
+  ["source-harvester-platforms", launchFocusedHarvester("source-harvester-platforms", "myfxbook,mql5,specialist", 18000, 260, 15, 5200)],
+  ["source-harvester-communities", launchFocusedHarvester("source-harvester-communities", "telegram,discord,forum,x,tiktok,facebook_threads", 21000, 240, 12, 5500)],
+  ["source-harvester-events", launchFocusedHarvester("source-harvester-events", "ecosystem,recruitment", 24000, 190, 12, 6200)]
 ];
 
 const managed = await ensureBackgroundTasks([
