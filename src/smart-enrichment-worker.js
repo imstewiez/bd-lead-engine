@@ -21,6 +21,7 @@ const idleMs = Math.max(5000, Number(args.get("idleMs") || 15000));
 const maxTrailQueries = Math.max(8, Math.min(Number(args.get("maxTrailQueries") || 24), 28));
 const trailLimit = Math.max(4, Math.min(Number(args.get("trailLimit") || 10), 14));
 const maxContactPages = Math.max(4, Math.min(Number(args.get("maxContactPages") || 8), 12));
+const HIGH_VALUE_SOCIAL_BUCKETS = new Set(["telegram", "instagram", "x", "tiktok", "facebook_threads", "discord"]);
 
 async function writeStatus(status) {
   await fs.mkdir(dataDir, { recursive: true });
@@ -41,24 +42,30 @@ function ageHours(dateLike = "") {
   return Number.isFinite(parsed) ? Math.max(0, (Date.now() - parsed) / 3600000) : Infinity;
 }
 
+function hasDecisionContact(lead = {}) {
+  const platformEmail = (lead.emails || []).some((email) => isPlatformOwnedEmail(email, lead)) || (lead.bestContactType === "email" && isPlatformOwnedEmail(lead.bestContact, lead));
+  const directBest = Boolean(lead.bestContact && lead.bestContactType !== "email");
+  const directLinks = (lead.contactLinks || []).length > 0;
+  const makerLinks = (lead.decisionMakerLinks || []).length > 0 || (lead.decisionMakers || []).length > 0;
+  return !platformEmail && (directBest || directLinks || makerLinks || Number(lead.contactConfidence || 0) >= 85);
+}
+
 function needsSmartTrail(lead = {}) {
   if (!lead.id || !lead.url) return false;
   const bucket = sourceBucket(lead);
+  const commercialScore = commercialScoreForLead(lead);
   const isSpecialistPlatform = isPlatformProfileUrl(lead.url) || ["myfxbook", "mql5", "specialist"].includes(bucket) || /zulutrade|fxblue|darwinex|signalstart|collective2/i.test(`${lead.platform || ""} ${lead.url || ""}`);
-  if (!isSpecialistPlatform) return false;
+  const isHighValueSocial = HIGH_VALUE_SOCIAL_BUCKETS.has(bucket) && (commercialScore >= 72 || lead.priority === "A");
+  if (!isSpecialistPlatform && !isHighValueSocial) return false;
   if (lead.deepStatus === "running" && ageHours(lead.deepStartedAt) < 1) return false;
   if (lead.smartTrailDoneAt && ageHours(lead.smartTrailDoneAt) < 6) return false;
-  const platformEmail = (lead.emails || []).some((email) => isPlatformOwnedEmail(email, lead)) || (lead.bestContactType === "email" && isPlatformOwnedEmail(lead.bestContact, lead));
-  const hasDirect = Boolean(lead.bestContact && lead.bestContactType !== "email") || (lead.contactLinks || []).length || (lead.socialLinks || []).some((url) => !String(url).includes(lead.url || ""));
-  return platformEmail || !hasDirect || Number(lead.contactConfidence || 0) < 80;
+  return !hasDecisionContact(lead) || Number(lead.contactConfidence || 0) < 80;
 }
 
 function pickNext(leads = []) {
   return leads
     .filter(needsSmartTrail)
-    .sort((a, b) => {
-      return Number(b.priority === "A") - Number(a.priority === "A") || commercialScoreForLead(b) - commercialScoreForLead(a) || ageHours(b.smartTrailDoneAt) - ageHours(a.smartTrailDoneAt);
-    })[0];
+    .sort((a, b) => Number(b.priority === "A") - Number(a.priority === "A") || commercialScoreForLead(b) - commercialScoreForLead(a) || ageHours(b.smartTrailDoneAt) - ageHours(a.smartTrailDoneAt))[0];
 }
 
 let processed = 0;
@@ -77,7 +84,7 @@ while (!(await stopRequested())) {
     continue;
   }
 
-  await writeStatus({ status: "running", phase: "smart-enriching", processed, stored, errors, current: { id: lead.id, name: lead.name, url: lead.url, platform: lead.platform }, lastResult });
+  await writeStatus({ status: "running", phase: "smart-enriching", processed, stored, errors, current: { id: lead.id, name: lead.name, url: lead.url, platform: lead.platform, bucket: sourceBucket(lead) }, lastResult });
   try {
     await updateLead(lead.id, { deepStatus: "running", smartTrailStartedAt: nowIso() });
     const cleaned = stripPlatformOwnedContacts(lead);
@@ -88,10 +95,10 @@ while (!(await stopRequested())) {
     await exportLeads({ csvName: "autopilot-leads.csv", jsonName: "autopilot-leads.json" });
     processed += 1;
     stored += result.created.length + result.updated.length;
-    lastResult = { id: lead.id, name: lead.name || lead.url, bestContact: finalLead.bestContact || "", contactLinks: (finalLead.contactLinks || []).length, websites: (finalLead.websiteLinks || []).length, related: (finalLead.relatedLinks || []).length, at: nowIso() };
+    lastResult = { id: lead.id, name: lead.name || lead.url, bucket: sourceBucket(lead), bestContact: finalLead.bestContact || "", contactLinks: (finalLead.contactLinks || []).length, websites: (finalLead.websiteLinks || []).length, related: (finalLead.relatedLinks || []).length, at: nowIso() };
   } catch (error) {
     errors += 1;
-    lastResult = { id: lead.id, name: lead.name || lead.url, error: error.message, at: nowIso() };
+    lastResult = { id: lead.id, name: lead.name || lead.url, bucket: sourceBucket(lead), error: error.message, at: nowIso() };
     await updateLead(lead.id, { deepStatus: "error", smartTrailError: error.message, smartTrailDoneAt: nowIso() }).catch(() => {});
   }
   await sleep(delayMs);
