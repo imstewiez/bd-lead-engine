@@ -11,6 +11,7 @@ const rootDir = getRootDir();
 const dataDir = path.join(rootDir, "data");
 const dbPath = path.join(dataDir, "leads.json");
 const KNOWN_CURRENCY_EXCHANGE_DOMAINS = ["forex.se", "forex.no", "forex.fi", "forexvaluta.dk"];
+const KNOWN_GENERIC_FALSE_POSITIVE_DOMAINS = ["kitco.com", "mambaby.com", "partnershiphp.org", "tipranks.com"];
 
 function stamp() {
   return new Date().toISOString().replace(/[:.]/g, "-");
@@ -62,9 +63,29 @@ function domainFromLead(lead = {}) {
   }
 }
 
+function pathFromLead(lead = {}) {
+  try {
+    return new URL(lead.url || "").pathname.replace(/\/$/, "").toLowerCase();
+  } catch {
+    return "";
+  }
+}
+
+function domainIn(domain, list) {
+  return list.some((blocked) => domain === blocked || domain.endsWith(`.${blocked}`));
+}
+
 function isKnownCurrencyExchangeLead(lead = {}) {
+  return domainIn(domainFromLead(lead), KNOWN_CURRENCY_EXCHANGE_DOMAINS);
+}
+
+function isKnownGenericFalsePositive(lead = {}) {
   const domain = domainFromLead(lead);
-  return KNOWN_CURRENCY_EXCHANGE_DOMAINS.some((blocked) => domain === blocked || domain.endsWith(`.${blocked}`));
+  const path = pathFromLead(lead);
+  if (domainIn(domain, KNOWN_GENERIC_FALSE_POSITIVE_DOMAINS)) return true;
+  if (/^(?:[a-z]{2}\.)?tradingview\.com$/.test(domain) && (!path || path === "")) return true;
+  if (/^(?:www\.)?tradingview\.com$/.test(domain) && /^\/(?:markets|chart|symbols)(?:\/|$)/.test(path)) return true;
+  return false;
 }
 
 function hardNoiseReason(lead = {}) {
@@ -73,6 +94,8 @@ function hardNoiseReason(lead = {}) {
   const bucket = sourceBucket(lead);
 
   if (isKnownCurrencyExchangeLead(lead)) return "known_currency_exchange_false_positive";
+  if (isKnownGenericFalsePositive(lead)) return "known_generic_false_positive";
+  if (/cache\.aspx/.test(url)) return "generic_cache_page";
   if (/tradingview\.com\/(?:chart|markets|symbols)|\/chart\/?$/.test(url)) return "tradingview_chart_or_market_page";
   if (/\bt\.me\/telegram\b|\btelegram\.org\b|^view @telegram\b/.test(text)) return "official_telegram_page";
   if (/world health summit|microsoft store|google play|apps no google play|xbox|ko-fi shop|support trading with charm/.test(text)) return "non_financial_platform_noise";
