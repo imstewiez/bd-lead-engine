@@ -57,7 +57,8 @@ const focused = [
   ["source-harvester-instagram", launchFocusedHarvester("source-harvester-instagram", "instagram", 15000, 210, 15, 5200)],
   ["source-harvester-platforms", launchFocusedHarvester("source-harvester-platforms", "myfxbook,mql5,specialist", 18000, 260, 15, 5200)],
   ["source-harvester-communities", launchFocusedHarvester("source-harvester-communities", "telegram,discord,forum,x,tiktok,facebook_threads", 21000, 240, 12, 5500)],
-  ["source-harvester-events", launchFocusedHarvester("source-harvester-events", "ecosystem,recruitment", 24000, 190, 12, 6200)]
+  ["source-harvester-events", launchFocusedHarvester("source-harvester-events", "ecosystem,recruitment", 24000, 190, 12, 6200)],
+  ["smart-enrichment-worker", launch("smart-enrichment-worker", ["src/smart-enrichment-worker.js", "--delayMs=7000", "--idleMs=15000", "--maxTrailQueries=24", "--trailLimit=10", "--maxContactPages=8"])]
 ];
 
 const managed = await ensureBackgroundTasks([
