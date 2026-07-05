@@ -46,6 +46,9 @@ export const BACKGROUND_TASKS = {
   "smart-enrichment-worker": {
     args: ["src/smart-enrichment-worker.js", "--delayMs=5000", "--idleMs=12000", "--maxTrailQueries=28", "--trailLimit=12", "--maxContactPages=10"]
   },
+  "contact-gap-worker": {
+    args: ["src/contact-gap-worker.js", "--delayMs=4500", "--idleMs=12000", "--maxTrailQueries=30", "--trailLimit=12", "--maxContactPages=10"]
+  },
   "lead-cleaner": {
     args: ["src/cleanup-worker.js", "--intervalMs=45000", "--limit=1000"]
   },
