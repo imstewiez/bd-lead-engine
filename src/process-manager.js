@@ -159,9 +159,18 @@ export async function ensureTask(name) {
   return launchDetachedTask(name);
 }
 
+function normalizeTaskNames(names = Object.keys(BACKGROUND_TASKS)) {
+  const requested = [...new Set(names.filter(Boolean))];
+  if (!requested.includes("lead-cleaner") && requested.some((name) => ["enrichment-worker", "qualified-exporter", "supervisor"].includes(name))) {
+    const index = Math.max(requested.indexOf("enrichment-worker"), 0);
+    requested.splice(index + 1, 0, "lead-cleaner");
+  }
+  return requested;
+}
+
 export async function ensureBackgroundTasks(names = Object.keys(BACKGROUND_TASKS)) {
   const results = [];
-  for (const name of names) {
+  for (const name of normalizeTaskNames(names)) {
     results.push(await ensureTask(name));
   }
   return results;
