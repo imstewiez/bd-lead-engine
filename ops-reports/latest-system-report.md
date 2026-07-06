@@ -1,35 +1,35 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T00:01:56.119Z
+Updated: 2026-07-06T00:12:05.869Z
 Health: OK
 
 ## Funnel
-Raw: 1252
+Raw: 1238
 Qualified: 97
-Working: 123
-Contactable: 102
+Working: 124
+Contactable: 103
 Sales-ready: 38
-A1 Hot: 41
+A1 Hot: 42
 A2 Strong: 15
 
 ## Quality
 Platform contact leaks: 15
-High-value without real contact: 258
+High-value without real contact: 244
 Sales-ready by bucket: {"web":8,"x":7,"myfxbook":6,"mql5":5,"specialist":4,"instagram":3,"tiktok":2,"facebook_threads":1,"linkedin":1,"telegram":1}
 Qualified by bucket: {"linkedin":41,"instagram":14,"x":9,"web":9,"facebook_threads":6,"myfxbook":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
 
 ## Sourcing / Workers
-Provider errors: 1645
+Provider errors: 1825
 Stale workers: engine-control
 Issues: none
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 82
-Stored: 82
+Processed: 96
+Stored: 96
 Errors: 0
-Current: Eric Louis Perdigau STNDLAG 132% growth since 2023 Reliability 99% Algo trading 0 Copy for 30 USD per month
-Last: Amgad Ahmed Ali Megahed Amgad 3 182% growth since 2024 Reliability 98% Algo trading 0 Copy for 30 USD per month
+Current: Ugur Oezcan 3.44 (9) NightTrader Mix ICM 227% growth since 2017 Reliability 100% Algo trading 0 Copy for 20 USD per month
+Last: Bill Edbert Dwi QuantGold369 229% growth since 2026 Reliability 86% Algo trading 0 Copy for 33 USD per month
 Last best contact: +31 10 669 0521
 
 ## Recent Errors
