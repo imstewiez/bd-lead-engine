@@ -11,8 +11,7 @@ const PIPELINE_STAGES = [
 
 const MAX_LEADS_FETCH = 220;
 const MAX_CARDS_PER_LANE = 45;
-const DASHBOARD_REFRESH_MS = 15000;
-const LEADS_REFRESH_WHEN_RUNNING_MS = 45000;
+const DASHBOARD_REFRESH_MS = 12000;
 const SNAPSHOT_MAX_AGE_MS = 90000;
 
 const state = {
@@ -21,7 +20,7 @@ const state = {
   summary: null,
   health: null,
   filters: { q: "", priority: "", leadType: "", stage: "", platform: "", viewMode: "qualified" },
-  ui: { leadsSignature: "", lastLeadFetchAt: 0, loadingLeads: false, dragging: false, running: false, iconRefreshQueued: false, toastTimer: null }
+  ui: { leadsSignature: "", loadingLeads: false, dragging: false, running: false, iconRefreshQueued: false, toastTimer: null }
 };
 
 const $ = (selector) => document.querySelector(selector);
@@ -68,7 +67,7 @@ function toast(message) {
   node.textContent = message;
   node.classList.add("show");
   clearTimeout(state.ui.toastTimer);
-  state.ui.toastTimer = setTimeout(() => node.classList.remove("show"), 2800);
+  state.ui.toastTimer = setTimeout(() => node.classList.remove("show"), 2400);
 }
 
 function compactNumber(value) {
@@ -118,19 +117,12 @@ async function loadStaticSnapshot() {
       leads: (snapshot.leads || []).slice(0, MAX_LEADS_FETCH),
       summary,
       health: snapshotHealth(summary),
-      run: { status: "idle" },
+      run: { status: "idle", continuous: { status: "auto" } },
       snapshot: true
     };
   } catch {
     return null;
   }
-}
-
-function updateExportLinks() {
-  const query = filterQueryString();
-  const suffix = query ? `?${query}` : "";
-  $("#exportCsvLink")?.setAttribute("href", `/api/export.csv${suffix}`);
-  $("#exportJsonLink")?.setAttribute("href", `/api/export.json${suffix}`);
 }
 
 function updateLastUpdated(value = new Date()) {
@@ -146,8 +138,8 @@ function applyDashboardData(data, { forceLeads = false } = {}) {
   renderSummary();
   renderHealth();
   renderRun(data.run || state.summary?.activeRun || {});
-  updateExportLinks();
-  updateLastUpdated(data.cachedAt || data.snapshot?.generatedAt || new Date());
+  updateLastUpdated(data.cachedAt || new Date());
+
   const leads = data.leads || [];
   const signature = leadsSignature(leads);
   const selectedBefore = state.selectedId;
@@ -155,12 +147,12 @@ function applyDashboardData(data, { forceLeads = false } = {}) {
   if (!state.selectedId && state.leads.length) state.selectedId = state.leads[0].id;
   if (state.selectedId && !state.leads.some((lead) => lead.id === state.selectedId)) state.selectedId = state.leads[0]?.id || null;
   const selectionChanged = selectedBefore !== state.selectedId;
+
   if (forceLeads || selectionChanged || signature !== state.ui.leadsSignature) {
     state.ui.leadsSignature = signature;
     renderLeads();
     renderDetail();
   }
-  state.ui.lastLeadFetchAt = Date.now();
 }
 
 async function loadDashboard({ forceLeads = false } = {}) {
@@ -183,14 +175,9 @@ async function loadDashboard({ forceLeads = false } = {}) {
   }
 }
 
-async function loadRun() {
-  const run = await api("/api/run");
-  renderRun(run);
-}
-
 function renderSummary() {
   const counts = state.summary?.counts || {};
-  $("#metricTotalLabel").textContent = state.filters.viewMode === "raw" ? "Base total" : "Qualificadas";
+  $("#metricTotalLabel").textContent = state.filters.viewMode === "raw" ? "Base filtrada" : "Qualificadas";
   $("#metricTotal").textContent = compactNumber(counts.total || 0);
   $("#metricRawTotal").textContent = compactNumber(state.summary?.rawTotal || counts.total || 0);
   $("#metricA").textContent = compactNumber(counts.priorityA || 0);
@@ -206,8 +193,44 @@ function renderHealth() {
   const health = state.health;
   if (!health) return;
   const statusClass = health.ok ? "ok" : "bad";
-  $("#systemHealth").innerHTML = `<span class="health-pill ${statusClass}"><i data-lucide="${health.ok ? "sparkles" : "alert-triangle"}"></i>${health.ok ? "Motor ok" : "A rever"}</span><span><strong>${compactNumber(health.counts?.working)}</strong> working</span><span><strong>${compactNumber(health.counts?.contactable)}</strong> contactáveis</span><span><strong>${compactNumber(health.enrichmentQueue?.dueNow)}</strong> due</span>`;
+  $("#systemHealth").innerHTML = `<span class="health-pill ${statusClass}"><i data-lucide="${health.ok ? "activity" : "alert-triangle"}"></i>${health.ok ? "ok" : "erro"}</span><span>${compactNumber(health.counts?.working)} working</span><span>${compactNumber(health.counts?.contactable)} contactáveis</span><span>${compactNumber(health.enrichmentQueue?.dueNow)} due</span>`;
   iconRefresh();
+}
+
+function renderRun(run = {}) {
+  const continuous = run.continuous || {};
+  const isRunning = run.status === "running" || continuous.status === "running" || continuous.status === "stopping";
+  state.ui.running = isRunning;
+
+  const badge = $("#runBadge");
+  if (badge) {
+    badge.textContent = isRunning ? "Running" : "Auto";
+    badge.className = isRunning ? "badge" : "badge muted";
+  }
+
+  const message = isRunning
+    ? "Sourcing e enrichment a correr automaticamente em background."
+    : "O motor arranca sozinho com o host e mantém sourcing/enrichment em background.";
+  $("#runMessage").textContent = message;
+
+  const completed = Number(run.completedQueries || 0);
+  const total = Number(run.totalQueries || 0);
+  const pct = total ? Math.round((completed / total) * 100) : isRunning ? 35 : 0;
+  $("#progressBar").style.width = `${Math.min(100, pct)}%`;
+  renderRunEvents(run.events || []);
+  iconRefresh();
+}
+
+function renderRunEvents(events = []) {
+  const list = $("#eventList");
+  if (!list) return;
+  const event = events[0];
+  if (!event) {
+    list.innerHTML = `<span>Sem eventos recentes.</span>`;
+    return;
+  }
+  const time = event.at ? new Date(event.at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "now";
+  list.innerHTML = `<span>${escapeHtml(time)} · ${escapeHtml(event.message || "Atualização do motor")}</span>`;
 }
 
 function platformLabel(value = "") { return value || "Web"; }
@@ -230,7 +253,7 @@ function renderPlatformStrip() {
   ];
   $("#platformStrip").innerHTML = buttons
     .filter(([, , count], index) => index === 0 || Number(count || 0) > 0)
-    .slice(0, 18)
+    .slice(0, 16)
     .map(([value, label, count]) => {
       const active = String(state.filters.platform || "") === String(value || "") ? "active" : "";
       return `<button class="source-chip ${active}" data-platform="${escapeHtml(value)}" type="button"><span>${escapeHtml(label)}</span><strong>${compactNumber(count || 0)}</strong></button>`;
@@ -243,48 +266,6 @@ function renderPlatformStrip() {
     resetLeadView();
     await loadDashboard({ forceLeads: true });
   }));
-}
-
-function renderRun(run = {}) {
-  const badge = $("#runBadge");
-  const continuous = run.continuous || {};
-  const isRunning = run.status === "running" || continuous.status === "running" || continuous.status === "stopping";
-  state.ui.running = isRunning;
-  if (badge) {
-    badge.textContent = isRunning ? "Autopilot ativo" : "Pronto";
-    badge.className = isRunning ? "badge" : "badge muted";
-  }
-  setControlsDisabled(isRunning);
-  $("#runMessage").textContent = isRunning
-    ? "A procurar, qualificar e enriquecer novas oportunidades em background."
-    : "Pipeline pronto. O engine mantém dados, fontes e enrichment separados da camada visual.";
-  const completed = Number(run.completedQueries || 0);
-  const total = Number(run.totalQueries || 0);
-  const pct = total ? Math.round((completed / total) * 100) : run.status === "completed" ? 100 : 0;
-  $("#progressBar").style.width = `${Math.min(100, pct)}%`;
-  renderRunEvents(run.events || []);
-  iconRefresh();
-}
-
-function renderRunEvents(events = []) {
-  const list = $("#eventList");
-  if (!list) return;
-  if (!events.length) {
-    list.innerHTML = `<div class="event-item"><strong>system</strong>Sem eventos recentes. O cockpit atualiza automaticamente.</div>`;
-    return;
-  }
-  list.innerHTML = events.slice(0, 5).map((event) => {
-    const time = event.at ? new Date(event.at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "now";
-    return `<div class="event-item"><strong>${escapeHtml(event.status || "event")} · ${escapeHtml(time)}</strong>${escapeHtml(event.message || "Atualização do motor")}</div>`;
-  }).join("");
-}
-
-function setControlsDisabled(isRunning) {
-  $("#scanButton").disabled = isRunning;
-  $("#continuousButton").disabled = isRunning;
-  $$(".preset-button").forEach((button) => { button.disabled = isRunning; });
-  const stop = $("#stopButton");
-  if (stop) stop.disabled = !isRunning;
 }
 
 function typeLabel(value = "") {
@@ -327,9 +308,9 @@ function leadTitle(lead = {}) {
 
 function dealCard(lead) {
   const selected = lead.id === state.selectedId ? "selected" : "";
-  const snippet = (lead.snippet || lead.outbound?.opener || "").slice(0, 110);
+  const snippet = (lead.snippet || lead.outbound?.opener || "").slice(0, 90);
   const confidence = contactConfidence(lead);
-  return `<article class="deal-card ${selected}" data-id="${escapeHtml(lead.id)}" draggable="true"><div class="deal-top"><div><div class="deal-title">${escapeHtml(leadTitle(lead))}</div><a class="deal-url" href="${escapeHtml(lead.url)}" target="_blank" rel="noreferrer">${escapeHtml(shortUrl(lead.url))}</a></div><span class="priority-pill ${priorityClass(lead.priority)}">${escapeHtml(lead.priority || "D")}</span></div><div class="deal-meta"><span class="source-pill ${platformClass(platformForLead(lead))}">${escapeHtml(platformForLead(lead))}</span><span class="type-pill ${escapeHtml(lead.leadType || "")}">${escapeHtml(typeLabel(lead.leadType))}</span></div><div class="deal-note">${escapeHtml(segmentLabel(lead.segment) || countryLabel(lead.country))}</div>${snippet ? `<div class="deal-note">${escapeHtml(snippet)}</div>` : ""}<div class="deal-score"><span>Score ${Number(lead.score || 0)}</span><span>Contacto ${confidence}%</span></div><div class="deal-quality" title="Confiança do contacto"><span style="width:${confidence}%"></span></div></article>`;
+  return `<article class="deal-card ${selected}" data-id="${escapeHtml(lead.id)}" draggable="true"><div class="deal-top"><div><div class="deal-title">${escapeHtml(leadTitle(lead))}</div><a class="deal-url" href="${escapeHtml(lead.url)}" target="_blank" rel="noreferrer">${escapeHtml(shortUrl(lead.url))}</a></div><span class="priority-pill ${priorityClass(lead.priority)}">${escapeHtml(lead.priority || "D")}</span></div><div class="deal-meta"><span class="source-pill ${platformClass(platformForLead(lead))}">${escapeHtml(platformForLead(lead))}</span><span class="type-pill ${escapeHtml(lead.leadType || "")}">${escapeHtml(typeLabel(lead.leadType))}</span></div><div class="deal-note">${escapeHtml(segmentLabel(lead.segment) || countryLabel(lead.country))}</div>${snippet ? `<div class="deal-note muted-note">${escapeHtml(snippet)}</div>` : ""}<div class="deal-score"><span>Score ${Number(lead.score || 0)}</span><span>Contacto ${confidence}%</span></div><div class="deal-quality" title="Confiança do contacto"><span style="width:${confidence}%"></span></div></article>`;
 }
 
 function groupedLeads() {
@@ -351,7 +332,7 @@ function renderLeads() {
     const leads = groups[stage.key] || [];
     const visible = leads.slice(0, MAX_CARDS_PER_LANE);
     const hidden = Math.max(0, leads.length - visible.length);
-    return `<section class="pipeline-lane" data-stage="${stage.key}"><header class="lane-head"><div class="lane-title"><span class="lane-dot"></span>${escapeHtml(stage.label)}</div><span class="lane-count">${compactNumber(leads.length)}</span></header><div class="lane-body">${visible.length ? visible.map(dealCard).join("") : `<div class="empty-lane">${total ? "Arrasta leads para aqui." : "Sem leads nesta vista."}</div>`}${hidden ? `<div class="lane-more">+${compactNumber(hidden)} ocultas nesta coluna. Usa pesquisa ou filtros.</div>` : ""}</div></section>`;
+    return `<section class="pipeline-lane" data-stage="${stage.key}"><header class="lane-head"><div class="lane-title"><span class="lane-dot"></span>${escapeHtml(stage.label)}</div><span class="lane-count">${compactNumber(leads.length)}</span></header><div class="lane-body">${visible.length ? visible.map(dealCard).join("") : `<div class="empty-lane">${total ? "Arrasta leads para aqui." : "Sem leads nesta vista."}</div>`}${hidden ? `<div class="lane-more">+${compactNumber(hidden)} ocultas. Usa pesquisa ou filtros.</div>` : ""}</div></section>`;
   }).join("");
 
   $$(".deal-card").forEach((card) => {
@@ -410,7 +391,7 @@ function renderBestContact(lead = {}) {
   const href = contactHref(contact, type);
   const source = lead.bestContactSource || "";
   const contactNode = href ? `<a class="mini-chip" href="${escapeHtml(href)}" target="_blank" rel="noreferrer">${escapeHtml(contactDisplay(contact))}</a>` : `<span class="mini-chip">${escapeHtml(contact)}</span>`;
-  return `<div class="detail-section"><h3>Melhor contacto validado</h3><div class="message-box"><div class="detail-meta"><span class="priority-pill a">${escapeHtml(contactTypeLabel(type))}</span><span class="mini-chip">Confiança ${Number(lead.contactConfidence || 0)}%</span></div><div class="link-list">${contactNode}</div>${source ? `<p>Fonte: ${escapeHtml(contactDisplay(source))}</p>` : ""}<button class="copy-button" data-copy="${escapeHtml(contact)}"><i data-lucide="copy"></i> Copiar contacto</button></div></div>`;
+  return `<div class="detail-section"><h3>Melhor contacto</h3><div class="message-box"><div class="detail-meta"><span class="priority-pill a">${escapeHtml(contactTypeLabel(type))}</span><span class="mini-chip">Confiança ${Number(lead.contactConfidence || 0)}%</span></div><div class="link-list">${contactNode}</div>${source ? `<p>Fonte: ${escapeHtml(contactDisplay(source))}</p>` : ""}<button class="copy-button" data-copy="${escapeHtml(contact)}"><i data-lucide="copy"></i> Copiar</button></div></div>`;
 }
 
 function renderDetail() {
@@ -429,11 +410,11 @@ function renderDetail() {
   const websiteLinks = lead.websiteLinks || [];
   const phoneNumbers = lead.phoneNumbers || [];
   const forms = lead.forms || [];
-  panel.innerHTML = `<div class="detail-header"><div class="detail-meta"><span class="priority-pill ${priorityClass(lead.priority)}">Lead ${escapeHtml(lead.priority || "D")}</span><span class="stage-pill">${escapeHtml(stageLabel(lead.stage))}</span><span class="type-pill ${escapeHtml(lead.leadType || "")}">${escapeHtml(typeLabel(lead.leadType))}</span><span class="source-pill ${platformClass(platformForLead(lead))}">${escapeHtml(platformForLead(lead))}</span></div><h2>${escapeHtml(leadTitle(lead))}</h2><a href="${escapeHtml(lead.url)}" target="_blank" rel="noreferrer">${escapeHtml(shortUrl(lead.url))}</a></div><div class="detail-section"><h3>Pipeline</h3><label class="field stage-select"><span>Estado comercial</span><select id="detailStage">${PIPELINE_STAGES.map((stage) => `<option value="${stage.key}" ${stage.key === stageKey(lead.stage) ? "selected" : ""}>${stage.label}</option>`).join("")}</select></label><div class="detail-meta"><span class="mini-chip">Score ${Number(lead.score || 0)}</span><span class="mini-chip">Contacto ${lead.contactConfidence || 0}%</span><span class="mini-chip">${escapeHtml(segmentLabel(lead.segment) || "Pesquisa")}</span><span class="mini-chip">${escapeHtml(countryLabel(lead.country))}</span>${languages.map((language) => `<span class="mini-chip">${escapeHtml(language)}</span>`).join("")}</div></div><div class="detail-section"><h3>Sinais</h3><div class="evidence-list">${(evidence.length ? evidence : ["Needs review"]).map((item) => `<span class="mini-chip">${escapeHtml(item)}</span>`).join("")}</div></div><div class="detail-section"><h3>Contexto</h3><p>${escapeHtml(lead.snippet || "No snippet captured.")}</p></div>${renderBestContact(lead)}<div class="detail-section"><h3>Outbound</h3><div class="message-box"><p>${escapeHtml(lead.outbound?.dm || "")}</p><button class="copy-button" data-copy="${escapeHtml(lead.outbound?.dm || "")}"><i data-lucide="copy"></i> Copiar DM</button></div><div class="message-box"><p>${escapeHtml(lead.outbound?.followUp || "")}</p><button class="copy-button" data-copy="${escapeHtml(lead.outbound?.followUp || "")}"><i data-lucide="copy"></i> Copiar follow-up</button></div></div>${emails.length ? `<div class="detail-section"><h3>Email</h3><div class="link-list">${emails.map((email) => `<a class="mini-chip" href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a>`).join("")}</div></div>` : ""}${phoneNumbers.length ? `<div class="detail-section"><h3>Telefones</h3><div class="link-list">${phoneNumbers.map((phone) => `<span class="mini-chip">${escapeHtml(phone)}</span>`).join("")}</div></div>` : ""}${renderForms(forms)}${renderLinkList("Social", socialLinks)}${renderLinkList("Contact paths", contactLinks)}${renderLinkList("Websites", websiteLinks)}`;
+  panel.innerHTML = `<div class="detail-header"><div class="detail-meta"><span class="priority-pill ${priorityClass(lead.priority)}">Lead ${escapeHtml(lead.priority || "D")}</span><span class="stage-pill">${escapeHtml(stageLabel(lead.stage))}</span><span class="type-pill ${escapeHtml(lead.leadType || "")}">${escapeHtml(typeLabel(lead.leadType))}</span><span class="source-pill ${platformClass(platformForLead(lead))}">${escapeHtml(platformForLead(lead))}</span></div><h2>${escapeHtml(leadTitle(lead))}</h2><a href="${escapeHtml(lead.url)}" target="_blank" rel="noreferrer">${escapeHtml(shortUrl(lead.url))}</a></div><div class="detail-section"><h3>Pipeline</h3><label class="field stage-select"><span>Estado comercial</span><select id="detailStage">${PIPELINE_STAGES.map((stage) => `<option value="${stage.key}" ${stage.key === stageKey(lead.stage) ? "selected" : ""}>${stage.label}</option>`).join("")}</select></label><div class="detail-meta"><span class="mini-chip">Score ${Number(lead.score || 0)}</span><span class="mini-chip">Contacto ${lead.contactConfidence || 0}%</span><span class="mini-chip">${escapeHtml(segmentLabel(lead.segment) || "Pesquisa")}</span><span class="mini-chip">${escapeHtml(countryLabel(lead.country))}</span>${languages.map((language) => `<span class="mini-chip">${escapeHtml(language)}</span>`).join("")}</div></div><div class="detail-section"><h3>Sinais</h3><div class="evidence-list">${(evidence.length ? evidence : ["Needs review"]).map((item) => `<span class="mini-chip">${escapeHtml(item)}</span>`).join("")}</div></div><div class="detail-section"><h3>Contexto</h3><p>${escapeHtml(lead.snippet || "No snippet captured.")}</p></div>${renderBestContact(lead)}${emails.length ? `<div class="detail-section"><h3>Email</h3><div class="link-list">${emails.map((email) => `<a class="mini-chip" href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a>`).join("")}</div></div>` : ""}${phoneNumbers.length ? `<div class="detail-section"><h3>Telefones</h3><div class="link-list">${phoneNumbers.map((phone) => `<span class="mini-chip">${escapeHtml(phone)}</span>`).join("")}</div></div>` : ""}${renderForms(forms)}${renderLinkList("Social", socialLinks)}${renderLinkList("Contact paths", contactLinks)}${renderLinkList("Websites", websiteLinks)}`;
   $("#detailStage").addEventListener("change", async (event) => updateLeadStage(lead.id, event.target.value));
   $$(".copy-button").forEach((button) => button.addEventListener("click", async () => {
     await navigator.clipboard.writeText(button.dataset.copy || "");
-    toast("Copiado para o clipboard");
+    toast("Copiado");
   }));
   iconRefresh();
 }
@@ -444,79 +425,15 @@ async function updateLeadStage(id, stage) {
   await api(`/api/leads/${id}`, { method: "PATCH", body: JSON.stringify({ stage }) });
   state.selectedId = id;
   state.ui.leadsSignature = "";
-  toast(`Lead movida para ${stageLabel(stage)}`);
   await loadDashboard({ forceLeads: true });
-}
-
-function scanPayload() {
-  return {
-    regionSet: $("#regionSet").value,
-    maxQueries: Number($("#maxQueries").value || 32),
-    limitPerQuery: Number($("#limitPerQuery").value || 8),
-    includePartners: $("#includePartners").checked,
-    includeRecruitment: $("#includeRecruitment").checked,
-    fetchPages: $("#fetchPages").checked,
-    deepEnrich: $("#deepEnrich").checked,
-    searchContacts: true
-  };
-}
-
-async function startScan() {
-  await api("/api/scan", { method: "POST", body: JSON.stringify(scanPayload()) });
-  toast("Scan iniciado");
-  await loadRun();
-}
-
-async function startPreset(preset) {
-  $("#activePreset").textContent = `preset ${preset}`;
-  await api(`/api/scan/preset/${encodeURIComponent(preset)}`, { method: "POST", body: JSON.stringify(scanPayload()) });
-  toast(`Preset ${preset} iniciado`);
-  await loadRun();
-}
-
-async function startContinuous() {
-  const payload = { ...scanPayload(), maxQueries: Math.max(Number($("#maxQueries").value || 80), 40), limitPerQuery: Math.max(Number($("#limitPerQuery").value || 10), 8), fetchPages: true, deepEnrich: true, searchContacts: true, delayMs: 8000 };
-  await api("/api/continuous/start", { method: "POST", body: JSON.stringify(payload) });
-  toast("Continuous mode iniciado");
-  await loadRun();
-}
-
-async function stopContinuous() {
-  await api("/api/continuous/stop", { method: "POST", body: JSON.stringify({}) });
-  toast("Stop pedido. Vai terminar o ciclo atual.");
-  await loadRun();
-}
-
-async function repairAndExport() {
-  const button = $("#repairButton");
-  const original = button.innerHTML;
-  button.disabled = true;
-  button.innerHTML = `<i data-lucide="loader-2"></i> A reparar`;
-  iconRefresh();
-  try {
-    await api("/api/repair", { method: "POST", body: JSON.stringify({}) });
-    toast("Workers verificados e exports refeitos");
-    await loadDashboard({ forceLeads: true });
-  } finally {
-    button.disabled = false;
-    button.innerHTML = original;
-    iconRefresh();
-  }
 }
 
 function resetLeadView() {
   state.selectedId = null;
   state.ui.leadsSignature = "";
-  updateExportLinks();
 }
 
 function bindControls() {
-  $("#refreshButton").addEventListener("click", async () => { await loadDashboard({ forceLeads: true }); toast("Dashboard atualizado"); });
-  $("#scanButton").addEventListener("click", async () => { try { await startScan(); } catch (error) { toast(error.message); } });
-  $("#continuousButton").addEventListener("click", async () => { try { await startContinuous(); } catch (error) { toast(error.message); } });
-  $("#stopButton").addEventListener("click", async () => { try { await stopContinuous(); } catch (error) { toast(error.message); } });
-  $("#repairButton").addEventListener("click", async () => { try { await repairAndExport(); } catch (error) { toast(error.message); } });
-  $$(".preset-button").forEach((button) => button.addEventListener("click", async () => { try { await startPreset(button.dataset.preset); } catch (error) { toast(error.message); } }));
   $("#searchInput").addEventListener("input", (event) => {
     state.filters.q = event.target.value;
     clearTimeout(window.searchTimer);
@@ -537,7 +454,5 @@ iconRefresh();
 loadDashboard({ forceLeads: true }).catch((error) => console.error(error));
 setInterval(() => {
   if (document.visibilityState === "hidden" || state.ui.dragging) return;
-  const staleLeads = Date.now() - state.ui.lastLeadFetchAt > LEADS_REFRESH_WHEN_RUNNING_MS;
-  if (!state.ui.running && !staleLeads) return;
   loadDashboard().catch((error) => console.error(error));
 }, DASHBOARD_REFRESH_MS);
