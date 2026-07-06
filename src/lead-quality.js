@@ -66,9 +66,6 @@ const OFFICIAL_CHANNEL_HANDLES = [
   "xmsouthasia",
   "xmsouthafrica",
   "xmglobal",
-  "fundednext",
-  "xfunded",
-  "xfundedcom",
   "infinox",
   "infinoxtradingpower",
   "spartanbrokers",
@@ -108,7 +105,13 @@ const BROKER_REVIEW_DOMAINS = [
   "investingintheweb.com",
   "fx-list.com",
   "daytrading.com",
-  "wikifx.com"
+  "wikifx.com",
+  "propfirmmatch.com",
+  "propfirmreviews.com",
+  "propfirmjournal.com",
+  "forexpropreviews.com",
+  "bestpropfirms.com",
+  "tradersunion.com"
 ];
 
 const GENERIC_MARKETING_DOMAINS = [
@@ -175,17 +178,6 @@ const JOB_BOARD_DOMAINS = [
   "bamboohr.com"
 ];
 
-const OFFICIAL_PROP_FIRM_DOMAINS = [
-  "ftmo.com",
-  "fundednext.com",
-  "the5ers.com",
-  "fxify.com",
-  "topstep.com",
-  "myforexfunds.com",
-  "fundedtraderprogram.com",
-  "thefundedtraderprogram.com"
-];
-
 const THIRD_PARTY_CONTACT_DOMAINS = [
   "vidiq.com",
   "patreon.com",
@@ -203,13 +195,13 @@ const STRONG_TRADING_PATTERN =
   /\b(?:forex|fx trader|fx trading|foreign exchange|currency trading|cfd|cfds|xauusd|gold trader|metatrader|mt4|mt5|copy trading|copytrading|signals?|sinais|senales|señales|pamm|mam account|introducing broker|forex ib|ib partner|forex affiliate|cpa forex|revenue share|forex trader|trading academy|forex academy|trading community|forex community|comunidad forex|comunidade forex|prop firm|funded trader|funded trading|derivatives|derivativos|divisas|broker partnership|broker partner|broker regulado)\b/i;
 
 const STRICT_TRADING_ICP_PATTERN =
-  /\b(?:forex|fx trader|fx trading|forex trader|forex trading|foreign exchange|currency trading|currency trader|cfd|cfds|contracts? for difference|xauusd|gold trader|gold scalper|metatrader|mt4|mt5|expert advisor|eas?\s+provider|algo trader|algorithmic trading|copy trading|copytrading|forex signals?|signal provider|strategy provider|sinais forex|seÃ±ales forex|senales forex|pamm|mam account|introducing broker|forex ib|ib partner|forex affiliate|affiliate forex|cpa forex|cpl forex|revshare|revenue share|pnl deal|profit share|broker partnership|broker partner|broker regulado|looking for (?:a )?(?:forex )?broker|recommend (?:a )?(?:forex )?broker|which (?:forex )?broker|procuro corretora|procurando corretora|corretora para forex|busco broker|buscando broker|mejor broker|broker para forex|que broker recomiendan)\b/i;
+  /\b(?:forex|fx trader|fx trading|forex trader|forex trading|foreign exchange|currency trading|currency trader|cfd|cfds|contracts? for difference|xauusd|gold trader|gold scalper|metatrader|mt4|mt5|expert advisor|eas?\s+provider|algo trader|algorithmic trading|copy trading|copytrading|forex signals?|signal provider|strategy provider|sinais forex|señales forex|senales forex|pamm|mam account|introducing broker|forex ib|ib partner|forex affiliate|affiliate forex|cpa forex|cpl forex|revshare|revenue share|pnl deal|profit share|broker partnership|broker partner|broker regulado|looking for (?:a )?(?:forex )?broker|recommend (?:a )?(?:forex )?broker|which (?:forex )?broker|procuro corretora|procurando corretora|corretora para forex|busco broker|buscando broker|mejor broker|broker para forex|que broker recomiendan)\b/i;
 
 const CAPITAL_ALLOCATOR_PATTERN =
   /\b(?:money manager|portfolio manager|fund manager|hedge fund manager|capital allocator|asset manager|investment adviser|investment advisor|gestor de fundos|gestor de fondos|gestor de investimentos|gestora de recursos|administradora de fondos)\b/i;
 
 const TRADING_ASSET_CONTEXT_PATTERN =
-  /\b(?:forex|fx\b|foreign exchange|currency|currencies|divisas|cfd|cfds|derivatives|derivativos|xauusd|gold|metatrader|mt4|mt5|pamm|mam|copy trading|signals?|sinais|senales|seÃ±ales|broker|corretora)\b/i;
+  /\b(?:forex|fx\b|foreign exchange|currency|currencies|divisas|cfd|cfds|derivatives|derivativos|xauusd|gold|metatrader|mt4|mt5|pamm|mam|copy trading|signals?|sinais|senales|señales|broker|corretora)\b/i;
 
 const BROKER_RECRUITMENT_ROLE_PATTERN =
   /\b(?:business development|partnerships?|affiliate manager|country manager|regional manager|sales manager|account manager|retention manager|worked at|former|ex-|employee|team lead|head of)\b/i;
@@ -218,7 +210,7 @@ const PARTNER_ENTITY_PATTERN =
   /\b(?:founder|owner|ceo|director|head of|business development|partnerships?|affiliate manager|portfolio manager|fund manager|money manager|investment adviser|trading educator|mentor|community|telegram|discord|whatsapp|youtube|instagram|linkedin\.com\/in|linkedin\.com\/company|contact|contacto|contato|book a call|calendly)\b/i;
 
 const REVIEW_PAGE_PATTERN =
-  /\b(?:top brokers?|best brokers?|compare brokers?|broker comparison|broker reviews?|forex broker reviews?|updated for 20\d{2}|no\.?\s*1 forex broker|best forex broker|melhores corretoras|melhor corretora|mejores brokers|mejor broker)\b/i;
+  /\b(?:top brokers?|best brokers?|compare brokers?|broker comparison|broker reviews?|forex broker reviews?|top prop firms?|best prop firms?|compare prop firms?|prop firm reviews?|funded trader reviews?|updated for 20\d{2}|no\.?\s*1 forex broker|best forex broker|melhores corretoras|melhor corretora|mejores brokers|mejor broker)\b/i;
 
 const GENERIC_ARTICLE_PATTERN =
   /\b(?:what is|what are|o que e|o que é|o que sao|o que são|como funciona|explicado|explained|complete guide|guia completo|beginner guide|learn articles?|glossary|definition|aprende com exemplos|complete guide to|pr[oó]s e contras)\b|\/(?:learn|education|educacao|educación|artigos|explica|blog)\/|\/learn\/articles\//i;
@@ -395,10 +387,6 @@ export function leadRejectionReasons(lead = {}, options = {}) {
 
   if (isOfficialBrokerLead(lead)) reasons.push("official broker/brokerage page");
 
-  if (domainMatches(domain, OFFICIAL_PROP_FIRM_DOMAINS)) {
-    reasons.push("official prop firm/challenge page");
-  }
-
   if (!hasStrictTradingIcp(lead)) {
     reasons.push("missing strict forex/CFD/trading ICP signal");
   }
@@ -413,37 +401,27 @@ export function leadRejectionReasons(lead = {}, options = {}) {
     }
   }
 
-  if (NON_TRADING_CFD_NOISE_PATTERN.test(contentText) && !TRADING_CONTEXT_PATTERN.test(contentText)) {
-    reasons.push("non-trading CFD/acronym noise");
-  }
+  if (NON_TRADING_CFD_NOISE_PATTERN.test(contentText) && !TRADING_CONTEXT_PATTERN.test(contentText)) reasons.push("non-trading CFD/acronym noise");
 
   if ((domain === "youtube.com" || domain.endsWith(".youtube.com")) && /YouTube creator\/channel result for/i.test(String(lead.snippet || ""))) {
-    if (!YOUTUBE_IDENTITY_TRADING_PATTERN.test(identityText)) {
-      reasons.push("legacy YouTube result without trading identity");
-    }
+    if (!YOUTUBE_IDENTITY_TRADING_PATTERN.test(identityText)) reasons.push("legacy YouTube result without trading identity");
   }
 
-  if (domainMatches(domain, THIRD_PARTY_CONTACT_DOMAINS)) {
-    reasons.push("third-party tooling/contact domain");
-  }
+  if (domainMatches(domain, THIRD_PARTY_CONTACT_DOMAINS)) reasons.push("third-party tooling/contact domain");
 
   if (domainMatches(domain, JOB_BOARD_DOMAINS) || /\b(?:apply for this job|submit your application|resume\/cv|equal opportunity employer|jobs powered by|job description|we are hiring|vacancy)\b/i.test(contentText)) {
     reasons.push("job listing/careers page");
   }
 
   if (domain === "tradingview.com" || domain.endsWith(".tradingview.com")) {
-    if (/\/markets\/|\/chart\/?$|\/symbols\//i.test(String(lead.url || ""))) {
-      reasons.push("generic market/chart page");
-    }
+    if (/\/markets\/|\/chart\/?$|\/symbols\//i.test(String(lead.url || ""))) reasons.push("generic market/chart page");
   }
 
   if (domainMatches(domain, GENERIC_MARKETING_DOMAINS) || GENERIC_MARKETING_PATTERN.test(contentText)) {
     if (!strongTrading) reasons.push("generic social-media/marketing page");
   }
 
-  if (domainMatches(domain, CONTENT_FARM_DOMAINS)) {
-    reasons.push("generic article/reference page");
-  }
+  if (domainMatches(domain, CONTENT_FARM_DOMAINS)) reasons.push("generic article/reference page");
 
   if (domainMatches(domain, CONTENT_FARM_DOMAINS) && !/\b(?:contact|contato|contacto|partnership|parceria|affiliate|introducing broker|signals?|community|whatsapp|telegram)\b/i.test(rawContentText)) {
     reasons.push("generic article/reference page");
@@ -453,51 +431,35 @@ export function leadRejectionReasons(lead = {}, options = {}) {
     reasons.push("generic explainer/reference page");
   }
 
-  if (/\b(?:child care|daycare|bookkeeping software|accounting software|school management software|payroll software)\b/i.test(rawContentText)) {
-    reasons.push("non-trading business software page");
-  }
+  if (/\b(?:child care|daycare|bookkeeping software|accounting software|school management software|payroll software)\b/i.test(rawContentText)) reasons.push("non-trading business software page");
 
   if (domainMatches(domain, CONTENT_FARM_DOMAINS) || GENERIC_ARTICLE_PATTERN.test(contentText)) {
-    if (!partnerEntity || /\/(?:learn|education|educacao|educación|artigos|explica|blog)\//i.test(lower)) {
-      reasons.push("generic article/reference page");
-    }
+    if (!partnerEntity || /\/(?:learn|education|educacao|educación|artigos|explica|blog)\//i.test(lower)) reasons.push("generic article/reference page");
   }
 
   if (/\b(?:what is|what are|o que e|o que é|entenda para que serve|guia completo|complete guide|glossary)\b/i.test(contentText) || /\/(?:guias?|think\/topics|topics\/fintech)\//i.test(lower)) {
-    if (!/\b(?:contact|contato|contacto|partnership|parceria|affiliate|introducing broker|signals?|community|whatsapp|telegram)\b/i.test(contentText)) {
-      reasons.push("generic explainer/reference page");
-    }
+    if (!/\b(?:contact|contato|contacto|partnership|parceria|affiliate|introducing broker|signals?|community|whatsapp|telegram)\b/i.test(contentText)) reasons.push("generic explainer/reference page");
   }
 
   if (domainMatches(domain, BROKER_REVIEW_DOMAINS) || REVIEW_PAGE_PATTERN.test(contentText)) {
-    if (!/\b(?:affiliate|partnership|advertise|media kit|contact us|contacto|contato)\b/i.test(contentText)) {
-      reasons.push("generic broker ranking/review page");
-    }
+    if (!/\b(?:affiliate|partnership|advertise|media kit|contact us|contacto|contato)\b/i.test(contentText)) reasons.push("generic ranking/review page");
   }
 
   if (domainMatches(domain, GENERIC_BANK_DOMAINS)) {
     if (!strongTrading || !partnerEntity) reasons.push("generic bank/asset-management institution page");
   }
 
-  if (/\b(?:insurance|insure|seguro|seguros|corretor de seguros|broker de seguros)\b/i.test(contentText) && !strongTrading) {
-    reasons.push("insurance broker, not trading broker");
-  }
+  if (/\b(?:insurance|insure|seguro|seguros|corretor de seguros|broker de seguros)\b/i.test(contentText) && !strongTrading) reasons.push("insurance broker, not trading broker");
 
-  if (/\b(?:balance of payments|revised down|tv news|breaking news|parliament|government)\b/i.test(contentText) && !strongTrading) {
-    reasons.push("generic news/government result");
-  }
+  if (/\b(?:balance of payments|revised down|tv news|breaking news|parliament|government)\b/i.test(contentText) && !strongTrading) reasons.push("generic news/government result");
 
   if (domain === "bbs.bt" || domain === "homebroker.com" || domain === "insurebroker.pt") {
     if (!strongTrading) reasons.push("generic non-forex broker/media page");
   }
 
-  if (GENERIC_FINANCE_ROLE_PATTERN.test(contentText) && !strongTrading) {
-    reasons.push("generic finance analyst/media result");
-  }
+  if (GENERIC_FINANCE_ROLE_PATTERN.test(contentText) && !strongTrading) reasons.push("generic finance analyst/media result");
 
-  if (/\b(?:sports team|football club|sunderland|houston dynamo|currys|gift card|customer service complaint)\b/i.test(contentText)) {
-    reasons.push("consumer/sports/forum noise");
-  }
+  if (/\b(?:sports team|football club|sunderland|houston dynamo|currys|gift card|customer service complaint)\b/i.test(contentText)) reasons.push("consumer/sports/forum noise");
 
   return [...new Set(reasons)];
 }
@@ -509,8 +471,6 @@ export function isHardRejectedLead(lead = {}, options = {}) {
 export function hasSearchableLeadSignal(result = {}) {
   const text = qualityText(result, { includeQuery: false });
   if (hasStrongTradingSignal(text)) return true;
-  if (/\b(?:introducing broker|forex affiliate|trading educator|forex educator|forex signals|copy trading|pamm|mam account|funded trader|prop firm|money manager|portfolio manager|fund manager|broker partnership|affiliate partner)\b/i.test(text)) {
-    return true;
-  }
+  if (/\b(?:introducing broker|forex affiliate|trading educator|forex educator|forex signals|copy trading|pamm|mam account|funded trader|prop firm|money manager|portfolio manager|fund manager|broker partnership|affiliate partner)\b/i.test(text)) return true;
   return false;
 }
