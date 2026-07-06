@@ -8,6 +8,18 @@ const rootDir = getRootDir();
 const dataDir = path.join(rootDir, "data");
 fs.mkdirSync(dataDir, { recursive: true });
 
+const PROFILE_TASKS = {
+  light: ["source-harvester", "enrichment-worker", "qualified-exporter", "supervisor"],
+  balanced: ["source-harvester", "source-harvester-social", "source-harvester-platforms", "enrichment-worker", "smart-enrichment-worker", "lead-cleaner", "qualified-exporter", "supervisor"],
+  full: Object.keys(BACKGROUND_TASKS)
+};
+
+function workerSelection() {
+  const requested = String(process.env.ENGINE_BACKGROUND_PROFILE || "balanced").trim().toLowerCase();
+  const profile = PROFILE_TASKS[requested] ? requested : "balanced";
+  return { profile, tasks: PROFILE_TASKS[profile] };
+}
+
 function launchServer() {
   const out = fs.openSync(path.join(dataDir, "server.out.log"), "a");
   const err = fs.openSync(path.join(dataDir, "server.err.log"), "a");
@@ -18,6 +30,8 @@ function launchServer() {
 }
 
 const serverPid = launchServer();
+const { profile, tasks } = workerSelection();
 console.log(`server=${serverPid} (started)`);
-const results = await ensureBackgroundTasks(Object.keys(BACKGROUND_TASKS));
+console.log(`background_profile=${profile} tasks=${tasks.join(",")}`);
+const results = await ensureBackgroundTasks(tasks);
 for (const task of results) console.log(`${task.name}=${task.pid} (${task.status})`);
