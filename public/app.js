@@ -13,6 +13,7 @@ const MAX_LEADS_FETCH = 180;
 const MAX_CARDS_PER_LANE = 35;
 const DASHBOARD_REFRESH_MS = 15000;
 const LEADS_REFRESH_WHEN_RUNNING_MS = 45000;
+const SNAPSHOT_MAX_AGE_MS = 90000;
 
 const state = {
   leads: [],
@@ -31,15 +32,11 @@ function iconRefresh() {
   requestAnimationFrame(() => { window.lucide.createIcons(); state.ui.iconRefreshQueued = false; });
 }
 
-function escapeHtml(value = "") {
-  return String(value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-}
-
+function escapeHtml(value = "") { return String(value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
 function shortUrl(url = "") {
   try { const parsed = new URL(url); return `${parsed.hostname.replace(/^www\./, "")}${parsed.pathname === "/" ? "" : parsed.pathname}`.slice(0, 78); }
   catch { return String(url || "").slice(0, 78); }
 }
-
 async function api(path, options) {
   const response = await fetch(path, { headers: { "content-type": "application/json" }, ...options });
   if (!response.ok) { const body = await response.json().catch(() => ({})); throw new Error(body.error || `HTTP ${response.status}`); }
@@ -57,9 +54,26 @@ function filterQueryString({ includeLimit = false } = {}) {
   if (includeLimit) params.set("limit", String(MAX_LEADS_FETCH));
   return params.toString();
 }
+function hasLiveFilters() {
+  return state.filters.viewMode === "raw" || state.filters.q || state.filters.priority || state.filters.leadType || state.filters.stage || state.filters.platform;
+}
+function leadsSignature(leads = []) { return leads.map((lead) => [lead.id, lead.stage, lead.score, lead.contactConfidence, lead.lastSeen, lead.updatedAt].join(":")).join("|"); }
+function snapshotHealth(summary = {}) { return { ok: true, counts: { working: summary.counts?.total || 0, contactable: summary.counts?.contactable || 0 }, enrichmentQueue: { dueNow: 0 } }; }
 
-function leadsSignature(leads = []) {
-  return leads.map((lead) => [lead.id, lead.stage, lead.score, lead.contactConfidence, lead.lastSeen, lead.updatedAt].join(":")).join("|");
+async function loadStaticSnapshot() {
+  if (hasLiveFilters()) return null;
+  try {
+    const bucket = Math.floor(Date.now() / 12000);
+    const response = await fetch(`/ui-dashboard.json?v=${bucket}`, { cache: "no-store" });
+    if (!response.ok) return null;
+    const snapshot = await response.json();
+    const generatedAt = Date.parse(snapshot.generatedAt || "");
+    if (!Number.isFinite(generatedAt) || Date.now() - generatedAt > SNAPSHOT_MAX_AGE_MS) return null;
+    const summary = snapshot.summary || { counts: { total: snapshot.total || 0 }, rawTotal: snapshot.total || 0 };
+    return { total: snapshot.total || 0, leads: (snapshot.leads || []).slice(0, MAX_LEADS_FETCH), summary, health: snapshotHealth(summary), run: { status: "idle" }, snapshot: true };
+  } catch {
+    return null;
+  }
 }
 
 function applyDashboardData(data, { forceLeads = false } = {}) {
@@ -68,7 +82,6 @@ function applyDashboardData(data, { forceLeads = false } = {}) {
   renderSummary();
   renderHealth();
   renderRun(data.run || state.summary?.activeRun || {});
-
   const leads = data.leads || [];
   const signature = leadsSignature(leads);
   const selectedBefore = state.selectedId;
@@ -88,19 +101,20 @@ async function loadDashboard({ forceLeads = false } = {}) {
   if (state.ui.loadingLeads) return;
   state.ui.loadingLeads = true;
   try {
+    const snapshot = await loadStaticSnapshot();
+    if (snapshot) {
+      applyDashboardData(snapshot, { forceLeads });
+      if (!state.ui.running) return;
+    }
     const query = filterQueryString({ includeLimit: true });
     const data = await api(`/api/dashboard${query ? `?${query}` : ""}`);
     applyDashboardData(data, { forceLeads });
-  } finally {
-    state.ui.loadingLeads = false;
-  }
+  } finally { state.ui.loadingLeads = false; }
 }
-
 async function loadSummary() { await loadDashboard(); }
 async function loadLeads({ force = false } = {}) { await loadDashboard({ forceLeads: force }); }
 async function loadRun() { const run = await api("/api/run"); renderRun(run); }
 async function loadHealth() { state.health = await api("/api/health"); renderHealth(); }
-
 function compactNumber(value) { return Number(value || 0).toLocaleString("en-US"); }
 
 function renderSummary() {
@@ -116,10 +130,8 @@ function renderSummary() {
   $("#metricEmailForm").textContent = compactNumber(Number(counts.emails || 0) + Number(counts.forms || 0));
   renderPlatformStrip();
 }
-
 function renderHealth() {
-  const health = state.health;
-  if (!health) return;
+  const health = state.health; if (!health) return;
   const statusClass = health.ok ? "ok" : "bad";
   $("#systemHealth").innerHTML = `<span class="health-pill ${statusClass}"><i data-lucide="${health.ok ? "sparkles" : "alert-triangle"}"></i>${health.ok ? "Motor ativo" : "A rever"}</span><span><strong>${compactNumber(health.counts?.working)}</strong> working</span><span><strong>${compactNumber(health.counts?.contactable)}</strong> contactáveis</span><span><strong>${compactNumber(health.enrichmentQueue?.dueNow)}</strong> enrichment due</span>`;
   iconRefresh();
@@ -129,7 +141,6 @@ function platformLabel(value = "") { return value || "Web"; }
 function platformClass(value = "") { return platformLabel(value).toLowerCase().replace(/[^a-z0-9]+/g, "-") || "unknown"; }
 function platformForLead(lead = {}) { return lead.platform || "Web"; }
 function countryLabel(value = "") { return value || "Global"; }
-
 function renderPlatformStrip() {
   const byPlatform = state.summary?.byPlatform || {};
   const entries = Object.entries(byPlatform).sort((a, b) => b[1] - a[1]);
@@ -167,36 +178,29 @@ function segmentLabel(value = "") { const labels = { "Fund / Asset Manager": "Fu
 function priorityClass(priority) { return String(priority || "d").toLowerCase(); }
 function contactConfidence(lead = {}) { return Math.max(0, Math.min(100, Number(lead.contactConfidence || 0))); }
 function leadTitle(lead = {}) { const value = lead.name || lead.title || "Untitled"; return String(value).replace(/^\)?\s*\/\s*posts\s*\/\s*x(?:\s*-\s*twitter)?/i, "X profile/post").replace(/^thread\s*›\s*/i, "ForexFactory thread: ").replace(/^past-events\s*›\s*/i, "Event: "); }
-
 function dealCard(lead) {
   const selected = lead.id === state.selectedId ? "selected" : "";
   const snippet = (lead.snippet || lead.outbound?.opener || "").slice(0, 96);
   const confidence = contactConfidence(lead);
   return `<article class="deal-card ${selected}" data-id="${escapeHtml(lead.id)}" draggable="true"><div class="deal-top"><div><div class="deal-title">${escapeHtml(leadTitle(lead))}</div><a class="deal-url" href="${escapeHtml(lead.url)}" target="_blank" rel="noreferrer">${escapeHtml(shortUrl(lead.url))}</a></div><span class="priority-pill ${priorityClass(lead.priority)}">${escapeHtml(lead.priority || "D")}</span></div><div class="deal-meta"><span class="source-pill ${platformClass(platformForLead(lead))}">${escapeHtml(platformForLead(lead))}</span><span class="type-pill ${escapeHtml(lead.leadType || "")}">${escapeHtml(typeLabel(lead.leadType))}</span></div><div class="deal-note">${escapeHtml(segmentLabel(lead.segment) || countryLabel(lead.country))}</div>${snippet ? `<div class="deal-note">${escapeHtml(snippet)}</div>` : ""}<div class="deal-score"><span>Score ${Number(lead.score || 0)}</span><span>Contacto ${confidence}%</span></div><div class="deal-quality" title="Confiança do contacto"><span style="width:${confidence}%"></span></div></article>`;
 }
-
 function groupedLeads() { const groups = Object.fromEntries(PIPELINE_STAGES.map((stage) => [stage.key, []])); for (const lead of state.leads) groups[stageKey(lead.stage)].push(lead); return groups; }
 function selectLead(id) { state.selectedId = id; document.querySelectorAll(".deal-card").forEach((card) => card.classList.toggle("selected", card.dataset.id === id)); renderDetail(); }
-
 function renderLeads() {
-  const groups = groupedLeads();
-  const total = state.leads.length;
+  const groups = groupedLeads(), total = state.leads.length;
   $("#leadRows").innerHTML = PIPELINE_STAGES.map((stage) => { const leads = groups[stage.key] || []; const visible = leads.slice(0, MAX_CARDS_PER_LANE); const hidden = Math.max(0, leads.length - visible.length); return `<section class="pipeline-lane" data-stage="${stage.key}"><header class="lane-head"><div class="lane-title"><span class="lane-dot"></span>${escapeHtml(stage.label)}</div><span class="lane-count">${compactNumber(leads.length)}</span></header><div class="lane-body">${visible.length ? visible.map(dealCard).join("") : `<div class="empty-lane">${total ? "Arrasta leads para aqui." : "Sem leads nesta vista."}</div>`}${hidden ? `<div class="lane-more">+${compactNumber(hidden)} ocultas nesta coluna. Usa pesquisa ou filtros.</div>` : ""}</div></section>`; }).join("");
   document.querySelectorAll(".deal-card").forEach((card) => { card.addEventListener("click", (event) => { if (!event.target.closest("a, button, select")) selectLead(card.dataset.id); }); card.addEventListener("dragstart", (event) => { state.ui.dragging = true; card.classList.add("dragging"); event.dataTransfer.setData("text/plain", card.dataset.id); }); card.addEventListener("dragend", () => { state.ui.dragging = false; card.classList.remove("dragging"); }); });
-  document.querySelectorAll(".pipeline-lane").forEach((lane) => { lane.addEventListener("dragover", (event) => { event.preventDefault(); lane.classList.add("drag-over"); }); lane.addEventListener("dragleave", () => lane.classList.remove("drag-over")); lane.addEventListener("drop", async (event) => { event.preventDefault(); lane.classList.remove("drag-over"); state.ui.dragging = false; const id = event.dataTransfer.getData("text/plain"); const stage = lane.dataset.stage; if (id && stage) await updateLeadStage(id, stage); }); });
+  document.querySelectorAll(".pipeline-lane").forEach((lane) => { lane.addEventListener("dragover", (event) => { event.preventDefault(); lane.classList.add("drag-over"); }); lane.addEventListener("dragleave", () => lane.classList.remove("drag-over")); lane.addEventListener("drop", async (event) => { event.preventDefault(); lane.classList.remove("drag-over"); state.ui.dragging = false; const id = event.dataTransfer.getData("text/plain"), stage = lane.dataset.stage; if (id && stage) await updateLeadStage(id, stage); }); });
   iconRefresh();
 }
-
 function renderLinkList(title, links = []) { if (!links.length) return ""; return `<div class="detail-section"><h3>${escapeHtml(title)}</h3><div class="link-list">${links.map((link) => `<a class="mini-chip" href="${escapeHtml(link)}" target="_blank" rel="noreferrer">${escapeHtml(shortUrl(link))}</a>`).join("")}</div></div>`; }
 function renderForms(forms = []) { if (!forms.length) return ""; return `<div class="detail-section"><h3>Formulários</h3>${forms.map((form) => `<div class="message-box"><p><strong>${escapeHtml(form.method || "GET")}</strong> ${escapeHtml(shortUrl(form.action || form.pageUrl || ""))}</p><p>${escapeHtml((form.fields || []).join(", ") || form.label || "Contact form")}</p><a class="mini-chip" href="${escapeHtml(form.pageUrl || form.action || "")}" target="_blank" rel="noreferrer">Abrir formulário</a></div>`).join("")}</div>`; }
 function contactTypeLabel(value = "") { const labels = { email: "Email", whatsapp: "WhatsApp validado", phone: "Telefone", form: "Formulário", social: "Social/DM", website: "Website", "direct-link": "Link direto" }; return labels[String(value).toLowerCase()] || value || "Contacto"; }
 function contactHref(contact = "", type = "") { if (/^https?:\/\//i.test(contact)) return contact; if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact)) return `mailto:${contact}`; if (type === "phone" || type === "whatsapp") return `tel:${contact.replace(/[^+\d]/g, "")}`; return ""; }
 function contactDisplay(contact = "") { return /^https?:\/\//i.test(contact) ? shortUrl(contact) : contact; }
 function renderBestContact(lead = {}) { const contact = lead.bestContact || ""; if (!contact) return ""; const type = lead.bestContactType || lead.contactQuality || ""; const href = contactHref(contact, type); const source = lead.bestContactSource || ""; const contactNode = href ? `<a class="mini-chip" href="${escapeHtml(href)}" target="_blank" rel="noreferrer">${escapeHtml(contactDisplay(contact))}</a>` : `<span class="mini-chip">${escapeHtml(contact)}</span>`; return `<div class="detail-section"><h3>Melhor contacto validado</h3><div class="message-box"><div class="detail-meta"><span class="priority-pill a">${escapeHtml(contactTypeLabel(type))}</span><span class="mini-chip">Confiança ${Number(lead.contactConfidence || 0)}%</span></div><div class="link-list">${contactNode}</div>${source ? `<p>Fonte: ${escapeHtml(contactDisplay(source))}</p>` : ""}<button class="copy-button" data-copy="${escapeHtml(contact)}"><i data-lucide="copy"></i> Copiar contacto</button></div></div>`; }
-
 function renderDetail() {
-  const lead = state.leads.find((item) => item.id === state.selectedId);
-  const panel = $("#detailPanel");
+  const lead = state.leads.find((item) => item.id === state.selectedId), panel = $("#detailPanel");
   if (!lead) { panel.innerHTML = `<div class="empty-state"><i data-lucide="mouse-pointer-2"></i><p>Seleciona uma lead para abrir o dossiê comercial.</p></div>`; iconRefresh(); return; }
   const emails = lead.emails || [], languages = lead.languages || [], evidence = lead.evidence || [], socialLinks = lead.socialLinks || [], contactLinks = lead.contactLinks || [], websiteLinks = lead.websiteLinks || [], phoneNumbers = lead.phoneNumbers || [], forms = lead.forms || [];
   panel.innerHTML = `<div class="detail-header"><div class="detail-meta"><span class="priority-pill ${priorityClass(lead.priority)}">Lead ${escapeHtml(lead.priority || "D")}</span><span class="stage-pill">${escapeHtml(stageLabel(lead.stage))}</span><span class="type-pill ${escapeHtml(lead.leadType || "")}">${escapeHtml(typeLabel(lead.leadType))}</span><span class="source-pill ${platformClass(platformForLead(lead))}">${escapeHtml(platformForLead(lead))}</span></div><h2>${escapeHtml(leadTitle(lead))}</h2><a href="${escapeHtml(lead.url)}" target="_blank" rel="noreferrer">${escapeHtml(shortUrl(lead.url))}</a></div><div class="detail-section"><h3>Pipeline</h3><label class="field stage-select"><span>Estado comercial</span><select id="detailStage">${PIPELINE_STAGES.map((stage) => `<option value="${stage.key}" ${stage.key === stageKey(lead.stage) ? "selected" : ""}>${stage.label}</option>`).join("")}</select></label><div class="detail-meta"><span class="mini-chip">Score ${Number(lead.score || 0)}</span><span class="mini-chip">Contacto ${lead.contactConfidence || 0}%</span><span class="mini-chip">${escapeHtml(segmentLabel(lead.segment) || "Pesquisa")}</span><span class="mini-chip">${escapeHtml(countryLabel(lead.country))}</span>${languages.map((language) => `<span class="mini-chip">${escapeHtml(language)}</span>`).join("")}</div></div><div class="detail-section"><h3>Sinais</h3><div class="evidence-list">${(evidence.length ? evidence : ["Needs review"]).map((item) => `<span class="mini-chip">${escapeHtml(item)}</span>`).join("")}</div></div><div class="detail-section"><h3>Contexto</h3><p>${escapeHtml(lead.snippet || "No snippet captured.")}</p></div>${renderBestContact(lead)}<div class="detail-section"><h3>Outbound</h3><div class="message-box"><p>${escapeHtml(lead.outbound?.dm || "")}</p><button class="copy-button" data-copy="${escapeHtml(lead.outbound?.dm || "")}"><i data-lucide="copy"></i> Copiar DM</button></div><div class="message-box"><p>${escapeHtml(lead.outbound?.followUp || "")}</p><button class="copy-button" data-copy="${escapeHtml(lead.outbound?.followUp || "")}"><i data-lucide="copy"></i> Copiar follow-up</button></div></div>${emails.length ? `<div class="detail-section"><h3>Email</h3><div class="link-list">${emails.map((email) => `<a class="mini-chip" href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a>`).join("")}</div></div>` : ""}${phoneNumbers.length ? `<div class="detail-section"><h3>Telefones</h3><div class="link-list">${phoneNumbers.map((phone) => `<span class="mini-chip">${escapeHtml(phone)}</span>`).join("")}</div></div>` : ""}${renderForms(forms)}${renderLinkList("Social", socialLinks)}${renderLinkList("Contact paths", contactLinks)}${renderLinkList("Websites", websiteLinks)}`;
@@ -204,13 +208,11 @@ function renderDetail() {
   document.querySelectorAll(".copy-button").forEach((button) => button.addEventListener("click", async () => { await navigator.clipboard.writeText(button.dataset.copy || ""); button.textContent = "Copiado"; setTimeout(renderDetail, 700); }));
   iconRefresh();
 }
-
 async function updateLeadStage(id, stage) { const lead = state.leads.find((item) => item.id === id); if (!lead || stageKey(lead.stage) === stage) return; await api(`/api/leads/${id}`, { method: "PATCH", body: JSON.stringify({ stage }) }); state.selectedId = id; state.ui.leadsSignature = ""; await loadDashboard({ forceLeads: true }); }
 async function startScan() { const payload = { regionSet: $("#regionSet").value, maxQueries: Number($("#maxQueries").value || 32), limitPerQuery: Number($("#limitPerQuery").value || 8), includePartners: $("#includePartners").checked, includeRecruitment: $("#includeRecruitment").checked, fetchPages: $("#fetchPages").checked, deepEnrich: $("#deepEnrich").checked, searchContacts: true }; await api("/api/scan", { method: "POST", body: JSON.stringify(payload) }); await loadRun(); }
 async function startContinuous() { const payload = { regionSet: $("#regionSet").value, maxQueries: Math.max(Number($("#maxQueries").value || 80), 40), limitPerQuery: Math.max(Number($("#limitPerQuery").value || 10), 8), includePartners: $("#includePartners").checked, includeRecruitment: $("#includeRecruitment").checked, fetchPages: true, deepEnrich: true, searchContacts: true, delayMs: 8000 }; await api("/api/continuous/start", { method: "POST", body: JSON.stringify(payload) }); await loadRun(); }
 async function stopContinuous() { await api("/api/continuous/stop", { method: "POST", body: JSON.stringify({}) }); await loadRun(); }
 function resetLeadView() { state.selectedId = null; state.ui.leadsSignature = ""; }
-
 function bindControls() {
   $("#scanButton").addEventListener("click", async () => { try { await startScan(); } catch (error) { alert(error.message); } });
   $("#continuousButton").addEventListener("click", async () => { try { await startContinuous(); } catch (error) { alert(error.message); } });
