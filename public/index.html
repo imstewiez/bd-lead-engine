@@ -3,179 +3,133 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#0A0D14" />
+    <meta name="theme-color" content="#070A12" />
     <title>AXIOM | Commercial Intelligence Terminal</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/styles.css?v=axiom-terminal-2" />
-    <link rel="stylesheet" href="/axiom-density.css?v=axiom-terminal-2" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css?v=axiom-v3" />
     <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-    <script defer src="/app.js?v=axiom-terminal-2"></script>
+    <script type="module" src="/app.js?v=axiom-v3"></script>
   </head>
   <body>
-    <div class="app-shell terminal-shell">
-      <header class="topbar terminal-header">
-        <div class="brand-lockup" aria-label="AXIOM Commercial Intelligence Terminal">
-          <div class="brand-mark terminal-mark" aria-hidden="true">AX</div>
-          <div class="brand-copy">
+    <div class="app-shell">
+      <header class="terminal-topbar">
+        <div class="brand-cluster">
+          <div class="brand-orb">AX</div>
+          <div>
             <p class="eyebrow">AXIOM // Commercial Intelligence</p>
-            <h1>Commercial Intelligence Terminal</h1>
+            <h1>Execution Terminal</h1>
           </div>
         </div>
 
-        <div class="topbar-status" aria-label="System status">
-          <span id="runBadge" class="status-pill live">SYSTEM ONLINE</span>
-          <span class="status-pill system-ready"><span class="live-dot">●</span> PLATFORM READY</span>
-          <span id="lastUpdated" class="status-pill">SYNC —</span>
+        <div class="topbar-actions">
+          <span id="runBadge" class="status-chip online">SYSTEM ONLINE</span>
+          <span class="status-chip ready"><span class="pulse-dot"></span> PLATFORM READY</span>
+          <span id="lastUpdated" class="status-chip muted">SYNC —</span>
+          <button id="refreshBtn" class="icon-action" type="button" title="Refresh data"><i data-lucide="refresh-cw"></i></button>
+          <button id="commandBtn" class="command-button" type="button"><span>⌘K</span> Command</button>
         </div>
       </header>
 
-      <main class="crm-shell command-cockpit">
-        <section class="overview terminal-overview" aria-label="Command Cockpit summary">
-          <div class="hero-panel command-panel">
-            <div class="hero-copy">
-              <p class="eyebrow">Command Cockpit</p>
-              <h2>Brokerage BD intelligence, ranked by execution value.</h2>
-              <p>Live sourcing, enrichment and signal scoring for IBs, affiliates, prop firms, traders and trading communities.</p>
+      <main class="terminal-main">
+        <section class="summary-grid" aria-label="AXIOM command cockpit">
+          <article class="command-hero">
+            <div class="hero-glow"></div>
+            <p class="eyebrow cyan">Live Brokerage BD OS</p>
+            <h2>Prioritize targets by intent, signal accuracy and execution value.</h2>
+            <p>Operate sourcing, enrichment, qualification and manual outbound from one high-density cockpit.</p>
+            <div class="hero-actions">
+              <button id="startEngineBtn" class="exec-button primary" type="button"><i data-lucide="zap"></i> Initialize Sourcing</button>
+              <a id="exportCsvBtn" class="exec-button" href="/api/export.csv"><i data-lucide="download"></i> CSV Push</a>
+              <a id="exportJsonBtn" class="exec-button ghost" href="/api/export.json"><i data-lucide="braces"></i> JSON</a>
             </div>
+          </article>
 
-            <div class="command-stack" aria-label="Execution actions">
-              <span class="command-token primary">Initialize Sourcing Engine</span>
-              <span class="command-token">Entity Graph Resolution</span>
-              <span class="command-token">Deploy to Pipeline (CSV Push)</span>
-            </div>
-          </div>
+          <section class="metric-grid" aria-label="Metrics">
+            <article class="metric-card accent-cyan"><span>Harvested Targets</span><strong id="metricRawTotal">0</strong></article>
+            <article class="metric-card accent-emerald"><span id="metricTotalLabel">Execution-Ready</span><strong id="metricTotal">0</strong></article>
+            <article class="metric-card accent-cyan"><span>Signal Routes</span><strong id="metricContactable">0</strong></article>
+            <article class="metric-card accent-emerald"><span>A-Tier Cluster</span><strong id="metricA">0</strong></article>
+            <article class="metric-card accent-violet"><span>Workers</span><strong id="metricActiveWorkers">AUTO</strong></article>
+            <article class="metric-card accent-amber"><span>Meetings</span><strong id="metricBooked">0</strong></article>
+            <article class="metric-card hidden-metric"><span>Partners</span><strong id="metricPartners">0</strong></article>
+            <article class="metric-card hidden-metric"><span>Recruitment</span><strong id="metricRecruitment">0</strong></article>
+            <article class="metric-card hidden-metric"><span>Email/Form</span><strong id="metricEmailForm">0</strong></article>
+          </section>
 
-          <div class="kpi-grid terminal-kpis">
-            <div class="metric raw">
-              <span>Harvested Targets</span>
-              <strong id="metricRawTotal">0</strong>
+          <article class="signal-card">
+            <div class="signal-copy">
+              <p class="eyebrow">Signal Accuracy</p>
+              <h3>Deliverability</h3>
+              <p id="qualityCopy">Measuring contact route coverage.</p>
             </div>
-            <div class="metric hot">
-              <span id="metricTotalLabel">Execution-Ready Prospects</span>
-              <strong id="metricTotal">0</strong>
-            </div>
-            <div class="metric contact">
-              <span>Signal Routes</span>
-              <strong id="metricContactable">0</strong>
-            </div>
-            <div class="metric signal">
-              <span>A-Tier Signal Cluster</span>
-              <strong id="metricA">0</strong>
-            </div>
-            <div class="metric worker">
-              <span>Active Workers</span>
-              <strong id="metricActiveWorkers">AUTO</strong>
-            </div>
-            <div class="metric booked">
-              <span>Meetings Locked</span>
-              <strong id="metricBooked">0</strong>
-            </div>
-            <div class="metric hidden-metric">
-              <span>Partner Targets</span>
-              <strong id="metricPartners">0</strong>
-            </div>
-            <div class="metric hidden-metric">
-              <span>Recruitment Targets</span>
-              <strong id="metricRecruitment">0</strong>
-            </div>
-            <div class="metric hidden-metric">
-              <span>Email / Form Routes</span>
-              <strong id="metricEmailForm">0</strong>
-            </div>
-          </div>
-
-          <div class="insight-grid terminal-insights">
-            <article class="insight-card quality-card">
-              <div class="insight-head compact-head">
-                <div>
-                  <p class="eyebrow">Signal Accuracy</p>
-                  <h2>Delivery coverage</h2>
-                </div>
-                <span class="mini-stat">LIVE</span>
-              </div>
-              <div class="quality-ring" id="qualityRing" aria-hidden="true"><span id="qualityPercent">0%</span></div>
-              <p id="qualityCopy">Measuring actionable contact route coverage.</p>
-            </article>
-
-            <article class="insight-card">
-              <div class="insight-head">
-                <div>
-                  <p class="eyebrow">Acquisition Feed</p>
-                  <h2>Source vectors</h2>
-                </div>
-                <span id="topSourceLabel" class="mini-stat">—</span>
-              </div>
-              <div id="sourceChart" class="mini-chart"></div>
-            </article>
-
-            <article class="insight-card">
-              <div class="insight-head">
-                <div>
-                  <p class="eyebrow">Pipeline</p>
-                  <h2>Stage matrix</h2>
-                </div>
-                <span id="stageFocusLabel" class="mini-stat">—</span>
-              </div>
-              <div id="stageChart" class="mini-chart"></div>
-            </article>
-          </div>
+            <div class="quality-ring" id="qualityRing"><span id="qualityPercent">0%</span></div>
+          </article>
         </section>
 
-        <section class="work-grid terminal-workgrid">
-          <section class="lead-workspace terminal-grid-panel">
-            <div class="workspace-header">
+        <section class="workbench">
+          <aside class="intel-rail">
+            <div class="rail-block">
+              <div class="rail-head">
+                <p class="eyebrow">Quick Views</p>
+                <span class="mini-pill">LIVE</span>
+              </div>
+              <div class="quick-grid">
+                <button class="quick-card active" data-view="all" type="button"><span>All</span><strong id="quickAll">0</strong></button>
+                <button class="quick-card" data-view="hot" type="button"><span>A-Tier</span><strong id="quickHot">0</strong></button>
+                <button class="quick-card" data-view="contactable" type="button"><span>Contactable</span><strong id="quickContactable">0</strong></button>
+                <button class="quick-card" data-view="no-contact" type="button"><span>No Route</span><strong id="quickNoContact">0</strong></button>
+              </div>
+            </div>
+
+            <div class="rail-block source-block">
+              <div class="rail-head">
+                <p class="eyebrow">Source Vectors</p>
+                <span id="topSourceLabel" class="mini-pill">—</span>
+              </div>
+              <div id="platformStrip" class="source-strip"></div>
+            </div>
+
+            <div class="rail-block chart-block">
+              <div class="rail-head">
+                <p class="eyebrow">Acquisition Feed</p>
+              </div>
+              <div id="sourceChart" class="mini-chart"></div>
+            </div>
+
+            <div class="rail-block chart-block">
+              <div class="rail-head">
+                <p class="eyebrow">Pipeline Matrix</p>
+                <span id="stageFocusLabel" class="mini-pill">—</span>
+              </div>
+              <div id="stageChart" class="mini-chart"></div>
+            </div>
+          </aside>
+
+          <section class="grid-panel">
+            <div class="grid-toolbar">
               <div>
                 <p class="eyebrow">Target Data Grid</p>
                 <h2>Execution-ready prospect matrix</h2>
               </div>
-              <div class="workspace-tools">
-                <div class="search-box">
+              <div class="toolbar-controls">
+                <label class="search-box">
                   <i data-lucide="search"></i>
-                  <input id="searchInput" placeholder="Search entity, market, platform, segment, instrument..." autocomplete="off" />
-                </div>
-                <div class="filter-row">
-                  <select id="viewModeFilter" aria-label="View mode">
-                    <option value="qualified">Execution-ready</option>
-                    <option value="raw">Raw harvested graph</option>
-                  </select>
-                  <select id="priorityFilter" aria-label="Priority">
-                    <option value="">Signal tier</option>
-                    <option value="A">A-Tier</option>
-                    <option value="B">B-Tier</option>
-                    <option value="C">C-Tier</option>
-                    <option value="D">Noise / Review</option>
-                  </select>
-                  <select id="typeFilter" aria-label="Commercial model">
-                    <option value="">Model type</option>
-                    <option value="partner">IB / Affiliate</option>
-                    <option value="institution">Institution</option>
-                    <option value="recruitment">Broker talent</option>
-                    <option value="research">Research signal</option>
-                  </select>
-                  <select id="stageFilter" aria-label="Pipeline stage">
-                    <option value="">Pipeline state</option>
-                    <option value="new">Uncontacted</option>
-                    <option value="contacted">Activated</option>
-                    <option value="replied">Replied</option>
-                    <option value="meeting_booked">Meeting locked</option>
-                    <option value="no_show">No-show</option>
-                    <option value="negotiating">Negotiating</option>
-                    <option value="won">Won</option>
-                    <option value="lost">Lost</option>
-                  </select>
-                  <select id="platformFilter" class="visually-hidden" aria-label="Source vector"><option value=""></option></select>
-                </div>
+                  <input id="searchInput" placeholder="Search entity, country, instrument, URL, evidence..." autocomplete="off" />
+                </label>
+                <select id="viewModeFilter" aria-label="View mode"><option value="qualified">Execution-ready</option><option value="raw">Raw graph</option></select>
+                <select id="priorityFilter" aria-label="Priority"><option value="">Tier</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select>
+                <select id="typeFilter" aria-label="Model"><option value="">Model</option><option value="partner">IB/Affiliate</option><option value="institution">Institution</option><option value="recruitment">Talent</option><option value="research">Research</option></select>
+                <select id="stageFilter" aria-label="Stage"><option value="">Stage</option><option value="new">Uncontacted</option><option value="contacted">Activated</option><option value="replied">Replied</option><option value="meeting_booked">Meeting</option><option value="no_show">No-show</option><option value="negotiating">Negotiating</option><option value="won">Won</option><option value="lost">Lost</option></select>
+                <select id="platformFilter" class="visually-hidden" aria-label="Source"><option value=""></option></select>
               </div>
             </div>
-
-            <div class="source-strip" id="platformStrip" aria-label="Source vector filters"></div>
-            <div class="lead-table-shell" id="leadRows" aria-live="polite"></div>
+            <div id="leadRows" class="lead-table-shell" aria-live="polite"></div>
           </section>
 
-          <aside class="detail-panel terminal-detail" id="detailPanel">
+          <aside id="detailPanel" class="detail-panel">
             <div class="empty-state">
               <i data-lucide="mouse-pointer-2"></i>
               <p>Select a target to open the commercial intelligence dossier.</p>
@@ -183,6 +137,13 @@
           </aside>
         </section>
       </main>
+
+      <section id="commandPalette" class="command-palette" aria-hidden="true">
+        <div class="palette-card">
+          <div class="palette-search"><i data-lucide="terminal"></i><input id="commandInput" placeholder="Type a command: hot, contactable, export, refresh..." /></div>
+          <div id="commandList" class="command-list"></div>
+        </div>
+      </section>
 
       <div id="toast" class="toast" role="status" aria-live="polite"></div>
     </div>
