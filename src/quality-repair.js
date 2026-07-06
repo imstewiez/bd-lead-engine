@@ -7,8 +7,20 @@ import { nowIso } from "./utils.js";
 const rootDir = getRootDir();
 const dataDir = path.join(rootDir, "data");
 
-function keepLead(lead = {}) {
+function normalizeForWorkspace(lead = {}) {
   const scored = enhanceCommercialLead(lead);
+  return {
+    ...scored,
+    name: scored.companyName || scored.name,
+    title: scored.companyName || scored.title || scored.name,
+    priority: scored.commercialTier || scored.priority,
+    displayScore: scored.commercialScore,
+    stage: scored.stage || "new"
+  };
+}
+
+function keepLead(lead = {}) {
+  const scored = normalizeForWorkspace(lead);
   if (scored.qualityStatus === "rejected") return false;
   if (Number(scored.commercialScore || 0) < 42) return false;
   if (["review_or_seo", "job_posting", "directory_or_registry", "broker_page"].includes(scored.entityType)) return false;
@@ -17,7 +29,7 @@ function keepLead(lead = {}) {
 
 function groupByCompany(leads = []) {
   const grouped = new Map();
-  for (const lead of leads.map((item) => enhanceCommercialLead(item))) {
+  for (const lead of leads.map(normalizeForWorkspace)) {
     const key = lead.companyKey || lead.id;
     const current = grouped.get(key);
     if (!current || Number(lead.commercialScore || 0) > Number(current.commercialScore || 0)) {
@@ -29,7 +41,7 @@ function groupByCompany(leads = []) {
 
 async function main() {
   const db = await readDb();
-  const scored = db.leads.map((lead) => enhanceCommercialLead(lead));
+  const scored = db.leads.map(normalizeForWorkspace);
   const kept = groupByCompany(scored.filter(keepLead));
   const rejected = scored.filter((lead) => !keepLead(lead));
   const stamp = nowIso().replace(/[:.]/g, "-");
