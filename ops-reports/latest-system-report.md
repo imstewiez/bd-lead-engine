@@ -1,6 +1,6 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T00:50:25.804Z
+Updated: 2026-07-06T01:00:34.518Z
 Health: OK
 
 ## Funnel
@@ -19,18 +19,17 @@ Sales-ready by bucket: {"web":8,"x":7,"myfxbook":6,"mql5":5,"specialist":4,"inst
 Qualified by bucket: {"linkedin":41,"instagram":12,"x":9,"web":9,"facebook_threads":6,"myfxbook":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
 
 ## Sourcing / Workers
-Provider errors: 117
-Stale workers: none
+Provider errors: 270
+Stale workers: engine-control
 Issues: warning:duplicate_pressure
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 1
-Stored: 1
+Processed: 3
+Stored: 3
 Errors: 0
-Current: Forex Fund Manager Forex Trading System by Forex Trader supportfx
-Last: High-End Audio equipment for Jazz music - Sax on the Web Forum
-Last best contact: tenorman@teche.net
+Current: Yahoo Mail - Facebook
+Last: DISBOARD
 
 ## Recent Errors
 ### qualified-exporter
