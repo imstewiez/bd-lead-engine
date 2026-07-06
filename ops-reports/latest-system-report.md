@@ -1,6 +1,6 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T19:16:38.964Z
+Updated: 2026-07-06T19:26:45.323Z
 Health: OK
 
 ## Funnel
@@ -13,23 +13,23 @@ A1 Hot: 24
 A2 Strong: 14
 
 ## Quality
-Platform contact leaks: 1
-High-value without real contact: 156
+Platform contact leaks: 2
+High-value without real contact: 155
 Sales-ready by bucket: {"mql5":7,"web":3,"tiktok":2,"myfxbook":2,"specialist":1,"telegram":1,"instagram":1}
 Qualified by bucket: {"linkedin":23,"instagram":7,"mql5":7,"web":3,"tiktok":2,"myfxbook":2,"specialist":1,"telegram":1,"x":1}
 
 ## Sourcing / Workers
-Provider errors: 125
+Provider errors: 115
 Stale workers: engine-control
 Issues: none
 
 ## Smart Enrichment
 Phase: idle
-Processed: 60
-Stored: 60
+Processed: 61
+Stored: 61
 Errors: 0
 Last: Instagram
-Last best contact: https://www.instagram.com/xosabrinanicolexo/
+Last best contact: https://www.instagram.com/joshstrading/
 
 ## Recent Errors
 ### qualified-exporter
