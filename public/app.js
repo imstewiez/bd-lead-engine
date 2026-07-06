@@ -73,6 +73,11 @@ function compactNumber(value) {
   return Number(value || 0).toLocaleString("en-US");
 }
 
+function percent(part, total) {
+  if (!total) return 0;
+  return Math.max(0, Math.min(100, Math.round((Number(part || 0) / Number(total || 0)) * 100)));
+}
+
 function filterQueryString({ includeLimit = false } = {}) {
   const params = new URLSearchParams();
   if (state.filters.viewMode === "raw") params.set("raw", "true");
@@ -128,25 +133,26 @@ function updateLastUpdated(value = new Date()) {
   const node = $("#lastUpdated");
   if (!node) return;
   const date = value instanceof Date ? value : new Date(value);
-  node.textContent = `sync ${date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
+  node.textContent = `Atualizado ${date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
 }
 
 function applyDashboardData(data, { forceLeads = false } = {}) {
-  state.summary = data.summary || null;
-  state.health = data.health || null;
-  renderSummary();
-  renderHealth();
-  renderRun(data.run || state.summary?.activeRun || {});
-  updateLastUpdated(data.cachedAt || new Date());
-
   const leads = data.leads || [];
   const signature = leadsSignature(leads);
   const selectedBefore = state.selectedId;
+
+  state.summary = data.summary || null;
+  state.health = data.health || null;
   state.leads = leads;
+
   if (!state.selectedId && state.leads.length) state.selectedId = state.leads[0].id;
   if (state.selectedId && !state.leads.some((lead) => lead.id === state.selectedId)) state.selectedId = state.leads[0]?.id || null;
-  const selectionChanged = selectedBefore !== state.selectedId;
 
+  renderSummary();
+  renderRun(data.run || state.summary?.activeRun || {});
+  updateLastUpdated(data.cachedAt || new Date());
+
+  const selectionChanged = selectedBefore !== state.selectedId;
   if (forceLeads || selectionChanged || signature !== state.ui.leadsSignature) {
     state.ui.leadsSignature = signature;
     renderLeads();
@@ -186,49 +192,19 @@ function renderSummary() {
   $("#metricContactable").textContent = compactNumber(counts.contactable || 0);
   $("#metricEmailForm").textContent = compactNumber(Number(counts.emails || 0) + Number(counts.forms || 0));
   renderPlatformStrip();
-}
-
-function renderHealth() {
-  const health = state.health;
-  if (!health) return;
-  const statusClass = health.ok ? "ok" : "bad";
-  $("#systemHealth").innerHTML = `<span class="health-pill ${statusClass}"><i data-lucide="${health.ok ? "activity" : "alert-triangle"}"></i>${health.ok ? "ok" : "erro"}</span><span>${compactNumber(health.counts?.working)} working</span><span>${compactNumber(health.counts?.contactable)} contactáveis</span><span>${compactNumber(health.enrichmentQueue?.dueNow)} due</span>`;
-  iconRefresh();
+  renderInsights();
 }
 
 function renderRun(run = {}) {
   const continuous = run.continuous || {};
   const isRunning = run.status === "running" || continuous.status === "running" || continuous.status === "stopping";
   state.ui.running = isRunning;
-
   const badge = $("#runBadge");
   if (badge) {
-    badge.textContent = isRunning ? "Running" : "Auto sourcing";
-    badge.className = isRunning ? "status-pill live" : "status-pill muted";
+    badge.textContent = "Live";
+    badge.className = isRunning ? "status-pill live" : "status-pill live";
   }
-
-  $("#runMessage").textContent = isRunning
-    ? "Sourcing e enrichment a correr em background."
-    : "Automático quando o host está ligado.";
-
-  const completed = Number(run.completedQueries || 0);
-  const total = Number(run.totalQueries || 0);
-  const pct = total ? Math.round((completed / total) * 100) : isRunning ? 42 : 0;
-  $("#progressBar").style.width = `${Math.min(100, pct)}%`;
-  renderRunEvents(run.events || []);
   iconRefresh();
-}
-
-function renderRunEvents(events = []) {
-  const list = $("#eventList");
-  if (!list) return;
-  const event = events[0];
-  if (!event) {
-    list.innerHTML = `<span>Sem eventos recentes.</span>`;
-    return;
-  }
-  const time = event.at ? new Date(event.at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "now";
-  list.innerHTML = `<span>${escapeHtml(time)} · ${escapeHtml(event.message || "Atualização do motor")}</span>`;
 }
 
 function platformLabel(value = "") { return value || "Web"; }
@@ -261,6 +237,57 @@ function renderPlatformStrip() {
     state.filters.platform = button.dataset.platform || "";
     const filter = $("#platformFilter");
     if (filter) filter.value = state.filters.platform;
+    resetLeadView();
+    await loadDashboard({ forceLeads: true });
+  }));
+}
+
+function renderInsights() {
+  const counts = state.summary?.counts || {};
+  const contactPct = percent(counts.contactable || 0, counts.total || 0);
+  const ring = $("#qualityRing");
+  const pctNode = $("#qualityPercent");
+  if (ring) ring.style.setProperty("--pct", `${contactPct}%`);
+  if (pctNode) pctNode.textContent = `${contactPct}%`;
+  const qualityCopy = $("#qualityCopy");
+  if (qualityCopy) qualityCopy.textContent = `${compactNumber(counts.contactable || 0)} de ${compactNumber(counts.total || 0)} leads têm contacto acionável.`;
+
+  const sourceEntries = Object.entries(state.summary?.byPlatform || {}).sort((a, b) => b[1] - a[1]).slice(0, 5);
+  const topSourceLabel = $("#topSourceLabel");
+  if (topSourceLabel) topSourceLabel.textContent = sourceEntries[0] ? `${sourceEntries[0][0]} · ${compactNumber(sourceEntries[0][1])}` : "—";
+  renderBarChart("#sourceChart", sourceEntries, { kind: "platform" });
+
+  const stageEntries = PIPELINE_STAGES
+    .map((stage) => [stage.label, state.leads.filter((lead) => stageKey(lead.stage) === stage.key).length, stage.key])
+    .filter(([, value]) => value > 0)
+    .slice(0, 5);
+  const stageFocusLabel = $("#stageFocusLabel");
+  if (stageFocusLabel) stageFocusLabel.textContent = stageEntries[0] ? `${stageEntries[0][0]} · ${compactNumber(stageEntries[0][1])}` : "—";
+  renderBarChart("#stageChart", stageEntries, { kind: "stage" });
+}
+
+function renderBarChart(selector, entries = [], options = {}) {
+  const node = $(selector);
+  if (!node) return;
+  if (!entries.length) {
+    node.innerHTML = `<div class="empty-chart">Sem dados nesta vista.</div>`;
+    return;
+  }
+  const max = Math.max(...entries.map(([, value]) => Number(value || 0)), 1);
+  node.innerHTML = entries.map(([label, value, key]) => {
+    const width = Math.max(5, Math.round((Number(value || 0) / max) * 100));
+    const dataAttrs = options.kind === "stage" ? `data-stage="${escapeHtml(key || "")}"` : `data-platform="${escapeHtml(label)}"`;
+    return `<button class="chart-row" type="button" ${dataAttrs}><span>${escapeHtml(label)}</span><strong>${compactNumber(value)}</strong><i><b style="width:${width}%"></b></i></button>`;
+  }).join("");
+  node.querySelectorAll(".chart-row").forEach((row) => row.addEventListener("click", async () => {
+    if (options.kind === "stage") {
+      state.filters.stage = row.dataset.stage || "";
+      $("#stageFilter").value = state.filters.stage;
+    } else {
+      state.filters.platform = row.dataset.platform || "";
+      const filter = $("#platformFilter");
+      if (filter) filter.value = state.filters.platform;
+    }
     resetLeadView();
     await loadDashboard({ forceLeads: true });
   }));
@@ -324,11 +351,10 @@ function leadRow(lead) {
 }
 
 function renderLeads() {
-  const total = state.leads.length;
   const rows = state.leads.map(leadRow).join("");
   $("#leadRows").innerHTML = `<div class="lead-table">
     <div class="table-row table-head"><span>Lead</span><span>Fonte</span><span>Tipo</span><span>Segmento</span><span>Score</span><span>Contacto</span><span>Estado</span></div>
-    ${rows || `<div class="empty-table">${total ? "Sem resultados nesta vista." : "Ainda não há leads nesta vista."}</div>`}
+    ${rows || `<div class="empty-table">Ainda não há leads nesta vista.</div>`}
   </div>`;
   $$(".lead-row").forEach((row) => row.addEventListener("click", (event) => {
     if (event.target.closest("a")) return;
