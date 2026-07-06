@@ -9,10 +9,10 @@ const PIPELINE_STAGES = [
   { key: "lost", label: "Perdido" }
 ];
 
-const MAX_LEADS_FETCH = 360;
-const MAX_CARDS_PER_LANE = 90;
-const DASHBOARD_REFRESH_MS = 6000;
-const LEADS_REFRESH_WHEN_RUNNING_MS = 14000;
+const MAX_LEADS_FETCH = 180;
+const MAX_CARDS_PER_LANE = 35;
+const DASHBOARD_REFRESH_MS = 15000;
+const LEADS_REFRESH_WHEN_RUNNING_MS = 45000;
 
 const state = {
   leads: [],
@@ -248,12 +248,7 @@ function renderRun(run) {
 }
 
 function typeLabel(value = "") {
-  const labels = {
-    partner: "Parceiro",
-    institution: "Instituição",
-    recruitment: "Recruta",
-    research: "Pesquisa"
-  };
+  const labels = { partner: "Parceiro", institution: "Instituição", recruitment: "Recruta", research: "Pesquisa" };
   return labels[String(value).toLowerCase()] || value || "Pesquisa";
 }
 
@@ -269,28 +264,13 @@ function stageKey(value = "") {
 
 function segmentLabel(value = "") {
   const labels = {
-    "Fund / Asset Manager": "Fundos / Asset Manager",
-    "Event / Expo": "Eventos",
-    "Prop / Funded Trading": "Prop / Funded",
-    "IB / Partner": "IB / Parceiro",
-    "High-Calibre Trader": "Trader Pro",
-    "Trading Education": "Educação",
-    Affiliate: "Afiliado",
-    Community: "Comunidade",
-    "Creator / Influencer": "Criador",
-    "Broker-Seeking / Intent Post": "Procura corretora",
-    "Broker Talent": "Talento broker"
+    "Fund / Asset Manager": "Fundos / Asset Manager", "Event / Expo": "Eventos", "Prop / Funded Trading": "Prop / Funded", "IB / Partner": "IB / Parceiro", "High-Calibre Trader": "Trader Pro", "Trading Education": "Educação", Affiliate: "Afiliado", Community: "Comunidade", "Creator / Influencer": "Criador", "Broker-Seeking / Intent Post": "Procura corretora", "Broker Talent": "Talento broker"
   };
   return labels[value] || value || "";
 }
 
-function priorityClass(priority) {
-  return String(priority || "d").toLowerCase();
-}
-
-function contactConfidence(lead = {}) {
-  return Math.max(0, Math.min(100, Number(lead.contactConfidence || 0)));
-}
+function priorityClass(priority) { return String(priority || "d").toLowerCase(); }
+function contactConfidence(lead = {}) { return Math.max(0, Math.min(100, Number(lead.contactConfidence || 0))); }
 
 function leadTitle(lead = {}) {
   const value = lead.name || lead.title || "Untitled";
@@ -306,23 +286,13 @@ function dealCard(lead) {
   const confidence = contactConfidence(lead);
   return `
     <article class="deal-card ${selected}" data-id="${escapeHtml(lead.id)}" draggable="true">
-      <div class="deal-top">
-        <div>
-          <div class="deal-title">${escapeHtml(leadTitle(lead))}</div>
-          <a class="deal-url" href="${escapeHtml(lead.url)}" target="_blank" rel="noreferrer">${escapeHtml(shortUrl(lead.url))}</a>
-        </div>
-        <span class="priority-pill ${priorityClass(lead.priority)}">${escapeHtml(lead.priority || "D")}</span>
-      </div>
-      <div class="deal-meta">
-        <span class="source-pill ${platformClass(platformForLead(lead))}">${escapeHtml(platformForLead(lead))}</span>
-        <span class="type-pill ${escapeHtml(lead.leadType || "")}">${escapeHtml(typeLabel(lead.leadType))}</span>
-      </div>
+      <div class="deal-top"><div><div class="deal-title">${escapeHtml(leadTitle(lead))}</div><a class="deal-url" href="${escapeHtml(lead.url)}" target="_blank" rel="noreferrer">${escapeHtml(shortUrl(lead.url))}</a></div><span class="priority-pill ${priorityClass(lead.priority)}">${escapeHtml(lead.priority || "D")}</span></div>
+      <div class="deal-meta"><span class="source-pill ${platformClass(platformForLead(lead))}">${escapeHtml(platformForLead(lead))}</span><span class="type-pill ${escapeHtml(lead.leadType || "")}">${escapeHtml(typeLabel(lead.leadType))}</span></div>
       <div class="deal-note">${escapeHtml(segmentLabel(lead.segment) || countryLabel(lead.country))}</div>
       ${snippet ? `<div class="deal-note">${escapeHtml(snippet)}</div>` : ""}
       <div class="deal-score"><span>Score ${Number(lead.score || 0)}</span><span>Contacto ${confidence}%</span></div>
       <div class="deal-quality" title="Confiança do contacto"><span style="width:${confidence}%"></span></div>
-    </article>
-  `;
+    </article>`;
 }
 
 function groupedLeads() {
@@ -333,9 +303,7 @@ function groupedLeads() {
 
 function selectLead(id) {
   state.selectedId = id;
-  document.querySelectorAll(".deal-card").forEach((card) => {
-    card.classList.toggle("selected", card.dataset.id === id);
-  });
+  document.querySelectorAll(".deal-card").forEach((card) => card.classList.toggle("selected", card.dataset.id === id));
   renderDetail();
 }
 
@@ -346,99 +314,35 @@ function renderLeads() {
     const leads = groups[stage.key] || [];
     const visible = leads.slice(0, MAX_CARDS_PER_LANE);
     const hidden = Math.max(0, leads.length - visible.length);
-    return `
-      <section class="pipeline-lane" data-stage="${stage.key}">
-        <header class="lane-head">
-          <div class="lane-title"><span class="lane-dot"></span>${escapeHtml(stage.label)}</div>
-          <span class="lane-count">${compactNumber(leads.length)}</span>
-        </header>
-        <div class="lane-body">
-          ${visible.length ? visible.map(dealCard).join("") : `<div class="empty-lane">${total ? "Arrasta leads para aqui." : "Sem leads nesta vista."}</div>`}
-          ${hidden ? `<div class="lane-more">+${compactNumber(hidden)} ocultas nesta coluna. Usa pesquisa ou filtros.</div>` : ""}
-        </div>
-      </section>
-    `;
+    return `<section class="pipeline-lane" data-stage="${stage.key}"><header class="lane-head"><div class="lane-title"><span class="lane-dot"></span>${escapeHtml(stage.label)}</div><span class="lane-count">${compactNumber(leads.length)}</span></header><div class="lane-body">${visible.length ? visible.map(dealCard).join("") : `<div class="empty-lane">${total ? "Arrasta leads para aqui." : "Sem leads nesta vista."}</div>`}${hidden ? `<div class="lane-more">+${compactNumber(hidden)} ocultas nesta coluna. Usa pesquisa ou filtros.</div>` : ""}</div></section>`;
   }).join("");
 
   document.querySelectorAll(".deal-card").forEach((card) => {
-    card.addEventListener("click", (event) => {
-      if (event.target.closest("a, button, select")) return;
-      selectLead(card.dataset.id);
-    });
-    card.addEventListener("dragstart", (event) => {
-      state.ui.dragging = true;
-      card.classList.add("dragging");
-      event.dataTransfer.setData("text/plain", card.dataset.id);
-    });
-    card.addEventListener("dragend", () => {
-      state.ui.dragging = false;
-      card.classList.remove("dragging");
-    });
+    card.addEventListener("click", (event) => { if (!event.target.closest("a, button, select")) selectLead(card.dataset.id); });
+    card.addEventListener("dragstart", (event) => { state.ui.dragging = true; card.classList.add("dragging"); event.dataTransfer.setData("text/plain", card.dataset.id); });
+    card.addEventListener("dragend", () => { state.ui.dragging = false; card.classList.remove("dragging"); });
   });
 
   document.querySelectorAll(".pipeline-lane").forEach((lane) => {
-    lane.addEventListener("dragover", (event) => {
-      event.preventDefault();
-      lane.classList.add("drag-over");
-    });
+    lane.addEventListener("dragover", (event) => { event.preventDefault(); lane.classList.add("drag-over"); });
     lane.addEventListener("dragleave", () => lane.classList.remove("drag-over"));
-    lane.addEventListener("drop", async (event) => {
-      event.preventDefault();
-      lane.classList.remove("drag-over");
-      state.ui.dragging = false;
-      const id = event.dataTransfer.getData("text/plain");
-      const stage = lane.dataset.stage;
-      if (!id || !stage) return;
-      await updateLeadStage(id, stage);
-    });
+    lane.addEventListener("drop", async (event) => { event.preventDefault(); lane.classList.remove("drag-over"); state.ui.dragging = false; const id = event.dataTransfer.getData("text/plain"); const stage = lane.dataset.stage; if (id && stage) await updateLeadStage(id, stage); });
   });
   iconRefresh();
 }
 
 function renderLinkList(title, links = []) {
   if (!links.length) return "";
-  return `
-    <div class="detail-section">
-      <h3>${escapeHtml(title)}</h3>
-      <div class="link-list">
-        ${links
-          .map((link) => `<a class="mini-chip" href="${escapeHtml(link)}" target="_blank" rel="noreferrer">${escapeHtml(shortUrl(link))}</a>`)
-          .join("")}
-      </div>
-    </div>
-  `;
+  return `<div class="detail-section"><h3>${escapeHtml(title)}</h3><div class="link-list">${links.map((link) => `<a class="mini-chip" href="${escapeHtml(link)}" target="_blank" rel="noreferrer">${escapeHtml(shortUrl(link))}</a>`).join("")}</div></div>`;
 }
 
 function renderForms(forms = []) {
   if (!forms.length) return "";
-  return `
-    <div class="detail-section">
-      <h3>Formulários</h3>
-      ${forms
-        .map(
-          (form) => `
-            <div class="message-box">
-              <p><strong>${escapeHtml(form.method || "GET")}</strong> ${escapeHtml(shortUrl(form.action || form.pageUrl || ""))}</p>
-              <p>${escapeHtml((form.fields || []).join(", ") || form.label || "Contact form")}</p>
-              <a class="mini-chip" href="${escapeHtml(form.pageUrl || form.action || "")}" target="_blank" rel="noreferrer">Abrir formulário</a>
-            </div>
-          `
-        )
-        .join("")}
-    </div>
-  `;
+  return `<div class="detail-section"><h3>Formulários</h3>${forms.map((form) => `<div class="message-box"><p><strong>${escapeHtml(form.method || "GET")}</strong> ${escapeHtml(shortUrl(form.action || form.pageUrl || ""))}</p><p>${escapeHtml((form.fields || []).join(", ") || form.label || "Contact form")}</p><a class="mini-chip" href="${escapeHtml(form.pageUrl || form.action || "")}" target="_blank" rel="noreferrer">Abrir formulário</a></div>`).join("")}</div>`;
 }
 
 function contactTypeLabel(value = "") {
-  const labels = {
-    email: "Email",
-    whatsapp: "WhatsApp validado",
-    phone: "Telefone",
-    form: "Formulário",
-    social: "Social/DM",
-    website: "Website",
-    "direct-link": "Link direto"
-  };
+  const labels = { email: "Email", whatsapp: "WhatsApp validado", phone: "Telefone", form: "Formulário", social: "Social/DM", website: "Website", "direct-link": "Link direto" };
   return labels[String(value).toLowerCase()] || value || "Contacto";
 }
 
@@ -448,10 +352,7 @@ function contactHref(contact = "", type = "") {
   if (type === "phone" || type === "whatsapp") return `tel:${contact.replace(/[^+\d]/g, "")}`;
   return "";
 }
-
-function contactDisplay(contact = "") {
-  return /^https?:\/\//i.test(contact) ? shortUrl(contact) : contact;
-}
+function contactDisplay(contact = "") { return /^https?:\/\//i.test(contact) ? shortUrl(contact) : contact; }
 
 function renderBestContact(lead = {}) {
   const contact = lead.bestContact || "";
@@ -459,24 +360,8 @@ function renderBestContact(lead = {}) {
   const type = lead.bestContactType || lead.contactQuality || "";
   const href = contactHref(contact, type);
   const source = lead.bestContactSource || "";
-  const contactNode = href
-    ? `<a class="mini-chip" href="${escapeHtml(href)}" target="_blank" rel="noreferrer">${escapeHtml(contactDisplay(contact))}</a>`
-    : `<span class="mini-chip">${escapeHtml(contact)}</span>`;
-
-  return `
-    <div class="detail-section">
-      <h3>Melhor contacto validado</h3>
-      <div class="message-box">
-        <div class="detail-meta">
-          <span class="priority-pill a">${escapeHtml(contactTypeLabel(type))}</span>
-          <span class="mini-chip">Confiança ${Number(lead.contactConfidence || 0)}%</span>
-        </div>
-        <div class="link-list">${contactNode}</div>
-        ${source ? `<p>Fonte: ${escapeHtml(contactDisplay(source))}</p>` : ""}
-        <button class="copy-button" data-copy="${escapeHtml(contact)}"><i data-lucide="copy"></i> Copiar contacto</button>
-      </div>
-    </div>
-  `;
+  const contactNode = href ? `<a class="mini-chip" href="${escapeHtml(href)}" target="_blank" rel="noreferrer">${escapeHtml(contactDisplay(contact))}</a>` : `<span class="mini-chip">${escapeHtml(contact)}</span>`;
+  return `<div class="detail-section"><h3>Melhor contacto validado</h3><div class="message-box"><div class="detail-meta"><span class="priority-pill a">${escapeHtml(contactTypeLabel(type))}</span><span class="mini-chip">Confiança ${Number(lead.contactConfidence || 0)}%</span></div><div class="link-list">${contactNode}</div>${source ? `<p>Fonte: ${escapeHtml(contactDisplay(source))}</p>` : ""}<button class="copy-button" data-copy="${escapeHtml(contact)}"><i data-lucide="copy"></i> Copiar contacto</button></div></div>`;
 }
 
 function renderDetail() {
@@ -498,67 +383,15 @@ function renderDetail() {
   const forms = lead.forms || [];
 
   panel.innerHTML = `
-    <div class="detail-header">
-      <div class="detail-meta">
-        <span class="priority-pill ${priorityClass(lead.priority)}">Lead ${escapeHtml(lead.priority || "D")}</span>
-        <span class="stage-pill">${escapeHtml(stageLabel(lead.stage))}</span>
-        <span class="type-pill ${escapeHtml(lead.leadType || "")}">${escapeHtml(typeLabel(lead.leadType))}</span>
-        <span class="source-pill ${platformClass(platformForLead(lead))}">${escapeHtml(platformForLead(lead))}</span>
-      </div>
-      <h2>${escapeHtml(leadTitle(lead))}</h2>
-      <a href="${escapeHtml(lead.url)}" target="_blank" rel="noreferrer">${escapeHtml(shortUrl(lead.url))}</a>
-    </div>
-
-    <div class="detail-section">
-      <h3>Pipeline</h3>
-      <label class="field stage-select">
-        <span>Estado comercial</span>
-        <select id="detailStage">
-          ${PIPELINE_STAGES.map((stage) => `<option value="${stage.key}" ${stage.key === stageKey(lead.stage) ? "selected" : ""}>${stage.label}</option>`).join("")}
-        </select>
-      </label>
-      <div class="detail-meta">
-        <span class="mini-chip">Score ${Number(lead.score || 0)}</span>
-        <span class="mini-chip">Contacto ${lead.contactConfidence || 0}%</span>
-        <span class="mini-chip">${escapeHtml(segmentLabel(lead.segment) || "Pesquisa")}</span>
-        <span class="mini-chip">${escapeHtml(countryLabel(lead.country))}</span>
-        ${languages.map((language) => `<span class="mini-chip">${escapeHtml(language)}</span>`).join("")}
-      </div>
-    </div>
-
-    <div class="detail-section">
-      <h3>Sinais</h3>
-      <div class="evidence-list">
-        ${(evidence.length ? evidence : ["Needs review"]).map((item) => `<span class="mini-chip">${escapeHtml(item)}</span>`).join("")}
-      </div>
-    </div>
-
-    <div class="detail-section">
-      <h3>Contexto</h3>
-      <p>${escapeHtml(lead.snippet || "No snippet captured.")}</p>
-    </div>
-
+    <div class="detail-header"><div class="detail-meta"><span class="priority-pill ${priorityClass(lead.priority)}">Lead ${escapeHtml(lead.priority || "D")}</span><span class="stage-pill">${escapeHtml(stageLabel(lead.stage))}</span><span class="type-pill ${escapeHtml(lead.leadType || "")}">${escapeHtml(typeLabel(lead.leadType))}</span><span class="source-pill ${platformClass(platformForLead(lead))}">${escapeHtml(platformForLead(lead))}</span></div><h2>${escapeHtml(leadTitle(lead))}</h2><a href="${escapeHtml(lead.url)}" target="_blank" rel="noreferrer">${escapeHtml(shortUrl(lead.url))}</a></div>
+    <div class="detail-section"><h3>Pipeline</h3><label class="field stage-select"><span>Estado comercial</span><select id="detailStage">${PIPELINE_STAGES.map((stage) => `<option value="${stage.key}" ${stage.key === stageKey(lead.stage) ? "selected" : ""}>${stage.label}</option>`).join("")}</select></label><div class="detail-meta"><span class="mini-chip">Score ${Number(lead.score || 0)}</span><span class="mini-chip">Contacto ${lead.contactConfidence || 0}%</span><span class="mini-chip">${escapeHtml(segmentLabel(lead.segment) || "Pesquisa")}</span><span class="mini-chip">${escapeHtml(countryLabel(lead.country))}</span>${languages.map((language) => `<span class="mini-chip">${escapeHtml(language)}</span>`).join("")}</div></div>
+    <div class="detail-section"><h3>Sinais</h3><div class="evidence-list">${(evidence.length ? evidence : ["Needs review"]).map((item) => `<span class="mini-chip">${escapeHtml(item)}</span>`).join("")}</div></div>
+    <div class="detail-section"><h3>Contexto</h3><p>${escapeHtml(lead.snippet || "No snippet captured.")}</p></div>
     ${renderBestContact(lead)}
-
-    <div class="detail-section">
-      <h3>Outbound</h3>
-      <div class="message-box">
-        <p>${escapeHtml(lead.outbound?.dm || "")}</p>
-        <button class="copy-button" data-copy="${escapeHtml(lead.outbound?.dm || "")}"><i data-lucide="copy"></i> Copiar DM</button>
-      </div>
-      <div class="message-box">
-        <p>${escapeHtml(lead.outbound?.followUp || "")}</p>
-        <button class="copy-button" data-copy="${escapeHtml(lead.outbound?.followUp || "")}"><i data-lucide="copy"></i> Copiar follow-up</button>
-      </div>
-    </div>
-
+    <div class="detail-section"><h3>Outbound</h3><div class="message-box"><p>${escapeHtml(lead.outbound?.dm || "")}</p><button class="copy-button" data-copy="${escapeHtml(lead.outbound?.dm || "")}"><i data-lucide="copy"></i> Copiar DM</button></div><div class="message-box"><p>${escapeHtml(lead.outbound?.followUp || "")}</p><button class="copy-button" data-copy="${escapeHtml(lead.outbound?.followUp || "")}"><i data-lucide="copy"></i> Copiar follow-up</button></div></div>
     ${emails.length ? `<div class="detail-section"><h3>Email</h3><div class="link-list">${emails.map((email) => `<a class="mini-chip" href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a>`).join("")}</div></div>` : ""}
     ${phoneNumbers.length ? `<div class="detail-section"><h3>Telefones</h3><div class="link-list">${phoneNumbers.map((phone) => `<span class="mini-chip">${escapeHtml(phone)}</span>`).join("")}</div></div>` : ""}
-    ${renderForms(forms)}
-    ${renderLinkList("Social", socialLinks)}
-    ${renderLinkList("Contact paths", contactLinks)}
-    ${renderLinkList("Websites", websiteLinks)}
-  `;
+    ${renderForms(forms)}${renderLinkList("Social", socialLinks)}${renderLinkList("Contact paths", contactLinks)}${renderLinkList("Websites", websiteLinks)}`;
 
   $("#detailStage").addEventListener("change", async (event) => updateLeadStage(lead.id, event.target.value));
   document.querySelectorAll(".copy-button").forEach((button) => {
@@ -574,99 +407,35 @@ function renderDetail() {
 async function updateLeadStage(id, stage) {
   const lead = state.leads.find((item) => item.id === id);
   if (!lead || stageKey(lead.stage) === stage) return;
-  await api(`/api/leads/${id}`, {
-    method: "PATCH",
-    body: JSON.stringify({ stage })
-  });
+  await api(`/api/leads/${id}`, { method: "PATCH", body: JSON.stringify({ stage }) });
   state.selectedId = id;
   state.ui.leadsSignature = "";
   await Promise.all([loadSummary(), loadLeads({ force: true })]);
 }
 
 async function startScan() {
-  const payload = {
-    regionSet: $("#regionSet").value,
-    maxQueries: Number($("#maxQueries").value || 32),
-    limitPerQuery: Number($("#limitPerQuery").value || 8),
-    includePartners: $("#includePartners").checked,
-    includeRecruitment: $("#includeRecruitment").checked,
-    fetchPages: $("#fetchPages").checked,
-    deepEnrich: $("#deepEnrich").checked,
-    searchContacts: true
-  };
+  const payload = { regionSet: $("#regionSet").value, maxQueries: Number($("#maxQueries").value || 32), limitPerQuery: Number($("#limitPerQuery").value || 8), includePartners: $("#includePartners").checked, includeRecruitment: $("#includeRecruitment").checked, fetchPages: $("#fetchPages").checked, deepEnrich: $("#deepEnrich").checked, searchContacts: true };
   await api("/api/scan", { method: "POST", body: JSON.stringify(payload) });
   await loadRun();
 }
-
 async function startContinuous() {
-  const payload = {
-    regionSet: $("#regionSet").value,
-    maxQueries: Math.max(Number($("#maxQueries").value || 80), 40),
-    limitPerQuery: Math.max(Number($("#limitPerQuery").value || 10), 8),
-    includePartners: $("#includePartners").checked,
-    includeRecruitment: $("#includeRecruitment").checked,
-    fetchPages: true,
-    deepEnrich: true,
-    searchContacts: true,
-    delayMs: 8000
-  };
+  const payload = { regionSet: $("#regionSet").value, maxQueries: Math.max(Number($("#maxQueries").value || 80), 40), limitPerQuery: Math.max(Number($("#limitPerQuery").value || 10), 8), includePartners: $("#includePartners").checked, includeRecruitment: $("#includeRecruitment").checked, fetchPages: true, deepEnrich: true, searchContacts: true, delayMs: 8000 };
   await api("/api/continuous/start", { method: "POST", body: JSON.stringify(payload) });
   await loadRun();
 }
-
-async function stopContinuous() {
-  await api("/api/continuous/stop", { method: "POST", body: JSON.stringify({}) });
-  await loadRun();
-}
-
-function resetLeadView() {
-  state.selectedId = null;
-  state.ui.leadsSignature = "";
-}
+async function stopContinuous() { await api("/api/continuous/stop", { method: "POST", body: JSON.stringify({}) }); await loadRun(); }
+function resetLeadView() { state.selectedId = null; state.ui.leadsSignature = ""; }
 
 function bindControls() {
-  $("#scanButton").addEventListener("click", async () => {
-    try { await startScan(); } catch (error) { alert(error.message); }
-  });
-  $("#continuousButton").addEventListener("click", async () => {
-    try { await startContinuous(); } catch (error) { alert(error.message); }
-  });
-  $("#stopButton").addEventListener("click", async () => {
-    try { await stopContinuous(); } catch (error) { alert(error.message); }
-  });
-  $("#searchInput").addEventListener("input", (event) => {
-    state.filters.q = event.target.value;
-    clearTimeout(window.searchTimer);
-    window.searchTimer = setTimeout(() => {
-      resetLeadView();
-      Promise.all([loadSummary(), loadLeads({ force: true })]).catch((error) => console.error(error));
-    }, 320);
-  });
-  $("#viewModeFilter").addEventListener("change", async (event) => {
-    state.filters.viewMode = event.target.value;
-    resetLeadView();
-    await Promise.all([loadSummary(), loadLeads({ force: true })]);
-  });
-  $("#platformFilter").addEventListener("change", async (event) => {
-    state.filters.platform = event.target.value;
-    resetLeadView();
-    await Promise.all([loadSummary(), loadLeads({ force: true })]);
-  });
-  $("#priorityFilter").addEventListener("change", async (event) => {
-    state.filters.priority = event.target.value;
-    resetLeadView();
-    await Promise.all([loadSummary(), loadLeads({ force: true })]);
-  });
-  $("#typeFilter").addEventListener("change", async (event) => {
-    state.filters.leadType = event.target.value;
-    resetLeadView();
-    await Promise.all([loadSummary(), loadLeads({ force: true })]);
-  });
-  $("#stageFilter").addEventListener("change", async (event) => {
-    state.filters.stage = event.target.value;
-    resetLeadView();
-    await Promise.all([loadSummary(), loadLeads({ force: true })]);
-  });
+  $("#scanButton").addEventListener("click", async () => { try { await startScan(); } catch (error) { alert(error.message); } });
+  $("#continuousButton").addEventListener("click", async () => { try { await startContinuous(); } catch (error) { alert(error.message); } });
+  $("#stopButton").addEventListener("click", async () => { try { await stopContinuous(); } catch (error) { alert(error.message); } });
+  $("#searchInput").addEventListener("input", (event) => { state.filters.q = event.target.value; clearTimeout(window.searchTimer); window.searchTimer = setTimeout(() => { resetLeadView(); Promise.all([loadSummary(), loadLeads({ force: true })]).catch((error) => console.error(error)); }, 500); });
+  $("#viewModeFilter").addEventListener("change", async (event) => { state.filters.viewMode = event.target.value; resetLeadView(); await Promise.all([loadSummary(), loadLeads({ force: true })]); });
+  $("#platformFilter").addEventListener("change", async (event) => { state.filters.platform = event.target.value; resetLeadView(); await Promise.all([loadSummary(), loadLeads({ force: true })]); });
+  $("#priorityFilter").addEventListener("change", async (event) => { state.filters.priority = event.target.value; resetLeadView(); await Promise.all([loadSummary(), loadLeads({ force: true })]); });
+  $("#typeFilter").addEventListener("change", async (event) => { state.filters.leadType = event.target.value; resetLeadView(); await Promise.all([loadSummary(), loadLeads({ force: true })]); });
+  $("#stageFilter").addEventListener("change", async (event) => { state.filters.stage = event.target.value; resetLeadView(); await Promise.all([loadSummary(), loadLeads({ force: true })]); });
 }
 
 async function tick({ forceLeads = false } = {}) {
