@@ -1,11 +1,11 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T04:53:06.492Z
+Updated: 2026-07-06T05:03:18.235Z
 Health: OK
 
 ## Funnel
-Raw: 1224
-Qualified: 98
+Raw: 1226
+Qualified: 99
 Working: 127
 Contactable: 105
 Sales-ready: 39
@@ -14,23 +14,23 @@ A2 Strong: 17
 
 ## Quality
 Platform contact leaks: 0
-High-value without real contact: 224
+High-value without real contact: 226
 Sales-ready by bucket: {"web":9,"x":7,"myfxbook":6,"mql5":5,"specialist":4,"instagram":3,"tiktok":2,"facebook_threads":1,"linkedin":1,"telegram":1}
-Qualified by bucket: {"linkedin":43,"instagram":12,"web":10,"x":9,"facebook_threads":6,"myfxbook":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
+Qualified by bucket: {"linkedin":43,"instagram":13,"web":10,"x":9,"facebook_threads":6,"myfxbook":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
 
 ## Sourcing / Workers
-Provider errors: 342
+Provider errors: 557
 Stale workers: engine-control
 Issues: warning:duplicate_pressure
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 8
-Stored: 8
+Processed: 12
+Stored: 12
 Errors: 0
-Current: EXILE LIVE 2026 "THE REASON" 〜PERFECT YEAR ...
-Last: OFFICIAL GOODS 発売決定 ────────────── ...
-Last best contact: 005309542262159
+Current: ) / Posts / X
+Last: Statement from CoW Protocol: Earlier today, a trader attempted to swap ...
+Last best contact: luciameabe@gmail.com
 
 ## Recent Errors
 ### qualified-exporter
