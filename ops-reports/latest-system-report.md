@@ -1,10 +1,10 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-05T23:51:44.773Z
+Updated: 2026-07-06T00:01:56.119Z
 Health: OK
 
 ## Funnel
-Raw: 1265
+Raw: 1252
 Qualified: 97
 Working: 123
 Contactable: 102
@@ -14,23 +14,23 @@ A2 Strong: 15
 
 ## Quality
 Platform contact leaks: 15
-High-value without real contact: 270
+High-value without real contact: 258
 Sales-ready by bucket: {"web":8,"x":7,"myfxbook":6,"mql5":5,"specialist":4,"instagram":3,"tiktok":2,"facebook_threads":1,"linkedin":1,"telegram":1}
 Qualified by bucket: {"linkedin":41,"instagram":14,"x":9,"web":9,"facebook_threads":6,"myfxbook":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
 
 ## Sourcing / Workers
-Provider errors: 1456
+Provider errors: 1645
 Stale workers: engine-control
 Issues: none
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 69
-Stored: 69
+Processed: 82
+Stored: 82
 Errors: 0
-Current: Igor Gots CryptoTrading 153% growth since 2025 Reliability 0% Algo trading 0 Copy for 30 USD per month
-Last: ) • Instagram photos and videos
-Last best contact: https://www.instagram.com/mmgold_trader/
+Current: Eric Louis Perdigau STNDLAG 132% growth since 2023 Reliability 99% Algo trading 0 Copy for 30 USD per month
+Last: Amgad Ahmed Ali Megahed Amgad 3 182% growth since 2024 Reliability 98% Algo trading 0 Copy for 30 USD per month
+Last best contact: +31 10 669 0521
 
 ## Recent Errors
 ### qualified-exporter
