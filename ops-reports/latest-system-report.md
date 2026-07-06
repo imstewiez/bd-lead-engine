@@ -1,12 +1,12 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T05:38:16.366Z
+Updated: 2026-07-06T05:48:23.138Z
 Health: OK
 
 ## Funnel
-Raw: 775
-Qualified: 55
-Working: 79
+Raw: 778
+Qualified: 56
+Working: 78
 Contactable: 61
 Sales-ready: 28
 A1 Hot: 28
@@ -14,23 +14,23 @@ A2 Strong: 7
 
 ## Quality
 Platform contact leaks: 1
-High-value without real contact: 165
+High-value without real contact: 167
 Sales-ready by bucket: {"x":7,"myfxbook":6,"web":5,"mql5":4,"instagram":2,"tiktok":2,"specialist":1,"telegram":1}
-Qualified by bucket: {"linkedin":16,"instagram":11,"x":9,"myfxbook":6,"web":5,"mql5":4,"tiktok":2,"specialist":1,"telegram":1}
+Qualified by bucket: {"linkedin":17,"instagram":11,"x":9,"myfxbook":6,"web":5,"mql5":4,"tiktok":2,"specialist":1,"telegram":1}
 
 ## Sourcing / Workers
-Provider errors: 54
-Stale workers: none
+Provider errors: 144
+Stale workers: engine-control
 Issues: none
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 2
-Stored: 2
+Processed: 5
+Stored: 5
 Errors: 0
-Current: Instagram photos ...
-Last: Bicton arena bicton arena Instagram photos and videos
-Last best contact: https://www.instagram.com/bicton_arena/
+Current: BizzinPodcast
+Last: Instagram photos and videos
+Last best contact: https://www.instagram.com/goldtraderpauls/
 
 ## Recent Errors
 ### qualified-exporter
