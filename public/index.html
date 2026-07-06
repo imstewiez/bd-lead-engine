@@ -3,32 +3,42 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#070909" />
+    <meta name="theme-color" content="#07100d" />
     <title>BD Lead Engine</title>
-    <link rel="stylesheet" href="/styles.css?v=operating-desk-1" />
+    <link rel="stylesheet" href="/styles.css?v=operating-desk-2" />
     <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-    <script defer src="/app.js?v=operating-desk-1"></script>
+    <script defer src="/app.js?v=operating-desk-2"></script>
   </head>
   <body>
     <div class="app-shell">
       <header class="topbar">
         <div class="brand-lockup">
           <div class="brand-mark">BD</div>
-          <div>
-            <p class="eyebrow">Lead operating desk</p>
+          <div class="brand-copy">
+            <p class="eyebrow">Brokerage development cockpit</p>
             <h1>BD Lead Engine</h1>
           </div>
         </div>
+
+        <div class="stack-ribbon" aria-label="Tech stack atual">
+          <span>Node.js</span>
+          <span>Express</span>
+          <span>Cheerio</span>
+          <span>Vanilla JS</span>
+          <span>JSON DB</span>
+          <span>CSV/JSON</span>
+        </div>
+
         <div class="topbar-actions">
+          <span id="lastUpdated" class="system-chip">sync —</span>
           <span id="runBadge" class="badge muted">Pronto</span>
-          <a class="icon-link" href="/autopilot-working-leads.csv"><i data-lucide="download"></i> Export</a>
+          <button id="refreshButton" class="icon-button" type="button" title="Atualizar dashboard"><i data-lucide="refresh-cw"></i></button>
         </div>
       </header>
 
       <main class="crm-shell">
-        <section class="ops-rail">
+        <section class="control-deck" aria-label="Controlos do motor">
           <article class="run-card">
-            <div class="run-orbit"></div>
             <div class="panel-title">
               <div>
                 <p class="eyebrow">Autopilot</p>
@@ -37,21 +47,76 @@
               <i data-lucide="radar"></i>
             </div>
             <p id="runMessage" class="hero-copy">A procurar, qualificar e enriquecer oportunidades automaticamente.</p>
-            <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+            <div class="progress-track" aria-label="Progresso do scan"><div id="progressBar" class="progress-bar"></div></div>
             <div id="systemHealth" class="health-strip"></div>
-            <div class="event-list compact" id="eventList"></div>
+            <div id="eventList" class="event-list compact"></div>
           </article>
 
-          <section class="metric-strip">
-            <div class="metric hot"><span id="metricTotalLabel">Qualificadas</span><strong id="metricTotal">0</strong></div>
-            <div class="metric raw"><span>Base</span><strong id="metricRawTotal">0</strong></div>
-            <div class="metric"><span>A leads</span><strong id="metricA">0</strong></div>
-            <div class="metric"><span>Parceiros</span><strong id="metricPartners">0</strong></div>
-            <div class="metric"><span>Recruta</span><strong id="metricRecruitment">0</strong></div>
-            <div class="metric booked"><span>Reuniões</span><strong id="metricBooked">0</strong></div>
-            <div class="metric contact"><span>Contactáveis</span><strong id="metricContactable">0</strong></div>
-            <div class="metric"><span>Contacto</span><strong id="metricEmailForm">0</strong></div>
-          </section>
+          <article class="ops-card command-card">
+            <div class="card-header">
+              <div>
+                <p class="eyebrow">Launchpad</p>
+                <h2>Sourcing & enrichment</h2>
+              </div>
+              <span id="activePreset" class="system-chip">preset manual</span>
+            </div>
+
+            <div class="preset-row" aria-label="Presets rápidos">
+              <button class="preset-button" type="button" data-preset="quality">Quality</button>
+              <button class="preset-button" type="button" data-preset="volume">Volume</button>
+              <button class="preset-button" type="button" data-preset="latam">LATAM</button>
+              <button class="preset-button" type="button" data-preset="social">Social</button>
+              <button class="preset-button hot" type="button" data-preset="super">Super</button>
+            </div>
+
+            <div class="control-grid">
+              <label class="field"><span>Região</span><select id="regionSet"><option value="global">Global</option><option value="latam">LATAM</option><option value="europe">Europe</option><option value="mena">MENA</option><option value="asia">Asia</option></select></label>
+              <label class="field"><span>Queries</span><input id="maxQueries" type="number" min="10" max="400" value="260" /></label>
+              <label class="field"><span>Limit/query</span><input id="limitPerQuery" type="number" min="1" max="25" value="15" /></label>
+            </div>
+
+            <div class="toggle-row">
+              <label><input id="includePartners" type="checkbox" checked /> parceiros</label>
+              <label><input id="includeRecruitment" type="checkbox" checked /> recruta</label>
+              <label><input id="fetchPages" type="checkbox" checked /> crawl</label>
+              <label><input id="deepEnrich" type="checkbox" checked /> deep enrich</label>
+            </div>
+
+            <div class="action-row">
+              <button id="scanButton" class="primary-button" type="button"><i data-lucide="play"></i> Scan</button>
+              <button id="continuousButton" class="ghost-button" type="button"><i data-lucide="repeat"></i> Continuous</button>
+              <button id="stopButton" class="ghost-button danger" type="button"><i data-lucide="square"></i> Stop</button>
+              <button id="repairButton" class="ghost-button" type="button"><i data-lucide="wrench"></i> Repair/export</button>
+            </div>
+          </article>
+
+          <article class="ops-card export-card">
+            <div class="card-header">
+              <div>
+                <p class="eyebrow">Outputs</p>
+                <h2>Exportação & operação</h2>
+              </div>
+              <i data-lucide="download-cloud"></i>
+            </div>
+            <div class="export-grid">
+              <a id="exportCsvLink" class="export-link" href="/api/export.csv"><span>Vista atual</span><strong>CSV</strong></a>
+              <a id="exportJsonLink" class="export-link" href="/api/export.json"><span>Vista atual</span><strong>JSON</strong></a>
+              <a class="export-link" href="/autopilot-qualified-contactable-leads.csv"><span>Contactáveis</span><strong>CSV</strong></a>
+              <a class="export-link" href="/autopilot-hot-leads.csv"><span>Hot leads</span><strong>CSV</strong></a>
+            </div>
+            <p class="fine-print">Os exports respeitam a vista filtrada quando usas os botões CSV/JSON da vista atual.</p>
+          </article>
+        </section>
+
+        <section class="metric-strip" aria-label="Resumo do pipeline">
+          <div class="metric hot"><span id="metricTotalLabel">Qualificadas</span><strong id="metricTotal">0</strong></div>
+          <div class="metric raw"><span>Base</span><strong id="metricRawTotal">0</strong></div>
+          <div class="metric"><span>A leads</span><strong id="metricA">0</strong></div>
+          <div class="metric"><span>Parceiros</span><strong id="metricPartners">0</strong></div>
+          <div class="metric"><span>Recruta</span><strong id="metricRecruitment">0</strong></div>
+          <div class="metric booked"><span>Reuniões</span><strong id="metricBooked">0</strong></div>
+          <div class="metric contact"><span>Contactáveis</span><strong id="metricContactable">0</strong></div>
+          <div class="metric"><span>Contacto</span><strong id="metricEmailForm">0</strong></div>
         </section>
 
         <section class="work-grid">
@@ -61,9 +126,18 @@
                 <p class="eyebrow">Desk Pipeline</p>
                 <h2>Leads por estado</h2>
               </div>
-              <div class="search-box">
-                <i data-lucide="search"></i>
-                <input id="searchInput" placeholder="Pesquisar lead, país, fonte, segmento..." />
+              <div class="workspace-tools">
+                <div class="search-box">
+                  <i data-lucide="search"></i>
+                  <input id="searchInput" placeholder="Pesquisar lead, país, fonte, segmento..." autocomplete="off" />
+                </div>
+                <div class="filter-row">
+                  <select id="viewModeFilter" aria-label="Vista"><option value="qualified">Qualified</option><option value="raw">Raw base</option></select>
+                  <select id="priorityFilter" aria-label="Prioridade"><option value="">Prioridade</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select>
+                  <select id="typeFilter" aria-label="Tipo"><option value="">Tipo</option><option value="partner">Parceiro</option><option value="institution">Instituição</option><option value="recruitment">Recruta</option><option value="research">Pesquisa</option></select>
+                  <select id="stageFilter" aria-label="Estado"><option value="">Estado</option><option value="new">Novo</option><option value="contacted">Contactado</option><option value="replied">Respondeu</option><option value="meeting_booked">Reunião</option><option value="no_show">No-show</option><option value="negotiating">Negociação</option><option value="won">Ganho</option><option value="lost">Perdido</option></select>
+                  <select id="platformFilter" class="visually-hidden" aria-label="Fonte"><option value=""></option></select>
+                </div>
               </div>
             </div>
             <div class="source-strip" id="platformStrip"></div>
@@ -79,25 +153,7 @@
         </section>
       </main>
 
-      <div style="display:none">
-        <aside class="control-panel">
-          <select id="regionSet"><option value="global">Global</option></select>
-          <input id="maxQueries" value="260" />
-          <input id="limitPerQuery" value="15" />
-          <input id="includePartners" type="checkbox" checked />
-          <input id="includeRecruitment" type="checkbox" checked />
-          <input id="fetchPages" type="checkbox" checked />
-          <input id="deepEnrich" type="checkbox" checked />
-          <button id="scanButton">scan</button>
-          <button id="continuousButton">continuous</button>
-          <button id="stopButton">stop</button>
-          <select id="viewModeFilter"><option value="qualified">Qualified</option></select>
-          <select id="platformFilter"><option value=""></option></select>
-          <select id="priorityFilter"><option value=""></option></select>
-          <select id="typeFilter"><option value=""></option></select>
-          <select id="stageFilter"><option value=""></option></select>
-        </aside>
-      </div>
+      <div id="toast" class="toast" role="status" aria-live="polite"></div>
     </div>
   </body>
 </html>
