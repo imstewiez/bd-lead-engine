@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { randomUUID } from "node:crypto";
 import { fileURLToPath } from "node:url";
 import { nowIso } from "./utils.js";
 
@@ -10,6 +11,13 @@ const dataDir = path.join(rootDir, "data");
 const dbPath = path.join(dataDir, "leads.json");
 const backupPath = path.join(dataDir, "leads.json.bak");
 const lockPath = path.join(dataDir, "leads.lock");
+
+const TRANSIENT_FS_ERRORS = new Set(["EBUSY", "EPERM", "EACCES"]);
+const RECOVERABLE_JSON_ERRORS = new Set(["EMPTY_JSON", "TRUNCATED_JSON"]);
+
+const DEFAULT_LOCK_TIMEOUT_MS = Number(process.env.DB_LOCK_TIMEOUT_MS || 90_000);
+const DEFAULT_LOCK_STALE_MS = Number(process.env.DB_LOCK_STALE_MS || 180_000);
+const DEFAULT_RENAME_ATTEMPTS = Number(process.env.DB_RENAME_ATTEMPTS || 40);
 
 const emptyDb = () => ({
   leads: [],
@@ -29,6 +37,18 @@ async function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+function jitter(min = 25, max = 150) {
+  return min + Math.floor(Math.random() * (max - min + 1));
+}
+
+function isTransientFsError(error) {
+  return TRANSIENT_FS_ERRORS.has(error?.code);
+}
+
+function isRecoverableJsonError(error) {
+  return error instanceof SyntaxError || RECOVERABLE_JSON_ERRORS.has(error?.code);
+}
+
 function normalizeDb(db = {}) {
   return {
     ...db,
@@ -38,29 +58,220 @@ function normalizeDb(db = {}) {
   };
 }
 
-async function parseDbFile(filePath) {
-  const raw = await fs.readFile(filePath, "utf8");
-  if (!raw.trim()) {
+function createJsonParseError(filePath, raw, originalError) {
+  const trimmed = String(raw || "").trim();
+  if (!trimmed) {
     const error = new SyntaxError(`${path.basename(filePath)} is empty`);
     error.code = "EMPTY_JSON";
-    throw error;
+    return error;
   }
-  return normalizeDb(JSON.parse(raw));
+
+  const error = new SyntaxError(`${path.basename(filePath)} is not valid JSON: ${originalError.message}`);
+  error.code = /unterminated|unexpected end/i.test(originalError.message) ? "TRUNCATED_JSON" : "INVALID_JSON";
+  error.cause = originalError;
+  error.bytes = Buffer.byteLength(raw, "utf8");
+  return error;
+}
+
+async function readTextFileWithRetry(filePath, { attempts = 8 } = {}) {
+  let lastError = null;
+
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    let handle = null;
+    try {
+      handle = await fs.open(filePath, "r");
+      return await handle.readFile("utf8");
+    } catch (error) {
+      lastError = error;
+      if (!isTransientFsError(error) || attempt === attempts) throw error;
+      await sleep(40 * attempt + jitter(25, 125));
+    } finally {
+      if (handle) await handle.close().catch(() => {});
+    }
+  }
+
+  throw lastError;
+}
+
+async function parseDbFile(filePath) {
+  const raw = await readTextFileWithRetry(filePath);
+
+  try {
+    return normalizeDb(JSON.parse(raw));
+  } catch (error) {
+    throw createJsonParseError(filePath, raw, error);
+  }
+}
+
+async function appendRecoveryLog(message) {
+  await fs.appendFile(path.join(dataDir, "store-recovery.log"), `${nowIso()} ${message}\n`, "utf8").catch(() => {});
 }
 
 async function quarantineBadDb(error) {
   const stamp = nowIso().replace(/[:.]/g, "-");
-  const corruptPath = path.join(dataDir, `leads.corrupt.${stamp}.json`);
+  const corruptPath = path.join(dataDir, `leads.corrupt.${stamp}.${process.pid}.json`);
   await fs.copyFile(dbPath, corruptPath).catch(() => {});
-  await fs.appendFile(
-    path.join(dataDir, "store-recovery.log"),
-    `${nowIso()} recovered leads.json after ${error.name || "Error"}: ${error.message || error}\n`,
-    "utf8"
-  ).catch(() => {});
+  await appendRecoveryLog(`recovered leads.json after ${error?.name || "Error"}: ${error?.message || error}`);
   return corruptPath;
 }
 
-export async function readDb() {
+async function removeWithRetry(filePath, { attempts = 8 } = {}) {
+  let lastError = null;
+
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    try {
+      await fs.rm(filePath, { force: true });
+      return;
+    } catch (error) {
+      lastError = error;
+      if (!isTransientFsError(error) || attempt === attempts) throw error;
+      await sleep(35 * attempt + jitter(20, 100));
+    }
+  }
+
+  if (lastError) throw lastError;
+}
+
+async function maybeRemoveStaleLock({ staleMs }) {
+  try {
+    const stat = await fs.stat(lockPath);
+    const ageMs = Date.now() - stat.mtimeMs;
+    if (ageMs < staleMs) return false;
+
+    const stalePath = `${lockPath}.stale.${Date.now()}.${process.pid}.${randomUUID()}`;
+    await fs.rename(lockPath, stalePath);
+    await removeWithRetry(stalePath).catch(() => {});
+    await appendRecoveryLog(`removed stale DB lock after ${Math.round(ageMs)}ms`);
+    return true;
+  } catch (error) {
+    if (["ENOENT", "EPERM", "EACCES", "EBUSY"].includes(error.code)) return false;
+    throw error;
+  }
+}
+
+async function acquireDbLock({ timeoutMs = DEFAULT_LOCK_TIMEOUT_MS, staleMs = DEFAULT_LOCK_STALE_MS } = {}) {
+  await fs.mkdir(dataDir, { recursive: true });
+  const startedAt = Date.now();
+  const token = `${process.pid}:${Date.now()}:${randomUUID()}`;
+  let attempt = 0;
+
+  while (true) {
+    attempt += 1;
+    let handle = null;
+
+    try {
+      handle = await fs.open(lockPath, "wx");
+      await handle.writeFile(JSON.stringify({ token, pid: process.pid, acquiredAt: nowIso() }, null, 2), "utf8");
+      await handle.sync().catch(() => {});
+
+      const heartbeatMs = Math.max(2_000, Math.min(10_000, Math.floor(staleMs / 4)));
+      const heartbeat = setInterval(() => {
+        const now = new Date();
+        fs.utimes(lockPath, now, now).catch(() => {});
+      }, heartbeatMs);
+      heartbeat.unref?.();
+
+      return async () => {
+        clearInterval(heartbeat);
+        await handle.close().catch(() => {});
+        await removeWithRetry(lockPath).catch(async (error) => {
+          await appendRecoveryLog(`failed to release DB lock: ${error.message || error}`);
+        });
+      };
+    } catch (error) {
+      if (handle) await handle.close().catch(() => {});
+
+      if (error.code !== "EEXIST") throw error;
+
+      await maybeRemoveStaleLock({ staleMs }).catch(() => false);
+
+      if (Date.now() - startedAt >= timeoutMs) {
+        const timeoutError = new Error(`Timed out waiting for DB lock after ${timeoutMs}ms (${lockPath})`);
+        timeoutError.code = "DB_LOCK_TIMEOUT";
+        timeoutError.cause = error;
+        throw timeoutError;
+      }
+
+      const backoff = Math.min(1_500, 40 * 2 ** Math.min(attempt, 5)) + jitter(25, 175);
+      await sleep(backoff);
+    }
+  }
+}
+
+async function withDbLock(fn, options = {}) {
+  const release = await acquireDbLock(options);
+  try {
+    return await fn();
+  } finally {
+    await release();
+  }
+}
+
+async function fsyncDirectoryBestEffort(dirPath) {
+  let handle = null;
+  try {
+    handle = await fs.open(dirPath, "r");
+    await handle.sync();
+  } catch {
+    // Windows often disallows opening directories directly. The temp-file fsync
+    // plus atomic rename is the important durability guarantee here.
+  } finally {
+    if (handle) await handle.close().catch(() => {});
+  }
+}
+
+async function writeTextAtomic(filePath, payload, { renameAttempts = DEFAULT_RENAME_ATTEMPTS } = {}) {
+  const dir = path.dirname(filePath);
+  const base = path.basename(filePath);
+  await fs.mkdir(dir, { recursive: true });
+
+  const tempPath = path.join(dir, `.${base}.tmp.${Date.now()}.${process.pid}.${randomUUID()}`);
+  let handle = null;
+
+  try {
+    handle = await fs.open(tempPath, "wx");
+    await handle.writeFile(payload, "utf8");
+    await handle.sync();
+  } finally {
+    if (handle) await handle.close().catch(() => {});
+  }
+
+  let lastError = null;
+  try {
+    for (let attempt = 1; attempt <= renameAttempts; attempt += 1) {
+      try {
+        await fs.rename(tempPath, filePath);
+        await fsyncDirectoryBestEffort(dir);
+        return;
+      } catch (error) {
+        lastError = error;
+        if (!isTransientFsError(error) || attempt === renameAttempts) throw error;
+        const backoff = Math.min(2_000, 50 * 2 ** Math.min(attempt - 1, 6)) + jitter(25, 250);
+        await sleep(backoff);
+      }
+    }
+  } catch (error) {
+    await removeWithRetry(tempPath).catch(() => {});
+    error.message = `${error.message}; atomic rename failed for ${filePath} after ${renameAttempts} attempts; previous file was left untouched`;
+    error.cause = error.cause || lastError;
+    throw error;
+  }
+}
+
+async function writeDbUnlocked(db) {
+  await fs.mkdir(dataDir, { recursive: true });
+  const nextDb = normalizeDb({ ...db, updatedAt: nowIso() });
+  const serialized = `${JSON.stringify(nextDb, null, 2)}\n`;
+
+  await writeTextAtomic(dbPath, serialized);
+  await writeTextAtomic(backupPath, serialized).catch(async (error) => {
+    await appendRecoveryLog(`failed to update leads.json.bak: ${error.message || error}`);
+  });
+
+  return nextDb;
+}
+
+async function readDbUnlocked() {
   await fs.mkdir(dataDir, { recursive: true });
 
   for (let attempt = 1; attempt <= 8; attempt += 1) {
@@ -68,94 +279,55 @@ export async function readDb() {
       return await parseDbFile(dbPath);
     } catch (error) {
       if (error.code === "ENOENT") {
-        const db = emptyDb();
-        await writeDb(db);
-        return db;
+        return await writeDbUnlocked(emptyDb());
       }
 
-      const transient = error instanceof SyntaxError || error.code === "EMPTY_JSON" || ["EBUSY", "EPERM", "EACCES"].includes(error.code);
-      if (!transient || attempt === 8) {
-        try {
-          const backupDb = await parseDbFile(backupPath);
-          await quarantineBadDb(error);
-          await writeDb(backupDb);
-          return backupDb;
-        } catch {
-          await quarantineBadDb(error);
-          const db = emptyDb();
-          await writeDb(db);
-          return db;
-        }
-      }
-
-      await sleep(60 * attempt + Math.floor(Math.random() * 120));
+      const transient = isTransientFsError(error) || isRecoverableJsonError(error);
+      if (!transient || attempt === 8) throw error;
+      await sleep(60 * attempt + jitter(30, 180));
     }
   }
 
   return emptyDb();
 }
 
-async function withDbLock(fn) {
-  await fs.mkdir(dataDir, { recursive: true });
-  const started = Date.now();
-  while (true) {
-    let handle = null;
-    try {
-      handle = await fs.open(lockPath, "wx");
-      await handle.writeFile(`${process.pid}\n${nowIso()}\n`, "utf8");
-      return await fn();
-    } catch (error) {
-      if (error.code !== "EEXIST") throw error;
-      if (Date.now() - started > 30000) {
-        await fs.rm(lockPath, { force: true }).catch(() => {});
-      }
-      await sleep(80 + Math.floor(Math.random() * 120));
-    } finally {
-      if (handle) {
-        await handle.close().catch(() => {});
-        await fs.rm(lockPath, { force: true }).catch(() => {});
-      }
-    }
-  }
-}
-
-async function renameWithRetry(tempPath, finalPath) {
-  let lastError = null;
-  for (let attempt = 1; attempt <= 15; attempt += 1) {
-    try {
-      await fs.rename(tempPath, finalPath);
-      return;
-    } catch (error) {
-      lastError = error;
-      if (!["EPERM", "EACCES", "EBUSY"].includes(error.code)) throw error;
-      await sleep(80 * attempt + Math.floor(Math.random() * 120));
-    }
+async function recoverDbUnlocked(error) {
+  try {
+    return await parseDbFile(dbPath);
+  } catch {
+    // The lock holder sees the same corruption and is responsible for recovery.
   }
 
   try {
-    await fs.copyFile(tempPath, finalPath);
-    await fs.rm(tempPath, { force: true });
-    return;
-  } catch (fallbackError) {
-    await fs.rm(tempPath, { force: true }).catch(() => {});
-    fallbackError.message = `${fallbackError.message}; rename retry failed after ${lastError?.code || "unknown"}: ${lastError?.message || ""}`;
-    throw fallbackError;
+    const backupDb = await parseDbFile(backupPath);
+    await quarantineBadDb(error);
+    return await writeDbUnlocked(backupDb);
+  } catch {
+    await quarantineBadDb(error);
+    return await writeDbUnlocked(emptyDb());
   }
 }
 
+export async function readDb() {
+  return withDbLock(async () => {
+    try {
+      return await readDbUnlocked();
+    } catch (error) {
+      if (isTransientFsError(error) || isRecoverableJsonError(error)) {
+        return recoverDbUnlocked(error);
+      }
+      throw error;
+    }
+  });
+}
+
 export async function writeDb(db) {
-  await fs.mkdir(dataDir, { recursive: true });
-  db.updatedAt = nowIso();
-  const serialized = `${JSON.stringify(normalizeDb(db), null, 2)}\n`;
-  const tempPath = `${dbPath}.${process.pid}.${Date.now()}.tmp`;
-  await fs.writeFile(tempPath, serialized, "utf8");
-  await renameWithRetry(tempPath, dbPath);
-  await fs.writeFile(backupPath, serialized, "utf8").catch(() => {});
+  return withDbLock(() => writeDbUnlocked(db));
 }
 
 export async function upsertLeads(incoming, runId) {
   return withDbLock(async () => {
-    const db = await readDb();
+    const db = await readDbUnlocked();
     const existingById = new Map(db.leads.map((lead) => [lead.id, lead]));
     const created = [];
     const updated = [];
@@ -192,23 +364,23 @@ export async function upsertLeads(incoming, runId) {
       updated.push(next);
     }
 
-    await writeDb(db);
-    return { created, updated, total: db.leads.length };
+    const persisted = await writeDbUnlocked(db);
+    return { created, updated, total: persisted.leads.length };
   });
 }
 
 export async function addRun(run) {
   return withDbLock(async () => {
-    const db = await readDb();
+    const db = await readDbUnlocked();
     db.runs.unshift(run);
     db.runs = db.runs.slice(0, 50);
-    await writeDb(db);
+    await writeDbUnlocked(db);
   });
 }
 
 export async function updateLead(id, patch) {
   return withDbLock(async () => {
-    const db = await readDb();
+    const db = await readDbUnlocked();
     const index = db.leads.findIndex((lead) => lead.id === id);
     if (index === -1) return null;
     db.leads[index] = {
@@ -216,7 +388,7 @@ export async function updateLead(id, patch) {
       ...patch,
       updatedAt: nowIso()
     };
-    await writeDb(db);
+    await writeDbUnlocked(db);
     return db.leads[index];
   });
 }
