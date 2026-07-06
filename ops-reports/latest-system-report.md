@@ -1,22 +1,22 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T05:22:16.065Z
+Updated: 2026-07-06T05:28:09.678Z
 Health: OK
 
 ## Funnel
-Raw: 899
-Qualified: 70
-Working: 96
-Contactable: 76
-Sales-ready: 35
-A1 Hot: 36
-A2 Strong: 9
+Raw: 774
+Qualified: 55
+Working: 79
+Contactable: 61
+Sales-ready: 28
+A1 Hot: 28
+A2 Strong: 7
 
 ## Quality
 Platform contact leaks: 0
-High-value without real contact: 195
-Sales-ready by bucket: {"web":7,"x":7,"myfxbook":6,"mql5":5,"specialist":4,"instagram":3,"tiktok":2,"telegram":1}
-Qualified by bucket: {"linkedin":23,"instagram":12,"x":9,"web":8,"myfxbook":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
+High-value without real contact: 164
+Sales-ready by bucket: {"x":7,"myfxbook":6,"web":5,"mql5":4,"instagram":2,"tiktok":2,"specialist":1,"telegram":1}
+Qualified by bucket: {"linkedin":16,"instagram":11,"x":9,"myfxbook":6,"web":5,"mql5":4,"tiktok":2,"specialist":1,"telegram":1}
 
 ## Sourcing / Workers
 Provider errors: 0
@@ -28,7 +28,7 @@ Phase: smart-enriching
 Processed: 0
 Stored: 0
 Errors: 0
-Current: kevinhorna894
+Current: PipHuntersTradingMovement
 
 ## Recent Errors
 ### qualified-exporter
