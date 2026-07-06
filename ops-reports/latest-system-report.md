@@ -1,35 +1,35 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T00:12:05.869Z
+Updated: 2026-07-06T00:22:17.430Z
 Health: OK
 
 ## Funnel
-Raw: 1238
-Qualified: 97
+Raw: 1227
+Qualified: 98
 Working: 124
 Contactable: 103
 Sales-ready: 38
 A1 Hot: 42
-A2 Strong: 15
+A2 Strong: 17
 
 ## Quality
 Platform contact leaks: 15
-High-value without real contact: 244
+High-value without real contact: 230
 Sales-ready by bucket: {"web":8,"x":7,"myfxbook":6,"mql5":5,"specialist":4,"instagram":3,"tiktok":2,"facebook_threads":1,"linkedin":1,"telegram":1}
-Qualified by bucket: {"linkedin":41,"instagram":14,"x":9,"web":9,"facebook_threads":6,"myfxbook":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
+Qualified by bucket: {"linkedin":42,"instagram":14,"x":9,"web":9,"facebook_threads":6,"myfxbook":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
 
 ## Sourcing / Workers
-Provider errors: 1825
+Provider errors: 1638
 Stale workers: engine-control
-Issues: none
+Issues: warning:duplicate_pressure
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 96
-Stored: 96
+Processed: 109
+Stored: 109
 Errors: 0
-Current: Ugur Oezcan 3.44 (9) NightTrader Mix ICM 227% growth since 2017 Reliability 100% Algo trading 0 Copy for 20 USD per month
-Last: Bill Edbert Dwi QuantGold369 229% growth since 2026 Reliability 86% Algo trading 0 Copy for 33 USD per month
+Current: Raita Miyaji Re life 131% growth since 2022 Reliability 100% Algo trading 0 Copy for 30 USD per month
+Last: Gabriel Paul Ange Perrin IA Factory 97% growth since 2023 Reliability 99% Algo trading 0 Copy for 30 USD per month
 Last best contact: +31 10 669 0521
 
 ## Recent Errors
