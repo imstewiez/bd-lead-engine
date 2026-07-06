@@ -1,6 +1,6 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T01:10:43.659Z
+Updated: 2026-07-06T01:14:20.781Z
 Health: OK
 
 ## Funnel
@@ -14,23 +14,21 @@ A2 Strong: 15
 
 ## Quality
 Platform contact leaks: 0
-High-value without real contact: 216
+High-value without real contact: 217
 Sales-ready by bucket: {"web":8,"x":7,"myfxbook":6,"mql5":5,"specialist":4,"instagram":3,"tiktok":2,"facebook_threads":1,"linkedin":1,"telegram":1}
 Qualified by bucket: {"linkedin":41,"instagram":12,"x":9,"web":9,"facebook_threads":6,"myfxbook":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
 
 ## Sourcing / Workers
-Provider errors: 486
-Stale workers: engine-control
+Provider errors: 0
+Stale workers: none
 Issues: warning:duplicate_pressure
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 5
-Stored: 5
+Processed: 0
+Stored: 0
 Errors: 0
 Current: ) | TikTok
-Last: Mark's - Facebook
-Last best contact: https://www.facebook.com/MarksClothing/
 
 ## Recent Errors
 ### qualified-exporter
