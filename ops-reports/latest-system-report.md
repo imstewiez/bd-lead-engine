@@ -1,36 +1,36 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T06:38:58.616Z
+Updated: 2026-07-06T06:49:05.798Z
 Health: OK
 
 ## Funnel
 Raw: 780
-Qualified: 57
+Qualified: 56
 Working: 79
 Contactable: 62
 Sales-ready: 28
 A1 Hot: 28
-A2 Strong: 7
+A2 Strong: 9
 
 ## Quality
-Platform contact leaks: 1
+Platform contact leaks: 0
 High-value without real contact: 170
 Sales-ready by bucket: {"x":7,"myfxbook":6,"web":5,"mql5":4,"instagram":2,"tiktok":2,"specialist":1,"telegram":1}
-Qualified by bucket: {"linkedin":17,"instagram":12,"x":9,"myfxbook":6,"web":5,"mql5":4,"tiktok":2,"specialist":1,"telegram":1}
+Qualified by bucket: {"linkedin":17,"instagram":11,"x":9,"myfxbook":6,"web":5,"mql5":4,"tiktok":2,"specialist":1,"telegram":1}
 
 ## Sourcing / Workers
-Provider errors: 54
+Provider errors: 90
 Stale workers: engine-control
 Issues: none
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 22
-Stored: 22
+Processed: 27
+Stored: 27
 Errors: 0
-Current: Dad caught me follow my telegram and link in bio for part 2
-Last: Tiktok
-Last best contact: https://www.tiktok.com/@forex.traders
+Current: FPCopyTradingMasterFX
+Last: users exampleFX Blue statistics for forex results
+Last best contact: accounts@fxbluelabs.com
 
 ## Recent Errors
 ### qualified-exporter
