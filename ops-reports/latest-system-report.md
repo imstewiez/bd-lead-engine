@@ -1,6 +1,6 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T13:46:11.455Z
+Updated: 2026-07-06T13:56:17.008Z
 Health: OK
 
 ## Funnel
@@ -19,14 +19,14 @@ Sales-ready by bucket: {"mql5":5,"web":3,"tiktok":2,"myfxbook":2,"specialist":1,
 Qualified by bucket: {"linkedin":18,"instagram":7,"mql5":5,"web":3,"tiktok":2,"myfxbook":2,"specialist":1,"telegram":1,"x":1}
 
 ## Sourcing / Workers
-Provider errors: 144
+Provider errors: 108
 Stale workers: engine-control
 Issues: none
 
 ## Smart Enrichment
 Phase: idle
-Processed: 92
-Stored: 92
+Processed: 100
+Stored: 100
 Errors: 0
 Last: ZuluTrade Social Platform
 Last best contact: pocketfxcopy@gmail.com
