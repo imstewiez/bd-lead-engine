@@ -14,46 +14,49 @@ function harvesterArgs(name, extra = []) {
 
 export const BACKGROUND_TASKS = {
   "source-harvester": {
-    args: harvesterArgs("source-harvester", ["--onlyIntents=partner,intent", "--maxQueries=170", "--limitPerQuery=12", "--delayMs=5200", "--fetchPages=true", "--deepEnrich=true", "--searchContacts=true", "--maxContactPages=9", "--maxExternalWebsites=7", "--maxTrailQueries=26", "--trailLimit=10", "--exportEvery=3"])
+    args: harvesterArgs("source-harvester", ["--onlyIntents=partner,intent", "--maxQueries=120", "--limitPerQuery=10", "--delayMs=6500", "--fetchPages=true", "--deepEnrich=true", "--searchContacts=true", "--maxContactPages=6", "--maxExternalWebsites=5", "--maxTrailQueries=16", "--trailLimit=6", "--exportEvery=5"])
   },
   "source-harvester-social": {
-    args: harvesterArgs("source-harvester-social", ["--onlyIntents=social", "--queryOffsetBase=3000", "--maxQueries=190", "--limitPerQuery=12", "--delayMs=5000", "--fetchPages=true", "--deepEnrich=true", "--searchContacts=true", "--maxContactPages=9", "--maxExternalWebsites=7", "--maxTrailQueries=26", "--trailLimit=10", "--exportEvery=3"])
+    args: harvesterArgs("source-harvester-social", ["--onlyIntents=social", "--queryOffsetBase=3000", "--maxQueries=120", "--limitPerQuery=10", "--delayMs=7000", "--fetchPages=true", "--deepEnrich=true", "--searchContacts=true", "--maxContactPages=6", "--maxExternalWebsites=5", "--maxTrailQueries=16", "--trailLimit=6", "--exportEvery=5"])
   },
   "source-harvester-specialist": {
-    args: harvesterArgs("source-harvester-specialist", ["--onlyIntents=specialist,forum", "--queryOffsetBase=6000", "--maxQueries=170", "--limitPerQuery=12", "--delayMs=5200", "--fetchPages=true", "--deepEnrich=true", "--searchContacts=true", "--maxContactPages=9", "--maxExternalWebsites=7", "--maxTrailQueries=26", "--trailLimit=10", "--exportEvery=3"])
+    args: harvesterArgs("source-harvester-specialist", ["--onlyIntents=specialist,forum", "--queryOffsetBase=6000", "--maxQueries=120", "--limitPerQuery=10", "--delayMs=7200", "--fetchPages=true", "--deepEnrich=true", "--searchContacts=true", "--maxContactPages=6", "--maxExternalWebsites=5", "--maxTrailQueries=16", "--trailLimit=6", "--exportEvery=5"])
   },
   "source-harvester-ecosystem": {
-    args: harvesterArgs("source-harvester-ecosystem", ["--onlyIntents=ecosystem,recruitment", "--queryOffsetBase=9000", "--maxQueries=135", "--limitPerQuery=10", "--delayMs=6200", "--fetchPages=true", "--deepEnrich=true", "--searchContacts=true", "--maxContactPages=9", "--maxExternalWebsites=7", "--maxTrailQueries=24", "--trailLimit=9", "--exportEvery=3"])
+    args: harvesterArgs("source-harvester-ecosystem", ["--onlyIntents=ecosystem,recruitment", "--queryOffsetBase=9000", "--maxQueries=90", "--limitPerQuery=8", "--delayMs=7800", "--fetchPages=true", "--deepEnrich=true", "--searchContacts=true", "--maxContactPages=6", "--maxExternalWebsites=5", "--maxTrailQueries=14", "--trailLimit=5", "--exportEvery=5"])
   },
   "source-harvester-linkedin": {
-    args: harvesterArgs("source-harvester-linkedin", ["--onlyChannels=linkedin", "--queryOffsetBase=12000", "--maxQueries=260", "--limitPerQuery=18", "--delayMs=4300", "--fetchPages=true", "--deepEnrich=true", "--searchContacts=true", "--maxContactPages=10", "--maxExternalWebsites=8", "--maxTrailQueries=30", "--trailLimit=12", "--exportEvery=3"])
+    args: harvesterArgs("source-harvester-linkedin", ["--onlyChannels=linkedin", "--queryOffsetBase=12000", "--maxQueries=180", "--limitPerQuery=12", "--delayMs=6500", "--fetchPages=true", "--deepEnrich=true", "--searchContacts=true", "--maxContactPages=7", "--maxExternalWebsites=6", "--maxTrailQueries=18", "--trailLimit=7", "--exportEvery=5"])
   },
   "source-harvester-instagram": {
-    args: harvesterArgs("source-harvester-instagram", ["--onlyChannels=instagram", "--queryOffsetBase=15000", "--maxQueries=260", "--limitPerQuery=18", "--delayMs=4600", "--fetchPages=true", "--deepEnrich=true", "--searchContacts=true", "--maxContactPages=10", "--maxExternalWebsites=8", "--maxTrailQueries=30", "--trailLimit=12", "--exportEvery=3"])
+    args: harvesterArgs("source-harvester-instagram", ["--onlyChannels=instagram", "--queryOffsetBase=15000", "--maxQueries=180", "--limitPerQuery=12", "--delayMs=6800", "--fetchPages=true", "--deepEnrich=true", "--searchContacts=true", "--maxContactPages=7", "--maxExternalWebsites=6", "--maxTrailQueries=18", "--trailLimit=7", "--exportEvery=5"])
   },
   "source-harvester-platforms": {
-    args: harvesterArgs("source-harvester-platforms", ["--onlyChannels=myfxbook,mql5,specialist", "--queryOffsetBase=18000", "--maxQueries=220", "--limitPerQuery=12", "--delayMs=6200", "--fetchPages=true", "--deepEnrich=true", "--searchContacts=true", "--maxContactPages=10", "--maxExternalWebsites=8", "--maxTrailQueries=28", "--trailLimit=10", "--maxMql5QueryShare=0.45", "--minMql5Queries=30", "--exportEvery=3"])
+    args: harvesterArgs("source-harvester-platforms", ["--onlyChannels=myfxbook,mql5,specialist", "--queryOffsetBase=18000", "--maxQueries=160", "--limitPerQuery=10", "--delayMs=7800", "--fetchPages=true", "--deepEnrich=true", "--searchContacts=true", "--maxContactPages=7", "--maxExternalWebsites=6", "--maxTrailQueries=18", "--trailLimit=7", "--maxMql5QueryShare=0.4", "--minMql5Queries=20", "--exportEvery=5"])
   },
   "source-harvester-communities": {
-    args: harvesterArgs("source-harvester-communities", ["--onlyChannels=telegram,discord,forum,x,tiktok,facebook_threads", "--queryOffsetBase=21000", "--maxQueries=260", "--limitPerQuery=15", "--delayMs=5200", "--fetchPages=true", "--deepEnrich=true", "--searchContacts=true", "--maxContactPages=9", "--maxExternalWebsites=7", "--maxTrailQueries=28", "--trailLimit=12", "--exportEvery=3"])
+    args: harvesterArgs("source-harvester-communities", ["--onlyChannels=telegram,discord,forum,x,tiktok,facebook_threads", "--queryOffsetBase=21000", "--maxQueries=180", "--limitPerQuery=12", "--delayMs=7200", "--fetchPages=true", "--deepEnrich=true", "--searchContacts=true", "--maxContactPages=7", "--maxExternalWebsites=6", "--maxTrailQueries=18", "--trailLimit=7", "--exportEvery=5"])
   },
   "source-harvester-events": {
-    args: harvesterArgs("source-harvester-events", ["--onlyChannels=ecosystem,recruitment", "--queryOffsetBase=24000", "--maxQueries=190", "--limitPerQuery=12", "--delayMs=5800", "--fetchPages=true", "--deepEnrich=true", "--searchContacts=true", "--maxContactPages=9", "--maxExternalWebsites=8", "--maxTrailQueries=24", "--trailLimit=10", "--exportEvery=3"])
+    args: harvesterArgs("source-harvester-events", ["--onlyChannels=ecosystem,recruitment", "--queryOffsetBase=24000", "--maxQueries=120", "--limitPerQuery=10", "--delayMs=7600", "--fetchPages=true", "--deepEnrich=true", "--searchContacts=true", "--maxContactPages=7", "--maxExternalWebsites=6", "--maxTrailQueries=16", "--trailLimit=6", "--exportEvery=5"])
   },
   "enrichment-worker": {
-    args: ["src/enrichment-worker.js", "--delayMs=2200", "--idleMs=5000", "--staleHours=6", "--hotStaleHours=0.75", "--contactlessStaleHours=0.75", "--rotationHours=2", "--maxAttempts=25", "--maxContactPages=10", "--maxExternalWebsites=8", "--maxTrailQueries=26", "--trailLimit=10"]
+    args: ["src/enrichment-worker.js", "--delayMs=4500", "--idleMs=9000", "--staleHours=8", "--hotStaleHours=1.5", "--contactlessStaleHours=1.5", "--rotationHours=3", "--maxAttempts=18", "--maxContactPages=7", "--maxExternalWebsites=6", "--maxTrailQueries=18", "--trailLimit=7"]
   },
   "smart-enrichment-worker": {
-    args: ["src/smart-enrichment-worker.js", "--delayMs=5000", "--idleMs=12000", "--maxTrailQueries=28", "--trailLimit=12", "--maxContactPages=10"]
+    args: ["src/smart-enrichment-worker.js", "--delayMs=7500", "--idleMs=16000", "--maxTrailQueries=18", "--trailLimit=7", "--maxContactPages=7"]
   },
   "contact-gap-worker": {
-    args: ["src/contact-gap-worker.js", "--delayMs=4500", "--idleMs=12000", "--maxTrailQueries=30", "--trailLimit=12", "--maxContactPages=10"]
+    args: ["src/contact-gap-worker.js", "--delayMs=9000", "--idleMs=18000", "--maxTrailQueries=18", "--trailLimit=7", "--maxContactPages=7"]
   },
   "lead-cleaner": {
-    args: ["src/cleanup-worker.js", "--intervalMs=45000", "--limit=1000"]
+    args: ["src/cleanup-worker.js", "--intervalMs=90000", "--limit=1000"]
   },
   "qualified-exporter": {
-    args: ["src/qualified-exporter.js", "--intervalMs=45000"]
+    args: ["src/qualified-exporter.js", "--intervalMs=90000"]
+  },
+  "ui-snapshot-worker": {
+    args: ["src/ui-snapshot.js", "--intervalMs=12000"]
   },
   "cloud-logger-worker": {
     args: ["src/cloud-logger.js", "--loop=true", "--intervalMs=600000"]
@@ -104,9 +107,7 @@ async function retireStaleHarvester(name, pid) {
   if (!name.startsWith("source-harvester")) return false;
   const age = await statusAgeMs(name);
   if (age < HARVESTER_STALE_MS) return false;
-  try {
-    process.kill(pid);
-  } catch {}
+  try { process.kill(pid); } catch {}
   await fsp.rm(pidPathFor(name), { force: true }).catch(() => {});
   return true;
 }
@@ -117,13 +118,7 @@ export async function startBackgroundTask(name) {
   await fsp.mkdir(dataDir, { recursive: true });
   const out = fs.openSync(path.join(dataDir, `${name}.out.log`), "a");
   const err = fs.openSync(path.join(dataDir, `${name}.err.log`), "a");
-  const child = spawn(process.execPath, task.args, {
-    cwd: rootDir,
-    detached: true,
-    stdio: ["ignore", out, err],
-    windowsHide: true,
-    env: process.env
-  });
+  const child = spawn(process.execPath, task.args, { cwd: rootDir, detached: true, stdio: ["ignore", out, err], windowsHide: true, env: process.env });
   child.unref();
   await fsp.writeFile(pidPathFor(name), `${child.pid}\n${new Date().toISOString()}\n`, "utf8");
   return { name, pid: child.pid, status: "started" };
