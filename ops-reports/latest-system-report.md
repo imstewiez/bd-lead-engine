@@ -1,34 +1,33 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T14:59:06.734Z
+Updated: 2026-07-06T15:09:12.093Z
 Health: OK
 
 ## Funnel
-Raw: 512
-Qualified: 41
-Working: 64
-Contactable: 47
-Sales-ready: 16
-A1 Hot: 23
+Raw: 515
+Qualified: 39
+Working: 63
+Contactable: 46
+Sales-ready: 15
+A1 Hot: 22
 A2 Strong: 11
 
 ## Quality
 Platform contact leaks: 3
-High-value without real contact: 147
-Sales-ready by bucket: {"mql5":5,"web":3,"myfxbook":3,"tiktok":2,"specialist":1,"telegram":1,"instagram":1}
-Qualified by bucket: {"linkedin":18,"instagram":7,"mql5":5,"web":3,"myfxbook":3,"tiktok":2,"specialist":1,"telegram":1,"x":1}
+High-value without real contact: 148
+Sales-ready by bucket: {"mql5":5,"web":3,"tiktok":2,"myfxbook":2,"specialist":1,"telegram":1,"instagram":1}
+Qualified by bucket: {"linkedin":17,"instagram":7,"mql5":5,"web":3,"tiktok":2,"myfxbook":2,"specialist":1,"telegram":1,"x":1}
 
 ## Sourcing / Workers
-Provider errors: 144
+Provider errors: 171
 Stale workers: engine-control
 Issues: none
 
 ## Smart Enrichment
-Phase: smart-enriching
-Processed: 12
-Stored: 12
+Phase: idle
+Processed: 21
+Stored: 21
 Errors: 0
-Current: Forex Fund Manager Forex System by Forex Trader supportfx
 Last: ZuluTrade Social Platform
 Last best contact: pocketfxcopy@gmail.com
 
