@@ -3,93 +3,48 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#101418" />
+    <meta name="theme-color" content="#11161a" />
     <title>BD Lead Engine</title>
-    <link rel="stylesheet" href="/styles.css?v=operating-desk-3" />
+    <link rel="stylesheet" href="/styles.css?v=auto-desk-1" />
     <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-    <script defer src="/app.js?v=operating-desk-3"></script>
+    <script defer src="/app.js?v=auto-desk-1"></script>
   </head>
   <body>
     <div class="app-shell">
       <header class="topbar">
         <div class="brand-lockup">
           <div class="brand-mark">BD</div>
-          <div class="brand-copy">
+          <div>
             <p class="eyebrow">Lead operations</p>
             <h1>BD Lead Engine</h1>
           </div>
         </div>
-        <div class="stack-ribbon" aria-label="Tech stack atual">
-          <span>Node.js</span>
-          <span>Express</span>
-          <span>Cheerio</span>
-          <span>Vanilla JS</span>
-          <span>JSON DB</span>
-          <span>CSV/JSON</span>
-        </div>
-        <div class="topbar-actions">
+        <div class="topbar-status">
+          <span id="runBadge" class="badge muted">Auto</span>
           <span id="lastUpdated" class="system-chip">sync —</span>
-          <span id="runBadge" class="badge muted">Pronto</span>
-          <button id="refreshButton" class="icon-button" type="button" title="Atualizar dashboard"><i data-lucide="refresh-cw"></i></button>
         </div>
       </header>
 
       <main class="crm-shell">
-        <section class="commandbar" aria-label="Controlos do motor">
-          <div class="status-zone">
-            <div class="status-title">
-              <span>Autopilot</span>
-              <strong id="activePreset">preset manual</strong>
-            </div>
-            <p id="runMessage">A procurar, qualificar e enriquecer oportunidades automaticamente.</p>
-            <div class="progress-track" aria-label="Progresso do scan"><div id="progressBar" class="progress-bar"></div></div>
+        <section class="auto-strip" aria-label="Estado automático do motor">
+          <div class="run-line">
+            <strong>Auto sourcing</strong>
+            <span id="runMessage">O motor arranca sozinho com o host e mantém sourcing/enrichment em background.</span>
           </div>
-
-          <div class="control-zone">
-            <div class="control-line">
-              <label><span>Região</span><select id="regionSet"><option value="global">Global</option><option value="latam">LATAM</option><option value="europe">Europe</option><option value="mena">MENA</option><option value="asia">Asia</option></select></label>
-              <label><span>Queries</span><input id="maxQueries" type="number" min="10" max="400" value="260" /></label>
-              <label><span>Limit/query</span><input id="limitPerQuery" type="number" min="1" max="25" value="15" /></label>
-              <label class="check"><input id="includePartners" type="checkbox" checked /> parceiros</label>
-              <label class="check"><input id="includeRecruitment" type="checkbox" checked /> recruta</label>
-              <label class="check"><input id="fetchPages" type="checkbox" checked /> crawl</label>
-              <label class="check"><input id="deepEnrich" type="checkbox" checked /> deep enrich</label>
-            </div>
-            <div class="button-line">
-              <button class="preset-button" type="button" data-preset="quality">Quality</button>
-              <button class="preset-button" type="button" data-preset="volume">Volume</button>
-              <button class="preset-button" type="button" data-preset="latam">LATAM</button>
-              <button class="preset-button" type="button" data-preset="social">Social</button>
-              <button class="preset-button" type="button" data-preset="super">Super</button>
-              <span class="divider"></span>
-              <button id="scanButton" class="primary-button" type="button"><i data-lucide="play"></i> Scan</button>
-              <button id="continuousButton" class="ghost-button" type="button"><i data-lucide="repeat"></i> Continuous</button>
-              <button id="stopButton" class="ghost-button danger" type="button"><i data-lucide="square"></i> Stop</button>
-              <button id="repairButton" class="ghost-button" type="button"><i data-lucide="wrench"></i> Repair/export</button>
-            </div>
-          </div>
-
-          <div class="output-zone">
-            <div id="systemHealth" class="health-strip"></div>
-            <div class="export-line">
-              <a id="exportCsvLink" href="/api/export.csv">CSV vista</a>
-              <a id="exportJsonLink" href="/api/export.json">JSON vista</a>
-              <a href="/autopilot-qualified-contactable-leads.csv">Contactáveis</a>
-              <a href="/autopilot-hot-leads.csv">Hot</a>
-            </div>
-            <div id="eventList" class="event-list compact"></div>
-          </div>
+          <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+          <div id="systemHealth" class="health-strip"></div>
+          <div id="eventList" class="event-list"></div>
         </section>
 
         <section class="metric-strip" aria-label="Resumo do pipeline">
+          <div class="metric"><span>Base</span><strong id="metricRawTotal">0</strong></div>
           <div class="metric hot"><span id="metricTotalLabel">Qualificadas</span><strong id="metricTotal">0</strong></div>
-          <div class="metric raw"><span>Base</span><strong id="metricRawTotal">0</strong></div>
+          <div class="metric contact"><span>Contactáveis</span><strong id="metricContactable">0</strong></div>
           <div class="metric"><span>A leads</span><strong id="metricA">0</strong></div>
           <div class="metric"><span>Parceiros</span><strong id="metricPartners">0</strong></div>
-          <div class="metric"><span>Recruta</span><strong id="metricRecruitment">0</strong></div>
           <div class="metric booked"><span>Reuniões</span><strong id="metricBooked">0</strong></div>
-          <div class="metric contact"><span>Contactáveis</span><strong id="metricContactable">0</strong></div>
-          <div class="metric"><span>Contacto</span><strong id="metricEmailForm">0</strong></div>
+          <div class="metric hidden-metric"><span>Recruta</span><strong id="metricRecruitment">0</strong></div>
+          <div class="metric hidden-metric"><span>Contacto</span><strong id="metricEmailForm">0</strong></div>
         </section>
 
         <section class="work-grid">
