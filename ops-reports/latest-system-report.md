@@ -1,34 +1,35 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T02:46:42.183Z
+Updated: 2026-07-06T02:56:50.952Z
 Health: OK
 
 ## Funnel
 Raw: 1223
-Qualified: 99
+Qualified: 97
 Working: 127
 Contactable: 105
 Sales-ready: 38
 A1 Hot: 41
-A2 Strong: 18
+A2 Strong: 17
 
 ## Quality
 Platform contact leaks: 0
 High-value without real contact: 218
 Sales-ready by bucket: {"web":8,"x":7,"myfxbook":6,"mql5":5,"specialist":4,"instagram":3,"tiktok":2,"facebook_threads":1,"linkedin":1,"telegram":1}
-Qualified by bucket: {"linkedin":43,"instagram":14,"x":9,"web":9,"facebook_threads":6,"myfxbook":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
+Qualified by bucket: {"linkedin":43,"instagram":12,"x":9,"web":9,"facebook_threads":6,"myfxbook":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
 
 ## Sourcing / Workers
-Provider errors: 0
+Provider errors: 135
 Stale workers: none
 Issues: warning:duplicate_pressure
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 0
-Stored: 0
+Processed: 2
+Stored: 2
 Errors: 0
-Current: profilephoto:UserTileStatic p
+Current: forex instagram influencers
+Last: profilephoto:UserTileMedium p
 
 ## Recent Errors
 ### qualified-exporter
