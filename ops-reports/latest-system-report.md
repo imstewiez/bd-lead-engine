@@ -1,34 +1,33 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T23:24:51.358Z
+Updated: 2026-07-06T23:35:04.994Z
 Health: OK
 
 ## Funnel
-Raw: 545
-Qualified: 55
-Working: 84
-Contactable: 65
-Sales-ready: 20
+Raw: 546
+Qualified: 57
+Working: 85
+Contactable: 66
+Sales-ready: 21
 A1 Hot: 28
 A2 Strong: 14
 
 ## Quality
 Platform contact leaks: 13
 High-value without real contact: 162
-Sales-ready by bucket: {"mql5":7,"specialist":5,"web":3,"myfxbook":2,"tiktok":2,"instagram":1}
-Qualified by bucket: {"linkedin":22,"specialist":11,"instagram":7,"mql5":7,"web":3,"tiktok":2,"myfxbook":2,"x":1}
+Sales-ready by bucket: {"mql5":7,"specialist":5,"web":3,"myfxbook":3,"tiktok":2,"instagram":1}
+Qualified by bucket: {"linkedin":23,"specialist":11,"instagram":7,"mql5":7,"web":3,"myfxbook":3,"tiktok":2,"x":1}
 
 ## Sourcing / Workers
-Provider errors: 90
+Provider errors: 72
 Stale workers: engine-control
 Issues: none
 
 ## Smart Enrichment
-Phase: smart-enriching
-Processed: 139
-Stored: 139
+Phase: idle
+Processed: 146
+Stored: 146
 Errors: 0
-Current: GOLD Copy Forex System by Forex Trader ...
 Last: users forex gold investorFX Blue
 Last best contact: accounts@fxbluelabs.com
 
