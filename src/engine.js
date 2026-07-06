@@ -10,13 +10,15 @@ import {
   SEARCH_PROFILES
 } from "./config.js";
 import { classifyResult } from "./classify.js";
+import { enhanceCommercialLead, isCommerciallyRejected } from "./commercial-intelligence.js";
 import { deepEnrichResult } from "./deep.js";
 import { exportLeads } from "./exporter.js";
 import { isHardRejectedLead } from "./lead-quality.js";
+import { balancedSelect, countBySource, sourceBucket } from "./mql5-limit.js";
+import { isBlockedCommercialLead, isBlockedCommercialQuery } from "./noise-policy.js";
 import { addRun, upsertLeads } from "./store.js";
 import { enrichResult } from "./search.js";
 import { searchOne } from "./search-fallback.js";
-import { balancedSelect, countBySource, sourceBucket } from "./mql5-limit.js";
 import { CHANNEL_EXPANSION_QUERY_PACKS, EXTRA_HIGH_VALUE_QUERY_PACKS, isBlockedQueryTemplate } from "./sourcing-policy.js";
 import { nowIso, sleep } from "./utils.js";
 
@@ -25,105 +27,54 @@ const HIGH_VALUE_QUERY_PACKS = [
   { text: "site:linkedin.com/in \"forex\" \"IB partner\" {region}", intent: "partner" },
   { text: "site:linkedin.com/in \"forex\" \"CPA\" \"affiliate\" {region}", intent: "partner" },
   { text: "site:linkedin.com/in \"forex\" \"revenue share\" {region}", intent: "partner" },
-  { text: "site:linkedin.com/in \"forex\" \"revshare\" {region}", intent: "partner" },
-  { text: "site:linkedin.com/in \"forex\" \"partnerships\" \"affiliate\" {region}", intent: "partner" },
   { text: "site:linkedin.com/in \"forex affiliate\" {region}", intent: "partner" },
-  { text: "site:linkedin.com/in \"PAMM\" \"forex\" {region}", intent: "partner" },
-  { text: "site:linkedin.com/in \"MAM\" \"forex\" {region}", intent: "partner" },
+  { text: "site:linkedin.com/in \"PAMM\" \"forex\" {region}", intent: "specialist" },
+  { text: "site:linkedin.com/in \"MAM\" \"forex\" {region}", intent: "specialist" },
   { text: "site:linkedin.com/in \"fund manager\" \"forex\" {region}", intent: "specialist" },
   { text: "site:linkedin.com/in \"portfolio manager\" \"forex\" {region}", intent: "specialist" },
   { text: "site:linkedin.com/in \"money manager\" \"forex\" {region}", intent: "specialist" },
   { text: "site:linkedin.com/in \"xauusd\" \"portfolio manager\" {region}", intent: "specialist" },
-  { text: "site:linkedin.com/in \"copy trading\" \"forex\" {region}", intent: "partner" },
-  { text: "site:linkedin.com/in \"EA developer\" \"forex\" {region}", intent: "specialist" },
-  { text: "site:linkedin.com/in \"algo trader\" \"forex\" {region}", intent: "specialist" },
-  { text: "site:linkedin.com/company \"forex academy\" {region}", intent: "social" },
-  { text: "site:linkedin.com/company \"trading education\" \"forex\" {region}", intent: "social" },
-  { text: "site:linkedin.com/company \"trading academy\" \"forex\" {region}", intent: "social" },
-  { text: "site:linkedin.com/company \"prop trading\" \"forex\" {region}", intent: "ecosystem" },
+  { text: "site:linkedin.com/in \"copy trading\" \"forex\" {region}", intent: "specialist" },
+  { text: "site:linkedin.com/company \"forex academy\" {region}", intent: "partner" },
+  { text: "site:linkedin.com/company \"trading education\" \"forex\" {region}", intent: "partner" },
+  { text: "site:linkedin.com/company \"trading academy\" \"forex\" {region}", intent: "partner" },
   { text: "site:linkedin.com/posts \"forex\" \"looking for broker\" {region}", intent: "intent" },
   { text: "site:linkedin.com/posts \"forex\" \"which broker\" {region}", intent: "intent" },
   { text: "site:linkedin.com/posts \"forex\" \"IB\" \"commission\" {region}", intent: "intent" },
   { text: "site:linkedin.com/posts \"forex\" \"CPA\" \"affiliate\" {region}", intent: "intent" },
-  { text: "site:linkedin.com/posts \"forex\" \"revenue share\" {region}", intent: "intent" },
-  { text: "site:linkedin.com/feed/update \"forex\" \"recommend broker\" {region}", intent: "intent" },
   { text: "site:instagram.com \"forex trader\" \"whatsapp\" {region}", intent: "social" },
   { text: "site:instagram.com \"forex signals\" \"telegram\" {region}", intent: "social" },
-  { text: "site:instagram.com \"forex\" \"linktr.ee\" \"whatsapp\" {region}", intent: "social" },
-  { text: "site:instagram.com \"forex\" \"beacons\" \"telegram\" {region}", intent: "social" },
-  { text: "site:instagram.com \"copy trading\" \"forex\" {region}", intent: "social" },
-  { text: "site:instagram.com \"funded trader\" \"forex\" {region}", intent: "social" },
   { text: "site:instagram.com \"xauusd\" \"whatsapp\" {region}", intent: "social" },
   { text: "site:instagram.com \"gold trader\" \"telegram\" {region}", intent: "social" },
   { text: "site:instagram.com \"forex academy\" \"whatsapp\" {region}", intent: "social" },
   { text: "site:instagram.com \"trading mentor\" \"forex\" {region}", intent: "social" },
-  { text: "site:linktr.ee \"forex trader\" \"whatsapp\" {region}", intent: "social" },
-  { text: "site:beacons.ai \"forex trader\" \"telegram\" {region}", intent: "social" },
   { text: "site:x.com \"forex\" \"looking for broker\"", intent: "intent" },
   { text: "site:x.com \"forex\" \"which broker\"", intent: "intent" },
-  { text: "site:x.com \"forex\" \"recommend broker\"", intent: "intent" },
-  { text: "site:x.com \"xauusd\" \"signals\"", intent: "social" },
   { text: "site:x.com \"forex\" \"introducing broker\"", intent: "partner" },
   { text: "site:x.com \"forex\" \"affiliate\" \"CPA\"", intent: "partner" },
-  { text: "site:x.com \"forex\" \"revshare\"", intent: "partner" },
-  { text: "site:x.com \"forex\" \"IB\" \"commission\"", intent: "partner" },
-  { text: "site:x.com \"xauusd\" \"telegram\"", intent: "social" },
-  { text: "site:tiktok.com/@ \"forex trader\" {region}", intent: "social" },
-  { text: "site:tiktok.com/@ \"xauusd\" \"trader\" {region}", intent: "social" },
-  { text: "site:tiktok.com/@ \"forex signals\" {region}", intent: "social" },
-  { text: "site:tiktok.com/@ \"funded trader\" \"forex\" {region}", intent: "social" },
   { text: "site:t.me \"forex\" \"signals\" {region}", intent: "social" },
   { text: "site:t.me \"xauusd\" \"signals\"", intent: "social" },
-  { text: "site:t.me \"forex\" \"copy trading\"", intent: "social" },
-  { text: "site:t.me \"forex\" \"VIP\" \"signals\"", intent: "social" },
-  { text: "site:t.me \"forex\" \"mentor\" \"whatsapp\"", intent: "social" },
-  { text: "site:telegram.me \"forex\" \"signals\"", intent: "social" },
   { text: "site:discord.gg \"forex\" \"trading\"", intent: "social" },
-  { text: "site:disboard.org/server \"forex\" \"trading\"", intent: "social" },
-  { text: "site:discord.me \"forex\" \"trading\"", intent: "social" },
-  { text: "site:top.gg/servers \"forex\" \"trading\"", intent: "social" },
   { text: "site:myfxbook.com/members \"forex\" \"manager\"", intent: "specialist" },
   { text: "site:myfxbook.com/members \"XAUUSD\"", intent: "specialist" },
   { text: "site:myfxbook.com/portfolio \"forex\" \"public\"", intent: "specialist" },
   { text: "site:myfxbook.com/members \"PAMM\" \"forex\"", intent: "specialist" },
+  { text: "site:mql5.com/en/users \"forex\" \"signals\"", intent: "specialist" },
+  { text: "site:mql5.com/en/signals \"XAUUSD\"", intent: "specialist" },
   { text: "site:fxblue.com/users \"xauusd\"", intent: "specialist" },
   { text: "site:fxblue.com/users \"forex\"", intent: "specialist" },
   { text: "site:zulutrade.com/trader \"forex\"", intent: "specialist" },
   { text: "site:darwinex.com/darwin \"forex\"", intent: "specialist" },
   { text: "site:signalstart.com/analysis \"forex\"", intent: "specialist" },
-  { text: "site:reddit.com/r/Forex \"which broker\"", intent: "intent" },
-  { text: "site:reddit.com/r/Forex \"recommend broker\"", intent: "intent" },
-  { text: "site:forexfactory.com/thread \"which broker\"", intent: "forum" },
   { text: "site:forexfactory.com/thread \"introducing broker\"", intent: "forum" },
-  { text: "site:forexfactory.com/thread \"copy trading\"", intent: "forum" },
   { text: "site:forums.babypips.com \"recommend broker\"", intent: "forum" },
-  { text: "site:forums.babypips.com \"forex signals\" \"telegram\"", intent: "forum" },
-  { text: "site:earnforex.com/forum \"introducing broker\"", intent: "forum" },
-  { text: "site:forexpeacearmy.com/community \"which broker\"", intent: "forum" },
-  { text: "\"trading expo\" \"speakers\" {region}", intent: "ecosystem" },
-  { text: "\"iFX EXPO\" \"attendees\" \"forex\"", intent: "ecosystem" },
-  { text: "\"Finance Magnates\" \"forex\" \"speaker\" {region}", intent: "ecosystem" },
-  { text: "\"Traders Fair\" \"speaker\" \"forex\" {region}", intent: "ecosystem" },
-  { text: "\"Wiki Finance Expo\" \"forex\" \"speaker\"", intent: "ecosystem" },
   { text: "\"forex academy\" \"partner\" \"whatsapp\" {region}", intent: "partner" },
   { text: "\"trading community\" \"broker partnership\" {region}", intent: "partner" },
-  { text: "\"trading academy\" \"sponsor\" \"broker\" {region}", intent: "partner" },
-  { text: "\"retail trading community\" \"sponsor\" {region}", intent: "partner" },
   { text: "\"PAMM manager\" \"forex\" \"contact\" {region}", intent: "specialist" },
-  { text: "\"MAM account manager\" \"forex\" {region}", intent: "specialist" },
   { text: "\"copy trading provider\" \"forex\" {region}", intent: "specialist" },
-  { text: "\"forex\" \"shareholder\" \"director\" \"company\" {region}", intent: "ecosystem" },
-  { text: "site:opencorporates.com \"forex\" \"trading\" \"director\"", intent: "ecosystem" },
-  { text: "site:find-and-update.company-information.service.gov.uk \"forex\" \"director\"", intent: "ecosystem" },
-  { text: "site:register.fca.org.uk \"contract for difference\" \"investment\"", intent: "ecosystem" },
-  { text: "site:cadastro.cvm.gov.br \"consultor\" \"derivativos\"", intent: "ecosystem" },
   { text: "site:linkedin.com/in \"affiliate manager\" \"forex\"", intent: "recruitment" },
   { text: "site:linkedin.com/in \"business development\" \"forex broker\"", intent: "recruitment" },
-  { text: "site:linkedin.com/in \"country manager\" \"forex\"", intent: "recruitment" },
-  { text: "site:linkedin.com/in \"head of partnerships\" \"forex broker\"", intent: "recruitment" },
-  { text: "site:linkedin.com/in \"former\" \"forex broker\" \"business development\"", intent: "recruitment" },
-  { text: "site:mql5.com/en/users \"forex\" \"signals\"", intent: "specialist" },
-  { text: "site:mql5.com/en/signals \"XAUUSD\"", intent: "specialist" }
+  { text: "site:linkedin.com/in \"head of partnerships\" \"forex broker\"", intent: "recruitment" }
 ];
 
 function setFromCsv(value = "") {
@@ -136,7 +87,7 @@ function isYouTubeTemplate(template = "") {
 
 function addAllowedTemplate(target, template, intent, settings) {
   if (settings.includeYouTube !== true && isYouTubeTemplate(template)) return;
-  if (isBlockedQueryTemplate(template)) return;
+  if (isBlockedQueryTemplate(template) || isBlockedCommercialQuery(template)) return;
   target.push({ template, intent });
 }
 
@@ -149,24 +100,21 @@ function materializeQuery(item, profile, index) {
 function buildQueries(options) {
   const settings = { ...DEFAULT_SCAN, ...options };
   const profile = SEARCH_PROFILES[settings.regionSet] || SEARCH_PROFILES.global;
-  const partnerTemplates = [];
-  const recruitmentTemplates = [];
-  const intentTemplates = [];
-  const ecosystemTemplates = [];
-  const socialTemplates = [];
-  const forumTemplates = [];
-  const specialistTemplates = [];
-
-  if (settings.includePartners) for (const template of PARTNER_QUERY_TEMPLATES) addAllowedTemplate(partnerTemplates, template, "partner", settings);
-  if (settings.includeRecruitment) for (const template of RECRUITMENT_QUERY_TEMPLATES) addAllowedTemplate(recruitmentTemplates, template, "recruitment", settings);
-  if (settings.includeIntentPosts !== false) for (const template of INTENT_POST_QUERY_TEMPLATES) addAllowedTemplate(intentTemplates, template, "intent", settings);
-  if (settings.includeEcosystem !== false) for (const template of ECOSYSTEM_QUERY_TEMPLATES) addAllowedTemplate(ecosystemTemplates, template, "ecosystem", settings);
-  if (settings.includeSocialProfiles !== false) for (const template of SOCIAL_QUERY_TEMPLATES) addAllowedTemplate(socialTemplates, template, "social", settings);
-  if (settings.includeForums !== false) for (const template of FORUM_QUERY_TEMPLATES) addAllowedTemplate(forumTemplates, template, "forum", settings);
-  if (settings.includeSpecialistSources !== false) for (const template of SPECIALIST_QUERY_TEMPLATES) addAllowedTemplate(specialistTemplates, template, "specialist", settings);
+  const families = [
+    settings.includePartners ? PARTNER_QUERY_TEMPLATES.map((template) => ({ template, intent: "partner" })) : [],
+    settings.includeSocialProfiles !== false ? SOCIAL_QUERY_TEMPLATES.map((template) => ({ template, intent: "social" })) : [],
+    settings.includeIntentPosts !== false ? INTENT_POST_QUERY_TEMPLATES.map((template) => ({ template, intent: "intent" })) : [],
+    settings.includeForums !== false ? FORUM_QUERY_TEMPLATES.map((template) => ({ template, intent: "forum" })) : [],
+    settings.includeSpecialistSources !== false ? SPECIALIST_QUERY_TEMPLATES.map((template) => ({ template, intent: "specialist" })) : [],
+    settings.includeEcosystem !== false ? ECOSYSTEM_QUERY_TEMPLATES.map((template) => ({ template, intent: "ecosystem" })) : [],
+    settings.includeRecruitment ? RECRUITMENT_QUERY_TEMPLATES.map((template) => ({ template, intent: "recruitment" })) : []
+  ].map((family) => {
+    const allowed = [];
+    for (const item of family) addAllowedTemplate(allowed, item.template, item.intent, settings);
+    return allowed;
+  }).filter((family) => family.length);
 
   const queries = [];
-  const families = [partnerTemplates, socialTemplates, intentTemplates, forumTemplates, specialistTemplates, ecosystemTemplates, recruitmentTemplates].filter((family) => family.length);
   const maxTemplateCount = Math.max(...families.map((family) => family.length), 0);
   for (let templateIndex = 0; templateIndex < maxTemplateCount; templateIndex += 1) {
     for (const family of families) {
@@ -176,7 +124,10 @@ function buildQueries(options) {
   }
 
   const highValuePacks = [...HIGH_VALUE_QUERY_PACKS, ...EXTRA_HIGH_VALUE_QUERY_PACKS, ...CHANNEL_EXPANSION_QUERY_PACKS];
-  queries.push(...highValuePacks.filter((query) => !isBlockedQueryTemplate(query.text)).filter((query) => settings.includeYouTube === true || !isYouTubeTemplate(query.text)).map((query, index) => materializeQuery(query, profile, index)));
+  queries.push(...highValuePacks
+    .filter((query) => !isBlockedQueryTemplate(query.text) && !isBlockedCommercialQuery(query.text))
+    .filter((query) => settings.includeYouTube === true || !isYouTubeTemplate(query.text))
+    .map((query, index) => materializeQuery(query, profile, index)));
 
   const onlyIntents = setFromCsv(settings.onlyIntents || "");
   const onlyChannels = setFromCsv(settings.onlyChannels || "");
@@ -184,7 +135,7 @@ function buildQueries(options) {
   const deduped = queries
     .filter((query) => !onlyIntents.size || onlyIntents.has(query.intent))
     .filter((query) => settings.includeYouTube === true || !isYouTubeTemplate(query.text))
-    .filter((query) => !isBlockedQueryTemplate(query.text))
+    .filter((query) => !isBlockedQueryTemplate(query.text) && !isBlockedCommercialQuery(query.text))
     .filter((query) => {
       const key = query.text.toLowerCase();
       if (seen.has(key)) return false;
@@ -224,26 +175,6 @@ async function findResults(query, limit) {
   return { results: [], providerErrors: [`Unexpected search response for ${query.text}`] };
 }
 
-function valuableSource(classified = {}, query = {}) {
-  const text = `${classified.url} ${classified.platform} ${classified.title} ${classified.snippet}`.toLowerCase();
-  return /linkedin\.com\/in|linkedin\.com\/company|instagram\.com\/[^/]+|x\.com\/[^/]+|twitter\.com\/[^/]+|t\.me\/[^/]+|discord\.gg\/[^/]+|myfxbook\.com|mql5\.com|forexfactory\.com\/thread|babypips\.com|forex|xauusd|copy trading|signals|introducing broker|affiliate|partnership|fund manager|portfolio manager|trading academy|forex academy|mentor|attending|visitor|delegate|speaker|panelist/.test(text);
-}
-
-function makeSavedCandidate(classified, query, reason) {
-  const score = Math.max(Number(classified.score || 0), valuableSource(classified, query) ? 45 : 35);
-  const priority = score >= 70 ? "A" : score >= 45 ? "B" : "C";
-  return {
-    ...classified,
-    score,
-    priority,
-    sourceBucket: query.channel || sourceBucket(query),
-    leadType: ["partner", "recruitment", "institution"].includes(classified.leadType) ? classified.leadType : "partner",
-    segment: classified.segment && classified.segment !== "Unclear" ? classified.segment : "Research Candidate",
-    evidence: [...new Set([...(classified.evidence || []), `Saved from ${query.channel || query.intent} search`, reason].filter(Boolean))],
-    qualificationStatus: "research_candidate"
-  };
-}
-
 async function prepareLead(raw, query, settings) {
   let enriched = await enrichResult(raw, query.intent);
   enriched.sourceIntent = query.intent;
@@ -257,7 +188,16 @@ async function prepareLead(raw, query, settings) {
       trailLimit: settings.trailLimit
     });
   }
-  return classifyResult(enriched, query.intent);
+  return enhanceCommercialLead(classifyResult(enriched, query.intent));
+}
+
+function shouldDiscard(lead) {
+  if (isBlockedCommercialLead(lead)) return "blocked_commercial_noise";
+  if (isHardRejectedLead(lead)) return "hard_rejected";
+  if (lead.qualificationStatus === "rejected") return "classification_rejected";
+  if (isCommerciallyRejected(lead)) return "commercially_rejected";
+  if (Number(lead.commercialScore || lead.score || 0) < 42) return "commercial_score_below_threshold";
+  return "";
 }
 
 export async function runScan(options = {}, onProgress = () => {}) {
@@ -277,12 +217,11 @@ export async function runScan(options = {}, onProgress = () => {}) {
     return sourceStats[query.channel];
   };
 
-  onProgress({ status: "running", message: `Starting scan with ${queries.length} balanced queries`, sourceStats });
+  onProgress({ status: "running", message: `Starting quality discovery with ${queries.length} queries`, sourceStats });
 
   for (const query of queries) {
     const stats = statFor(query);
     stats.searches += 1;
-    onProgress({ status: "running", message: `Searching [${query.channel}]: ${query.text}`, sourceStats });
     try {
       const { results: rawResults, providerErrors } = await findResults(query, settings.limitPerQuery);
       recordProviderErrors(stats, providerErrors);
@@ -295,16 +234,10 @@ export async function runScan(options = {}, onProgress = () => {}) {
         }
         seenResults.set(resultKey, true);
         const classified = await prepareLead(raw, query, settings);
-        if (isHardRejectedLead(classified)) {
+        const discardReason = shouldDiscard(classified);
+        if (discardReason) {
           stats.discarded += 1;
-          bumpReason(stats, "hard_rejected");
-          onProgress({ status: "running", message: `Discarded hard-rejected result: ${classified.name}`, sourceStats });
-          continue;
-        }
-        if (classified.qualificationStatus === "rejected") {
-          stats.discarded += 1;
-          bumpReason(stats, "low_score");
-          onProgress({ status: "running", message: `Discarded low-fit result: ${classified.name}`, sourceStats });
+          bumpReason(stats, discardReason);
           continue;
         }
         stats.qualified += 1;
@@ -315,7 +248,7 @@ export async function runScan(options = {}, onProgress = () => {}) {
         stats.saved += storedBatch.created.length;
         if (!storedBatch.created.length && storedBatch.updated.length) stats.duplicates += 1;
         if (leads.length % exportEvery === 0) await exportLeads({ csvName: "autopilot-leads.csv", jsonName: "autopilot-leads.json" });
-        onProgress({ status: "running", message: `Saved ${classified.priority || "?"}-lead: ${classified.name}`, latestLead: classified, sourceStats });
+        onProgress({ status: "running", message: `Saved qualified lead: ${classified.companyName || classified.name}`, latestLead: classified, sourceStats });
       }
     } catch (error) {
       stats.errors += 1;
@@ -325,48 +258,9 @@ export async function runScan(options = {}, onProgress = () => {}) {
     await sleep(Number(settings.delayMs || 0));
   }
 
-  const fallbackSeeds = queries.filter((query) => ["partner", "social", "intent", "ecosystem", "forum", "specialist"].includes(query.intent)).slice(0, Math.max(15, Math.min(80, Math.floor(queries.length * 0.55))));
-  for (const query of fallbackSeeds) {
-    const stats = statFor(query);
-    try {
-      const { results: rawResults, providerErrors } = await findResults(query, Math.max(3, Math.min(settings.limitPerQuery, 10)));
-      recordProviderErrors(stats, providerErrors);
-      stats.raw += rawResults.length;
-      for (const raw of rawResults) {
-        const resultKey = `${raw.url || ""}|${raw.title || ""}`.toLowerCase();
-        if (seenResults.has(resultKey)) {
-          stats.duplicates += 1;
-          continue;
-        }
-        seenResults.set(resultKey, true);
-        const classified = await prepareLead(raw, query, settings);
-        if (isHardRejectedLead(classified)) {
-          stats.discarded += 1;
-          bumpReason(stats, "hard_rejected");
-          continue;
-        }
-        if (classified.qualificationStatus === "rejected") {
-          const fallbackLead = makeSavedCandidate(classified, query, "Low-fit but searchable public lead for manual review");
-          const storedBatch = await upsertLeads([fallbackLead], runId);
-          persisted.created.push(...storedBatch.created);
-          persisted.updated.push(...storedBatch.updated);
-          stats.saved += storedBatch.created.length;
-          continue;
-        }
-        const storedBatch = await upsertLeads([classified], runId);
-        persisted.created.push(...storedBatch.created);
-        persisted.updated.push(...storedBatch.updated);
-        stats.saved += storedBatch.created.length;
-      }
-    } catch (error) {
-      stats.errors += 1;
-      errors.push({ query: query.text, error: error.message, stack: error.stack });
-    }
-  }
-
   const exportResult = await exportLeads({ csvName: "autopilot-leads.csv", jsonName: "autopilot-leads.json" });
   const run = { id: runId, startedAt, finishedAt: nowIso(), settings, totalQueries: queries.length, rawResults: Object.values(sourceStats).reduce((sum, value) => sum + Number(value.raw || 0), 0), leadsFound: leads.length, created: persisted.created.length, updated: persisted.updated.length, sourceStats, qualifiedBySource: countBySource(leads), exportResult, errors };
   await addRun(run);
-  onProgress({ status: "completed", message: `Run completed: ${run.created} new / ${run.updated} updated leads`, sourceStats });
+  onProgress({ status: "completed", message: `Quality discovery completed: ${run.created} new / ${run.updated} updated leads`, sourceStats });
   return run;
 }
