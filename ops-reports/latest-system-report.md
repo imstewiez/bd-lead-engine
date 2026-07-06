@@ -1,11 +1,11 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T03:55:40.136Z
+Updated: 2026-07-06T04:03:01.993Z
 Health: OK
 
 ## Funnel
 Raw: 1226
-Qualified: 99
+Qualified: 98
 Working: 127
 Contactable: 105
 Sales-ready: 39
@@ -16,11 +16,11 @@ A2 Strong: 17
 Platform contact leaks: 0
 High-value without real contact: 220
 Sales-ready by bucket: {"web":9,"x":7,"myfxbook":6,"mql5":5,"specialist":4,"instagram":3,"tiktok":2,"facebook_threads":1,"linkedin":1,"telegram":1}
-Qualified by bucket: {"linkedin":43,"instagram":13,"web":10,"x":9,"facebook_threads":6,"myfxbook":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
+Qualified by bucket: {"linkedin":43,"instagram":12,"web":10,"x":9,"facebook_threads":6,"myfxbook":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
 
 ## Sourcing / Workers
 Provider errors: 0
-Stale workers: engine-control
+Stale workers: none
 Issues: warning:duplicate_pressure
 
 ## Smart Enrichment
@@ -28,7 +28,7 @@ Phase: smart-enriching
 Processed: 0
 Stored: 0
 Errors: 0
-Current: profilephoto:UserTileStatic p
+Current: Traderxau | DISBOARD: Discord Server List
 
 ## Recent Errors
 ### qualified-exporter
