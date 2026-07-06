@@ -1,12 +1,12 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T07:39:41.574Z
+Updated: 2026-07-06T07:49:48.687Z
 Health: OK
 
 ## Funnel
 Raw: 786
-Qualified: 57
-Working: 80
+Qualified: 56
+Working: 81
 Contactable: 64
 Sales-ready: 28
 A1 Hot: 31
@@ -16,20 +16,21 @@ A2 Strong: 8
 Platform contact leaks: 1
 High-value without real contact: 176
 Sales-ready by bucket: {"x":7,"myfxbook":6,"web":5,"mql5":4,"instagram":2,"tiktok":2,"specialist":1,"telegram":1}
-Qualified by bucket: {"linkedin":17,"instagram":12,"x":9,"myfxbook":6,"web":5,"mql5":4,"tiktok":2,"specialist":1,"telegram":1}
+Qualified by bucket: {"linkedin":16,"instagram":12,"x":9,"myfxbook":6,"web":5,"mql5":4,"tiktok":2,"specialist":1,"telegram":1}
 
 ## Sourcing / Workers
-Provider errors: 9
+Provider errors: 81
 Stale workers: engine-control
 Issues: none
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 52
-Stored: 52
+Processed: 56
+Stored: 56
 Errors: 0
-Current: lilo org
-Last: Gold Spot US Dollar
+Current: Leading Strategies
+Last: users exampleFX Blue statistics for forex results
+Last best contact: accounts@fxbluelabs.com
 
 ## Recent Errors
 ### qualified-exporter
