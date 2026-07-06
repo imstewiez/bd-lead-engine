@@ -1,6 +1,6 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T04:26:26.877Z
+Updated: 2026-07-06T04:32:47.619Z
 Health: OK
 
 ## Funnel
@@ -19,17 +19,16 @@ Sales-ready by bucket: {"web":9,"x":7,"myfxbook":6,"mql5":5,"specialist":4,"inst
 Qualified by bucket: {"linkedin":43,"instagram":12,"web":10,"x":9,"facebook_threads":6,"myfxbook":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
 
 ## Sourcing / Workers
-Provider errors: 157
+Provider errors: 0
 Stale workers: none
 Issues: warning:duplicate_pressure
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 4
-Stored: 4
+Processed: 0
+Stored: 0
 Errors: 0
-Current: ) - Instagram
-Last: Best Forex Signal Providers 2026 | Myfxbook
+Current: Forex Factory | Global markets for the smart money.
 
 ## Recent Errors
 ### qualified-exporter
