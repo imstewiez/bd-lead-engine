@@ -1,6 +1,6 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T02:19:50.619Z
+Updated: 2026-07-06T02:29:59.290Z
 Health: OK
 
 ## Funnel
@@ -19,17 +19,17 @@ Sales-ready by bucket: {"web":8,"x":7,"myfxbook":6,"mql5":5,"specialist":4,"inst
 Qualified by bucket: {"linkedin":43,"instagram":14,"x":9,"web":9,"facebook_threads":6,"myfxbook":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
 
 ## Sourcing / Workers
-Provider errors: 1110
+Provider errors: 1299
 Stale workers: engine-control
 Issues: warning:duplicate_pressure
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 11
-Stored: 11
+Processed: 13
+Stored: 13
 Errors: 0
-Current: @fxdavetrades
-Last: @MrCat206Fx
+Current: @Learnwithvell
+Last: @ForexFrontlinebr
 
 ## Recent Errors
 ### qualified-exporter
