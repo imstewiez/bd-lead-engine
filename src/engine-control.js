@@ -2,6 +2,7 @@ import "./env.js";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
+import { ensureBackgroundTasks } from "./process-manager.js";
 import { getRootDir } from "./store.js";
 import { nowIso, sleep } from "./utils.js";
 
@@ -31,9 +32,7 @@ async function writeStatus(status) {
 function killPid(pid) {
   const parsed = Number(pid);
   if (!Number.isInteger(parsed) || parsed <= 0 || parsed === process.pid) return { pid, skipped: true };
-  try {
-    process.kill(parsed);
-  } catch {}
+  try { process.kill(parsed); } catch {}
   const force = process.platform === "win32" ? run("taskkill", ["/PID", String(parsed), "/F"]) : run("kill", ["-9", String(parsed)]);
   return { pid: parsed, forceStatus: force.status, stderr: force.stderr.trim(), stdout: force.stdout.trim() };
 }
@@ -46,10 +45,7 @@ async function pidFiles() {
 async function stopPidFile(file) {
   const full = path.join(dataDir, file);
   let pid = null;
-  try {
-    const raw = await fs.readFile(full, "utf8");
-    pid = Number(raw.trim().split(/\s+/)[0]);
-  } catch {}
+  try { const raw = await fs.readFile(full, "utf8"); pid = Number(raw.trim().split(/\s+/)[0]); } catch {}
   const result = killPid(pid);
   await fs.rm(full, { force: true }).catch(() => {});
   return { file, ...result };
@@ -92,18 +88,23 @@ async function sanitizeContacts() {
   return run(process.execPath, ["src/contact-sanitizer.js"], { stdio: "inherit" });
 }
 
+async function prewarmUiSnapshot() {
+  await log("[engine] prewarming UI snapshot");
+  return run(process.execPath, ["src/ui-snapshot.js", "--once"], { stdio: "inherit" });
+}
+
 async function startEngine() {
   await log("[engine] starting background tasks");
   const result = run(process.execPath, ["src/launch-background.js"], { stdio: "inherit" });
-  await sleep(3500);
+  await ensureBackgroundTasks(["ui-snapshot-worker"]);
+  await sleep(2500);
   return result;
 }
 
 async function pullLatest() {
   if (args.has("--no-pull")) return { skipped: true };
   await log("[engine] pulling latest main");
-  const result = run("git", ["pull", "origin", "main"], { stdio: "inherit" });
-  return result;
+  return run("git", ["pull", "origin", "main"], { stdio: "inherit" });
 }
 
 async function cloudSnapshot() {
@@ -121,8 +122,9 @@ await writeStatus({ status: "running", phase: "started", startedAt });
 const pull = await pullLatest();
 const stop = await stopEngine();
 const sanitize = await sanitizeContacts();
+const prewarm = await prewarmUiSnapshot();
 const start = await startEngine();
 const cloud = await cloudSnapshot();
 const report = await printReport();
-await writeStatus({ status: "done", phase: "done", startedAt, finishedAt: nowIso(), pull, stop, sanitize, start, cloud, report });
+await writeStatus({ status: "done", phase: "done", startedAt, finishedAt: nowIso(), pull, stop, sanitize, prewarm, start, cloud, report });
 await log("[engine] ready");
