@@ -1,10 +1,10 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T04:42:57.144Z
+Updated: 2026-07-06T04:53:06.492Z
 Health: OK
 
 ## Funnel
-Raw: 1226
+Raw: 1224
 Qualified: 98
 Working: 127
 Contactable: 105
@@ -14,22 +14,23 @@ A2 Strong: 17
 
 ## Quality
 Platform contact leaks: 0
-High-value without real contact: 222
+High-value without real contact: 224
 Sales-ready by bucket: {"web":9,"x":7,"myfxbook":6,"mql5":5,"specialist":4,"instagram":3,"tiktok":2,"facebook_threads":1,"linkedin":1,"telegram":1}
 Qualified by bucket: {"linkedin":43,"instagram":12,"web":10,"x":9,"facebook_threads":6,"myfxbook":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
 
 ## Sourcing / Workers
-Provider errors: 162
-Stale workers: none
+Provider errors: 342
+Stale workers: engine-control
 Issues: warning:duplicate_pressure
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 2
-Stored: 2
+Processed: 8
+Stored: 8
 Errors: 0
-Current: @SenegalTrader
-Last: What means Introducing Broker? | Forex Peace Army - Your Forex …
+Current: EXILE LIVE 2026 "THE REASON" 〜PERFECT YEAR ...
+Last: OFFICIAL GOODS 発売決定 ────────────── ...
+Last best contact: 005309542262159
 
 ## Recent Errors
 ### qualified-exporter
