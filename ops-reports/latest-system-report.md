@@ -1,11 +1,11 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T14:38:56.746Z
+Updated: 2026-07-06T14:49:00.077Z
 Health: OK
 
 ## Funnel
 Raw: 512
-Qualified: 41
+Qualified: 40
 Working: 63
 Contactable: 46
 Sales-ready: 15
@@ -13,22 +13,24 @@ A1 Hot: 23
 A2 Strong: 10
 
 ## Quality
-Platform contact leaks: 0
-High-value without real contact: 147
+Platform contact leaks: 1
+High-value without real contact: 148
 Sales-ready by bucket: {"mql5":5,"web":3,"tiktok":2,"myfxbook":2,"specialist":1,"telegram":1,"instagram":1}
-Qualified by bucket: {"linkedin":18,"instagram":8,"mql5":5,"web":3,"tiktok":2,"myfxbook":2,"specialist":1,"telegram":1,"x":1}
+Qualified by bucket: {"linkedin":18,"instagram":7,"mql5":5,"web":3,"tiktok":2,"myfxbook":2,"specialist":1,"telegram":1,"x":1}
 
 ## Sourcing / Workers
-Provider errors: 0
+Provider errors: 54
 Stale workers: none
 Issues: none
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 0
-Stored: 0
+Processed: 5
+Stored: 5
 Errors: 0
-Current: Dad caught me follow my telegram and link in bio for part 2
+Current: Are Introducing brokers good or bad
+Last: ZuluTrade Social Platform
+Last best contact: pocketfxcopy@gmail.com
 
 ## Recent Errors
 ### qualified-exporter
