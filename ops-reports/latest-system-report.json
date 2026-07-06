@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "generatedAt": "2026-07-06T11:45:05.785Z",
+  "generatedAt": "2026-07-06T11:45:07.297Z",
   "summary": {
     "ok": true,
     "rawLeads": 503,
@@ -20,7 +20,7 @@
     "duplicateLike": 14,
     "uniqueKeys": 489,
     "enrichmentDueNow": 112,
-    "enrichedLastHour": 79,
+    "enrichedLastHour": 80,
     "enrichedLast24h": 205,
     "harvesters": 9,
     "harvesterRawSeen": 0,
@@ -34,7 +34,7 @@
   },
   "health": {
     "ok": true,
-    "updatedAt": "2026-07-06T11:45:04.401Z",
+    "updatedAt": "2026-07-06T11:45:06.060Z",
     "counts": {
       "raw": 503,
       "qualified": 39,
@@ -58,10 +58,10 @@
       "eligible": 209,
       "dueNow": 112,
       "rotationDue": 75,
-      "enrichedLastHour": 79,
+      "enrichedLastHour": 80,
       "enrichedLast24h": 205,
       "oldestDeepAgeHours": 72.3,
-      "running": 1
+      "running": 2
     },
     "tasks": {
       "source-harvester": {
@@ -137,7 +137,7 @@
       "source-harvester": {
         "exists": true,
         "updatedAt": "2026-07-06T11:45:02.644Z",
-        "ageMs": 1751,
+        "ageMs": 3411,
         "status": {
           "status": "running",
           "workerName": "source-harvester",
@@ -200,7 +200,7 @@
       "source-harvester-social": {
         "exists": true,
         "updatedAt": "2026-07-06T11:45:02.678Z",
-        "ageMs": 1717,
+        "ageMs": 3377,
         "status": {
           "status": "running",
           "workerName": "source-harvester-social",
@@ -263,7 +263,7 @@
       "source-harvester-specialist": {
         "exists": true,
         "updatedAt": "2026-07-06T11:45:03.008Z",
-        "ageMs": 1388,
+        "ageMs": 3047,
         "status": {
           "status": "running",
           "workerName": "source-harvester-specialist",
@@ -326,7 +326,7 @@
       "source-harvester-ecosystem": {
         "exists": true,
         "updatedAt": "2026-07-06T11:45:03.050Z",
-        "ageMs": 1346,
+        "ageMs": 3005,
         "status": {
           "status": "running",
           "workerName": "source-harvester-ecosystem",
@@ -389,7 +389,7 @@
       "source-harvester-linkedin": {
         "exists": true,
         "updatedAt": "2026-07-06T11:45:03.086Z",
-        "ageMs": 1310,
+        "ageMs": 2970,
         "status": {
           "status": "running",
           "workerName": "source-harvester-linkedin",
@@ -452,7 +452,7 @@
       "source-harvester-instagram": {
         "exists": true,
         "updatedAt": "2026-07-06T11:45:03.103Z",
-        "ageMs": 1294,
+        "ageMs": 2953,
         "status": {
           "status": "running",
           "workerName": "source-harvester-instagram",
@@ -515,7 +515,7 @@
       "source-harvester-platforms": {
         "exists": true,
         "updatedAt": "2026-07-06T11:45:02.695Z",
-        "ageMs": 1702,
+        "ageMs": 3361,
         "status": {
           "status": "running",
           "workerName": "source-harvester-platforms",
@@ -580,7 +580,7 @@
       "source-harvester-communities": {
         "exists": true,
         "updatedAt": "2026-07-06T11:45:03.144Z",
-        "ageMs": 1253,
+        "ageMs": 2912,
         "status": {
           "status": "running",
           "workerName": "source-harvester-communities",
@@ -643,7 +643,7 @@
       "source-harvester-events": {
         "exists": true,
         "updatedAt": "2026-07-06T11:45:03.215Z",
-        "ageMs": 1182,
+        "ageMs": 2841,
         "status": {
           "status": "running",
           "workerName": "source-harvester-events",
@@ -705,11 +705,11 @@
       },
       "enrichment-worker": {
         "exists": true,
-        "updatedAt": "2026-07-06T11:45:02.699Z",
-        "ageMs": 1699,
+        "updatedAt": "2026-07-06T11:45:04.503Z",
+        "ageMs": 1554,
         "status": {
           "status": "running",
-          "phase": "started",
+          "phase": "enriching",
           "options": {
             "delayMs": 4500,
             "idleMs": 9000,
@@ -722,13 +722,37 @@
             "maxTrailQueries": 18,
             "trailLimit": 7
           },
-          "updatedAt": "2026-07-06T11:45:02.699Z"
+          "processed": 0,
+          "rejected": 0,
+          "errors": 0,
+          "idleCycles": 0,
+          "queue": {
+            "eligible": 223,
+            "dueNow": 90,
+            "never": 0,
+            "contactlessDue": 0,
+            "scheduledDue": 89,
+            "rotationDue": 1,
+            "recentlyEnriched1h": 87,
+            "recentlyEnriched24h": 189,
+            "blockedRunning": 2,
+            "blockedNoise": 0,
+            "oldestDeepAgeHours": 59.3
+          },
+          "current": {
+            "id": "d5f5ebff1a21f1d7",
+            "name": "Rahul fx",
+            "url": "https://in.linkedin.com/in/rahul-fx-b8abb5257",
+            "platform": "LinkedIn",
+            "dueReason": "contactless_due"
+          },
+          "updatedAt": "2026-07-06T11:45:04.503Z"
         }
       },
       "smart-enrichment-worker": {
         "exists": true,
         "updatedAt": "2026-07-06T11:45:03.259Z",
-        "ageMs": 1139,
+        "ageMs": 2798,
         "status": {
           "status": "running",
           "phase": "idle",
@@ -744,7 +768,7 @@
       "contact-gap-worker": {
         "exists": true,
         "updatedAt": "2026-07-06T11:45:03.640Z",
-        "ageMs": 758,
+        "ageMs": 2417,
         "status": {
           "status": "running",
           "phase": "enriching-gap",
@@ -765,21 +789,187 @@
       },
       "lead-cleaner": {
         "exists": true,
-        "updatedAt": "2026-07-06T11:45:02.583Z",
-        "ageMs": 1816,
+        "updatedAt": "2026-07-06T11:45:04.612Z",
+        "ageMs": 1445,
         "status": {
           "status": "running",
-          "phase": "started",
+          "phase": "waiting",
+          "cycle": 1,
           "intervalMs": 90000,
           "limit": 1000,
-          "totalRemoved": 0,
-          "updatedAt": "2026-07-06T11:45:02.583Z"
+          "totalRemoved": 35,
+          "errors": 0,
+          "lastRun": {
+            "ok": true,
+            "dryRun": false,
+            "before": 538,
+            "removed": 35,
+            "after": 503,
+            "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-06T11-45-02-954Z.json",
+            "byReason": {
+              "generic_platform_page": 33,
+              "generic_social_or_directory_page": 2
+            },
+            "sample": [
+              {
+                "id": "97cf18f15c45cff2",
+                "name": "Lukebnco",
+                "url": "https://www.youtube.com/@Lukebnco?cbrd=1&ucbcb=1",
+                "reason": "generic_platform_page"
+              },
+              {
+                "id": "59fbb91bbc9a22b1",
+                "name": "ForexManagerDBAPiggy Bank Forex System by Forex Trader ForexManagerDBA",
+                "url": "https://www.myfxbook.com/members/ForexManagerDBA/piggy-bank/2652292",
+                "reason": "generic_platform_page"
+              },
+              {
+                "id": "bd035a6ab0c96490",
+                "name": "Instagram photos and videos",
+                "url": "https://www.instagram.com/heytommychong/",
+                "reason": "generic_platform_page"
+              },
+              {
+                "id": "1168bb6e954acaf4",
+                "name": "Bicton arena bicton arena Instagram photos and videos",
+                "url": "https://www.instagram.com/bicton_arena/",
+                "reason": "generic_platform_page"
+              },
+              {
+                "id": "ef9c43ce3ba6cc32",
+                "name": "Posts X",
+                "url": "https://x.com/GoldTrader24427",
+                "reason": "generic_platform_page"
+              },
+              {
+                "id": "ff45ef1156b83bf2",
+                "name": "Posts X",
+                "url": "https://x.com/xauusdkiller368",
+                "reason": "generic_platform_page"
+              },
+              {
+                "id": "71205b118e286ba8",
+                "name": "Posts X",
+                "url": "https://x.com/golds164596",
+                "reason": "generic_platform_page"
+              },
+              {
+                "id": "f5c27201e3ae794a",
+                "name": "users exampleFX Blue statistics for forex results",
+                "url": "https://api.fxblue.com/users/example/stats",
+                "reason": "generic_platform_page"
+              },
+              {
+                "id": "6ea45beea5f6a502",
+                "name": "CBK",
+                "url": "https://www.centralbank.go.ke/forex/",
+                "reason": "generic_platform_page"
+              },
+              {
+                "id": "fd3237493461e3d7",
+                "name": "Curso de Forex Brasil Completo",
+                "url": "https://luisbarataforextrader.com/curso-de-forex-brasil/",
+                "reason": "generic_platform_page"
+              },
+              {
+                "id": "8b6f965eff26541f",
+                "name": "26.02.24",
+                "url": "https://www.youtube.com/watch?app=desktop&v=Jv1XxPAJvOs",
+                "reason": "generic_social_or_directory_page"
+              },
+              {
+                "id": "6f35b9ebf4f44a2b",
+                "name": "Brasilhttps onetradingbrasil.com.br courses curso forexCURSO",
+                "url": "https://onetradingbrasil.com.br/courses/curso-forex-introducao/",
+                "reason": "generic_platform_page"
+              },
+              {
+                "id": "777abbd408a60ed9",
+                "name": "Posts X",
+                "url": "https://x.com/Ebukafxx",
+                "reason": "generic_platform_page"
+              },
+              {
+                "id": "59fbb91bbc9a22b1",
+                "name": "ForexManagerDBAPiggy Bank Forex System by Forex Trader ForexManagerDBA",
+                "url": "https://www.myfxbook.com/members/ForexManagerDBA/piggy-bank/2652292",
+                "reason": "generic_platform_page"
+              },
+              {
+                "id": "a3f132cc0fe9a3a7",
+                "name": "manager mgmforexMGMFOREX BTC Forex System by Forex Trader manager ...",
+                "url": "https://www.myfxbook.com/members/manager_mgmforex/mgmforex-btc/11475994",
+                "reason": "generic_platform_page"
+              },
+              {
+                "id": "ffa6822b75f673bd",
+                "name": "finanzprofi4uXAUUSD with EA Forex System by Forex Trader finanzprofi4u",
+                "url": "https://www.myfxbook.com/members/finanzprofi4u/xauusd-ea/970251",
+                "reason": "generic_platform_page"
+              },
+              {
+                "id": "d076c92599d87c80",
+                "name": "dmbsysXAUUSD 1 Forex System by Forex Trader dmbsys",
+                "url": "https://www.myfxbook.com/members/dmbsys/xauusd-1/11921040",
+                "reason": "generic_platform_page"
+              },
+              {
+                "id": "5f35044b9d592bc6",
+                "name": "CosTradingFXEA",
+                "url": "https://www.myfxbook.com/members/CosTradingFX/ea-xauusd/11970949",
+                "reason": "generic_platform_page"
+              },
+              {
+                "id": "3380a80ed2a82f43",
+                "name": "nuntasuforexXAUUSD Forex System by Forex Trader nuntasuforex",
+                "url": "https://www.myfxbook.com/members/nuntasuforex/xauusd/9138872",
+                "reason": "generic_platform_page"
+              },
+              {
+                "id": "f5c27201e3ae794a",
+                "name": "users exampleFX Blue statistics for forex results",
+                "url": "https://api.fxblue.com/users/example/stats",
+                "reason": "generic_platform_page"
+              }
+            ],
+            "exported": {
+              "csvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.csv",
+              "jsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.json",
+              "contactCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.csv",
+              "contactJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.json",
+              "hotCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.csv",
+              "hotJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.json",
+              "socialCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
+              "socialJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.json",
+              "instagramCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
+              "instagramJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.json",
+              "linkedinCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
+              "linkedinJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.json",
+              "xCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
+              "xJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.json",
+              "workingCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
+              "workingJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.json",
+              "researchCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.csv",
+              "researchJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.json",
+              "exported": 39,
+              "working": 63,
+              "researchSources": 62,
+              "contactable": 39,
+              "hot": 33,
+              "social": 26,
+              "instagram": 7,
+              "linkedin": 17,
+              "x": 1,
+              "total": 503
+            }
+          },
+          "updatedAt": "2026-07-06T11:45:04.612Z"
         }
       },
       "qualified-exporter": {
         "exists": true,
-        "updatedAt": "2026-07-06T11:43:36.323Z",
-        "ageMs": 88076,
+        "updatedAt": "2026-07-06T11:45:05.394Z",
+        "ageMs": 664,
         "status": {
           "status": "running",
           "intervalMs": 90000,
@@ -813,13 +1003,13 @@
             "x": 9,
             "total": 538
           },
-          "updatedAt": "2026-07-06T11:43:36.323Z"
+          "updatedAt": "2026-07-06T11:45:05.394Z"
         }
       },
       "ui-snapshot-worker": {
         "exists": true,
         "updatedAt": "2026-07-06T11:45:03.578Z",
-        "ageMs": 821,
+        "ageMs": 2480,
         "status": {
           "ok": true,
           "updatedAt": "2026-07-06T11:45:03.578Z",
@@ -832,43 +1022,137 @@
       },
       "cloud-logger-worker": {
         "exists": true,
-        "updatedAt": "2026-07-06T11:45:02.998Z",
-        "ageMs": 1402,
+        "updatedAt": "2026-07-06T11:45:05.182Z",
+        "ageMs": 876,
         "status": {
           "status": "running",
           "phase": "started",
           "intervalMs": 600000,
-          "loop": true,
-          "once": false,
-          "updatedAt": "2026-07-06T11:45:02.998Z"
+          "loop": false,
+          "once": true,
+          "updatedAt": "2026-07-06T11:45:05.182Z"
         }
       },
       "supervisor": {
         "exists": true,
-        "updatedAt": "2026-07-06T11:45:02.640Z",
-        "ageMs": 1760,
+        "updatedAt": "2026-07-06T11:45:05.024Z",
+        "ageMs": 1034,
         "status": {
-          "status": "starting",
+          "status": "running",
+          "cycle": 1,
           "intervalMs": 60000,
-          "managedTasks": [
-            "source-harvester",
-            "source-harvester-social",
-            "source-harvester-specialist",
-            "source-harvester-ecosystem",
-            "source-harvester-linkedin",
-            "source-harvester-instagram",
-            "source-harvester-platforms",
-            "source-harvester-communities",
-            "source-harvester-events",
-            "enrichment-worker",
-            "smart-enrichment-worker",
-            "contact-gap-worker",
-            "lead-cleaner",
-            "qualified-exporter",
-            "ui-snapshot-worker",
-            "cloud-logger-worker"
+          "ensured": [
+            {
+              "name": "source-harvester",
+              "pid": 14728,
+              "status": "running"
+            },
+            {
+              "name": "source-harvester-social",
+              "pid": 31872,
+              "status": "running"
+            },
+            {
+              "name": "source-harvester-specialist",
+              "pid": 30636,
+              "status": "started"
+            },
+            {
+              "name": "source-harvester-ecosystem",
+              "pid": 18908,
+              "status": "started"
+            },
+            {
+              "name": "source-harvester-linkedin",
+              "pid": 34664,
+              "status": "started"
+            },
+            {
+              "name": "source-harvester-instagram",
+              "pid": 13208,
+              "status": "started"
+            },
+            {
+              "name": "source-harvester-platforms",
+              "pid": 14900,
+              "status": "running"
+            },
+            {
+              "name": "source-harvester-communities",
+              "pid": 3004,
+              "status": "started"
+            },
+            {
+              "name": "source-harvester-events",
+              "pid": 25156,
+              "status": "started"
+            },
+            {
+              "name": "enrichment-worker",
+              "pid": 11140,
+              "status": "running"
+            },
+            {
+              "name": "smart-enrichment-worker",
+              "pid": 8420,
+              "status": "running"
+            },
+            {
+              "name": "contact-gap-worker",
+              "pid": 25096,
+              "status": "started"
+            },
+            {
+              "name": "lead-cleaner",
+              "pid": 27388,
+              "status": "running"
+            },
+            {
+              "name": "qualified-exporter",
+              "pid": 1068,
+              "status": "running"
+            },
+            {
+              "name": "ui-snapshot-worker",
+              "pid": 9268,
+              "status": "running"
+            },
+            {
+              "name": "cloud-logger-worker",
+              "pid": 25668,
+              "status": "started"
+            }
           ],
-          "updatedAt": "2026-07-06T11:45:02.640Z"
+          "exportResult": null,
+          "health": {
+            "ok": true,
+            "counts": {
+              "raw": 538,
+              "qualified": 60,
+              "working": 83,
+              "contactable": 64,
+              "aLeads": 40,
+              "a1Hot": 30,
+              "a2Strong": 10,
+              "bNurture": 19,
+              "cResearch": 24,
+              "sourceOnly": 0
+            },
+            "enrichmentQueue": {
+              "stale": 274,
+              "contactless": 240,
+              "neverDeep": 17,
+              "eligible": 242,
+              "dueNow": 128,
+              "rotationDue": 91,
+              "enrichedLastHour": 91,
+              "enrichedLast24h": 230,
+              "oldestDeepAgeHours": 72.3,
+              "running": 3
+            },
+            "issues": []
+          },
+          "updatedAt": "2026-07-06T11:45:05.024Z"
         }
       }
     },
@@ -876,58 +1160,58 @@
       "autopilot-qualified-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.csv",
-        "size": 123414,
-        "updatedAt": "2026-07-06T11:45:04.339Z",
-        "ageMs": 61.59814453125
+        "size": 212499,
+        "updatedAt": "2026-07-06T11:45:04.986Z",
+        "ageMs": 1072.509765625
       },
       "autopilot-qualified-contactable-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.csv",
-        "size": 123414,
-        "updatedAt": "2026-07-06T11:45:04.397Z",
-        "ageMs": 4.083984375
+        "size": 212499,
+        "updatedAt": "2026-07-06T11:45:05.078Z",
+        "ageMs": 981.492919921875
       },
       "autopilot-hot-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.csv",
         "size": 147279,
-        "updatedAt": "2026-07-06T11:45:01.140Z",
-        "ageMs": 3260.764892578125
+        "updatedAt": "2026-07-06T11:45:05.147Z",
+        "ageMs": 911.9794921875
       },
       "autopilot-working-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
-        "size": 253843,
-        "updatedAt": "2026-07-06T11:45:01.271Z",
-        "ageMs": 3130.253662109375
+        "size": 168939,
+        "updatedAt": "2026-07-06T11:45:05.564Z",
+        "ageMs": 494.590087890625
       },
       "autopilot-social-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
-        "size": 105475,
-        "updatedAt": "2026-07-06T11:45:01.173Z",
-        "ageMs": 3227.765380859375
+        "size": 60511,
+        "updatedAt": "2026-07-06T11:45:05.494Z",
+        "ageMs": 565.933349609375
       },
       "autopilot-linkedin-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
         "size": 39270,
-        "updatedAt": "2026-07-06T11:45:01.189Z",
-        "ageMs": 3211.76171875
+        "updatedAt": "2026-07-06T11:45:05.510Z",
+        "ageMs": 549.720703125
       },
       "autopilot-instagram-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
-        "size": 29743,
-        "updatedAt": "2026-07-06T11:45:01.184Z",
-        "ageMs": 3216.76171875
+        "size": 17039,
+        "updatedAt": "2026-07-06T11:45:05.503Z",
+        "ageMs": 556.717041015625
       },
       "autopilot-x-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
-        "size": 36373,
-        "updatedAt": "2026-07-06T11:45:01.204Z",
-        "ageMs": 3197.252685546875
+        "size": 4113,
+        "updatedAt": "2026-07-06T11:45:05.514Z",
+        "ageMs": 545.720458984375
       }
     },
     "issues": []
@@ -1205,7 +1489,7 @@
       "status": "running",
       "phase": "started",
       "age": "1s",
-      "ageMs": 1413,
+      "ageMs": 888,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -1232,8 +1516,8 @@
       "name": "contact-gap-worker",
       "status": "running",
       "phase": "enriching-gap",
-      "age": "1s",
-      "ageMs": 773,
+      "age": "2s",
+      "ageMs": 2431,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -1266,8 +1550,8 @@
       "name": "engine-control",
       "status": "running",
       "phase": "started",
-      "age": "10s",
-      "ageMs": 9849,
+      "age": "12s",
+      "ageMs": 11508,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -1293,13 +1577,19 @@
     {
       "name": "enrichment-worker",
       "status": "running",
-      "phase": "started",
+      "phase": "enriching",
       "age": "2s",
-      "ageMs": 1715,
+      "ageMs": 1569,
       "cycle": null,
       "pid": null,
       "message": "",
-      "current": null,
+      "current": {
+        "id": "d5f5ebff1a21f1d7",
+        "name": "Rahul fx",
+        "url": "https://in.linkedin.com/in/rahul-fx-b8abb5257",
+        "platform": "LinkedIn",
+        "dueReason": "contactless_due"
+      },
       "lastResult": null,
       "counts": {
         "raw": 0,
@@ -1313,18 +1603,18 @@
         "contactable": null,
         "hot": null,
         "totalRemoved": null,
-        "processed": null,
+        "processed": 0,
         "stored": null,
-        "errors": null
+        "errors": 0
       }
     },
     {
       "name": "lead-cleaner",
       "status": "running",
-      "phase": "started",
-      "age": "2s",
-      "ageMs": 1831,
-      "cycle": null,
+      "phase": "waiting",
+      "age": "1s",
+      "ageMs": 1460,
+      "cycle": 1,
       "pid": null,
       "message": "",
       "current": null,
@@ -1336,22 +1626,51 @@
         "duplicates": 0,
         "providerErrors": 0,
         "total": null,
-        "exported": null,
+        "exported": {
+          "csvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.csv",
+          "jsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.json",
+          "contactCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.csv",
+          "contactJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.json",
+          "hotCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.csv",
+          "hotJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.json",
+          "socialCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
+          "socialJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.json",
+          "instagramCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
+          "instagramJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.json",
+          "linkedinCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
+          "linkedinJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.json",
+          "xCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
+          "xJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.json",
+          "workingCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
+          "workingJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.json",
+          "researchCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.csv",
+          "researchJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.json",
+          "exported": 39,
+          "working": 63,
+          "researchSources": 62,
+          "contactable": 39,
+          "hot": 33,
+          "social": 26,
+          "instagram": 7,
+          "linkedin": 17,
+          "x": 1,
+          "total": 503
+        },
         "working": null,
         "contactable": null,
         "hot": null,
-        "totalRemoved": 0,
+        "totalRemoved": 35,
         "processed": null,
         "stored": null,
-        "errors": null
+        "errors": 0
       }
     },
     {
       "name": "qualified-exporter",
       "status": "running",
       "phase": "n/a",
-      "age": "1m",
-      "ageMs": 88091,
+      "age": "1s",
+      "ageMs": 679,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -1378,8 +1697,8 @@
       "name": "smart-enrichment-worker",
       "status": "running",
       "phase": "idle",
-      "age": "1s",
-      "ageMs": 1156,
+      "age": "3s",
+      "ageMs": 2814,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -1406,8 +1725,8 @@
       "name": "source-harvester",
       "status": "running",
       "phase": "scan",
-      "age": "2s",
-      "ageMs": 1773,
+      "age": "3s",
+      "ageMs": 3431,
       "cycle": 1,
       "pid": null,
       "message": "Starting quality discovery with 120 queries",
@@ -1434,8 +1753,8 @@
       "name": "source-harvester-communities",
       "status": "running",
       "phase": "scan",
-      "age": "1s",
-      "ageMs": 1271,
+      "age": "3s",
+      "ageMs": 2929,
       "cycle": 1,
       "pid": null,
       "message": "Starting quality discovery with 116 queries",
@@ -1462,8 +1781,8 @@
       "name": "source-harvester-ecosystem",
       "status": "running",
       "phase": "scan",
-      "age": "1s",
-      "ageMs": 1365,
+      "age": "3s",
+      "ageMs": 3023,
       "cycle": 1,
       "pid": null,
       "message": "Starting quality discovery with 90 queries",
@@ -1490,8 +1809,8 @@
       "name": "source-harvester-events",
       "status": "running",
       "phase": "scan",
-      "age": "1s",
-      "ageMs": 1200,
+      "age": "3s",
+      "ageMs": 2858,
       "cycle": 1,
       "pid": null,
       "message": "Starting quality discovery with 120 queries",
@@ -1518,8 +1837,8 @@
       "name": "source-harvester-instagram",
       "status": "running",
       "phase": "scan",
-      "age": "1s",
-      "ageMs": 1313,
+      "age": "3s",
+      "ageMs": 2971,
       "cycle": 1,
       "pid": null,
       "message": "Starting quality discovery with 45 queries",
@@ -1546,8 +1865,8 @@
       "name": "source-harvester-linkedin",
       "status": "running",
       "phase": "scan",
-      "age": "1s",
-      "ageMs": 1330,
+      "age": "3s",
+      "ageMs": 2988,
       "cycle": 1,
       "pid": null,
       "message": "Starting quality discovery with 180 queries",
@@ -1574,8 +1893,8 @@
       "name": "source-harvester-platforms",
       "status": "running",
       "phase": "scan",
-      "age": "2s",
-      "ageMs": 1721,
+      "age": "3s",
+      "ageMs": 3379,
       "cycle": 1,
       "pid": null,
       "message": "Starting quality discovery with 47 queries",
@@ -1602,8 +1921,8 @@
       "name": "source-harvester-social",
       "status": "running",
       "phase": "scan",
-      "age": "2s",
-      "ageMs": 1739,
+      "age": "3s",
+      "ageMs": 3397,
       "cycle": 1,
       "pid": null,
       "message": "Starting quality discovery with 120 queries",
@@ -1630,8 +1949,8 @@
       "name": "source-harvester-specialist",
       "status": "running",
       "phase": "scan",
-      "age": "1s",
-      "ageMs": 1409,
+      "age": "3s",
+      "ageMs": 3067,
       "cycle": 1,
       "pid": null,
       "message": "Starting quality discovery with 120 queries",
@@ -1656,11 +1975,11 @@
     },
     {
       "name": "supervisor",
-      "status": "starting",
+      "status": "running",
       "phase": "n/a",
-      "age": "2s",
-      "ageMs": 1777,
-      "cycle": null,
+      "age": "1s",
+      "ageMs": 1051,
+      "cycle": 1,
       "pid": null,
       "message": "",
       "current": null,
@@ -1686,8 +2005,8 @@
       "name": "ui-snapshot-worker",
       "status": "unknown",
       "phase": "n/a",
-      "age": "1s",
-      "ageMs": 840,
+      "age": "2s",
+      "ageMs": 2498,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -1715,58 +2034,58 @@
     "autopilot-qualified-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.csv",
-      "size": 123414,
-      "updatedAt": "2026-07-06T11:45:04.339Z",
-      "ageMs": 61.59814453125
+      "size": 212499,
+      "updatedAt": "2026-07-06T11:45:04.986Z",
+      "ageMs": 1072.509765625
     },
     "autopilot-qualified-contactable-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.csv",
-      "size": 123414,
-      "updatedAt": "2026-07-06T11:45:04.397Z",
-      "ageMs": 4.083984375
+      "size": 212499,
+      "updatedAt": "2026-07-06T11:45:05.078Z",
+      "ageMs": 981.492919921875
     },
     "autopilot-hot-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.csv",
       "size": 147279,
-      "updatedAt": "2026-07-06T11:45:01.140Z",
-      "ageMs": 3260.764892578125
+      "updatedAt": "2026-07-06T11:45:05.147Z",
+      "ageMs": 911.9794921875
     },
     "autopilot-working-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
-      "size": 253843,
-      "updatedAt": "2026-07-06T11:45:01.271Z",
-      "ageMs": 3130.253662109375
+      "size": 168939,
+      "updatedAt": "2026-07-06T11:45:05.564Z",
+      "ageMs": 494.590087890625
     },
     "autopilot-social-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
-      "size": 105475,
-      "updatedAt": "2026-07-06T11:45:01.173Z",
-      "ageMs": 3227.765380859375
+      "size": 60511,
+      "updatedAt": "2026-07-06T11:45:05.494Z",
+      "ageMs": 565.933349609375
     },
     "autopilot-linkedin-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
       "size": 39270,
-      "updatedAt": "2026-07-06T11:45:01.189Z",
-      "ageMs": 3211.76171875
+      "updatedAt": "2026-07-06T11:45:05.510Z",
+      "ageMs": 549.720703125
     },
     "autopilot-instagram-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
-      "size": 29743,
-      "updatedAt": "2026-07-06T11:45:01.184Z",
-      "ageMs": 3216.76171875
+      "size": 17039,
+      "updatedAt": "2026-07-06T11:45:05.503Z",
+      "ageMs": 556.717041015625
     },
     "autopilot-x-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
-      "size": 36373,
-      "updatedAt": "2026-07-06T11:45:01.204Z",
-      "ageMs": 3197.252685546875
+      "size": 4113,
+      "updatedAt": "2026-07-06T11:45:05.514Z",
+      "ageMs": 545.720458984375
     }
   },
   "recentRuns": [
