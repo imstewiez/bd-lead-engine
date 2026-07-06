@@ -1,6 +1,6 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T04:16:17.089Z
+Updated: 2026-07-06T04:26:26.877Z
 Health: OK
 
 ## Funnel
@@ -14,21 +14,22 @@ A2 Strong: 17
 
 ## Quality
 Platform contact leaks: 0
-High-value without real contact: 220
+High-value without real contact: 221
 Sales-ready by bucket: {"web":9,"x":7,"myfxbook":6,"mql5":5,"specialist":4,"instagram":3,"tiktok":2,"facebook_threads":1,"linkedin":1,"telegram":1}
-Qualified by bucket: {"linkedin":42,"instagram":13,"web":10,"x":9,"facebook_threads":6,"myfxbook":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
+Qualified by bucket: {"linkedin":43,"instagram":12,"web":10,"x":9,"facebook_threads":6,"myfxbook":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
 
 ## Sourcing / Workers
-Provider errors: 0
+Provider errors: 157
 Stale workers: none
 Issues: warning:duplicate_pressure
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 0
-Stored: 0
+Processed: 4
+Stored: 4
 Errors: 0
-Current: Smag på verden i Aarhus - Facebook
+Current: ) - Instagram
+Last: Best Forex Signal Providers 2026 | Myfxbook
 
 ## Recent Errors
 ### qualified-exporter
