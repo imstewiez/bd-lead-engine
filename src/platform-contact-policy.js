@@ -15,7 +15,7 @@ const PLATFORM_DOMAINS = [
   "babypips.com"
 ];
 
-const GENERIC_LOCALS = /^(?:support|help|info|contact|sales|partner|partners|affiliate|affiliates|hello|team|admin|privacy|legal|service|customerservice|customer\.service|john|jane|demo|test|example)(?:[+._-].*)?$/i;
+const GENERIC_LOCALS = /^(?:support|help|info|contact|sales|partner|partners|affiliate|affiliates|hello|team|admin|privacy|legal|service|customerservice|customer\.service|john|jane|demo|test|example|accounts|account|billing|finance|payments|marketing|press|media)(?:[+._-].*)?$/i;
 const GENERIC_EMAIL_DOMAINS = new Set(["text.com", "company.com", "example.com", "example.org", "example.net", "email.com", "domain.com"]);
 const FREEMAIL_DOMAINS = new Set(["gmail.com", "hotmail.com", "outlook.com", "yahoo.com", "icloud.com", "proton.me", "protonmail.com", "live.com"]);
 const PLATFORM_BRAND_HANDLES = new Set([
@@ -84,7 +84,7 @@ export function isPlatformOwnedEmail(email = "", lead = {}) {
   const emailRoot = platformRootDomain(emailDomain);
   if (emailRoot) {
     const sourceRoot = platformRootDomain(domainOf(lead.url || lead.bestContactSource || ""));
-    if (sourceRoot && sourceRoot === emailRoot) return true;
+    if (sourceRoot) return true;
     if (GENERIC_LOCALS.test(local)) return true;
   }
 
