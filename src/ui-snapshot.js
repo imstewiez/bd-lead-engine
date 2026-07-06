@@ -6,7 +6,9 @@ import { platformFromUrl } from "./utils.js";
 
 const rootDir = getRootDir();
 const dataDir = path.join(rootDir, "data");
+const publicDir = path.join(rootDir, "public");
 const snapshotPath = path.join(dataDir, "ui-dashboard.json");
+const publicSnapshotPath = path.join(publicDir, "ui-dashboard.json");
 const statusPath = path.join(dataDir, "ui-snapshot-worker-status.json");
 const intervalMs = Number(process.argv.find((arg) => arg.startsWith("--intervalMs="))?.split("=")[1] || process.env.UI_SNAPSHOT_INTERVAL_MS || 12000);
 const once = process.argv.includes("--once");
@@ -83,9 +85,21 @@ function summarize(leads, rawTotal) {
     directLinks: leads.filter(hasDirectOutboundPath).length,
     clusters: 0
   };
-  const byPlatform = leads.reduce((acc, lead) => { const key = platformForLead(lead); acc[key] = (acc[key] || 0) + 1; return acc; }, {});
-  const bySegment = leads.reduce((acc, lead) => { const key = lead.segment || "Unclear"; acc[key] = (acc[key] || 0) + 1; return acc; }, {});
-  const byCountry = leads.reduce((acc, lead) => { const key = lead.country || "Unknown"; acc[key] = (acc[key] || 0) + 1; return acc; }, {});
+  const byPlatform = leads.reduce((acc, lead) => {
+    const key = platformForLead(lead);
+    acc[key] = (acc[key] || 0) + 1;
+    return acc;
+  }, {});
+  const bySegment = leads.reduce((acc, lead) => {
+    const key = lead.segment || "Unclear";
+    acc[key] = (acc[key] || 0) + 1;
+    return acc;
+  }, {});
+  const byCountry = leads.reduce((acc, lead) => {
+    const key = lead.country || "Unknown";
+    acc[key] = (acc[key] || 0) + 1;
+    return acc;
+  }, {});
   return { counts, byPlatform, bySegment, byCountry, rawTotal };
 }
 
@@ -99,7 +113,10 @@ async function writeJsonAtomic(filePath, value) {
 export async function buildUiSnapshot() {
   const startedAt = Date.now();
   const db = await readDb();
-  const leads = (db.leads || []).filter(isUiLead).sort((a, b) => score(b) - score(a) || String(b.lastSeen || "").localeCompare(String(a.lastSeen || ""))).map(compactLead);
+  const leads = (db.leads || [])
+    .filter(isUiLead)
+    .sort((a, b) => score(b) - score(a) || String(b.lastSeen || "").localeCompare(String(a.lastSeen || "")))
+    .map(compactLead);
   const snapshot = {
     version: 1,
     generatedAt: new Date().toISOString(),
@@ -110,6 +127,7 @@ export async function buildUiSnapshot() {
     summary: summarize(leads, (db.leads || []).length)
   };
   await writeJsonAtomic(snapshotPath, snapshot);
+  await writeJsonAtomic(publicSnapshotPath, snapshot);
   await writeJsonAtomic(statusPath, { ok: true, updatedAt: snapshot.generatedAt, total: leads.length, rawTotal: db.leads?.length || 0, buildMs: snapshot.buildMs });
   return snapshot;
 }
