@@ -1,35 +1,35 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T01:39:14.643Z
+Updated: 2026-07-06T01:49:24.545Z
 Health: OK
 
 ## Funnel
-Raw: 1220
+Raw: 1219
 Qualified: 97
-Working: 126
-Contactable: 104
-Sales-ready: 39
-A1 Hot: 42
-A2 Strong: 16
+Working: 125
+Contactable: 103
+Sales-ready: 38
+A1 Hot: 41
+A2 Strong: 18
 
 ## Quality
 Platform contact leaks: 0
 High-value without real contact: 214
-Sales-ready by bucket: {"web":8,"myfxbook":7,"x":7,"mql5":5,"specialist":4,"instagram":3,"tiktok":2,"facebook_threads":1,"linkedin":1,"telegram":1}
-Qualified by bucket: {"linkedin":42,"instagram":12,"x":9,"web":9,"myfxbook":7,"facebook_threads":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
+Sales-ready by bucket: {"web":8,"x":7,"myfxbook":6,"mql5":5,"specialist":4,"instagram":3,"tiktok":2,"facebook_threads":1,"linkedin":1,"telegram":1}
+Qualified by bucket: {"linkedin":42,"instagram":13,"x":9,"web":9,"facebook_threads":6,"myfxbook":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
 
 ## Sourcing / Workers
-Provider errors: 262
+Provider errors: 450
 Stale workers: engine-control
 Issues: warning:duplicate_pressure
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 3
-Stored: 3
+Processed: 5
+Stored: 5
 Errors: 0
-Current: lilo org
-Last: ⚜️Forex Trader⚜️ | * Signals Whatsapp Community Link In Bio
+Current: ) - Instagram
+Last: PAMM recommendation | Forex Forum by Myfxbook
 
 ## Recent Errors
 ### qualified-exporter
