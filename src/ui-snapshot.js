@@ -1,7 +1,8 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { getRootDir, readDb } from "./store.js";
 import { cleanEmails, cleanForms, hasDirectOutboundPath } from "./contact-cleaner.js";
+import { isExportQualified, isWorkingLead } from "./exporter.js";
+import { getRootDir, readDb } from "./store.js";
 import { platformFromUrl } from "./utils.js";
 
 const rootDir = getRootDir();
@@ -9,6 +10,7 @@ const dataDir = path.join(rootDir, "data");
 const publicDir = path.join(rootDir, "public");
 const snapshotPath = path.join(dataDir, "ui-dashboard.json");
 const publicSnapshotPath = path.join(publicDir, "ui-dashboard.json");
+const rejectedSnapshotPath = path.join(dataDir, "ui-dashboard-rejected.json");
 const statusPath = path.join(dataDir, "ui-snapshot-worker-status.json");
 const intervalMs = Number(process.argv.find((arg) => arg.startsWith("--intervalMs="))?.split("=")[1] || process.env.UI_SNAPSHOT_INTERVAL_MS || 12000);
 const once = process.argv.includes("--once");
@@ -17,11 +19,22 @@ function platformForLead(lead = {}) {
   return lead.platform || platformFromUrl(lead.url || "") || "Unknown";
 }
 
+function searchableText(lead = {}) {
+  return [lead.name, lead.title, lead.snippet, lead.url, lead.domain, lead.country, lead.leadType, lead.segment, ...(lead.evidence || [])]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+}
+
 function isUiLead(lead = {}) {
-  if (!lead.url && !lead.name && !lead.title) return false;
+  if (!lead.url || (!lead.name && !lead.title)) return false;
   if (lead.segment === "Broker Site") return false;
-  if (lead.priority === "D" && Number(lead.score || 0) < 35) return false;
-  return Number(lead.score || 0) >= 35 || lead.qualificationStatus === "research_candidate" || ["partner", "recruitment", "institution"].includes(lead.leadType);
+  if (lead.priority === "D") return false;
+  if (Number(lead.score || 0) < 45 && Number(lead.commercialScore || 0) < 45) return false;
+  const text = searchableText(lead);
+  if (/youtube\.com|youtu\.be|investopedia|wikipedia|dictionary|calendar|market scanner|crypto news|payments|stablecoin|course catalog|hotel|tourism|academy residence/i.test(text)) return false;
+  if (/\b(?:what is|what are|guide to|basics of|definition|pronunciation|o que é|o que e|guia completo|noções básicas|nocões básicas)\b/i.test(text)) return false;
+  return isExportQualified(lead) || isWorkingLead(lead);
 }
 
 function contactRank(lead = {}) {
@@ -113,22 +126,30 @@ async function writeJsonAtomic(filePath, value) {
 export async function buildUiSnapshot() {
   const startedAt = Date.now();
   const db = await readDb();
-  const leads = (db.leads || [])
-    .filter(isUiLead)
-    .sort((a, b) => score(b) - score(a) || String(b.lastSeen || "").localeCompare(String(a.lastSeen || "")))
-    .map(compactLead);
+  const allLeads = db.leads || [];
+  const accepted = [];
+  const rejected = [];
+  for (const lead of allLeads) {
+    if (isUiLead(lead)) accepted.push(lead);
+    else rejected.push({ id: lead.id, name: lead.name, title: lead.title, url: lead.url, score: lead.score, commercialScore: lead.commercialScore, priority: lead.priority, leadType: lead.leadType, segment: lead.segment, platform: platformForLead(lead) });
+  }
+  const leads = accepted.sort((a, b) => score(b) - score(a) || String(b.lastSeen || "").localeCompare(String(a.lastSeen || ""))).map(compactLead);
   const snapshot = {
-    version: 1,
+    version: 2,
     generatedAt: new Date().toISOString(),
     sourceUpdatedAt: db.updatedAt || null,
+    qualityGate: "exporter-working-or-qualified-v2",
     buildMs: Date.now() - startedAt,
+    rawTotal: allLeads.length,
+    rejectedTotal: rejected.length,
     total: leads.length,
     leads,
-    summary: summarize(leads, (db.leads || []).length)
+    summary: summarize(leads, allLeads.length)
   };
   await writeJsonAtomic(snapshotPath, snapshot);
   await writeJsonAtomic(publicSnapshotPath, snapshot);
-  await writeJsonAtomic(statusPath, { ok: true, updatedAt: snapshot.generatedAt, total: leads.length, rawTotal: db.leads?.length || 0, buildMs: snapshot.buildMs });
+  await writeJsonAtomic(rejectedSnapshotPath, { generatedAt: snapshot.generatedAt, total: rejected.length, rejected: rejected.slice(0, 5000) });
+  await writeJsonAtomic(statusPath, { ok: true, updatedAt: snapshot.generatedAt, total: leads.length, rawTotal: allLeads.length, rejectedTotal: rejected.length, buildMs: snapshot.buildMs, qualityGate: snapshot.qualityGate });
   return snapshot;
 }
 
@@ -136,7 +157,7 @@ async function loop() {
   while (true) {
     try {
       const snapshot = await buildUiSnapshot();
-      console.log(`[ui-snapshot] ok total=${snapshot.total} buildMs=${snapshot.buildMs}`);
+      console.log(`[ui-snapshot] ok total=${snapshot.total} rejected=${snapshot.rejectedTotal} buildMs=${snapshot.buildMs}`);
     } catch (error) {
       console.error(`[ui-snapshot] ${error.stack || error.message}`);
       await writeJsonAtomic(statusPath, { ok: false, updatedAt: new Date().toISOString(), error: error.message });
