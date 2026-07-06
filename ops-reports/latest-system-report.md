@@ -1,34 +1,36 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T00:40:19.948Z
+Updated: 2026-07-06T00:50:25.804Z
 Health: OK
 
 ## Funnel
-Raw: 1222
-Qualified: 97
-Working: 123
-Contactable: 102
+Raw: 1221
+Qualified: 95
+Working: 124
+Contactable: 103
 Sales-ready: 38
 A1 Hot: 41
-A2 Strong: 14
+A2 Strong: 15
 
 ## Quality
 Platform contact leaks: 0
-High-value without real contact: 218
+High-value without real contact: 216
 Sales-ready by bucket: {"web":8,"x":7,"myfxbook":6,"mql5":5,"specialist":4,"instagram":3,"tiktok":2,"facebook_threads":1,"linkedin":1,"telegram":1}
-Qualified by bucket: {"linkedin":42,"instagram":13,"x":9,"web":9,"facebook_threads":6,"myfxbook":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
+Qualified by bucket: {"linkedin":41,"instagram":12,"x":9,"web":9,"facebook_threads":6,"myfxbook":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
 
 ## Sourcing / Workers
-Provider errors: 0
+Provider errors: 117
 Stale workers: none
 Issues: warning:duplicate_pressure
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 0
-Stored: 0
+Processed: 1
+Stored: 1
 Errors: 0
-Current: High-End Audio equipment for Jazz music - Sax on the Web Forum
+Current: Forex Fund Manager Forex Trading System by Forex Trader supportfx
+Last: High-End Audio equipment for Jazz music - Sax on the Web Forum
+Last best contact: tenorman@teche.net
 
 ## Recent Errors
 ### qualified-exporter

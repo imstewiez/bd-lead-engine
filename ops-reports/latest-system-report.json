@@ -1,34 +1,34 @@
 {
   "ok": true,
-  "generatedAt": "2026-07-06T00:40:19.948Z",
+  "generatedAt": "2026-07-06T00:50:25.804Z",
   "summary": {
     "ok": true,
-    "rawLeads": 1222,
-    "qualified": 97,
-    "working": 123,
-    "contactable": 102,
+    "rawLeads": 1221,
+    "qualified": 95,
+    "working": 124,
+    "contactable": 103,
     "realDecisionContacts": 736,
-    "aLeads": 55,
+    "aLeads": 56,
     "a1Hot": 41,
-    "a2Strong": 14,
+    "a2Strong": 15,
     "salesReady": 38,
     "platformContactLeaks": 0,
     "platformBestContactLeaks": 0,
-    "highValueNoContact": 218,
-    "identityTrailCoverage": 15,
+    "highValueNoContact": 216,
+    "identityTrailCoverage": 17,
     "websiteOnlyContacts": 30,
     "duplicateLike": 110,
-    "uniqueKeys": 1112,
-    "enrichmentDueNow": 663,
-    "enrichedLastHour": 203,
-    "enrichedLast24h": 612,
+    "uniqueKeys": 1111,
+    "enrichmentDueNow": 665,
+    "enrichedLastHour": 198,
+    "enrichedLast24h": 607,
     "harvesters": 9,
-    "harvesterRawSeen": 0,
-    "harvesterSavedThisCycle": 0,
-    "providerErrors": 0,
-    "providerErrorsPerSaved": null,
+    "harvesterRawSeen": 171,
+    "harvesterSavedThisCycle": 16,
+    "providerErrors": 117,
+    "providerErrorsPerSaved": 7.313,
     "salesReadyYield": 0.031,
-    "salesReadyPerProviderError": null,
+    "salesReadyPerProviderError": 0.325,
     "staleWorkers": [],
     "issues": [
       {
@@ -40,33 +40,33 @@
   },
   "health": {
     "ok": true,
-    "updatedAt": "2026-07-06T00:40:16.077Z",
+    "updatedAt": "2026-07-06T00:50:21.880Z",
     "counts": {
-      "raw": 1222,
-      "qualified": 97,
-      "working": 123,
-      "contactable": 102,
-      "aLeads": 55,
+      "raw": 1221,
+      "qualified": 95,
+      "working": 124,
+      "contactable": 103,
+      "aLeads": 56,
       "a1Hot": 41,
-      "a2Strong": 14,
+      "a2Strong": 15,
       "bNurture": 34,
       "cResearch": 34,
       "sourceOnly": 0
     },
     "duplicate": {
       "duplicateLike": 110,
-      "uniqueKeys": 1112
+      "uniqueKeys": 1111
     },
     "enrichmentQueue": {
-      "stale": 498,
+      "stale": 505,
       "contactless": 436,
-      "neverDeep": 229,
-      "eligible": 888,
-      "dueNow": 663,
-      "rotationDue": 329,
-      "enrichedLastHour": 203,
-      "enrichedLast24h": 612,
-      "oldestDeepAgeHours": 61.2,
+      "neverDeep": 228,
+      "eligible": 887,
+      "dueNow": 665,
+      "rotationDue": 331,
+      "enrichedLastHour": 198,
+      "enrichedLast24h": 607,
+      "oldestDeepAgeHours": 61.4,
       "running": 14
     },
     "tasks": {
@@ -138,8 +138,8 @@
     "statuses": {
       "source-harvester": {
         "exists": true,
-        "updatedAt": "2026-07-06T00:40:09.277Z",
-        "ageMs": 6795,
+        "updatedAt": "2026-07-06T00:50:02.334Z",
+        "ageMs": 19540,
         "status": {
           "status": "running",
           "workerName": "source-harvester",
@@ -177,9 +177,9 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-06T00:40:09.255Z",
+          "heartbeatAt": "2026-07-06T00:50:02.334Z",
           "progress": {
-            "message": "Starting scan with 170 balanced queries",
+            "message": "Discarded hard-rejected result: Trending Topics & Today's News | X - Twitter",
             "status": "running",
             "latestLead": null,
             "sourceStats": {
@@ -191,18 +191,46 @@
                 "discarded": 0,
                 "duplicates": 0,
                 "errors": 0,
+                "providerErrors": 9,
+                "reasons": {
+                  "provider_errors": 1
+                }
+              },
+              "instagram": {
+                "searches": 1,
+                "raw": 12,
+                "qualified": 3,
+                "saved": 2,
+                "discarded": 9,
+                "duplicates": 1,
+                "errors": 0,
                 "providerErrors": 0,
-                "reasons": {}
+                "reasons": {
+                  "hard_rejected": 9
+                }
+              },
+              "x": {
+                "searches": 1,
+                "raw": 1,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 1,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "hard_rejected": 1
+                }
               }
             }
           },
-          "updatedAt": "2026-07-06T00:40:09.277Z"
+          "updatedAt": "2026-07-06T00:50:02.334Z"
         }
       },
       "source-harvester-social": {
         "exists": true,
-        "updatedAt": "2026-07-06T00:40:09.295Z",
-        "ageMs": 6777,
+        "updatedAt": "2026-07-06T00:48:49.020Z",
+        "ageMs": 92854,
         "status": {
           "status": "running",
           "workerName": "source-harvester-social",
@@ -240,9 +268,9 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-06T00:40:09.273Z",
+          "heartbeatAt": "2026-07-06T00:48:49.020Z",
           "progress": {
-            "message": "Starting scan with 176 balanced queries",
+            "message": "Discarded hard-rejected result: invite vjhCHnFMkw",
             "status": "running",
             "latestLead": null,
             "sourceStats": {
@@ -254,18 +282,46 @@
                 "discarded": 0,
                 "duplicates": 0,
                 "errors": 0,
+                "providerErrors": 9,
+                "reasons": {
+                  "provider_errors": 1
+                }
+              },
+              "instagram": {
+                "searches": 1,
+                "raw": 6,
+                "qualified": 1,
+                "saved": 0,
+                "discarded": 5,
+                "duplicates": 1,
+                "errors": 0,
                 "providerErrors": 0,
-                "reasons": {}
+                "reasons": {
+                  "hard_rejected": 5
+                }
+              },
+              "x": {
+                "searches": 1,
+                "raw": 12,
+                "qualified": 3,
+                "saved": 2,
+                "discarded": 8,
+                "duplicates": 1,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "hard_rejected": 8
+                }
               }
             }
           },
-          "updatedAt": "2026-07-06T00:40:09.295Z"
+          "updatedAt": "2026-07-06T00:48:49.020Z"
         }
       },
       "source-harvester-specialist": {
         "exists": true,
-        "updatedAt": "2026-07-06T00:40:09.318Z",
-        "ageMs": 6754,
+        "updatedAt": "2026-07-06T00:49:50.915Z",
+        "ageMs": 30959,
         "status": {
           "status": "running",
           "workerName": "source-harvester-specialist",
@@ -303,13 +359,52 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-06T00:40:09.296Z",
+          "heartbeatAt": "2026-07-06T00:49:50.911Z",
           "progress": {
-            "message": "Starting scan with 135 balanced queries",
+            "message": "Searching [myfxbook]: site:myfxbook.com/members \"money manager\"",
             "status": "running",
             "latestLead": null,
             "sourceStats": {
               "linkedin": {
+                "searches": 1,
+                "raw": 12,
+                "qualified": 4,
+                "saved": 0,
+                "discarded": 8,
+                "duplicates": 4,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "hard_rejected": 8
+                }
+              },
+              "x": {
+                "searches": 1,
+                "raw": 0,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 9,
+                "reasons": {
+                  "provider_errors": 1
+                }
+              },
+              "telegram": {
+                "searches": 1,
+                "raw": 8,
+                "qualified": 5,
+                "saved": 1,
+                "discarded": 3,
+                "duplicates": 4,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "hard_rejected": 3
+                }
+              },
+              "myfxbook": {
                 "searches": 1,
                 "raw": 0,
                 "qualified": 0,
@@ -322,13 +417,13 @@
               }
             }
           },
-          "updatedAt": "2026-07-06T00:40:09.318Z"
+          "updatedAt": "2026-07-06T00:49:50.915Z"
         }
       },
       "source-harvester-ecosystem": {
         "exists": true,
-        "updatedAt": "2026-07-06T00:40:09.345Z",
-        "ageMs": 6727,
+        "updatedAt": "2026-07-06T00:50:00.920Z",
+        "ageMs": 20955,
         "status": {
           "status": "running",
           "workerName": "source-harvester-ecosystem",
@@ -366,9 +461,9 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-06T00:40:09.325Z",
+          "heartbeatAt": "2026-07-06T00:50:00.919Z",
           "progress": {
-            "message": "Starting scan with 135 balanced queries",
+            "message": "Discarded hard-rejected result: qwantcom",
             "status": "running",
             "latestLead": null,
             "sourceStats": {
@@ -380,18 +475,59 @@
                 "discarded": 0,
                 "duplicates": 0,
                 "errors": 0,
+                "providerErrors": 9,
+                "reasons": {
+                  "provider_errors": 1
+                }
+              },
+              "telegram": {
+                "searches": 1,
+                "raw": 10,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 10,
+                "duplicates": 0,
+                "errors": 0,
                 "providerErrors": 0,
-                "reasons": {}
+                "reasons": {
+                  "hard_rejected": 10
+                }
+              },
+              "discord": {
+                "searches": 1,
+                "raw": 10,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 10,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "hard_rejected": 10
+                }
+              },
+              "ecosystem": {
+                "searches": 1,
+                "raw": 10,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 1,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "hard_rejected": 1
+                }
               }
             }
           },
-          "updatedAt": "2026-07-06T00:40:09.345Z"
+          "updatedAt": "2026-07-06T00:50:00.920Z"
         }
       },
       "source-harvester-linkedin": {
         "exists": true,
-        "updatedAt": "2026-07-06T00:40:09.361Z",
-        "ageMs": 6712,
+        "updatedAt": "2026-07-06T00:49:39.225Z",
+        "ageMs": 42650,
         "status": {
           "status": "running",
           "workerName": "source-harvester-linkedin",
@@ -429,32 +565,35 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-06T00:40:09.340Z",
+          "heartbeatAt": "2026-07-06T00:49:39.220Z",
           "progress": {
-            "message": "Starting scan with 219 balanced queries",
+            "message": "Searching [linkedin]: site:linkedin.com/in \"introducing broker\" \"forex\" \"Mexico\"",
             "status": "running",
             "latestLead": null,
             "sourceStats": {
               "linkedin": {
-                "searches": 1,
-                "raw": 0,
-                "qualified": 0,
+                "searches": 6,
+                "raw": 10,
+                "qualified": 8,
                 "saved": 0,
-                "discarded": 0,
-                "duplicates": 0,
+                "discarded": 2,
+                "duplicates": 8,
                 "errors": 0,
-                "providerErrors": 0,
-                "reasons": {}
+                "providerErrors": 36,
+                "reasons": {
+                  "hard_rejected": 2,
+                  "provider_errors": 4
+                }
               }
             }
           },
-          "updatedAt": "2026-07-06T00:40:09.361Z"
+          "updatedAt": "2026-07-06T00:49:39.225Z"
         }
       },
       "source-harvester-instagram": {
         "exists": true,
-        "updatedAt": "2026-07-06T00:40:09.380Z",
-        "ageMs": 6693,
+        "updatedAt": "2026-07-06T00:50:09.806Z",
+        "ageMs": 12069,
         "status": {
           "status": "running",
           "workerName": "source-harvester-instagram",
@@ -492,32 +631,97 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-06T00:40:09.362Z",
+          "heartbeatAt": "2026-07-06T00:50:09.805Z",
           "progress": {
-            "message": "Starting scan with 55 balanced queries",
+            "message": "Saved B-lead: reel DM59pRzOpET",
             "status": "running",
-            "latestLead": null,
+            "latestLead": {
+              "id": "abf48a357ee8e81d",
+              "source": "bing",
+              "sourceIntent": "social",
+              "query": "\"forex trader\" \"whatsapp\" \"Brazil\"",
+              "url": "https://www.instagram.com/reel/DM59pRzOpET/",
+              "domain": "instagram.com",
+              "platform": "Instagram",
+              "title": "reel DM59pRzOpET",
+              "name": "reel DM59pRzOpET",
+              "snippet": "Aug 3, 2025 · Join my telegram or Whatsapp for partnership link in bio #usa #uk #forex #trading #live #exploreinstagram #twitter #telegram #vk #tiktok #youtube #facebook #metaai #viral #trending …",
+              "fetchStatus": "skipped-social-or-platform",
+              "sourceQuery": "site:instagram.com \"forex trader\" \"whatsapp\" \"Brazil\"",
+              "emails": [],
+              "socialLinks": [],
+              "contactLinks": [],
+              "websiteLinks": [],
+              "phoneNumbers": [],
+              "forms": [],
+              "contactSources": [],
+              "relatedLinks": [],
+              "decisionMakerLinks": [],
+              "decisionMakers": [],
+              "trailSearched": true,
+              "contactConfidence": 15,
+              "contactQuality": "no-contact-yet",
+              "lastDeepEnrichedAt": "2026-07-06T00:50:09.712Z",
+              "bestContact": "",
+              "bestContactType": "",
+              "bestContactSource": "",
+              "enrichmentAudit": {
+                "sourceDomain": "instagram.com",
+                "contactQuality": "no-contact-yet",
+                "contactConfidence": 15,
+                "profileFirst": true,
+                "searchTrailUsed": true,
+                "websiteCandidates": [],
+                "contactSources": [],
+                "relatedEvidenceCount": 0,
+                "note": "Contacts are prioritized from the source profile and its discovered website/linkhub before any public-search trail evidence."
+              },
+              "leadType": "partner",
+              "segment": "Community",
+              "countries": [
+                "United Kingdom"
+              ],
+              "country": "United Kingdom",
+              "languages": [
+                "English",
+                "Spanish",
+                "Portuguese"
+              ],
+              "evidence": [
+                "Community/audience",
+                "Contact path"
+              ],
+              "score": 74,
+              "priority": "B",
+              "outbound": {
+                "opener": "Vi Aug 3, 2025 · Join my telegram or Whatsapp for partnership link in bio #usa #uk #forex #trading #live #exploreinstagram #twitter #telegram #vk #tiktok #youtube #facebook #metaai #viral #trending … e parece haver uma ligação clara a community/audience.",
+                "dm": "Olá, vi o teu trabalho ligado a trading/forex e pareceu-me que pode haver uma conversa interessante de parceria. Lidero Business Development e trabalho com parceiros, comunidades e afiliados em mercados globais. Faz sentido falarmos 15 minutos esta semana?",
+                "followUp": "Acho que há potencial para uma conversa objetiva: audiência/comunidade de trading, estrutura de parceria e crescimento com uma corretora regulada. Tens disponibilidade esta semana?"
+              }
+            },
             "sourceStats": {
               "instagram": {
-                "searches": 1,
-                "raw": 0,
-                "qualified": 0,
+                "searches": 4,
+                "raw": 44,
+                "qualified": 17,
                 "saved": 0,
-                "discarded": 0,
-                "duplicates": 0,
+                "discarded": 9,
+                "duplicates": 35,
                 "errors": 0,
                 "providerErrors": 0,
-                "reasons": {}
+                "reasons": {
+                  "hard_rejected": 9
+                }
               }
             }
           },
-          "updatedAt": "2026-07-06T00:40:09.380Z"
+          "updatedAt": "2026-07-06T00:50:09.806Z"
         }
       },
       "source-harvester-platforms": {
         "exists": true,
-        "updatedAt": "2026-07-06T00:40:09.401Z",
-        "ageMs": 6672,
+        "updatedAt": "2026-07-06T00:49:20.314Z",
+        "ageMs": 61562,
         "status": {
           "status": "running",
           "workerName": "source-harvester-platforms",
@@ -557,32 +761,60 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-06T00:40:09.380Z",
+          "heartbeatAt": "2026-07-06T00:49:20.306Z",
           "progress": {
-            "message": "Starting scan with 48 balanced queries",
+            "message": "Searching [specialist]: site:fxblue.com/users \"XAUUSD\"",
             "status": "running",
             "latestLead": null,
             "sourceStats": {
               "myfxbook": {
-                "searches": 1,
+                "searches": 2,
                 "raw": 0,
                 "qualified": 0,
                 "saved": 0,
                 "discarded": 0,
                 "duplicates": 0,
                 "errors": 0,
-                "providerErrors": 0,
-                "reasons": {}
+                "providerErrors": 18,
+                "reasons": {
+                  "provider_errors": 2
+                }
+              },
+              "mql5": {
+                "searches": 2,
+                "raw": 0,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 18,
+                "reasons": {
+                  "provider_errors": 2
+                }
+              },
+              "specialist": {
+                "searches": 2,
+                "raw": 0,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 9,
+                "reasons": {
+                  "provider_errors": 1
+                }
               }
             }
           },
-          "updatedAt": "2026-07-06T00:40:09.401Z"
+          "updatedAt": "2026-07-06T00:49:20.314Z"
         }
       },
       "source-harvester-communities": {
         "exists": true,
-        "updatedAt": "2026-07-06T00:40:09.419Z",
-        "ageMs": 6654,
+        "updatedAt": "2026-07-06T00:49:02.563Z",
+        "ageMs": 79313,
         "status": {
           "status": "running",
           "workerName": "source-harvester-communities",
@@ -620,32 +852,47 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-06T00:40:09.401Z",
+          "heartbeatAt": "2026-07-06T00:49:02.561Z",
           "progress": {
-            "message": "Starting scan with 142 balanced queries",
+            "message": "Discarded hard-rejected result: Qwant FR",
             "status": "running",
             "latestLead": null,
             "sourceStats": {
               "telegram": {
                 "searches": 1,
-                "raw": 0,
-                "qualified": 0,
-                "saved": 0,
-                "discarded": 0,
+                "raw": 11,
+                "qualified": 9,
+                "saved": 9,
+                "discarded": 2,
                 "duplicates": 0,
                 "errors": 0,
                 "providerErrors": 0,
-                "reasons": {}
+                "reasons": {
+                  "hard_rejected": 2
+                }
+              },
+              "discord": {
+                "searches": 1,
+                "raw": 13,
+                "qualified": 2,
+                "saved": 1,
+                "discarded": 8,
+                "duplicates": 1,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "hard_rejected": 8
+                }
               }
             }
           },
-          "updatedAt": "2026-07-06T00:40:09.419Z"
+          "updatedAt": "2026-07-06T00:49:02.563Z"
         }
       },
       "source-harvester-events": {
         "exists": true,
-        "updatedAt": "2026-07-06T00:40:09.727Z",
-        "ageMs": 6347,
+        "updatedAt": "2026-07-06T00:50:16.222Z",
+        "ageMs": 5654,
         "status": {
           "status": "running",
           "workerName": "source-harvester-events",
@@ -683,32 +930,34 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-06T00:40:09.709Z",
+          "heartbeatAt": "2026-07-06T00:50:16.215Z",
           "progress": {
-            "message": "Starting scan with 163 balanced queries",
+            "message": "Discarded hard-rejected result: Forex Expo Dubai 2025 Conference to Feature 150+ Global FX and …",
             "status": "running",
             "latestLead": null,
             "sourceStats": {
               "ecosystem": {
                 "searches": 1,
-                "raw": 0,
-                "qualified": 0,
-                "saved": 0,
-                "discarded": 0,
+                "raw": 12,
+                "qualified": 1,
+                "saved": 1,
+                "discarded": 9,
                 "duplicates": 0,
                 "errors": 0,
                 "providerErrors": 0,
-                "reasons": {}
+                "reasons": {
+                  "hard_rejected": 9
+                }
               }
             }
           },
-          "updatedAt": "2026-07-06T00:40:09.727Z"
+          "updatedAt": "2026-07-06T00:50:16.222Z"
         }
       },
       "enrichment-worker": {
         "exists": true,
-        "updatedAt": "2026-07-06T00:40:11.912Z",
-        "ageMs": 4162,
+        "updatedAt": "2026-07-06T00:50:14.109Z",
+        "ageMs": 7768,
         "status": {
           "status": "running",
           "phase": "enriching",
@@ -725,104 +974,161 @@
             "maxTrailQueries": 26,
             "trailLimit": 10
           },
-          "processed": 0,
-          "rejected": 0,
+          "processed": 40,
+          "rejected": 2,
           "errors": 0,
           "idleCycles": 0,
           "queue": {
-            "eligible": 620,
-            "dueNow": 450,
-            "never": 181,
-            "contactlessDue": 126,
-            "scheduledDue": 140,
-            "rotationDue": 3,
-            "recentlyEnriched1h": 195,
+            "eligible": 619,
+            "dueNow": 436,
+            "never": 180,
+            "contactlessDue": 109,
+            "scheduledDue": 143,
+            "rotationDue": 4,
+            "recentlyEnriched1h": 191,
             "recentlyEnriched24h": 405,
             "blockedRunning": 9,
-            "oldestDeepAgeHours": 48.2
+            "oldestDeepAgeHours": 48.4
           },
           "current": {
-            "id": "bb87564d6c82f83a",
-            "name": "ramy-ghaze-7a2974291#moneyexpo #abudhabi #ecmarkets #trading #forex # ... - LinkedIn",
-            "url": "https://www.linkedin.com/posts/ramy-ghaze-7a2974291_moneyexpo-abudhabi-ecmarkets-activity-7479547537595740162-igzi",
-            "platform": "LinkedIn",
+            "id": "2c87d7932d10e7ff",
+            "name": "creators.instagram.com",
+            "url": "https://creators.instagram.com/",
+            "platform": "Instagram",
             "dueReason": "contactless_due"
           },
-          "updatedAt": "2026-07-06T00:40:11.912Z"
+          "updatedAt": "2026-07-06T00:50:14.109Z"
         }
       },
       "smart-enrichment-worker": {
         "exists": true,
-        "updatedAt": "2026-07-06T00:40:10.273Z",
-        "ageMs": 5801,
+        "updatedAt": "2026-07-06T00:45:51.623Z",
+        "ageMs": 270254,
         "status": {
           "status": "running",
           "phase": "smart-enriching",
-          "processed": 0,
-          "stored": 0,
-          "errors": 0,
-          "current": {
-            "id": "7dc4bd6185817302",
-            "name": "High-End Audio equipment for Jazz music - Sax on the Web Forum",
-            "url": "https://www.saxontheweb.net/threads/high-end-audio-equipment-for-jazz-music.7556/",
-            "platform": "Web",
-            "bucket": "facebook_threads"
-          },
-          "lastResult": null,
-          "updatedAt": "2026-07-06T00:40:10.273Z"
-        }
-      },
-      "contact-gap-worker": {
-        "exists": true,
-        "updatedAt": "2026-07-06T00:40:11.561Z",
-        "ageMs": 4513,
-        "status": {
-          "status": "running",
-          "phase": "enriching-gap",
-          "processed": 0,
-          "stored": 0,
+          "processed": 1,
+          "stored": 1,
           "errors": 0,
           "current": {
             "id": "b9875250ff0beebd",
             "name": "Forex Fund Manager Forex Trading System by Forex Trader supportfx",
             "url": "https://www.myfxbook.com/members/supportfx/forex-fund-manager/3593761",
-            "bucket": "myfxbook",
-            "score": 269
+            "platform": "Myfxbook",
+            "bucket": "myfxbook"
           },
-          "lastResult": null,
-          "updatedAt": "2026-07-06T00:40:11.561Z"
+          "lastResult": {
+            "id": "7dc4bd6185817302",
+            "name": "High-End Audio equipment for Jazz music - Sax on the Web Forum",
+            "bucket": "facebook_threads",
+            "bestContact": "tenorman@teche.net",
+            "contactLinks": 23,
+            "websites": 30,
+            "related": 0,
+            "hasDecisionContact": true,
+            "at": "2026-07-06T00:45:46.041Z"
+          },
+          "updatedAt": "2026-07-06T00:45:51.623Z"
+        }
+      },
+      "contact-gap-worker": {
+        "exists": true,
+        "updatedAt": "2026-07-06T00:46:20.952Z",
+        "ageMs": 240925,
+        "status": {
+          "status": "running",
+          "phase": "enriching-gap",
+          "processed": 2,
+          "stored": 2,
+          "errors": 0,
+          "current": {
+            "id": "79225eb029f51731",
+            "name": "Are Introducing brokers good or bad ? | Forex Forum by Myfxbook",
+            "url": "https://www.myfxbook.com/community/brokers/introducing-brokers-good-bad/2923932,1",
+            "bucket": "myfxbook",
+            "score": 268
+          },
+          "lastResult": {
+            "id": "f30c136f6fa7d282",
+            "name": "Alex Dantas Da Silva EA SMC LEX V1 122% growth since 2026 Reliability 99% Algo trading 0 Copy for 50 USD per month",
+            "bucket": "mql5",
+            "bestContact": "+31 10 669 0521",
+            "contactLinks": 30,
+            "websites": 30,
+            "hasRealContact": true,
+            "at": "2026-07-06T00:46:15.300Z"
+          },
+          "updatedAt": "2026-07-06T00:46:20.952Z"
         }
       },
       "lead-cleaner": {
         "exists": true,
-        "updatedAt": "2026-07-06T00:40:10.561Z",
-        "ageMs": 5513,
+        "updatedAt": "2026-07-06T00:49:43.034Z",
+        "ageMs": 38843,
         "status": {
           "status": "running",
           "phase": "waiting",
-          "cycle": 1,
+          "cycle": 13,
           "intervalMs": 45000,
           "limit": 1000,
-          "totalRemoved": 0,
+          "totalRemoved": 17,
           "errors": 0,
           "lastRun": {
             "ok": true,
             "dryRun": false,
             "before": 1222,
-            "removed": 0,
-            "after": 1222,
-            "backupPath": null,
-            "byReason": {},
-            "sample": [],
-            "exported": null
+            "removed": 1,
+            "after": 1221,
+            "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-06T00-49-39-294Z.json",
+            "byReason": {
+              "forexfactory_generic_tool_page": 1
+            },
+            "sample": [
+              {
+                "id": "c691ea21dd0508f7",
+                "name": "EUR/USD | Forex Factory",
+                "url": "https://calendar.forexfactory.com/market",
+                "reason": "forexfactory_generic_tool_page"
+              }
+            ],
+            "exported": {
+              "csvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.csv",
+              "jsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.json",
+              "contactCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.csv",
+              "contactJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.json",
+              "hotCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.csv",
+              "hotJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.json",
+              "socialCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
+              "socialJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.json",
+              "instagramCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
+              "instagramJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.json",
+              "linkedinCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
+              "linkedinJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.json",
+              "xCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
+              "xJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.json",
+              "workingCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
+              "workingJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.json",
+              "researchCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.csv",
+              "researchJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.json",
+              "exported": 95,
+              "working": 124,
+              "researchSources": 130,
+              "contactable": 95,
+              "hot": 61,
+              "social": 68,
+              "instagram": 11,
+              "linkedin": 41,
+              "x": 9,
+              "total": 1221
+            }
           },
-          "updatedAt": "2026-07-06T00:40:10.561Z"
+          "updatedAt": "2026-07-06T00:49:43.034Z"
         }
       },
       "qualified-exporter": {
         "exists": true,
-        "updatedAt": "2026-07-06T00:40:13.684Z",
-        "ageMs": 2391,
+        "updatedAt": "2026-07-06T00:49:57.093Z",
+        "ageMs": 24785,
         "status": {
           "status": "running",
           "intervalMs": 45000,
@@ -845,40 +1151,103 @@
             "workingJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.json",
             "researchCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.csv",
             "researchJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.json",
-            "exported": 97,
-            "working": 123,
+            "exported": 95,
+            "working": 124,
             "researchSources": 130,
-            "contactable": 97,
+            "contactable": 95,
             "hot": 61,
-            "social": 70,
-            "instagram": 12,
-            "linkedin": 42,
+            "social": 68,
+            "instagram": 11,
+            "linkedin": 41,
             "x": 9,
-            "total": 1222
+            "total": 1221
           },
-          "updatedAt": "2026-07-06T00:40:13.684Z"
+          "updatedAt": "2026-07-06T00:49:57.093Z"
         }
       },
       "cloud-logger-worker": {
         "exists": true,
-        "updatedAt": "2026-07-06T00:40:13.742Z",
-        "ageMs": 2333,
+        "updatedAt": "2026-07-06T00:40:22.587Z",
+        "ageMs": 599291,
         "status": {
           "status": "running",
-          "phase": "started",
+          "phase": "done",
           "intervalMs": 600000,
-          "loop": false,
-          "once": true,
-          "updatedAt": "2026-07-06T00:40:13.742Z"
+          "cycles": 1,
+          "errors": 0,
+          "lastResult": {
+            "summary": {
+              "at": "2026-07-06T00:40:19.948Z",
+              "ok": true,
+              "raw": 1222,
+              "qualified": 97,
+              "working": 123,
+              "contactable": 102,
+              "salesReady": 38,
+              "a1Hot": 41,
+              "a2Strong": 14,
+              "platformContactLeaks": 0,
+              "highValueNoContact": 218,
+              "providerErrors": 0,
+              "staleWorkers": [],
+              "issues": [
+                {
+                  "severity": "warning",
+                  "code": "duplicate_pressure",
+                  "message": "Duplicate-like raw lead pressure is high."
+                }
+              ],
+              "smartTrail": {
+                "phase": "smart-enriching",
+                "processed": 0,
+                "stored": 0,
+                "errors": 0,
+                "current": "High-End Audio equipment for Jazz music - Sax on the Web Forum",
+                "last": "",
+                "best": ""
+              },
+              "salesReadyByBucket": {
+                "web": 8,
+                "x": 7,
+                "myfxbook": 6,
+                "mql5": 5,
+                "specialist": 4,
+                "instagram": 3,
+                "tiktok": 2,
+                "facebook_threads": 1,
+                "linkedin": 1,
+                "telegram": 1
+              },
+              "qualifiedByBucket": {
+                "linkedin": 42,
+                "instagram": 13,
+                "x": 9,
+                "web": 9,
+                "facebook_threads": 6,
+                "myfxbook": 6,
+                "mql5": 5,
+                "specialist": 4,
+                "tiktok": 2,
+                "telegram": 1
+              }
+            },
+            "git": {
+              "ok": true,
+              "committed": true,
+              "pushed": true,
+              "commit": "[main 9ffdc15] ops: update engine cloud report 2026-07-06T00:40:20.323Z\n 3 files changed, 114 insertions(+), 113 deletions(-)\n"
+            }
+          },
+          "updatedAt": "2026-07-06T00:40:22.587Z"
         }
       },
       "supervisor": {
         "exists": true,
-        "updatedAt": "2026-07-06T00:40:13.005Z",
-        "ageMs": 3071,
+        "updatedAt": "2026-07-06T00:49:38.374Z",
+        "ageMs": 43504,
         "status": {
           "status": "running",
-          "cycle": 1,
+          "cycle": 10,
           "intervalMs": 60000,
           "ensured": [
             {
@@ -962,27 +1331,27 @@
             "ok": true,
             "counts": {
               "raw": 1222,
-              "qualified": 97,
-              "working": 123,
-              "contactable": 102,
-              "aLeads": 55,
+              "qualified": 95,
+              "working": 124,
+              "contactable": 103,
+              "aLeads": 56,
               "a1Hot": 41,
-              "a2Strong": 14,
+              "a2Strong": 15,
               "bNurture": 34,
               "cResearch": 34,
               "sourceOnly": 0
             },
             "enrichmentQueue": {
-              "stale": 498,
-              "contactless": 436,
-              "neverDeep": 229,
+              "stale": 505,
+              "contactless": 437,
+              "neverDeep": 228,
               "eligible": 888,
-              "dueNow": 663,
-              "rotationDue": 329,
-              "enrichedLastHour": 203,
-              "enrichedLast24h": 612,
-              "oldestDeepAgeHours": 61.2,
-              "running": 12
+              "dueNow": 665,
+              "rotationDue": 331,
+              "enrichedLastHour": 199,
+              "enrichedLast24h": 608,
+              "oldestDeepAgeHours": 61.3,
+              "running": 13
             },
             "issues": [
               {
@@ -992,7 +1361,7 @@
               }
             ]
           },
-          "updatedAt": "2026-07-06T00:40:13.005Z"
+          "updatedAt": "2026-07-06T00:49:38.374Z"
         }
       }
     },
@@ -1000,58 +1369,58 @@
       "autopilot-qualified-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.csv",
-        "size": 301532,
-        "updatedAt": "2026-07-06T00:40:13.121Z",
-        "ageMs": 2955.132080078125
+        "size": 298651,
+        "updatedAt": "2026-07-06T00:49:56.492Z",
+        "ageMs": 25387.30029296875
       },
       "autopilot-qualified-contactable-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.csv",
-        "size": 301532,
-        "updatedAt": "2026-07-06T00:40:13.251Z",
-        "ageMs": 2825.464111328125
+        "size": 298651,
+        "updatedAt": "2026-07-06T00:49:56.662Z",
+        "ageMs": 25217.055908203125
       },
       "autopilot-hot-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.csv",
-        "size": 200453,
-        "updatedAt": "2026-07-06T00:40:13.336Z",
-        "ageMs": 2741.375
+        "size": 200013,
+        "updatedAt": "2026-07-06T00:49:56.772Z",
+        "ageMs": 25106.549072265625
       },
       "autopilot-working-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
-        "size": 326810,
-        "updatedAt": "2026-07-06T00:40:14.775Z",
-        "ageMs": 1301.980224609375
+        "size": 326918,
+        "updatedAt": "2026-07-06T00:50:10.144Z",
+        "ageMs": 11734.506591796875
       },
       "autopilot-social-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
-        "size": 169499,
-        "updatedAt": "2026-07-06T00:40:14.652Z",
-        "ageMs": 1425.188232421875
+        "size": 166618,
+        "updatedAt": "2026-07-06T00:50:10.020Z",
+        "ageMs": 11858.528076171875
       },
       "autopilot-linkedin-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
-        "size": 93747,
-        "updatedAt": "2026-07-06T00:40:14.677Z",
-        "ageMs": 1399.5654296875
+        "size": 92471,
+        "updatedAt": "2026-07-06T00:50:10.045Z",
+        "ageMs": 11833.526123046875
       },
       "autopilot-instagram-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
-        "size": 20832,
-        "updatedAt": "2026-07-06T00:40:14.666Z",
-        "ageMs": 1411.1533203125
+        "size": 19227,
+        "updatedAt": "2026-07-06T00:50:10.034Z",
+        "ageMs": 11844.52880859375
       },
       "autopilot-x-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
         "size": 40259,
-        "updatedAt": "2026-07-06T00:40:14.695Z",
-        "ageMs": 1382.054443359375
+        "updatedAt": "2026-07-06T00:50:10.063Z",
+        "ageMs": 11816.523681640625
       }
     },
     "issues": [
@@ -1064,21 +1433,21 @@
   },
   "quality": {
     "totals": {
-      "raw": 1222,
-      "exportQualified": 108,
-      "qualified": 97,
-      "working": 123,
+      "raw": 1221,
+      "exportQualified": 106,
+      "qualified": 95,
+      "working": 124,
       "realDecisionContacts": 736,
       "salesReady": 38,
       "platformContactLeaks": 0,
       "platformBestContactLeaks": 0,
-      "highValueNoContact": 218,
-      "identityTrailCoverage": 15,
+      "highValueNoContact": 216,
+      "identityTrailCoverage": 17,
       "websiteOnlyContacts": 30
     },
     "byBucket": {
       "web": 369,
-      "mql5": 174,
+      "mql5": 173,
       "linkedin": 171,
       "facebook_threads": 113,
       "ecosystem": 69,
@@ -1093,8 +1462,8 @@
       "discord": 13
     },
     "qualifiedByBucket": {
-      "linkedin": 42,
-      "instagram": 13,
+      "linkedin": 41,
+      "instagram": 12,
       "x": 9,
       "web": 9,
       "facebook_threads": 6,
@@ -1108,7 +1477,7 @@
       "linkedin": 60,
       "web": 16,
       "tiktok": 12,
-      "instagram": 8,
+      "instagram": 9,
       "mql5": 6,
       "myfxbook": 6,
       "facebook_threads": 5,
@@ -1262,12 +1631,6 @@
         "contactScore": 0
       },
       {
-        "name": "Alex Dantas Da Silva EA SMC LEX V1 122% growth since 2026 Reliability 99% Algo trading 0 Copy for 50 USD per month",
-        "bucket": "mql5",
-        "score": 62,
-        "contactScore": 0
-      },
-      {
         "name": "Kai Fung Leung 5 (1) Jitty Portfolio 94% growth since 2024 Reliability 100% Algo trading 0 Copy for 39 USD per month",
         "bucket": "mql5",
         "score": 62,
@@ -1307,6 +1670,12 @@
         "name": "copy trading 10 forex Forex Trading System by Forex Trader ...",
         "bucket": "myfxbook",
         "score": 61,
+        "contactScore": 0
+      },
+      {
+        "name": "FPCopyTradingMasterFX - Copy Trading Forex Trading System by Forex Trader ...",
+        "bucket": "myfxbook",
+        "score": 65,
         "contactScore": 0
       }
     ],
@@ -1357,14 +1726,76 @@
     {
       "name": "cloud-logger-worker",
       "status": "running",
-      "phase": "started",
-      "age": "2s",
-      "ageMs": 2354,
+      "phase": "done",
+      "age": "10m",
+      "ageMs": 599311,
       "cycle": null,
       "pid": null,
       "message": "",
       "current": null,
-      "lastResult": null,
+      "lastResult": {
+        "summary": {
+          "at": "2026-07-06T00:40:19.948Z",
+          "ok": true,
+          "raw": 1222,
+          "qualified": 97,
+          "working": 123,
+          "contactable": 102,
+          "salesReady": 38,
+          "a1Hot": 41,
+          "a2Strong": 14,
+          "platformContactLeaks": 0,
+          "highValueNoContact": 218,
+          "providerErrors": 0,
+          "staleWorkers": [],
+          "issues": [
+            {
+              "severity": "warning",
+              "code": "duplicate_pressure",
+              "message": "Duplicate-like raw lead pressure is high."
+            }
+          ],
+          "smartTrail": {
+            "phase": "smart-enriching",
+            "processed": 0,
+            "stored": 0,
+            "errors": 0,
+            "current": "High-End Audio equipment for Jazz music - Sax on the Web Forum",
+            "last": "",
+            "best": ""
+          },
+          "salesReadyByBucket": {
+            "web": 8,
+            "x": 7,
+            "myfxbook": 6,
+            "mql5": 5,
+            "specialist": 4,
+            "instagram": 3,
+            "tiktok": 2,
+            "facebook_threads": 1,
+            "linkedin": 1,
+            "telegram": 1
+          },
+          "qualifiedByBucket": {
+            "linkedin": 42,
+            "instagram": 13,
+            "x": 9,
+            "web": 9,
+            "facebook_threads": 6,
+            "myfxbook": 6,
+            "mql5": 5,
+            "specialist": 4,
+            "tiktok": 2,
+            "telegram": 1
+          }
+        },
+        "git": {
+          "ok": true,
+          "committed": true,
+          "pushed": true,
+          "commit": "[main 9ffdc15] ops: update engine cloud report 2026-07-06T00:40:20.323Z\n 3 files changed, 114 insertions(+), 113 deletions(-)\n"
+        }
+      },
       "counts": {
         "raw": 0,
         "saved": 0,
@@ -1379,26 +1810,35 @@
         "totalRemoved": null,
         "processed": null,
         "stored": null,
-        "errors": null
+        "errors": 0
       }
     },
     {
       "name": "contact-gap-worker",
       "status": "running",
       "phase": "enriching-gap",
-      "age": "5s",
-      "ageMs": 4535,
+      "age": "4m",
+      "ageMs": 240946,
       "cycle": null,
       "pid": null,
       "message": "",
       "current": {
-        "id": "b9875250ff0beebd",
-        "name": "Forex Fund Manager Forex Trading System by Forex Trader supportfx",
-        "url": "https://www.myfxbook.com/members/supportfx/forex-fund-manager/3593761",
+        "id": "79225eb029f51731",
+        "name": "Are Introducing brokers good or bad ? | Forex Forum by Myfxbook",
+        "url": "https://www.myfxbook.com/community/brokers/introducing-brokers-good-bad/2923932,1",
         "bucket": "myfxbook",
-        "score": 269
+        "score": 268
       },
-      "lastResult": null,
+      "lastResult": {
+        "id": "f30c136f6fa7d282",
+        "name": "Alex Dantas Da Silva EA SMC LEX V1 122% growth since 2026 Reliability 99% Algo trading 0 Copy for 50 USD per month",
+        "bucket": "mql5",
+        "bestContact": "+31 10 669 0521",
+        "contactLinks": 30,
+        "websites": 30,
+        "hasRealContact": true,
+        "at": "2026-07-06T00:46:15.300Z"
+      },
       "counts": {
         "raw": 0,
         "saved": 0,
@@ -1411,17 +1851,17 @@
         "contactable": null,
         "hot": null,
         "totalRemoved": null,
-        "processed": 0,
-        "stored": 0,
+        "processed": 2,
+        "stored": 2,
         "errors": 0
       }
     },
     {
       "name": "engine-control",
-      "status": "running",
-      "phase": "started",
-      "age": "12s",
-      "ageMs": 12088,
+      "status": "done",
+      "phase": "done",
+      "age": "10m",
+      "ageMs": 593197,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -1448,16 +1888,16 @@
       "name": "enrichment-worker",
       "status": "running",
       "phase": "enriching",
-      "age": "4s",
-      "ageMs": 4185,
+      "age": "8s",
+      "ageMs": 7790,
       "cycle": null,
       "pid": null,
       "message": "",
       "current": {
-        "id": "bb87564d6c82f83a",
-        "name": "ramy-ghaze-7a2974291#moneyexpo #abudhabi #ecmarkets #trading #forex # ... - LinkedIn",
-        "url": "https://www.linkedin.com/posts/ramy-ghaze-7a2974291_moneyexpo-abudhabi-ecmarkets-activity-7479547537595740162-igzi",
-        "platform": "LinkedIn",
+        "id": "2c87d7932d10e7ff",
+        "name": "creators.instagram.com",
+        "url": "https://creators.instagram.com/",
+        "platform": "Instagram",
         "dueReason": "contactless_due"
       },
       "lastResult": null,
@@ -1473,7 +1913,7 @@
         "contactable": null,
         "hot": null,
         "totalRemoved": null,
-        "processed": 0,
+        "processed": 40,
         "stored": null,
         "errors": 0
       }
@@ -1482,9 +1922,9 @@
       "name": "lead-cleaner",
       "status": "running",
       "phase": "waiting",
-      "age": "6s",
-      "ageMs": 5536,
-      "cycle": 1,
+      "age": "39s",
+      "ageMs": 38865,
+      "cycle": 13,
       "pid": null,
       "message": "",
       "current": null,
@@ -1496,11 +1936,40 @@
         "duplicates": 0,
         "providerErrors": 0,
         "total": null,
-        "exported": null,
+        "exported": {
+          "csvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.csv",
+          "jsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.json",
+          "contactCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.csv",
+          "contactJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.json",
+          "hotCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.csv",
+          "hotJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.json",
+          "socialCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
+          "socialJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.json",
+          "instagramCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
+          "instagramJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.json",
+          "linkedinCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
+          "linkedinJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.json",
+          "xCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
+          "xJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.json",
+          "workingCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
+          "workingJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.json",
+          "researchCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.csv",
+          "researchJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.json",
+          "exported": 95,
+          "working": 124,
+          "researchSources": 130,
+          "contactable": 95,
+          "hot": 61,
+          "social": 68,
+          "instagram": 11,
+          "linkedin": 41,
+          "x": 9,
+          "total": 1221
+        },
         "working": null,
         "contactable": null,
         "hot": null,
-        "totalRemoved": 0,
+        "totalRemoved": 17,
         "processed": null,
         "stored": null,
         "errors": 0
@@ -1510,8 +1979,8 @@
       "name": "qualified-exporter",
       "status": "running",
       "phase": "n/a",
-      "age": "2s",
-      "ageMs": 2413,
+      "age": "25s",
+      "ageMs": 24806,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -1523,10 +1992,10 @@
         "discarded": 0,
         "duplicates": 0,
         "providerErrors": 0,
-        "total": 1222,
-        "exported": 97,
-        "working": 123,
-        "contactable": 97,
+        "total": 1221,
+        "exported": 95,
+        "working": 124,
+        "contactable": 95,
         "hot": 61,
         "totalRemoved": null,
         "processed": null,
@@ -1538,19 +2007,29 @@
       "name": "smart-enrichment-worker",
       "status": "running",
       "phase": "smart-enriching",
-      "age": "6s",
-      "ageMs": 5825,
+      "age": "5m",
+      "ageMs": 270277,
       "cycle": null,
       "pid": null,
       "message": "",
       "current": {
+        "id": "b9875250ff0beebd",
+        "name": "Forex Fund Manager Forex Trading System by Forex Trader supportfx",
+        "url": "https://www.myfxbook.com/members/supportfx/forex-fund-manager/3593761",
+        "platform": "Myfxbook",
+        "bucket": "myfxbook"
+      },
+      "lastResult": {
         "id": "7dc4bd6185817302",
         "name": "High-End Audio equipment for Jazz music - Sax on the Web Forum",
-        "url": "https://www.saxontheweb.net/threads/high-end-audio-equipment-for-jazz-music.7556/",
-        "platform": "Web",
-        "bucket": "facebook_threads"
+        "bucket": "facebook_threads",
+        "bestContact": "tenorman@teche.net",
+        "contactLinks": 23,
+        "websites": 30,
+        "related": 0,
+        "hasDecisionContact": true,
+        "at": "2026-07-06T00:45:46.041Z"
       },
-      "lastResult": null,
       "counts": {
         "raw": 0,
         "saved": 0,
@@ -1563,8 +2042,8 @@
         "contactable": null,
         "hot": null,
         "totalRemoved": null,
-        "processed": 0,
-        "stored": 0,
+        "processed": 1,
+        "stored": 1,
         "errors": 0
       }
     },
@@ -1572,19 +2051,19 @@
       "name": "source-harvester",
       "status": "running",
       "phase": "scan",
-      "age": "7s",
-      "ageMs": 6823,
+      "age": "20s",
+      "ageMs": 19568,
       "cycle": 1,
       "pid": null,
-      "message": "Starting scan with 170 balanced queries",
+      "message": "Discarded hard-rejected result: Trending Topics & Today's News | X - Twitter",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 0,
-        "saved": 0,
-        "discarded": 0,
-        "duplicates": 0,
-        "providerErrors": 0,
+        "raw": 13,
+        "saved": 2,
+        "discarded": 10,
+        "duplicates": 1,
+        "providerErrors": 9,
         "total": 0,
         "exported": 0,
         "working": null,
@@ -1600,18 +2079,18 @@
       "name": "source-harvester-communities",
       "status": "running",
       "phase": "scan",
-      "age": "7s",
-      "ageMs": 6679,
+      "age": "1m",
+      "ageMs": 79337,
       "cycle": 1,
       "pid": null,
-      "message": "Starting scan with 142 balanced queries",
+      "message": "Discarded hard-rejected result: Qwant FR",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 0,
-        "saved": 0,
-        "discarded": 0,
-        "duplicates": 0,
+        "raw": 24,
+        "saved": 10,
+        "discarded": 10,
+        "duplicates": 1,
         "providerErrors": 0,
         "total": 0,
         "exported": 0,
@@ -1628,19 +2107,19 @@
       "name": "source-harvester-ecosystem",
       "status": "running",
       "phase": "scan",
-      "age": "7s",
-      "ageMs": 6753,
+      "age": "21s",
+      "ageMs": 20980,
       "cycle": 1,
       "pid": null,
-      "message": "Starting scan with 135 balanced queries",
+      "message": "Discarded hard-rejected result: qwantcom",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 0,
+        "raw": 30,
         "saved": 0,
-        "discarded": 0,
+        "discarded": 21,
         "duplicates": 0,
-        "providerErrors": 0,
+        "providerErrors": 9,
         "total": 0,
         "exported": 0,
         "working": null,
@@ -1657,16 +2136,16 @@
       "status": "running",
       "phase": "scan",
       "age": "6s",
-      "ageMs": 6371,
+      "ageMs": 5678,
       "cycle": 1,
       "pid": null,
-      "message": "Starting scan with 163 balanced queries",
+      "message": "Discarded hard-rejected result: Forex Expo Dubai 2025 Conference to Feature 150+ Global FX and …",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 0,
-        "saved": 0,
-        "discarded": 0,
+        "raw": 12,
+        "saved": 1,
+        "discarded": 9,
         "duplicates": 0,
         "providerErrors": 0,
         "total": 0,
@@ -1684,18 +2163,18 @@
       "name": "source-harvester-instagram",
       "status": "running",
       "phase": "scan",
-      "age": "7s",
-      "ageMs": 6718,
+      "age": "12s",
+      "ageMs": 12095,
       "cycle": 1,
       "pid": null,
-      "message": "Starting scan with 55 balanced queries",
+      "message": "Saved B-lead: reel DM59pRzOpET",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 0,
+        "raw": 44,
         "saved": 0,
-        "discarded": 0,
-        "duplicates": 0,
+        "discarded": 9,
+        "duplicates": 35,
         "providerErrors": 0,
         "total": 0,
         "exported": 0,
@@ -1712,19 +2191,19 @@
       "name": "source-harvester-linkedin",
       "status": "running",
       "phase": "scan",
-      "age": "7s",
-      "ageMs": 6738,
+      "age": "43s",
+      "ageMs": 42676,
       "cycle": 1,
       "pid": null,
-      "message": "Starting scan with 219 balanced queries",
+      "message": "Searching [linkedin]: site:linkedin.com/in \"introducing broker\" \"forex\" \"Mexico\"",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 0,
+        "raw": 10,
         "saved": 0,
-        "discarded": 0,
-        "duplicates": 0,
-        "providerErrors": 0,
+        "discarded": 2,
+        "duplicates": 8,
+        "providerErrors": 36,
         "total": 0,
         "exported": 0,
         "working": null,
@@ -1740,11 +2219,11 @@
       "name": "source-harvester-platforms",
       "status": "running",
       "phase": "scan",
-      "age": "7s",
-      "ageMs": 6698,
+      "age": "1m",
+      "ageMs": 61587,
       "cycle": 1,
       "pid": null,
-      "message": "Starting scan with 48 balanced queries",
+      "message": "Searching [specialist]: site:fxblue.com/users \"XAUUSD\"",
       "current": null,
       "lastResult": null,
       "counts": {
@@ -1752,7 +2231,7 @@
         "saved": 0,
         "discarded": 0,
         "duplicates": 0,
-        "providerErrors": 0,
+        "providerErrors": 45,
         "total": 0,
         "exported": 0,
         "working": null,
@@ -1768,19 +2247,19 @@
       "name": "source-harvester-social",
       "status": "running",
       "phase": "scan",
-      "age": "7s",
-      "ageMs": 6804,
+      "age": "2m",
+      "ageMs": 92881,
       "cycle": 1,
       "pid": null,
-      "message": "Starting scan with 176 balanced queries",
+      "message": "Discarded hard-rejected result: invite vjhCHnFMkw",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 0,
-        "saved": 0,
-        "discarded": 0,
-        "duplicates": 0,
-        "providerErrors": 0,
+        "raw": 18,
+        "saved": 2,
+        "discarded": 13,
+        "duplicates": 2,
+        "providerErrors": 9,
         "total": 0,
         "exported": 0,
         "working": null,
@@ -1796,19 +2275,19 @@
       "name": "source-harvester-specialist",
       "status": "running",
       "phase": "scan",
-      "age": "7s",
-      "ageMs": 6781,
+      "age": "31s",
+      "ageMs": 30986,
       "cycle": 1,
       "pid": null,
-      "message": "Starting scan with 135 balanced queries",
+      "message": "Searching [myfxbook]: site:myfxbook.com/members \"money manager\"",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 0,
-        "saved": 0,
-        "discarded": 0,
-        "duplicates": 0,
-        "providerErrors": 0,
+        "raw": 20,
+        "saved": 1,
+        "discarded": 11,
+        "duplicates": 8,
+        "providerErrors": 9,
         "total": 0,
         "exported": 0,
         "working": null,
@@ -1824,9 +2303,9 @@
       "name": "supervisor",
       "status": "running",
       "phase": "n/a",
-      "age": "3s",
-      "ageMs": 3095,
-      "cycle": 1,
+      "age": "44s",
+      "ageMs": 43528,
+      "cycle": 10,
       "pid": null,
       "message": "",
       "current": null,
@@ -1853,58 +2332,58 @@
     "autopilot-qualified-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.csv",
-      "size": 301532,
-      "updatedAt": "2026-07-06T00:40:13.121Z",
-      "ageMs": 2955.132080078125
+      "size": 298651,
+      "updatedAt": "2026-07-06T00:49:56.492Z",
+      "ageMs": 25387.30029296875
     },
     "autopilot-qualified-contactable-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.csv",
-      "size": 301532,
-      "updatedAt": "2026-07-06T00:40:13.251Z",
-      "ageMs": 2825.464111328125
+      "size": 298651,
+      "updatedAt": "2026-07-06T00:49:56.662Z",
+      "ageMs": 25217.055908203125
     },
     "autopilot-hot-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.csv",
-      "size": 200453,
-      "updatedAt": "2026-07-06T00:40:13.336Z",
-      "ageMs": 2741.375
+      "size": 200013,
+      "updatedAt": "2026-07-06T00:49:56.772Z",
+      "ageMs": 25106.549072265625
     },
     "autopilot-working-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
-      "size": 326810,
-      "updatedAt": "2026-07-06T00:40:14.775Z",
-      "ageMs": 1301.980224609375
+      "size": 326918,
+      "updatedAt": "2026-07-06T00:50:10.144Z",
+      "ageMs": 11734.506591796875
     },
     "autopilot-social-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
-      "size": 169499,
-      "updatedAt": "2026-07-06T00:40:14.652Z",
-      "ageMs": 1425.188232421875
+      "size": 166618,
+      "updatedAt": "2026-07-06T00:50:10.020Z",
+      "ageMs": 11858.528076171875
     },
     "autopilot-linkedin-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
-      "size": 93747,
-      "updatedAt": "2026-07-06T00:40:14.677Z",
-      "ageMs": 1399.5654296875
+      "size": 92471,
+      "updatedAt": "2026-07-06T00:50:10.045Z",
+      "ageMs": 11833.526123046875
     },
     "autopilot-instagram-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
-      "size": 20832,
-      "updatedAt": "2026-07-06T00:40:14.666Z",
-      "ageMs": 1411.1533203125
+      "size": 19227,
+      "updatedAt": "2026-07-06T00:50:10.034Z",
+      "ageMs": 11844.52880859375
     },
     "autopilot-x-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
       "size": 40259,
-      "updatedAt": "2026-07-06T00:40:14.695Z",
-      "ageMs": 1382.054443359375
+      "updatedAt": "2026-07-06T00:50:10.063Z",
+      "ageMs": 11816.523681640625
     }
   },
   "recentRuns": [
@@ -2516,59 +2995,59 @@
   ],
   "pruneHistory": [
     {
-      "at": "2026-07-06T00:40:04.719Z",
-      "reason": "lead-cleaner",
-      "removed": 4,
-      "before": 1226,
-      "after": 1222,
-      "byReason": {
-        "official_telegram_page": 4
-      },
-      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-06T00-40-04-716Z.json"
-    },
-    {
-      "at": "2026-07-06T00:39:15.252Z",
-      "reason": "lead-cleaner",
-      "removed": 5,
-      "before": 1227,
-      "after": 1222,
-      "byReason": {
-        "official_telegram_page": 5
-      },
-      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-06T00-39-15-248Z.json"
-    },
-    {
-      "at": "2026-07-06T00:36:31.318Z",
+      "at": "2026-07-06T00:49:39.299Z",
       "reason": "lead-cleaner",
       "removed": 1,
+      "before": 1222,
+      "after": 1221,
+      "byReason": {
+        "forexfactory_generic_tool_page": 1
+      },
+      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-06T00-49-39-294Z.json"
+    },
+    {
+      "at": "2026-07-06T00:48:49.982Z",
+      "reason": "lead-cleaner",
+      "removed": 2,
       "before": 1223,
-      "after": 1222,
+      "after": 1221,
+      "byReason": {
+        "forexfactory_generic_tool_page": 2
+      },
+      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-06T00-48-49-978Z.json"
+    },
+    {
+      "at": "2026-07-06T00:48:01.065Z",
+      "reason": "lead-cleaner",
+      "removed": 2,
+      "before": 1223,
+      "after": 1221,
+      "byReason": {
+        "forexfactory_generic_tool_page": 2
+      },
+      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-06T00-48-01-062Z.json"
+    },
+    {
+      "at": "2026-07-06T00:47:12.794Z",
+      "reason": "lead-cleaner",
+      "removed": 1,
+      "before": 1222,
+      "after": 1221,
+      "byReason": {
+        "forexfactory_generic_tool_page": 1
+      },
+      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-06T00-47-12-791Z.json"
+    },
+    {
+      "at": "2026-07-06T00:46:23.672Z",
+      "reason": "lead-cleaner",
+      "removed": 1,
+      "before": 1222,
+      "after": 1221,
       "byReason": {
         "hard_rejected:official broker/brokerage page": 1
       },
-      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-06T00-36-31-315Z.json"
-    },
-    {
-      "at": "2026-07-06T00:34:56.336Z",
-      "reason": "lead-cleaner",
-      "removed": 2,
-      "before": 1225,
-      "after": 1223,
-      "byReason": {
-        "hard_rejected:official broker/brokerage page": 2
-      },
-      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-06T00-34-56-333Z.json"
-    },
-    {
-      "at": "2026-07-06T00:31:26.758Z",
-      "reason": "lead-cleaner",
-      "removed": 3,
-      "before": 1228,
-      "after": 1225,
-      "byReason": {
-        "hard_rejected:official broker/brokerage page": 3
-      },
-      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-06T00-31-26-753Z.json"
+      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-06T00-46-23-669Z.json"
     }
   ],
   "cleanupHistory": [
@@ -2651,131 +3130,131 @@
   "logs": {
     "source-harvester": {
       "out": [
-        "[source-harvester cycle 1] Searching [x]: site:x.com \"which broker\" \"forex\"",
-        "[source-harvester cycle 1] Searching [telegram]: site:t.me \"forex\" United Kingdom",
-        "[source-harvester cycle 1] Searching [web]: \"procuro corretora\" forex",
-        "[source-harvester cycle 1] Starting scan with 170 balanced queries",
-        "[source-harvester cycle 1] Searching [linkedin]: site:linkedin.com/in \"introducing broker\" \"forex\" Brazil",
-        "[source-harvester cycle 1] Searching [instagram]: \"forex\" \"Instagram\" \"trader\" Latin America",
-        "[source-harvester cycle 1] Starting scan with 170 balanced queries",
-        "[source-harvester cycle 1] Searching [linkedin]: site:linkedin.com/in \"introducing broker\" \"forex\" Brazil"
+        "[source-harvester cycle 1] Discarded hard-rejected result: qwantcom",
+        "[source-harvester cycle 1] Discarded hard-rejected result: Qwant FR",
+        "[source-harvester cycle 1] Discarded hard-rejected result: company qwant",
+        "[source-harvester cycle 1] Discarded hard-rejected result: invite vjhCHnFMkw",
+        "[source-harvester cycle 1] Saved C-lead: lilo org",
+        "[source-harvester cycle 1] Searching [x]: site:x.com \"looking for broker\" \"forex\"",
+        "[source-harvester cycle 1] Discarded hard-rejected result: Trending Topics & Today's News | X - Twitter",
+        "[source-harvester cycle 1] Searching [telegram]: \"forex\" \"Telegram\" \"community\" South Africa"
       ],
       "err": []
     },
     "source-harvester-social": {
       "out": [
-        "[source-harvester-social cycle 1] Searching [x]: site:x.com \"xauusd\" \"signals\"",
-        "[source-harvester-social cycle 1] Searching [telegram]: site:t.me/s \"xauusd\"",
-        "[source-harvester-social cycle 1] Searching [tiktok]: site:tiktok.com \"forex trader\" South Africa",
-        "[source-harvester-social cycle 1] Starting scan with 176 balanced queries",
-        "[source-harvester-social cycle 1] Searching [linkedin]: site:linkedin.com/posts \"forex\" \"broker\" \"looking for\" Mexico",
-        "[source-harvester-social cycle 1] Searching [instagram]: site:instagram.com \"xauusd\" \"whatsapp\" \"Mexico\"",
-        "[source-harvester-social cycle 1] Starting scan with 176 balanced queries",
-        "[source-harvester-social cycle 1] Searching [linkedin]: site:linkedin.com/posts \"forex\" \"broker\" \"looking for\" Mexico"
+        "[source-harvester-social cycle 1] Saved C-lead: Forex Factory",
+        "[source-harvester-social cycle 1] Discarded hard-rejected result: As melhores corretoras de Forex em Portugal para 2026",
+        "[source-harvester-social cycle 1] Saved D-lead: Forex Factory",
+        "[source-harvester-social cycle 1] Discarded hard-rejected result: Qwant FR",
+        "[source-harvester-social cycle 1] Discarded hard-rejected result: company qwant",
+        "[source-harvester-social cycle 1] Discarded hard-rejected result: invite vjhCHnFMkw",
+        "[source-harvester-social cycle 1] Saved C-lead: company murenamobile",
+        "[source-harvester-social cycle 1] Searching [telegram]: site:t.me \"forex dubai\" \"signals\""
       ],
       "err": []
     },
     "source-harvester-specialist": {
       "out": [
-        "[source-harvester-specialist cycle 1] Discarded hard-rejected result: FXPro CopyTrade - LinkedIn",
-        "[source-harvester-specialist cycle 1] Discarded hard-rejected result: LinkedIn",
-        "[source-harvester-specialist cycle 1] Saved A-lead: fusion - FX Copy Trader - IB Portal | LinkedIn",
-        "[source-harvester-specialist cycle 1] Saved B-lead: LinkedIn",
-        "[source-harvester-specialist cycle 1] Saved B-lead: LinkedIn",
-        "[source-harvester-specialist cycle 1] Searching [x]: site:darwinex.com/darwin \"forex\"",
-        "[source-harvester-specialist cycle 1] Starting scan with 135 balanced queries",
-        "[source-harvester-specialist cycle 1] Searching [linkedin]: site:linkedin.com/company \"copy trading\" \"forex\""
+        "[source-harvester-specialist cycle 1] Saved B-lead: Forex Factory",
+        "[source-harvester-specialist cycle 1] Saved D-lead: Forex Factory",
+        "[source-harvester-specialist cycle 1] Saved C-lead: Forex Factory",
+        "[source-harvester-specialist cycle 1] Discarded hard-rejected result: Forex Factory | Global markets for the smart money.",
+        "[source-harvester-specialist cycle 1] Saved C-lead: EUR/USD | Forex Factory",
+        "[source-harvester-specialist cycle 1] Saved C-lead: Forex Factory",
+        "[source-harvester-specialist cycle 1] Discarded hard-rejected result: calendar.forexfactory.com",
+        "[source-harvester-specialist cycle 1] Searching [myfxbook]: site:myfxbook.com/members \"money manager\""
       ],
       "err": []
     },
     "source-harvester-ecosystem": {
       "out": [
-        "[source-harvester-ecosystem cycle 1] Discarded hard-rejected result: Desktop",
-        "[source-harvester-ecosystem cycle 1] Discarded hard-rejected result: View @telegram",
-        "[source-harvester-ecosystem cycle 1] Discarded hard-rejected result: View @desktop",
-        "[source-harvester-ecosystem cycle 1] Discarded hard-rejected result: Desktop",
-        "[source-harvester-ecosystem cycle 1] Discarded hard-rejected result: A Desktop",
-        "[source-harvester-ecosystem cycle 1] Discarded hard-rejected result: Apps on Google Play",
-        "[source-harvester-ecosystem cycle 1] Starting scan with 135 balanced queries",
-        "[source-harvester-ecosystem cycle 1] Searching [linkedin]: site:linkedin.com/in \"Forex Expo Dubai\" \"attendee\""
+        "[source-harvester-ecosystem cycle 1] Discarded hard-rejected result: Discord",
+        "[source-harvester-ecosystem cycle 1] Discarded hard-rejected result: Discord - Talk, Play, Hang Out - App Store",
+        "[source-harvester-ecosystem cycle 1] Discarded hard-rejected result: Discord",
+        "[source-harvester-ecosystem cycle 1] Discarded hard-rejected result: Discord - Official Site",
+        "[source-harvester-ecosystem cycle 1] Searching [ecosystem]: \"Traders Fair\" \"speaker\" \"forex\" Portugal",
+        "[source-harvester-ecosystem cycle 1] Discarded hard-rejected result: qwantcom",
+        "[source-harvester-ecosystem cycle 1] Discarded hard-rejected result: Qwant FR",
+        "[source-harvester-ecosystem cycle 1] Discarded hard-rejected result: company qwant"
       ],
       "err": []
     },
     "source-harvester-linkedin": {
       "out": [
-        "[source-harvester-linkedin cycle 1] Saved A-lead: #moneyexpoabudhabi #ecmarkets #forex #trading #cfd #finance",
-        "[source-harvester-linkedin cycle 1] Saved A-lead: #moneyexpo #moneyexpoabudhabi #fintech #forex #cfd # ... - LinkedIn",
         "[source-harvester-linkedin cycle 1] Saved B-lead: #multibankgroup #moneyexpoabudhabi #trading #investing #forex …",
         "[source-harvester-linkedin cycle 1] Saved A-lead: Attending the Money Expo at the Jio Convention Centre ... - LinkedIn",
         "[source-harvester-linkedin cycle 1] Discarded hard-rejected result: Who's Attending Money Expo Abu Dhabi? | Money Expo Abu Dhabi",
         "[source-harvester-linkedin cycle 1] Searching [linkedin]: site:linkedin.com/posts \"Wiki Finance Expo\" \"attending\" \"forex\"",
-        "[source-harvester-linkedin cycle 1] Starting scan with 219 balanced queries",
-        "[source-harvester-linkedin cycle 1] Searching [linkedin]: site:linkedin.com/posts \"Money Expo\" \"attending\" \"forex\""
+        "[source-harvester-linkedin cycle 1] Searching [linkedin]: site:linkedin.com/posts \"Finance Magnates\" \"attending\" \"forex\"",
+        "[source-harvester-linkedin cycle 1] Searching [linkedin]: site:linkedin.com/in \"Forex Expo Dubai\" \"attendee\"",
+        "[source-harvester-linkedin cycle 1] Searching [linkedin]: site:linkedin.com/in \"iFX EXPO\" \"attendee\" \"forex\"",
+        "[source-harvester-linkedin cycle 1] Searching [linkedin]: site:linkedin.com/in \"introducing broker\" \"forex\" \"Mexico\""
       ],
       "err": []
     },
     "source-harvester-instagram": {
       "out": [
-        "[source-harvester-instagram cycle 1] Saved B-lead: ) • Instagram photos and videos",
-        "[source-harvester-instagram cycle 1] Saved B-lead: p DWOq6shjEj5",
-        "[source-harvester-instagram cycle 1] Saved A-lead: ) - Instagram",
-        "[source-harvester-instagram cycle 1] Discarded hard-rejected result: ) • Instagram photos and videos",
-        "[source-harvester-instagram cycle 1] Saved B-lead: ) • Instagram photos and videos",
-        "[source-harvester-instagram cycle 1] Searching [instagram]: site:instagram.com \"forex academy\" \"whatsapp\" Chile",
-        "[source-harvester-instagram cycle 1] Starting scan with 55 balanced queries",
-        "[source-harvester-instagram cycle 1] Searching [instagram]: site:instagram.com \"gold trader\" \"telegram\" Colombia"
+        "[source-harvester-instagram cycle 1] Saved A-lead: Abdullah Ghafoor | Professional Forex Trader - Instagram",
+        "[source-harvester-instagram cycle 1] Saved C-lead: GWATAVRI'S FOREX TRADING EXP …",
+        "[source-harvester-instagram cycle 1] Discarded hard-rejected result: reel DL2phX2iJh8",
+        "[source-harvester-instagram cycle 1] Saved B-lead: ) - Instagram",
+        "[source-harvester-instagram cycle 1] Saved B-lead: reel DL9gxWqRcxh",
+        "[source-harvester-instagram cycle 1] Saved C-lead: reel DAlCzlgRTQe",
+        "[source-harvester-instagram cycle 1] Saved B-lead: reel DM59pRzOpET",
+        "[source-harvester-instagram cycle 1] Searching [instagram]: site:instagram.com \"forex mentor\" \"telegram\" \"Brasil\""
       ],
       "err": []
     },
     "source-harvester-platforms": {
       "out": [
-        "[source-harvester-platforms cycle 1] Searching [myfxbook]: site:myfxbook.com/community \"copy trading\" \"forex\"",
-        "[source-harvester-platforms cycle 1] Searching [mql5]: site:mql5.com/en/forum \"introducing broker\"",
-        "[source-harvester-platforms cycle 1] Searching [specialist]: site:zulutrade.com/trader \"forex\"",
+        "[source-harvester-platforms cycle 1] Searching [mql5]: site:mql5.com/en/users \"XAUUSD\"",
         "[source-harvester-platforms cycle 1] Starting scan with 48 balanced queries",
         "[source-harvester-platforms cycle 1] Searching [myfxbook]: site:myfxbook.com/portfolio \"forex\" \"drawdown\"",
         "[source-harvester-platforms cycle 1] Searching [mql5]: site:mql5.com/en/users \"XAUUSD\"",
-        "[source-harvester-platforms cycle 1] Starting scan with 48 balanced queries",
-        "[source-harvester-platforms cycle 1] Searching [myfxbook]: site:myfxbook.com/portfolio \"forex\" \"drawdown\""
+        "[source-harvester-platforms cycle 1] Searching [specialist]: site:fxblue.com/users \"forex\"",
+        "[source-harvester-platforms cycle 1] Searching [myfxbook]: site:myfxbook.com/reviews/brokers \"introducing broker\"",
+        "[source-harvester-platforms cycle 1] Searching [mql5]: site:mql5.com/en/users \"PAMM\"",
+        "[source-harvester-platforms cycle 1] Searching [specialist]: site:fxblue.com/users \"XAUUSD\""
       ],
       "err": []
     },
     "source-harvester-communities": {
       "out": [
-        "[source-harvester-communities cycle 1] Saved A-lead: View @copy_trading_group",
-        "[source-harvester-communities cycle 1] Saved A-lead: Forge Forex Copy trading",
-        "[source-harvester-communities cycle 1] Saved A-lead: COPY Trading by BestForex-signals – Telegram",
-        "[source-harvester-communities cycle 1] Saved B-lead: Contact @copy_trading_forex",
-        "[source-harvester-communities cycle 1] Discarded hard-rejected result: Forex Copy Trading – Telegram - t.me",
-        "[source-harvester-communities cycle 1] Searching [discord]: \"forex\" \"discord\" \"trading\" South Africa",
-        "[source-harvester-communities cycle 1] Starting scan with 142 balanced queries",
-        "[source-harvester-communities cycle 1] Searching [telegram]: site:t.me \"forex\" \"copy trading\""
+        "[source-harvester-communities cycle 1] Saved D-lead: Forex Factory",
+        "[source-harvester-communities cycle 1] Discarded hard-rejected result: qwantcom",
+        "[source-harvester-communities cycle 1] Discarded hard-rejected result: Qwant FR",
+        "[source-harvester-communities cycle 1] Discarded hard-rejected result: company qwant",
+        "[source-harvester-communities cycle 1] Discarded hard-rejected result: invite vjhCHnFMkw",
+        "[source-harvester-communities cycle 1] Saved C-lead: lilo org",
+        "[source-harvester-communities cycle 1] Saved C-lead: company murenamobile",
+        "[source-harvester-communities cycle 1] Searching [forum]: \"forex forum\" \"introducing broker\""
       ],
       "err": []
     },
     "source-harvester-events": {
       "out": [
-        "[source-harvester-events cycle 1] Discarded hard-rejected result: Exness Trade: Online Trading - Apps on Google Play",
-        "[source-harvester-events cycle 1] Saved A-lead: Exness | Trade Forex & CFDs with the World's Leading Broker",
-        "[source-harvester-events cycle 1] Searching [ecosystem]: \"Smart Vision Investment Expo\" \"forex\"",
-        "[source-harvester-events cycle 1] Starting scan with 163 balanced queries",
-        "[source-harvester-events cycle 1] Searching [ecosystem]: \"Forex Expo Dubai\" \"attending\" \"introducing broker\"",
-        "[source-harvester-events cycle 1] Discarded hard-rejected result: Trade Online with an Award-winning Global Forex Broker",
-        "[source-harvester-events cycle 1] Starting scan with 163 balanced queries",
-        "[source-harvester-events cycle 1] Searching [ecosystem]: \"Forex Expo Dubai\" \"attending\" \"introducing broker\""
+        "[source-harvester-events cycle 1] Discarded hard-rejected result: Mercado Forex: o que é, como funciona e como investir - Santander",
+        "[source-harvester-events cycle 1] Discarded hard-rejected result: Forex: O que é e como funciona? - Doutor Finanças",
+        "[source-harvester-events cycle 1] Saved B-lead: Forex Factory",
+        "[source-harvester-events cycle 1] Discarded hard-rejected result: As melhores corretoras de Forex em Portugal para 2026",
+        "[source-harvester-events cycle 1] Discarded hard-rejected result: Forex Expo Dubai - The Largest Forex Event in the Middle East",
+        "[source-harvester-events cycle 1] Discarded hard-rejected result: Forex Expo Dubai 2025 Conference to Feature 150+ Global FX and …",
+        "[source-harvester-events cycle 1] Discarded hard-rejected result: Forex Expo Dubai 2025 Conference to Feature 150+ Global FX and …",
+        "[source-harvester-events cycle 1] Discarded hard-rejected result: Forex Expo Dubai 2025 Conference to Feature 150+ Global FX and …"
       ],
       "err": []
     },
     "enrichment-worker": {
       "out": [
-        "[enrichment-worker] stored contactless_due b0fe1fb8ac9ad156 profilephoto:UserTileMedium p; emails=0; links=0; makers=0; best=-",
-        "[enrichment-worker] stored contactless_due 6f27bf2cb250defd hasan-jalloul-aa6154165#dooprime #forex #introducingbroker #trading # ... - LinkedIn; emails=0; links=0; makers=0; best=https://www.linkedin.com/posts/hasan-jalloul-aa6154165_dooprime-forex-introducingbroker-activity-7422555534542651392-YCci",
-        "[enrichment-worker] stored contactless_due a7ca3b8da4c06f1b mdyasirriaz117bbb85Everything You Need to Know About Becoming a Forex ... - LinkedIn; emails=0; links=0; makers=0; best=https://www.linkedin.com/posts/mdyasirriaz117bbb85_everything-you-need-to-know-about-becoming-activity-7371539652740190208-nn8L",
-        "[enrichment-worker] stored contactless_due f892b80c92956a9c ‏Youssef Elzoghby‏ - ‏Forex Trading Platforms (MT4/MT5 ...; emails=0; links=0; makers=0; best=https://ae.linkedin.com/in/youssef-elzoghby-17724141b",
-        "[enrichment-worker] stored contactless_due df6c92a82ee131ec opalyang_navigating-forexOpal J .Y. Yang on LinkedIn: Navigating Forex Brokerages: A ...; emails=0; links=0; makers=0; best=https://www.linkedin.com/posts/opalyang_navigating-forex-brokerages-a-tale-of-introducing-activity-7163184957375393795-v7xM",
-        "[enrichment-worker] stored contactless_due 78f5f29478a276a3 haraj; emails=0; links=0; makers=0; best=https://www.instagram.com/haraj",
-        "[enrichment-worker] Started with {\"delayMs\":2200,\"idleMs\":5000,\"staleHours\":6,\"hotStaleHours\":0.75,\"contactlessStaleHours\":0.75,\"rotationHours\":2,\"maxAttempts\":25,\"maxContactPages\":10,\"maxExternalWebsites\":8,\"maxTrailQueries\":26,\"trailLimit\":10}",
-        "[enrichment-worker] stored contactless_due bb87564d6c82f83a ramy-ghaze-7a2974291#moneyexpo #abudhabi #ecmarkets #trading #forex # ... - LinkedIn; emails=0; links=0; makers=0; best=https://www.linkedin.com/posts/ramy-ghaze-7a2974291_moneyexpo-abudhabi-ecmarkets-activity-7479547537595740162-igzi"
+        "[enrichment-worker] stored contactless_due 697ef53d9d9effb8 Andrew O. - Senior Partnership Manager | Forex & CFD ...; emails=0; links=0; makers=0; best=https://cy.linkedin.com/in/andrewonoufriou",
+        "[enrichment-worker] stored contactless_due c6518f858cb8c8f8 thierryblForex Manager Forex Trading System by Forex Trader thierrybl; emails=0; links=0; makers=0; best=-",
+        "[enrichment-worker] stored contactless_due 4b4079664c36a8b4 ForexManagerDBAPiggy Bank Forex Trading System by Forex Trader ForexManagerDBA; emails=0; links=0; makers=0; best=-",
+        "[enrichment-worker] stored contactless_due 23c571e9c81781b2 Forex Manager Forex Trading System by Forex Trader upravliaychiy; emails=0; links=0; makers=0; best=-",
+        "[enrichment-worker] stored contactless_due 9baad3e094030486 portfolio › jaMyfxbook.com; emails=0; links=0; makers=0; best=-",
+        "[enrichment-worker] stored contactless_due 5b34c8e19838cc10 portfolio › サスティナMyfxbook.com; emails=0; links=0; makers=0; best=-",
+        "[enrichment-worker] stored contactless_due 516984246166b93c Myfxbook; emails=0; links=0; makers=0; best=-",
+        "[enrichment-worker] stored contactless_due a3bef8960e15f78c Myfxbook; emails=0; links=0; makers=0; best=-"
       ],
       "err": []
     },
@@ -2789,27 +3268,27 @@
     },
     "lead-cleaner": {
       "out": [
-        "[lead-cleaner] 2026-07-06T00:28:40.818Z removed=1 totalRemoved=268",
-        "[lead-cleaner] 2026-07-06T00:29:41.179Z removed=2 totalRemoved=270",
-        "[lead-cleaner] 2026-07-06T00:30:41.417Z removed=2 totalRemoved=272",
-        "[lead-cleaner] 2026-07-06T00:31:40.225Z removed=3 totalRemoved=275",
-        "[lead-cleaner] 2026-07-06T00:34:10.986Z removed=1 totalRemoved=276",
-        "[lead-cleaner] 2026-07-06T00:35:00.599Z removed=2 totalRemoved=278",
-        "[lead-cleaner] 2026-07-06T00:36:46.270Z removed=1 totalRemoved=279",
-        "[lead-cleaner] 2026-07-06T00:39:19.436Z removed=5 totalRemoved=5"
+        "[lead-cleaner] 2026-07-06T00:42:30.460Z removed=5 totalRemoved=5",
+        "[lead-cleaner] 2026-07-06T00:43:18.798Z removed=4 totalRemoved=9",
+        "[lead-cleaner] 2026-07-06T00:45:38.326Z removed=1 totalRemoved=10",
+        "[lead-cleaner] 2026-07-06T00:46:27.523Z removed=1 totalRemoved=11",
+        "[lead-cleaner] 2026-07-06T00:47:15.789Z removed=1 totalRemoved=12",
+        "[lead-cleaner] 2026-07-06T00:48:04.672Z removed=2 totalRemoved=14",
+        "[lead-cleaner] 2026-07-06T00:48:53.947Z removed=2 totalRemoved=16",
+        "[lead-cleaner] 2026-07-06T00:49:43.034Z removed=1 totalRemoved=17"
       ],
       "err": []
     },
     "qualified-exporter": {
       "out": [
-        "[qualified-exporter] 2026-07-06T00:34:37.418Z total=1225 qualified=97 contactable=97 hot=62 social=70 instagram=12 linkedin=42 x=9",
-        "[qualified-exporter] 2026-07-06T00:35:26.949Z total=1223 qualified=97 contactable=97 hot=62 social=70 instagram=12 linkedin=42 x=9",
-        "[qualified-exporter] 2026-07-06T00:36:16.215Z total=1223 qualified=97 contactable=97 hot=62 social=70 instagram=12 linkedin=42 x=9",
-        "[qualified-exporter] 2026-07-06T00:37:03.431Z total=1222 qualified=97 contactable=97 hot=62 social=70 instagram=12 linkedin=42 x=9",
-        "[qualified-exporter] 2026-07-06T00:37:52.515Z total=1222 qualified=97 contactable=97 hot=62 social=70 instagram=12 linkedin=42 x=9",
-        "[qualified-exporter] 2026-07-06T00:38:41.076Z total=1222 qualified=97 contactable=97 hot=62 social=70 instagram=12 linkedin=42 x=9",
-        "[qualified-exporter] 2026-07-06T00:39:30.158Z total=1223 qualified=98 contactable=98 hot=63 social=71 instagram=12 linkedin=42 x=9",
-        "[qualified-exporter] 2026-07-06T00:40:13.683Z total=1222 qualified=97 contactable=97 hot=61 social=70 instagram=12 linkedin=42 x=9"
+        "[qualified-exporter] 2026-07-06T00:44:17.052Z total=1222 qualified=97 contactable=97 hot=60 social=70 instagram=12 linkedin=42 x=9",
+        "[qualified-exporter] 2026-07-06T00:45:05.598Z total=1222 qualified=97 contactable=97 hot=60 social=70 instagram=12 linkedin=42 x=9",
+        "[qualified-exporter] 2026-07-06T00:45:54.204Z total=1222 qualified=97 contactable=97 hot=60 social=70 instagram=12 linkedin=42 x=9",
+        "[qualified-exporter] 2026-07-06T00:46:42.160Z total=1221 qualified=97 contactable=97 hot=60 social=70 instagram=12 linkedin=42 x=9",
+        "[qualified-exporter] 2026-07-06T00:47:30.935Z total=1221 qualified=97 contactable=97 hot=60 social=70 instagram=12 linkedin=42 x=9",
+        "[qualified-exporter] 2026-07-06T00:48:19.542Z total=1223 qualified=96 contactable=96 hot=61 social=69 instagram=11 linkedin=42 x=9",
+        "[qualified-exporter] 2026-07-06T00:49:08.294Z total=1222 qualified=95 contactable=95 hot=61 social=68 instagram=11 linkedin=41 x=9",
+        "[qualified-exporter] 2026-07-06T00:49:57.093Z total=1221 qualified=95 contactable=95 hot=61 social=68 instagram=11 linkedin=41 x=9"
       ],
       "err": [
         "[qualified-exporter] 2026-07-05T22:54:39.472Z SyntaxError: Unterminated string in JSON at position 521902 (line 9214 column 21)",
@@ -2826,14 +3305,14 @@
     },
     "supervisor": {
       "out": [
-        "[supervisor] 2026-07-06T00:33:27.874Z cycle=118 ok=true raw=1225 working=123 a=57 issues=duplicate_pressure",
-        "[supervisor] 2026-07-06T00:34:31.075Z cycle=119 ok=true raw=1225 working=123 a=57 issues=duplicate_pressure",
-        "[supervisor] 2026-07-06T00:35:34.508Z cycle=120 ok=true raw=1223 working=123 a=57 issues=duplicate_pressure",
-        "[supervisor] 2026-07-06T00:36:38.073Z cycle=121 ok=true raw=1223 working=123 a=57 issues=duplicate_pressure",
-        "[supervisor] 2026-07-06T00:37:02.472Z cycle=1 ok=true raw=1222 working=123 a=57 issues=duplicate_pressure",
-        "[supervisor] 2026-07-06T00:38:05.562Z cycle=2 ok=true raw=1222 working=123 a=57 issues=duplicate_pressure",
-        "[supervisor] 2026-07-06T00:39:07.999Z cycle=3 ok=true raw=1227 working=126 a=60 issues=duplicate_pressure",
-        "[supervisor] 2026-07-06T00:40:13.005Z cycle=1 ok=true raw=1222 working=123 a=55 issues=duplicate_pressure"
+        "[supervisor] 2026-07-06T00:42:19.091Z cycle=3 ok=true raw=1227 working=126 a=58 issues=duplicate_pressure",
+        "[supervisor] 2026-07-06T00:43:21.347Z cycle=4 ok=true raw=1222 working=123 a=55 issues=duplicate_pressure",
+        "[supervisor] 2026-07-06T00:44:24.142Z cycle=5 ok=true raw=1222 working=123 a=55 issues=duplicate_pressure",
+        "[supervisor] 2026-07-06T00:45:27.065Z cycle=6 ok=true raw=1223 working=123 a=55 issues=duplicate_pressure",
+        "[supervisor] 2026-07-06T00:46:29.783Z cycle=7 ok=true raw=1221 working=123 a=55 issues=duplicate_pressure",
+        "[supervisor] 2026-07-06T00:47:32.730Z cycle=8 ok=true raw=1221 working=123 a=55 issues=duplicate_pressure",
+        "[supervisor] 2026-07-06T00:48:35.590Z cycle=9 ok=true raw=1223 working=123 a=56 issues=duplicate_pressure",
+        "[supervisor] 2026-07-06T00:49:38.375Z cycle=10 ok=true raw=1222 working=124 a=56 issues=duplicate_pressure"
       ],
       "err": []
     },
