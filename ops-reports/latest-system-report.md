@@ -1,6 +1,6 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T09:51:16.589Z
+Updated: 2026-07-06T10:01:24.102Z
 Health: OK
 
 ## Funnel
@@ -19,14 +19,14 @@ Sales-ready by bucket: {"myfxbook":8,"x":7,"mql5":5,"web":5,"instagram":2,"tikto
 Qualified by bucket: {"linkedin":17,"instagram":12,"x":9,"myfxbook":8,"web":5,"mql5":5,"tiktok":2,"specialist":1,"telegram":1}
 
 ## Sourcing / Workers
-Provider errors: 99
+Provider errors: 135
 Stale workers: engine-control
 Issues: none
 
 ## Smart Enrichment
 Phase: idle
-Processed: 157
-Stored: 157
+Processed: 159
+Stored: 159
 Errors: 0
 Last: users exampleFX Blue statistics for forex results
 Last best contact: accounts@fxbluelabs.com
