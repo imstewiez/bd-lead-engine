@@ -1,36 +1,34 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T11:39:40.345Z
+Updated: 2026-07-06T11:40:34.119Z
 Health: OK
 
 ## Funnel
-Raw: 808
-Qualified: 61
-Working: 87
-Contactable: 70
-Sales-ready: 31
-A1 Hot: 34
+Raw: 538
+Qualified: 59
+Working: 82
+Contactable: 63
+Sales-ready: 29
+A1 Hot: 30
 A2 Strong: 10
 
 ## Quality
-Platform contact leaks: 4
-High-value without real contact: 177
-Sales-ready by bucket: {"myfxbook":8,"x":7,"mql5":5,"web":5,"instagram":2,"tiktok":2,"specialist":1,"telegram":1}
-Qualified by bucket: {"linkedin":17,"instagram":12,"x":10,"myfxbook":8,"web":5,"mql5":5,"tiktok":2,"specialist":1,"telegram":1}
+Platform contact leaks: 0
+High-value without real contact: 151
+Sales-ready by bucket: {"myfxbook":7,"x":6,"mql5":5,"web":5,"instagram":2,"tiktok":2,"specialist":1,"telegram":1}
+Qualified by bucket: {"linkedin":17,"instagram":12,"x":9,"myfxbook":7,"web":5,"mql5":5,"tiktok":2,"specialist":1,"telegram":1}
 
 ## Sourcing / Workers
-Provider errors: 339
-Stale workers: engine-control
+Provider errors: 0
+Stale workers: none
 Issues: none
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 59
-Stored: 59
+Processed: 0
+Stored: 0
 Errors: 0
-Current: users › brokerprofitwww.fxblue.com
-Last: FX Blue - EA XAUSTAR
-Last best contact: accounts@fxbluelabs.com
+Current: X
 
 ## Recent Errors
 ### qualified-exporter
