@@ -1,10 +1,10 @@
 {
   "ok": true,
-  "generatedAt": "2026-07-06T16:40:27.412Z",
+  "generatedAt": "2026-07-06T16:50:34.141Z",
   "summary": {
     "ok": true,
     "rawLeads": 525,
-    "qualified": 41,
+    "qualified": 42,
     "working": 66,
     "contactable": 48,
     "realDecisionContacts": 271,
@@ -19,16 +19,16 @@
     "websiteOnlyContacts": 4,
     "duplicateLike": 18,
     "uniqueKeys": 507,
-    "enrichmentDueNow": 97,
-    "enrichedLastHour": 111,
+    "enrichmentDueNow": 104,
+    "enrichedLastHour": 104,
     "enrichedLast24h": 223,
     "harvesters": 9,
-    "harvesterRawSeen": 60,
-    "harvesterSavedThisCycle": 1,
-    "providerErrors": 9,
-    "providerErrorsPerSaved": 9,
+    "harvesterRawSeen": 93,
+    "harvesterSavedThisCycle": 0,
+    "providerErrors": 90,
+    "providerErrorsPerSaved": null,
     "salesReadyYield": 0.032,
-    "salesReadyPerProviderError": 1.889,
+    "salesReadyPerProviderError": 0.189,
     "staleWorkers": [
       "engine-control"
     ],
@@ -36,10 +36,10 @@
   },
   "health": {
     "ok": true,
-    "updatedAt": "2026-07-06T16:40:25.421Z",
+    "updatedAt": "2026-07-06T16:50:32.575Z",
     "counts": {
       "raw": 525,
-      "qualified": 41,
+      "qualified": 42,
       "working": 66,
       "contactable": 48,
       "aLeads": 35,
@@ -58,16 +58,16 @@
       "contactless": 243,
       "neverDeep": 17,
       "eligible": 230,
-      "dueNow": 97,
+      "dueNow": 104,
       "rotationDue": 76,
-      "enrichedLastHour": 111,
+      "enrichedLastHour": 104,
       "enrichedLast24h": 223,
-      "oldestDeepAgeHours": 77.2,
-      "running": 2
+      "oldestDeepAgeHours": 77.4,
+      "running": 1
     },
     "tasks": {
       "source-harvester": {
-        "pid": 31376,
+        "pid": 33160,
         "running": true
       },
       "source-harvester-social": {
@@ -83,7 +83,7 @@
         "running": true
       },
       "source-harvester-linkedin": {
-        "pid": 25408,
+        "pid": 34148,
         "running": true
       },
       "source-harvester-instagram": {
@@ -99,7 +99,7 @@
         "running": true
       },
       "source-harvester-events": {
-        "pid": 37972,
+        "pid": 9916,
         "running": true
       },
       "enrichment-worker": {
@@ -138,8 +138,8 @@
     "statuses": {
       "source-harvester": {
         "exists": true,
-        "updatedAt": "2026-07-06T16:25:31.158Z",
-        "ageMs": 894258,
+        "updatedAt": "2026-07-06T16:46:29.749Z",
+        "ageMs": 242822,
         "status": {
           "status": "running",
           "workerName": "source-harvester",
@@ -177,7 +177,7 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-06T16:25:31.158Z",
+          "heartbeatAt": "2026-07-06T16:46:29.749Z",
           "progress": {
             "message": "Saved qualified lead: company murenamobile",
             "status": "running",
@@ -206,7 +206,7 @@
               "decisionMakers": [],
               "contactConfidence": 74,
               "contactQuality": "social",
-              "lastDeepEnrichedAt": "2026-07-06T16:25:31.124Z",
+              "lastDeepEnrichedAt": "2026-07-06T16:46:29.711Z",
               "bestContact": "https://www.linkedin.com/company/murenamobile",
               "bestContactType": "social",
               "bestContactSource": "https://www.linkedin.com/company/murenamobile",
@@ -291,13 +291,13 @@
               }
             }
           },
-          "updatedAt": "2026-07-06T16:25:31.158Z"
+          "updatedAt": "2026-07-06T16:46:29.749Z"
         }
       },
       "source-harvester-social": {
         "exists": true,
-        "updatedAt": "2026-07-06T16:40:24.293Z",
-        "ageMs": 1123,
+        "updatedAt": "2026-07-06T16:44:07.754Z",
+        "ageMs": 384817,
         "status": {
           "status": "running",
           "workerName": "source-harvester-social",
@@ -335,11 +335,87 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-06T16:40:24.273Z",
+          "heartbeatAt": "2026-07-06T16:44:07.751Z",
           "progress": {
-            "message": "Starting quality discovery with 120 queries",
+            "message": "Saved qualified lead: lilo org",
             "status": "running",
-            "latestLead": null,
+            "latestLead": {
+              "id": "4f62eb3d6135f961",
+              "source": "qwant",
+              "sourceIntent": "social",
+              "query": "site:instagram.com \"forex dubai\" \"whatsapp\"",
+              "url": "https://www.instagram.com/lilo__org/",
+              "domain": "instagram.com",
+              "platform": "Instagram",
+              "title": "lilo org",
+              "name": "lilo org",
+              "snippet": "Extracted candidate for site:instagram.com \"forex dubai\" \"whatsapp\"",
+              "fetchStatus": "skipped-social-or-platform",
+              "sourceQuery": "site:instagram.com \"forex dubai\" \"whatsapp\"",
+              "emails": [],
+              "socialLinks": [],
+              "contactLinks": [],
+              "websiteLinks": [],
+              "phoneNumbers": [],
+              "forms": [],
+              "contactSources": [],
+              "relatedLinks": [],
+              "decisionMakerLinks": [],
+              "decisionMakers": [],
+              "contactConfidence": 74,
+              "contactQuality": "social",
+              "lastDeepEnrichedAt": "2026-07-06T16:44:07.702Z",
+              "bestContact": "https://www.instagram.com/lilo__org/",
+              "bestContactType": "social",
+              "bestContactSource": "https://www.instagram.com/lilo__org/",
+              "enrichmentAudit": {
+                "sourceDomain": "instagram.com",
+                "contactQuality": "social",
+                "contactConfidence": 74,
+                "profileFirst": true,
+                "searchTrailUsed": false,
+                "websiteCandidates": [],
+                "contactSources": [],
+                "relatedEvidenceCount": 0,
+                "note": "Contacts are prioritized from the source profile and its discovered website/linkhub before any public-search trail evidence."
+              },
+              "leadType": "partner",
+              "segment": "Creator / Influencer",
+              "countries": [
+                "UAE"
+              ],
+              "country": "UAE",
+              "languages": [
+                "English"
+              ],
+              "evidence": [
+                "Contact path",
+                "Trading ICP",
+                "Public profile"
+              ],
+              "score": 47,
+              "priority": "A",
+              "outbound": {
+                "opener": "I saw Extracted candidate for site:instagram.com \"forex dubai\" \"whatsapp\" and there seems to be a clear angle around contact path.",
+                "dm": "Hi, I came across your work around trading/forex and thought there may be an interesting partnership conversation. I lead Business Development and work with partners, communities, and affiliates across global markets. Would a 15-minute call this week make sense?",
+                "followUp": "I think there is a concrete angle to explore: trading audience/community, partnership structure, and growth with a regulated broker. Do you have availability this week?"
+              },
+              "entityType": "social_profile",
+              "entityReject": false,
+              "entityRejectReason": "",
+              "companyName": "lilo org",
+              "companyKey": "profile:instagram.com:lilo__org",
+              "entitySignals": [
+                "Contact path",
+                "Trading ICP",
+                "Public profile"
+              ],
+              "officialProp": false,
+              "commercialScore": 89,
+              "commercialTier": "A",
+              "contactable": true,
+              "qualityStatus": "qualified"
+            },
             "sourceStats": {
               "linkedin": {
                 "searches": 1,
@@ -349,18 +425,33 @@
                 "discarded": 0,
                 "duplicates": 0,
                 "errors": 0,
+                "providerErrors": 9,
+                "reasons": {
+                  "provider_errors": 1
+                }
+              },
+              "instagram": {
+                "searches": 1,
+                "raw": 6,
+                "qualified": 2,
+                "saved": 0,
+                "discarded": 1,
+                "duplicates": 1,
+                "errors": 0,
                 "providerErrors": 0,
-                "reasons": {}
+                "reasons": {
+                  "blocked_commercial_noise": 1
+                }
               }
             }
           },
-          "updatedAt": "2026-07-06T16:40:24.293Z"
+          "updatedAt": "2026-07-06T16:44:07.754Z"
         }
       },
       "source-harvester-specialist": {
         "exists": true,
-        "updatedAt": "2026-07-06T16:40:24.286Z",
-        "ageMs": 1131,
+        "updatedAt": "2026-07-06T16:46:14.788Z",
+        "ageMs": 257783,
         "status": {
           "status": "running",
           "workerName": "source-harvester-specialist",
@@ -398,11 +489,90 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-06T16:40:24.266Z",
+          "heartbeatAt": "2026-07-06T16:46:14.787Z",
           "progress": {
-            "message": "Starting quality discovery with 120 queries",
+            "message": "Saved qualified lead: company murenamobile",
             "status": "running",
-            "latestLead": null,
+            "latestLead": {
+              "id": "0164ff87a4821946",
+              "source": "qwant",
+              "sourceIntent": "specialist",
+              "query": "\"signal seller\" \"forex\" \"telegram\" United Kingdom",
+              "url": "https://www.linkedin.com/company/murenamobile",
+              "domain": "linkedin.com",
+              "platform": "LinkedIn",
+              "title": "company murenamobile",
+              "name": "company murenamobile",
+              "snippet": "Extracted candidate for \"signal seller\" \"forex\" \"telegram\" United Kingdom",
+              "fetchStatus": "skipped-social-or-platform",
+              "sourceQuery": "\"signal seller\" \"forex\" \"telegram\" United Kingdom",
+              "emails": [],
+              "socialLinks": [],
+              "contactLinks": [],
+              "websiteLinks": [],
+              "phoneNumbers": [],
+              "forms": [],
+              "contactSources": [],
+              "relatedLinks": [],
+              "decisionMakerLinks": [],
+              "decisionMakers": [],
+              "contactConfidence": 74,
+              "contactQuality": "social",
+              "lastDeepEnrichedAt": "2026-07-06T16:46:14.744Z",
+              "bestContact": "https://www.linkedin.com/company/murenamobile",
+              "bestContactType": "social",
+              "bestContactSource": "https://www.linkedin.com/company/murenamobile",
+              "enrichmentAudit": {
+                "sourceDomain": "linkedin.com",
+                "contactQuality": "social",
+                "contactConfidence": 74,
+                "profileFirst": true,
+                "searchTrailUsed": false,
+                "websiteCandidates": [],
+                "contactSources": [],
+                "relatedEvidenceCount": 0,
+                "note": "Contacts are prioritized from the source profile and its discovered website/linkhub before any public-search trail evidence."
+              },
+              "leadType": "partner",
+              "segment": "Community",
+              "countries": [
+                "United Kingdom"
+              ],
+              "country": "United Kingdom",
+              "languages": [
+                "English"
+              ],
+              "evidence": [
+                "Community/audience",
+                "Contact path",
+                "Trading ICP",
+                "Public profile",
+                "Company/partner path"
+              ],
+              "score": 57,
+              "priority": "A",
+              "outbound": {
+                "opener": "I saw Extracted candidate for \"signal seller\" \"forex\" \"telegram\" United Kingdom and there seems to be a clear angle around community/audience.",
+                "dm": "Hi, I came across your work around trading/forex and thought there may be an interesting partnership conversation. I lead Business Development and work with partners, communities, and affiliates across global markets. Would a 15-minute call this week make sense?",
+                "followUp": "I think there is a concrete angle to explore: trading audience/community, partnership structure, and growth with a regulated broker. Do you have availability this week?"
+              },
+              "entityType": "social_profile",
+              "entityReject": false,
+              "entityRejectReason": "",
+              "companyName": "company murenamobile",
+              "companyKey": "linkedin:company:murenamobile",
+              "entitySignals": [
+                "Contact path",
+                "Trading ICP",
+                "Public profile",
+                "Company/partner path"
+              ],
+              "officialProp": false,
+              "commercialScore": 99,
+              "commercialTier": "A",
+              "contactable": true,
+              "qualityStatus": "qualified"
+            },
             "sourceStats": {
               "linkedin": {
                 "searches": 1,
@@ -412,18 +582,47 @@
                 "discarded": 0,
                 "duplicates": 0,
                 "errors": 0,
+                "providerErrors": 9,
+                "reasons": {
+                  "provider_errors": 1
+                }
+              },
+              "x": {
+                "searches": 1,
+                "raw": 0,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 9,
+                "reasons": {
+                  "provider_errors": 1
+                }
+              },
+              "telegram": {
+                "searches": 1,
+                "raw": 7,
+                "qualified": 2,
+                "saved": 0,
+                "discarded": 5,
+                "duplicates": 1,
+                "errors": 0,
                 "providerErrors": 0,
-                "reasons": {}
+                "reasons": {
+                  "blocked_commercial_noise": 4,
+                  "hard_rejected": 1
+                }
               }
             }
           },
-          "updatedAt": "2026-07-06T16:40:24.286Z"
+          "updatedAt": "2026-07-06T16:46:14.788Z"
         }
       },
       "source-harvester-ecosystem": {
         "exists": true,
-        "updatedAt": "2026-07-06T16:40:24.341Z",
-        "ageMs": 1076,
+        "updatedAt": "2026-07-06T16:49:55.849Z",
+        "ageMs": 36723,
         "status": {
           "status": "running",
           "workerName": "source-harvester-ecosystem",
@@ -461,11 +660,91 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-06T16:40:24.312Z",
+          "heartbeatAt": "2026-07-06T16:49:55.848Z",
           "progress": {
-            "message": "Starting quality discovery with 90 queries",
+            "message": "Saved qualified lead: company murenamobile",
             "status": "running",
-            "latestLead": null,
+            "latestLead": {
+              "id": "0164ff87a4821946",
+              "source": "qwant",
+              "sourceIntent": "ecosystem",
+              "query": "\"Traders Fair\" \"Latin America\" \"forex\"",
+              "url": "https://www.linkedin.com/company/murenamobile",
+              "domain": "linkedin.com",
+              "platform": "LinkedIn",
+              "title": "company murenamobile",
+              "name": "company murenamobile",
+              "snippet": "Extracted candidate for \"Traders Fair\" \"Latin America\" \"forex\"",
+              "fetchStatus": "skipped-social-or-platform",
+              "sourceQuery": "\"Traders Fair\" \"Latin America\" \"forex\"",
+              "emails": [],
+              "socialLinks": [],
+              "contactLinks": [],
+              "websiteLinks": [],
+              "phoneNumbers": [],
+              "forms": [],
+              "contactSources": [],
+              "relatedLinks": [],
+              "decisionMakerLinks": [],
+              "decisionMakers": [],
+              "contactConfidence": 74,
+              "contactQuality": "social",
+              "lastDeepEnrichedAt": "2026-07-06T16:49:55.784Z",
+              "bestContact": "https://www.linkedin.com/company/murenamobile",
+              "bestContactType": "social",
+              "bestContactSource": "https://www.linkedin.com/company/murenamobile",
+              "enrichmentAudit": {
+                "sourceDomain": "linkedin.com",
+                "contactQuality": "social",
+                "contactConfidence": 74,
+                "profileFirst": true,
+                "searchTrailUsed": false,
+                "websiteCandidates": [],
+                "contactSources": [],
+                "relatedEvidenceCount": 0,
+                "note": "Contacts are prioritized from the source profile and its discovered website/linkhub before any public-search trail evidence."
+              },
+              "leadType": "partner",
+              "segment": "Event / Expo",
+              "countries": [
+                "LatAm"
+              ],
+              "country": "LatAm",
+              "languages": [
+                "English",
+                "Portuguese"
+              ],
+              "evidence": [
+                "Event/expo footprint",
+                "Contact path",
+                "Trading ICP",
+                "Public profile",
+                "Company/partner path"
+              ],
+              "score": 79,
+              "priority": "A",
+              "outbound": {
+                "opener": "Vi Extracted candidate for \"Traders Fair\" \"Latin America\" \"forex\" e parece haver uma ligação clara a event/expo footprint.",
+                "dm": "Olá, vi o teu trabalho ligado a trading/forex e pareceu-me que pode haver uma conversa interessante de parceria. Lidero Business Development e trabalho com parceiros, comunidades e afiliados em mercados globais. Faz sentido falarmos 15 minutos esta semana?",
+                "followUp": "Acho que há potencial para uma conversa objetiva: audiência/comunidade de trading, estrutura de parceria e crescimento com uma corretora regulada. Tens disponibilidade esta semana?"
+              },
+              "entityType": "social_profile",
+              "entityReject": false,
+              "entityRejectReason": "",
+              "companyName": "company murenamobile",
+              "companyKey": "linkedin:company:murenamobile",
+              "entitySignals": [
+                "Contact path",
+                "Trading ICP",
+                "Public profile",
+                "Company/partner path"
+              ],
+              "officialProp": false,
+              "commercialScore": 97,
+              "commercialTier": "A",
+              "contactable": true,
+              "qualityStatus": "qualified"
+            },
             "sourceStats": {
               "linkedin": {
                 "searches": 1,
@@ -475,18 +754,86 @@
                 "discarded": 0,
                 "duplicates": 0,
                 "errors": 0,
+                "providerErrors": 9,
+                "reasons": {
+                  "provider_errors": 1
+                }
+              },
+              "telegram": {
+                "searches": 1,
+                "raw": 8,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 8,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "hard_rejected": 6,
+                  "blocked_commercial_noise": 2
+                }
+              },
+              "discord": {
+                "searches": 1,
+                "raw": 8,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 8,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "blocked_commercial_noise": 6,
+                  "hard_rejected": 2
+                }
+              },
+              "ecosystem": {
+                "searches": 1,
+                "raw": 0,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 9,
+                "reasons": {
+                  "provider_errors": 1
+                }
+              },
+              "recruitment": {
+                "searches": 1,
+                "raw": 8,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 8,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "hard_rejected": 5,
+                  "blocked_commercial_noise": 3
+                }
+              },
+              "web": {
+                "searches": 1,
+                "raw": 8,
+                "qualified": 2,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 5,
+                "errors": 0,
                 "providerErrors": 0,
                 "reasons": {}
               }
             }
           },
-          "updatedAt": "2026-07-06T16:40:24.341Z"
+          "updatedAt": "2026-07-06T16:49:55.849Z"
         }
       },
       "source-harvester-linkedin": {
         "exists": true,
-        "updatedAt": "2026-07-06T16:29:02.139Z",
-        "ageMs": 683278,
+        "updatedAt": "2026-07-06T16:44:29.229Z",
+        "ageMs": 363343,
         "status": {
           "status": "running",
           "workerName": "source-harvester-linkedin",
@@ -524,7 +871,7 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-06T16:29:02.125Z",
+          "heartbeatAt": "2026-07-06T16:44:29.218Z",
           "progress": {
             "message": "Starting quality discovery with 180 queries",
             "status": "running",
@@ -543,13 +890,13 @@
               }
             }
           },
-          "updatedAt": "2026-07-06T16:29:02.139Z"
+          "updatedAt": "2026-07-06T16:44:29.229Z"
         }
       },
       "source-harvester-instagram": {
         "exists": true,
-        "updatedAt": "2026-07-06T16:40:24.283Z",
-        "ageMs": 1134,
+        "updatedAt": "2026-07-06T16:44:40.517Z",
+        "ageMs": 352055,
         "status": {
           "status": "running",
           "workerName": "source-harvester-instagram",
@@ -587,32 +934,112 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-06T16:40:24.263Z",
+          "heartbeatAt": "2026-07-06T16:44:40.517Z",
           "progress": {
-            "message": "Starting quality discovery with 45 queries",
+            "message": "Saved qualified lead: help.instagram.com",
             "status": "running",
-            "latestLead": null,
+            "latestLead": {
+              "id": "9474108863a251b2",
+              "source": "bing",
+              "sourceIntent": "partner",
+              "query": "\"instagram.com\" \"forex\" \"mentor\" Brazil",
+              "url": "https://help.instagram.com/",
+              "domain": "help.instagram.com",
+              "platform": "Instagram",
+              "title": "help.instagram.com",
+              "name": "help.instagram.com",
+              "snippet": "Extracted candidate for \"instagram.com\" \"forex\" \"mentor\" Brazil",
+              "fetchStatus": "skipped-social-or-platform",
+              "sourceQuery": "site:instagram.com \"forex\" \"mentor\" Brazil",
+              "emails": [],
+              "socialLinks": [],
+              "contactLinks": [],
+              "websiteLinks": [],
+              "phoneNumbers": [],
+              "forms": [],
+              "contactSources": [],
+              "relatedLinks": [],
+              "decisionMakerLinks": [],
+              "decisionMakers": [],
+              "trailSearched": true,
+              "contactConfidence": 15,
+              "contactQuality": "no-contact-yet",
+              "lastDeepEnrichedAt": "2026-07-06T16:44:40.474Z",
+              "bestContact": "",
+              "bestContactType": "",
+              "bestContactSource": "",
+              "enrichmentAudit": {
+                "sourceDomain": "help.instagram.com",
+                "contactQuality": "no-contact-yet",
+                "contactConfidence": 15,
+                "profileFirst": true,
+                "searchTrailUsed": true,
+                "websiteCandidates": [],
+                "contactSources": [],
+                "relatedEvidenceCount": 0,
+                "note": "Contacts are prioritized from the source profile and its discovered website/linkhub before any public-search trail evidence."
+              },
+              "leadType": "partner",
+              "segment": "Creator / Influencer",
+              "countries": [
+                "Brazil"
+              ],
+              "country": "Brazil",
+              "languages": [
+                "English",
+                "Portuguese"
+              ],
+              "evidence": [
+                "Contact path",
+                "Trading ICP",
+                "Public profile"
+              ],
+              "score": 46,
+              "priority": "B",
+              "outbound": {
+                "opener": "Vi Extracted candidate for \"instagram.com\" \"forex\" \"mentor\" Brazil e parece haver uma ligação clara a creator / influencer.",
+                "dm": "Olá, vi o teu trabalho ligado a trading/forex e pareceu-me que pode haver uma conversa interessante de parceria. Lidero Business Development e trabalho com parceiros, comunidades e afiliados em mercados globais. Faz sentido falarmos 15 minutos esta semana?",
+                "followUp": "Acho que há potencial para uma conversa objetiva: audiência/comunidade de trading, estrutura de parceria e crescimento com uma corretora regulada. Tens disponibilidade esta semana?"
+              },
+              "entityType": "social_profile",
+              "entityReject": false,
+              "entityRejectReason": "",
+              "companyName": "help.instagram.com",
+              "companyKey": "name:help.instagram.com",
+              "entitySignals": [
+                "Contact path",
+                "Trading ICP",
+                "Public profile"
+              ],
+              "officialProp": false,
+              "commercialScore": 68,
+              "commercialTier": "B",
+              "contactable": false,
+              "qualityStatus": "qualified"
+            },
             "sourceStats": {
               "instagram": {
-                "searches": 1,
-                "raw": 0,
-                "qualified": 0,
+                "searches": 2,
+                "raw": 9,
+                "qualified": 2,
                 "saved": 0,
-                "discarded": 0,
-                "duplicates": 0,
+                "discarded": 4,
+                "duplicates": 5,
                 "errors": 0,
                 "providerErrors": 0,
-                "reasons": {}
+                "reasons": {
+                  "blocked_commercial_noise": 4
+                }
               }
             }
           },
-          "updatedAt": "2026-07-06T16:40:24.283Z"
+          "updatedAt": "2026-07-06T16:44:40.517Z"
         }
       },
       "source-harvester-platforms": {
         "exists": true,
-        "updatedAt": "2026-07-06T16:29:02.139Z",
-        "ageMs": 683278,
+        "updatedAt": "2026-07-06T16:49:32.145Z",
+        "ageMs": 60427,
         "status": {
           "status": "running",
           "workerName": "source-harvester-platforms",
@@ -652,32 +1079,279 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-06T16:29:02.125Z",
+          "heartbeatAt": "2026-07-06T16:49:32.145Z",
           "progress": {
-            "message": "Starting quality discovery with 47 queries",
+            "message": "Saved qualified lead: 01 xauusd 01",
             "status": "running",
-            "latestLead": null,
+            "latestLead": {
+              "id": "e66b9cb5ed8be0bf",
+              "source": "bing",
+              "sourceIntent": "specialist",
+              "query": "\"fxblue.com/users\" \"XAUUSD\"",
+              "url": "https://www.fxblue.com/users/01_xauusd_01/portfolio",
+              "domain": "fxblue.com",
+              "platform": "FXBlue",
+              "title": "01_xauusd_01",
+              "name": "01_xauusd_01",
+              "snippet": "The FX Blue Portfolio allows you to create portfolios containing any accounts on FX Blue Live, not just your own. You can then add further accounts to the portfolio by going to each one's results and clicking on its Portfolio button.",
+              "pageTitle": "FX Blue - Portfolio",
+              "pageDescription": "The FX Blue Portfolio allows you to create portfolios containing any accounts on FX Blue Live, not just your own. You can then add further accounts to the portfolio by going to each one's results and clicking on its Portfolio button.",
+              "pageText": "Tools Trade Analysis Calendar News Props Brokers Log inRegisterNavigation menuChoose an option from the navigation menu below.Trading Results: 01_xauusd_01OverviewAnalysisStatsRiskWidgetsPortfolioExcelLog in to manage this user.ContactContact Us Formsupport@fxblue.comTrade & AnalysisMyTrader PlatformMyTrader App SuiteMarket Data ToolsTools for DownloadAnalysisCalendarMarket NewsBrokersCompare brokersBroker newsBroker offersBroker competitionsOtherFX BluelabsTradeFAQThe terms and conditions of use set out below (referred to as \"FX Blue's Terms\"), form a contractual agreement governing FX Blue's relationship with you in relation to your use of this Website (Agreement) and you agree to be legally bound by FX Blue's Terms just as if you had signed this Agreement. By using this Website and any Information, you are agreeing to comply with and be bound by FX Blue's Terms, including any revisions that may be made to FX Blue's Terms from time to time. FX Blue reserves the right, in FX Blue's sole discretion, to change, modify, add or remove portions of FX Blue's Terms at any time by posting the revisions on the Website. You should check FX Blue's Terms periodically for changes as by using the Website after FX Blue posts any changes to FX Blue's Terms, you are agreeing to accept those changes, whether or not you have reviewed them, and you waive any right you may have to receive individualised notice of such changes. FX Blue's Terms may be supplemented by additional terms and conditions pertaining to specific content and activities. You agree and understand that such additional terms and conditions are hereby incorporated by reference to FX Blue's Terms. Your continued use of the Website means that you accept any new or modified FX Blue Terms.© 2026 FX Blue. All rights reserved.Privacy PolicyTerms of ServiceCookies",
+              "emails": [
+                "support@fxblue.com",
+                "sales@fxblue.com",
+                "john@fxblue.com",
+                "dominik@fxblue.com",
+                "sales@fxbluelabs.com",
+                "support@fxbluelabs.com",
+                "accounts@fxbluelabs.com",
+                "careers@fxbluelabs.com"
+              ],
+              "socialLinks": [
+                "https://discord.gg/2hTj7zNEQY",
+                "https://www.facebook.com/profile.php?id=61576350784208",
+                "https://www.instagram.com/fxblue_com/",
+                "https://x.com/fxbluenews",
+                "https://www.linkedin.com/company/fxblue/",
+                "https://www.facebook.com/profile.php?id=61576350784208\\",
+                "https://www.instagram.com/fxblue_com//",
+                "https://x.com/fxbluenews/",
+                "https://www.linkedin.com/company/fxblue//",
+                "https://discord.gg/2hTj7zNEQY/"
+              ],
+              "contactLinks": [
+                "https://discord.gg/2hTj7zNEQY",
+                "https://www.facebook.com/profile.php?id=61576350784208",
+                "https://www.instagram.com/fxblue_com/",
+                "https://x.com/fxbluenews",
+                "https://www.linkedin.com/company/fxblue/",
+                "https://www.facebook.com/profile.php?id=61576350784208\\",
+                "https://www.instagram.com/fxblue_com//",
+                "https://x.com/fxbluenews/",
+                "https://www.linkedin.com/company/fxblue//",
+                "https://discord.gg/2hTj7zNEQY/",
+                "https://expo.fxbluelabs.com/contact",
+                "https://www.fxblue.com/brochure/aboutus",
+                "https://www.fxbluelabs.com/about",
+                "https://www.fxbluelabs.com/contact",
+                "https://www.fxbluelabs.com/order-book-mt4",
+                "https://www.fxbluelabs.com/affiliate-widgets"
+              ],
+              "fetchStatus": "deep-ok",
+              "sourceQuery": "site:fxblue.com/users \"XAUUSD\"",
+              "websiteLinks": [
+                "https://www.fxbluelabs.com/",
+                "https://fxblue.trade/",
+                "https://figaro.fxbluelabs.com/",
+                "https://api.fxblue.com/ads2/moneta/moneta-footer-2026.aspx",
+                "https://publisher.fxblue.com/",
+                "https://api.fxblue.com/ads2/moneta/moneta-footer-2026.aspx/",
+                "https://www.fxbl/",
+                "https://fxblue.trade//",
+                "https://www.gdax.com/",
+                "https://api.fxblue.com/misc/fxbluelabs-fme-demo.aspx",
+                "https://expo.fxbluelabs.com/",
+                "https://expo.fxbluelabs.com/mytrader",
+                "https://expo.fxbluelabs.com/app-suite",
+                "https://expo.fxbluelabs.com/ai",
+                "https://framerusercontent.com/sites/4FgJzr13mCkuarsWYfz3Es/searchIndex-YHoiJIanM5HI.json",
+                "https://framerusercontent.com/sites/4FgJzr13mCkuarsWYfz3Es/searchIndex-Zi39x7kvZDTv.json",
+                "https://events.framer.com/script?v=2",
+                "https://www.fxbluelabs.com/index",
+                "https://www.fxbluelabs.com/applications",
+                "https://www.fxbluelabs.com/mytrader",
+                "https://www.fxbluelabs.com/mtis",
+                "https://www.fxbluelabs.com/website-widgets",
+                "https://www.fxbluelabs.com/services",
+                "https://www.fxbluelabs.com/benefits",
+                "https://www.fxbluelabs.com/apps",
+                "https://www.fxbluelabs.com/alarm-manager",
+                "https://www.fxbluelabs.com/connect",
+                "https://www.fxbluelabs.com/correlation-matrix",
+                "https://www.fxbluelabs.com/correlation-trader",
+                "https://www.fxbluelabs.com/excel-rtd"
+              ],
+              "phoneNumbers": [
+                "+1 205 920 2180",
+                "+44 7937 947 890",
+                "+1 289 349 0909"
+              ],
+              "forms": [
+                {
+                  "pageUrl": "https://expo.fxbluelabs.com/contact",
+                  "action": "https://expo.fxbluelabs.com/contact",
+                  "method": "GET",
+                  "fields": [
+                    "YMKWQJ8vF",
+                    "UMAsF5_hbYMKWQJ8vF",
+                    "yh1gjCMhFYMKWQJ8vF",
+                    "Email",
+                    "Location",
+                    "Website url",
+                    "Message",
+                    "website",
+                    "company",
+                    "message",
+                    "subject",
+                    "title"
+                  ],
+                  "label": "Name*Email*Select a product*Select…GeneralMyTraderApp SuiteProp TechYour webMessageSubmit"
+                }
+              ],
+              "contactSources": [
+                "https://www.fxblue.com/users/01_xauusd_01/portfolio",
+                "https://expo.fxbluelabs.com/",
+                "https://expo.fxbluelabs.com/contact",
+                "https://www.fxbluelabs.com/contact",
+                "https://www.fxbluelabs.com/about",
+                "https://fxblue.trade/",
+                "https://fxblue.trade/contact",
+                "https://fxblue.trade/contact-us",
+                "https://fxblue.trade/contacto",
+                "https://fxblue.trade/contato",
+                "https://fxblue.trade/about",
+                "https://fxblue.trade/about-us",
+                "https://fxblue.trade/sobre",
+                "https://figaro.fxbluelabs.com/",
+                "https://figaro.fxbluelabs.com/contact",
+                "https://figaro.fxbluelabs.com/contact-us",
+                "https://figaro.fxbluelabs.com/contacto",
+                "https://figaro.fxbluelabs.com/contato",
+                "https://figaro.fxbluelabs.com/about",
+                "https://figaro.fxbluelabs.com/about-us"
+              ],
+              "relatedLinks": [],
+              "decisionMakerLinks": [
+                "https://www.linkedin.com/company/fxblue/",
+                "https://www.linkedin.com/company/fxblue//"
+              ],
+              "decisionMakers": [],
+              "contactConfidence": 94,
+              "contactQuality": "email",
+              "lastDeepEnrichedAt": "2026-07-06T16:49:32.107Z",
+              "bestContact": "sales@fxbluelabs.com",
+              "bestContactType": "email",
+              "bestContactSource": "https://www.fxblue.com/users/01_xauusd_01/portfolio",
+              "enrichmentAudit": {
+                "sourceDomain": "fxblue.com",
+                "contactQuality": "email",
+                "contactConfidence": 94,
+                "profileFirst": true,
+                "searchTrailUsed": false,
+                "websiteCandidates": [
+                  "https://www.fxbluelabs.com/",
+                  "https://fxblue.trade/",
+                  "https://figaro.fxbluelabs.com/",
+                  "https://api.fxblue.com/ads2/moneta/moneta-footer-2026.aspx",
+                  "https://publisher.fxblue.com/",
+                  "https://api.fxblue.com/ads2/moneta/moneta-footer-2026.aspx/",
+                  "https://www.fxbl/",
+                  "https://fxblue.trade//",
+                  "https://www.gdax.com/",
+                  "https://api.fxblue.com/misc/fxbluelabs-fme-demo.aspx"
+                ],
+                "contactSources": [
+                  "https://www.fxblue.com/users/01_xauusd_01/portfolio",
+                  "https://expo.fxbluelabs.com/",
+                  "https://expo.fxbluelabs.com/contact",
+                  "https://www.fxbluelabs.com/contact",
+                  "https://www.fxbluelabs.com/about",
+                  "https://fxblue.trade/",
+                  "https://fxblue.trade/contact",
+                  "https://fxblue.trade/contact-us",
+                  "https://fxblue.trade/contacto",
+                  "https://fxblue.trade/contato"
+                ],
+                "relatedEvidenceCount": 0,
+                "note": "Contacts are prioritized from the source profile and its discovered website/linkhub before any public-search trail evidence."
+              },
+              "leadType": "partner",
+              "segment": "High-Calibre Trader",
+              "countries": [],
+              "country": "",
+              "languages": [
+                "English",
+                "Spanish",
+                "Portuguese"
+              ],
+              "evidence": [
+                "Contact path",
+                "Trading ICP",
+                "Public profile"
+              ],
+              "score": 63,
+              "priority": "A",
+              "outbound": {
+                "opener": "Vi The FX Blue Portfolio allows you to create portfolios containing any accounts on FX Blue Live, not just your own. e parece haver uma ligação clara a contact path.",
+                "dm": "Olá, vi o teu trabalho ligado a trading/forex e pareceu-me que pode haver uma conversa interessante de parceria. Lidero Business Development e trabalho com parceiros, comunidades e afiliados em mercados globais. Faz sentido falarmos 15 minutos esta semana?",
+                "followUp": "Acho que há potencial para uma conversa objetiva: audiência/comunidade de trading, estrutura de parceria e crescimento com uma corretora regulada. Tens disponibilidade esta semana?"
+              },
+              "entityType": "social_profile",
+              "entityReject": false,
+              "entityRejectReason": "",
+              "companyName": "01 xauusd 01",
+              "companyKey": "domain:fxblue.com",
+              "entitySignals": [
+                "Contact path",
+                "Trading ICP",
+                "Public profile"
+              ],
+              "officialProp": false,
+              "commercialScore": 100,
+              "commercialTier": "A",
+              "contactable": true,
+              "qualityStatus": "qualified"
+            },
             "sourceStats": {
               "myfxbook": {
-                "searches": 1,
+                "searches": 2,
                 "raw": 0,
                 "qualified": 0,
                 "saved": 0,
                 "discarded": 0,
                 "duplicates": 0,
                 "errors": 0,
-                "providerErrors": 0,
-                "reasons": {}
+                "providerErrors": 18,
+                "reasons": {
+                  "provider_errors": 2
+                }
+              },
+              "mql5": {
+                "searches": 2,
+                "raw": 2,
+                "qualified": 2,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 2,
+                "errors": 0,
+                "providerErrors": 9,
+                "reasons": {
+                  "provider_errors": 1
+                }
+              },
+              "specialist": {
+                "searches": 2,
+                "raw": 6,
+                "qualified": 1,
+                "saved": 0,
+                "discarded": 1,
+                "duplicates": 1,
+                "errors": 0,
+                "providerErrors": 9,
+                "reasons": {
+                  "provider_errors": 1,
+                  "blocked_commercial_noise": 1
+                }
               }
             }
           },
-          "updatedAt": "2026-07-06T16:29:02.139Z"
+          "updatedAt": "2026-07-06T16:49:32.145Z"
         }
       },
       "source-harvester-communities": {
         "exists": true,
-        "updatedAt": "2026-07-06T16:40:24.287Z",
-        "ageMs": 1131,
+        "updatedAt": "2026-07-06T16:46:45.921Z",
+        "ageMs": 226652,
         "status": {
           "status": "running",
           "workerName": "source-harvester-communities",
@@ -715,32 +1389,127 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-06T16:40:24.267Z",
+          "heartbeatAt": "2026-07-06T16:46:45.921Z",
           "progress": {
-            "message": "Starting quality discovery with 116 queries",
+            "message": "Saved qualified lead: company murenamobile",
             "status": "running",
-            "latestLead": null,
+            "latestLead": {
+              "id": "0164ff87a4821946",
+              "source": "qwant",
+              "sourceIntent": "partner",
+              "query": "\"forex\" \"discord\" \"trading\" South Africa",
+              "url": "https://www.linkedin.com/company/murenamobile",
+              "domain": "linkedin.com",
+              "platform": "LinkedIn",
+              "title": "company murenamobile",
+              "name": "company murenamobile",
+              "snippet": "Extracted candidate for \"forex\" \"discord\" \"trading\" South Africa",
+              "fetchStatus": "skipped-social-or-platform",
+              "sourceQuery": "\"forex\" \"discord\" \"trading\" South Africa",
+              "emails": [],
+              "socialLinks": [],
+              "contactLinks": [],
+              "websiteLinks": [],
+              "phoneNumbers": [],
+              "forms": [],
+              "contactSources": [],
+              "relatedLinks": [],
+              "decisionMakerLinks": [],
+              "decisionMakers": [],
+              "contactConfidence": 74,
+              "contactQuality": "social",
+              "lastDeepEnrichedAt": "2026-07-06T16:46:45.884Z",
+              "bestContact": "https://www.linkedin.com/company/murenamobile",
+              "bestContactType": "social",
+              "bestContactSource": "https://www.linkedin.com/company/murenamobile",
+              "enrichmentAudit": {
+                "sourceDomain": "linkedin.com",
+                "contactQuality": "social",
+                "contactConfidence": 74,
+                "profileFirst": true,
+                "searchTrailUsed": false,
+                "websiteCandidates": [],
+                "contactSources": [],
+                "relatedEvidenceCount": 0,
+                "note": "Contacts are prioritized from the source profile and its discovered website/linkhub before any public-search trail evidence."
+              },
+              "leadType": "partner",
+              "segment": "Community",
+              "countries": [
+                "South Africa"
+              ],
+              "country": "South Africa",
+              "languages": [
+                "English"
+              ],
+              "evidence": [
+                "Community/audience",
+                "Contact path",
+                "Trading ICP",
+                "Public profile",
+                "Company/partner path"
+              ],
+              "score": 43,
+              "priority": "A",
+              "outbound": {
+                "opener": "I saw Extracted candidate for \"forex\" \"discord\" \"trading\" South Africa and there seems to be a clear angle around community/audience.",
+                "dm": "Hi, I came across your work around trading/forex and thought there may be an interesting partnership conversation. I lead Business Development and work with partners, communities, and affiliates across global markets. Would a 15-minute call this week make sense?",
+                "followUp": "I think there is a concrete angle to explore: trading audience/community, partnership structure, and growth with a regulated broker. Do you have availability this week?"
+              },
+              "entityType": "social_profile",
+              "entityReject": false,
+              "entityRejectReason": "",
+              "companyName": "company murenamobile",
+              "companyKey": "linkedin:company:murenamobile",
+              "entitySignals": [
+                "Contact path",
+                "Trading ICP",
+                "Public profile",
+                "Company/partner path"
+              ],
+              "officialProp": false,
+              "commercialScore": 91,
+              "commercialTier": "A",
+              "contactable": true,
+              "qualityStatus": "qualified"
+            },
             "sourceStats": {
               "telegram": {
                 "searches": 1,
-                "raw": 0,
+                "raw": 1,
                 "qualified": 0,
                 "saved": 0,
-                "discarded": 0,
+                "discarded": 1,
                 "duplicates": 0,
                 "errors": 0,
                 "providerErrors": 0,
-                "reasons": {}
+                "reasons": {
+                  "hard_rejected": 1
+                }
+              },
+              "discord": {
+                "searches": 1,
+                "raw": 10,
+                "qualified": 2,
+                "saved": 0,
+                "discarded": 8,
+                "duplicates": 1,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "blocked_commercial_noise": 7,
+                  "hard_rejected": 1
+                }
               }
             }
           },
-          "updatedAt": "2026-07-06T16:40:24.287Z"
+          "updatedAt": "2026-07-06T16:46:45.921Z"
         }
       },
       "source-harvester-events": {
         "exists": true,
-        "updatedAt": "2026-07-06T16:30:16.308Z",
-        "ageMs": 609110,
+        "updatedAt": "2026-07-06T16:47:38.045Z",
+        "ageMs": 174528,
         "status": {
           "status": "running",
           "workerName": "source-harvester-events",
@@ -778,29 +1547,26 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-06T16:30:16.307Z",
+          "heartbeatAt": "2026-07-06T16:47:38.045Z",
           "progress": {
-            "message": "Saved qualified lead: TradingView Track All",
+            "message": "Saved qualified lead: company murenamobile",
             "status": "running",
             "latestLead": {
-              "id": "a37331bb52750397",
-              "source": "bing",
+              "id": "0164ff87a4821946",
+              "source": "qwant",
               "sourceIntent": "ecosystem",
-              "query": "\"trading expo\" \"sponsors\" Peru",
-              "url": "https://play.google.com/store/apps/details?id=com.tradingview.tradingviewapp&hl=en-US",
-              "domain": "play.google.com",
-              "platform": "Web",
-              "title": "TradingView: Track All Markets - Apps on Google Play",
-              "name": "TradingView: Track All Markets - Apps on Google Play",
-              "snippet": "Explore stock markets, trading ideas and news. Stocks, crypto and forex charts.",
-              "pageTitle": "TradingView: Track All Markets - Apps on Google Play",
-              "pageDescription": "Explore stock markets, trading ideas and news. Stocks, crypto and forex charts.",
-              "pageText": "GamesAppsBooksKidsgoogle_logo PlayGamesAppsBooksKidsnonesearchhelp_outline Sign in with Googleplay_appsLibrary & devicespaymentPayments & subscriptionsreviewsMy Play activityredeemOffersPlay PassPersonalization in PlaysettingsSettingsPrivacy Policy • Terms of ServiceGamesAppsBooksKidsTradingView: Track All MarketsTradingView Inc.Contains adsIn-app purchases4.9star922K reviewsinfoPEGI 3info50M+DownloadsInstallShareAdd to wishlistPEGI 3Users Interact, In-App PurchasesLearn moreAbout this apparrow_forwardSimple for beginners and effective for technical analysis experts, TradingView has all of the instruments for publication and the viewing of trading ideas. Real-time quotes and charts are available for wherever you are at whatever time.At TradingView, all data is obtained by professional providers who have direct and extensive access to stock quotes, futures, popular indices, Forex, Bitcoin and CFDs.You can effectively track stock market and major global indices such as the NASDAQ Composite, S&P 500 (SPX), NYSE, Dow Jones (DJI), DAX, FTSE 100, NIKKEI 225, etc. You can also learn more about exchange rates, oil prices, mutual funds, bonds, ETFs and other commodities.TradingView is the most active social network for traders and investors. Connect with millions of traders from around the world, learn from the experiences of other investors and discuss trading ideas.Advanced ChartsTradingView has excellent charts that surpass even desktop trading platforms in quality.No compromises. All of the features, settings and tools of our charts will also be available in our app version. Over 20 types of charts for market analysis from different angles. Starting with an elementary chart line and ending with Renko and Kagi charts, which focus heavily on price fluctuations and barely take time into account as a factor. They can be very useful for determining long-term trends and can help you earn money.Choose from a large selection of price analysis tools, including, but not limited to, indicators, strategies, drawing objects (i.e. Gann, Elliot Wave, moving averages) and more.Individual watchlists and alertsYou can track major global indices, stocks, currency pairs, bonds, futures, mutual funds, commodities and cryptocurrencies all in real-time.Alerts will help you not to miss the smallest of changes in the market and will allow you to react in time to invest or sell profitably, increasing your overall profit.Flexible settings help you to track the indices you need and also group them in a way that is convenient for you.Syncing your accountsAll saved changes, notifications, charts, and technical analysis, which you began on the TradingView platform will be automatically accessible from your mobile device through the app.Real-time data from global exchangesGain access to data in real-time on more than 3,500,000 instruments from over 100 exchanges from the United States, the East, and countries in Asia and Europe, such as: NYSE, LSE, TSE, SSE, HKEx, Euronext, TSX, SZSE, FWB, SIX, ASX, KRX, NASDAQ, JSE, Bolsa de Madrid, TWSE, BM&F/B3 and many others!Commodity pricesIn real-time, you can track prices for gold, silver, oil, natural gas, cotton, sugar, wheat, corn, and many other products.Global indicesTrack major indices of the world stock market in real-time:■ North and South America: Dow Jones, S&P 500, NYSE, NASDAQ Composite, SmallCap 2000, NASDAQ 100, Merval, Bovespa, RUSSELL 2000, IPC, IPSA;■ Europe: CAC 40, FTSE MIB, IBEX 35, ATX, BEL 20, DAX, BSE Sofia, PX, РТС;■ Asian-Pacific Ocean Regions: NIKKEI 225, SENSEX, NIFTY, SHANGHAI COMPOSITE, S&P/ASX 200, HANG SENG, KOSPI, KLCI, NZSE 50;■ Africa: Kenya NSE 20, Semdex, Moroccan All Shares, South Africa 40; and■ Middle East: EGX 30, Amman SE General, Kuwait Main, TA 25.CryptocurrencyGet the opportunity to compare prices from leading cryptocurrency exchanges.Updated onJun 23, 2026#1 top grossing financeFinanceData safetyarrow_forwardSafety starts with understanding how developers collect and share your data. Data privacy and security practices may vary based on your use, region, and age. The developer provided this information and may update it over time.This app may share these data types with third partiesLocation, Personal info and 4 othersThis app may collect these data typesLocation, Personal info and 6 othersData is encrypted in transitYou can request that data be deletedSee detailsRatings and reviewsRatings and reviews are verifiedinfo_outlinearrow_forwardRatings and reviews are verifiedinfo_outlinephone_androidPhonelaptopChromebooktablet_androidTablet4.9865K reviews54321Adeogo Sosanyamore_vert Flag inappropriateShow review historyOctober 3, 2024Great app! Honestly if I'd done a review earlier I'd have given a solid 5 star, But the Trend line tool isn't working as it should whenever I use the angled line option it suddenly draws the line towards the opposite side, I have been using the tool for a while now and it has become a big part of my strategy, i also noticed it only started today... I hope this can be fixed soon Re-edit: It's been fixed a wonderful app508 people found this review helpfulDid you find this helpful?YesNoTradingView Inc.October 4, 2024Thank you for your review! Could you please tell us what should we improve to get a 5-star rating?Jeff Grahnmore_vert Flag inappropriateJune 19, 2026Best trading chart software out there! Customizable beyond anything you can even imagine. Good support, but could be a little quicker sometimes. But they definitely will get back to your open ticket till problem is resolved. Sometimes it's a day at a time. I would definitely recommend Trading View!6 people found this review helpfulDid you find this helpful?YesNoShk Gamersmore_vert Flag inappropriateJune 28, 2026Great app, but I’ve got a couple of suggestions that would make analysis very efficient ​can we get a toggle button to show the timeframe on our drawings? Like a little tag on lines or boxes that shows which interval they were drawn on it’s a pain trying to keep track of multi-timeframe drawings manually. ​Also, please let the Magnet tool snap to 'Compare' (overlay) charts. Right now it only works on the main chart but it would be very helpful for the usage of drawings on compared charts.3 people found this review helpfulDid you find this helpful?YesNoSee all reviewsWhat’s newThis update brings more improvements to our app:• The symbol screen's Overview now contains Forward curve for futures and the Redemption section for corporate Bonds• Bar Replay now opens in the fullscreen mode automaticallyflagFlag as inappropriatePEGI 3Users Interact, In-App PurchasesLearn moreApp supportexpand_morepublicWebsiteemailSupport emailmobile-support@tradingview.comshieldPrivacy PolicyAbout the developer Tradingview, Inc. mobile-support@tradingview.com 1330 Avenue OF The Americas FL 23 New York, NY 10019-5443 United States +1 347-669-9004 Similar appsarrow_forwardMetaTrader 5 — Forex, StocksMetaQuotes Software Corp.4.9starDay Trading Simulator & GamesKovets4.9starInvesting.com: Stock MarketINVESTING.com4.7starForex Trading for BeginnersGo Forex4.8starLiteFinance mobile tradingLITEFOREX (EUROPE) LTDStock Market Simulator GameThree Investeers4.6starflagFlag as inappropriateGoogle PlayPlay PassPlay PointsGift cardsRedeemRefund policyKids & familyParent GuideFamily sharingTerms of ServicePrivacyWithdraw from Digital ServicesAbout Google PlayDevelopersGoogle StoreAll prices include VAT.Portugal (English)",
+              "query": "\"forex expo\" \"sponsors\" Argentina",
+              "url": "https://www.linkedin.com/company/murenamobile",
+              "domain": "linkedin.com",
+              "platform": "LinkedIn",
+              "title": "company murenamobile",
+              "name": "company murenamobile",
+              "snippet": "Extracted candidate for \"forex expo\" \"sponsors\" Argentina",
+              "fetchStatus": "skipped-social-or-platform",
+              "sourceQuery": "\"forex expo\" \"sponsors\" Argentina",
               "emails": [],
               "socialLinks": [],
               "contactLinks": [],
-              "fetchStatus": "deep-failed: Skipped blocked/broker/referral page",
-              "sourceQuery": "\"trading expo\" \"sponsors\" Peru",
               "websiteLinks": [],
               "phoneNumbers": [],
               "forms": [],
@@ -808,102 +1574,87 @@
               "relatedLinks": [],
               "decisionMakerLinks": [],
               "decisionMakers": [],
-              "trailSearched": true,
-              "contactConfidence": 15,
-              "contactQuality": "no-contact-yet",
-              "lastDeepEnrichedAt": "2026-07-06T16:30:16.268Z",
-              "bestContact": "",
-              "bestContactType": "",
-              "bestContactSource": "",
+              "contactConfidence": 74,
+              "contactQuality": "social",
+              "lastDeepEnrichedAt": "2026-07-06T16:47:38.002Z",
+              "bestContact": "https://www.linkedin.com/company/murenamobile",
+              "bestContactType": "social",
+              "bestContactSource": "https://www.linkedin.com/company/murenamobile",
               "enrichmentAudit": {
-                "sourceDomain": "play.google.com",
-                "contactQuality": "no-contact-yet",
-                "contactConfidence": 15,
+                "sourceDomain": "linkedin.com",
+                "contactQuality": "social",
+                "contactConfidence": 74,
                 "profileFirst": true,
-                "searchTrailUsed": true,
+                "searchTrailUsed": false,
                 "websiteCandidates": [],
                 "contactSources": [],
                 "relatedEvidenceCount": 0,
                 "note": "Contacts are prioritized from the source profile and its discovered website/linkhub before any public-search trail evidence."
               },
-              "leadType": "institution",
-              "segment": "Fund / Asset Manager",
+              "leadType": "partner",
+              "segment": "Event / Expo",
               "countries": [
-                "Portugal",
-                "Spain",
-                "South Africa"
+                "Argentina"
               ],
-              "country": "Portugal",
+              "country": "Argentina",
               "languages": [
-                "Portuguese",
-                "English"
+                "Spanish"
               ],
               "evidence": [
-                "Fund/asset manager angle",
-                "Fintech/payments angle",
-                "Institutional angle",
+                "Event/expo footprint",
                 "Contact path",
-                "Trading ICP"
+                "Trading ICP",
+                "Public profile",
+                "Company/partner path"
               ],
-              "score": 90,
-              "priority": "B",
+              "score": 89,
+              "priority": "A",
               "outbound": {
-                "opener": "Vi Explore stock markets, trading ideas and news. e parece haver uma ligação clara a fund/asset manager angle.",
-                "dm": "Olá, vi o teu trabalho ligado a trading/forex e pareceu-me que pode haver uma conversa interessante de parceria. Lidero Business Development e trabalho com parceiros, comunidades e afiliados em mercados globais. Faz sentido falarmos 15 minutos esta semana?",
-                "followUp": "Acho que há potencial para uma conversa objetiva: audiência/comunidade de trading, estrutura de parceria e crescimento com uma corretora regulada. Tens disponibilidade esta semana?"
+                "opener": "Vi Extracted candidate for \"forex expo\" \"sponsors\" Argentina y parece haber una conexión clara con event/expo footprint.",
+                "dm": "Hola, vi tu trabajo relacionado con trading/forex y me pareció que puede haber una conversación interesante de partnership. Lidero Business Development y trabajo con partners, comunidades y afiliados en mercados globales. ¿Tiene sentido hablar 15 minutos esta semana?",
+                "followUp": "Creo que hay potencial para una conversación concreta: audiencia/comunidad de trading, estructura de partnership y crecimiento con un broker regulado. ¿Tienes disponibilidad esta semana?"
               },
-              "entityType": "capital_allocator",
+              "entityType": "social_profile",
               "entityReject": false,
               "entityRejectReason": "",
-              "companyName": "TradingView Track All",
-              "companyKey": "domain:play.google.com",
+              "companyName": "company murenamobile",
+              "companyKey": "linkedin:company:murenamobile",
               "entitySignals": [
                 "Contact path",
-                "Trading ICP"
+                "Trading ICP",
+                "Public profile",
+                "Company/partner path"
               ],
               "officialProp": false,
-              "commercialScore": 70,
-              "commercialTier": "B",
-              "contactable": false,
+              "commercialScore": 99,
+              "commercialTier": "A",
+              "contactable": true,
               "qualityStatus": "qualified"
             },
             "sourceStats": {
               "ecosystem": {
-                "searches": 3,
-                "raw": 30,
-                "qualified": 3,
-                "saved": 1,
-                "discarded": 16,
-                "duplicates": 12,
-                "errors": 0,
-                "providerErrors": 0,
-                "reasons": {
-                  "blocked_commercial_noise": 13,
-                  "hard_rejected": 3
-                }
-              },
-              "recruitment": {
-                "searches": 2,
-                "raw": 20,
-                "qualified": 1,
+                "searches": 1,
+                "raw": 10,
+                "qualified": 2,
                 "saved": 0,
-                "discarded": 19,
+                "discarded": 8,
                 "duplicates": 1,
                 "errors": 0,
                 "providerErrors": 0,
                 "reasons": {
-                  "blocked_commercial_noise": 19
+                  "blocked_commercial_noise": 7,
+                  "hard_rejected": 1
                 }
               }
             }
           },
-          "updatedAt": "2026-07-06T16:30:16.308Z"
+          "updatedAt": "2026-07-06T16:47:38.045Z"
         }
       },
       "enrichment-worker": {
         "exists": true,
-        "updatedAt": "2026-07-06T16:31:47.359Z",
-        "ageMs": 518059,
+        "updatedAt": "2026-07-06T16:50:14.420Z",
+        "ageMs": 18153,
         "status": {
           "status": "running",
           "phase": "enriching",
@@ -919,22 +1670,22 @@
             "maxTrailQueries": 18,
             "trailLimit": 7
           },
-          "processed": 139,
-          "rejected": 6,
+          "processed": 167,
+          "rejected": 9,
           "errors": 0,
           "idleCycles": 0,
           "queue": {
-            "eligible": 212,
-            "dueNow": 77,
+            "eligible": 213,
+            "dueNow": 80,
             "never": 0,
             "contactlessDue": 0,
-            "scheduledDue": 76,
+            "scheduledDue": 79,
             "rotationDue": 1,
-            "recentlyEnriched1h": 112,
-            "recentlyEnriched24h": 183,
-            "blockedRunning": 1,
+            "recentlyEnriched1h": 101,
+            "recentlyEnriched24h": 184,
+            "blockedRunning": 0,
             "blockedNoise": 0,
-            "oldestDeepAgeHours": 64.1
+            "oldestDeepAgeHours": 64.4
           },
           "current": {
             "id": "563b97008ecfe1d6",
@@ -943,27 +1694,21 @@
             "platform": "ZuluTrade",
             "dueReason": "scheduled_due"
           },
-          "updatedAt": "2026-07-06T16:31:47.359Z"
+          "updatedAt": "2026-07-06T16:50:14.420Z"
         }
       },
       "smart-enrichment-worker": {
         "exists": true,
-        "updatedAt": "2026-07-06T16:31:41.586Z",
-        "ageMs": 523832,
+        "updatedAt": "2026-07-06T16:50:28.013Z",
+        "ageMs": 4560,
         "status": {
           "status": "running",
-          "phase": "smart-enriching",
-          "processed": 29,
-          "stored": 29,
+          "phase": "idle",
+          "processed": 41,
+          "stored": 41,
           "rejected": 0,
           "errors": 0,
-          "current": {
-            "id": "563b97008ecfe1d6",
-            "name": "ZuluTrade Social Platform",
-            "url": "https://www.zulutrade.com/trader/aaafx",
-            "platform": "ZuluTrade",
-            "bucket": "specialist"
-          },
+          "total": 525,
           "lastResult": {
             "status": "stored",
             "id": "563b97008ecfe1d6",
@@ -974,29 +1719,23 @@
             "websites": 30,
             "related": 0,
             "hasDecisionContact": true,
-            "at": "2026-07-06T16:31:17.701Z"
+            "at": "2026-07-06T16:49:31.639Z"
           },
-          "updatedAt": "2026-07-06T16:31:41.586Z"
+          "updatedAt": "2026-07-06T16:50:28.013Z"
         }
       },
       "contact-gap-worker": {
         "exists": true,
-        "updatedAt": "2026-07-06T16:28:47.224Z",
-        "ageMs": 698195,
+        "updatedAt": "2026-07-06T16:50:22.993Z",
+        "ageMs": 9581,
         "status": {
           "status": "running",
-          "phase": "enriching-gap",
-          "processed": 20,
-          "stored": 20,
+          "phase": "idle",
+          "processed": 34,
+          "stored": 34,
           "rejected": 0,
           "errors": 0,
-          "current": {
-            "id": "30c1154189d3a3e3",
-            "name": "What means Introducing Broker",
-            "url": "https://www.forexpeacearmy.com/community/threads/what-means-introducing-broker.12335/",
-            "bucket": "facebook_threads",
-            "score": 160
-          },
+          "total": 525,
           "lastResult": {
             "status": "stored",
             "id": "563b97008ecfe1d6",
@@ -1006,22 +1745,22 @@
             "contactLinks": 30,
             "websites": 30,
             "hasRealContact": true,
-            "at": "2026-07-06T16:28:38.007Z"
+            "at": "2026-07-06T16:49:37.360Z"
           },
-          "updatedAt": "2026-07-06T16:28:47.224Z"
+          "updatedAt": "2026-07-06T16:50:22.993Z"
         }
       },
       "lead-cleaner": {
         "exists": true,
-        "updatedAt": "2026-07-06T16:40:22.297Z",
-        "ageMs": 3122,
+        "updatedAt": "2026-07-06T16:49:24.767Z",
+        "ageMs": 67807,
         "status": {
           "status": "running",
           "phase": "waiting",
-          "cycle": 34,
+          "cycle": 40,
           "intervalMs": 90000,
           "limit": 1000,
-          "totalRemoved": 4,
+          "totalRemoved": 5,
           "errors": 0,
           "lastRun": {
             "ok": true,
@@ -1034,13 +1773,13 @@
             "sample": [],
             "exported": null
           },
-          "updatedAt": "2026-07-06T16:40:22.297Z"
+          "updatedAt": "2026-07-06T16:49:24.767Z"
         }
       },
       "qualified-exporter": {
         "exists": true,
-        "updatedAt": "2026-07-06T16:40:24.797Z",
-        "ageMs": 622,
+        "updatedAt": "2026-07-06T16:49:33.940Z",
+        "ageMs": 58634,
         "status": {
           "status": "running",
           "intervalMs": 90000,
@@ -1063,68 +1802,68 @@
             "workingJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.json",
             "researchCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.csv",
             "researchJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.json",
-            "exported": 41,
+            "exported": 42,
             "working": 66,
-            "researchSources": 71,
-            "contactable": 41,
-            "hot": 35,
-            "social": 26,
+            "researchSources": 72,
+            "contactable": 42,
+            "hot": 36,
+            "social": 27,
             "instagram": 7,
-            "linkedin": 17,
+            "linkedin": 18,
             "x": 1,
             "total": 525
           },
-          "updatedAt": "2026-07-06T16:40:24.797Z"
+          "updatedAt": "2026-07-06T16:49:33.940Z"
         }
       },
       "ui-snapshot-worker": {
         "exists": true,
-        "updatedAt": "2026-07-06T16:40:21.736Z",
-        "ageMs": 3684,
+        "updatedAt": "2026-07-06T16:50:30.710Z",
+        "ageMs": 1864,
         "status": {
           "ok": true,
-          "updatedAt": "2026-07-06T16:40:21.736Z",
+          "updatedAt": "2026-07-06T16:50:30.710Z",
           "total": 197,
           "rawTotal": 525,
           "rejectedTotal": 328,
-          "buildMs": 552,
+          "buildMs": 372,
           "qualityGate": "commercial-noise-policy-v3"
         }
       },
       "cloud-logger-worker": {
         "exists": true,
-        "updatedAt": "2026-07-06T16:23:44.232Z",
-        "ageMs": 1001188,
+        "updatedAt": "2026-07-06T16:40:31.270Z",
+        "ageMs": 601304,
         "status": {
           "status": "running",
           "phase": "waiting",
           "intervalMs": 600000,
-          "cycles": 5,
+          "cycles": 6,
           "errors": 0,
           "lastResult": {
             "summary": {
-              "at": "2026-07-06T16:23:40.411Z",
+              "at": "2026-07-06T16:40:27.412Z",
               "ok": true,
               "raw": 525,
-              "qualified": 42,
+              "qualified": 41,
               "working": 66,
               "contactable": 48,
               "salesReady": 17,
               "a1Hot": 22,
               "a2Strong": 13,
-              "platformContactLeaks": 1,
+              "platformContactLeaks": 2,
               "highValueNoContact": 152,
-              "providerErrors": 72,
+              "providerErrors": 9,
               "staleWorkers": [
                 "engine-control"
               ],
               "issues": [],
               "smartTrail": {
-                "phase": "idle",
-                "processed": 20,
-                "stored": 20,
+                "phase": "smart-enriching",
+                "processed": 29,
+                "stored": 29,
                 "errors": 0,
-                "current": "",
+                "current": "ZuluTrade Social Platform",
                 "last": "ZuluTrade Social Platform",
                 "best": "pocketfxcopy@gmail.com"
               },
@@ -1138,7 +1877,7 @@
                 "instagram": 1
               },
               "qualifiedByBucket": {
-                "linkedin": 18,
+                "linkedin": 17,
                 "instagram": 7,
                 "mql5": 7,
                 "web": 3,
@@ -1153,50 +1892,50 @@
               "ok": true,
               "committed": true,
               "pushed": true,
-              "commit": "[main 2c2887a] ops: update engine cloud report 2026-07-06T16:23:40.946Z\n 3 files changed, 934 insertions(+), 921 deletions(-)\n"
+              "commit": "[main 4d84499] ops: update engine cloud report 2026-07-06T16:40:27.835Z\n 3 files changed, 562 insertions(+), 1101 deletions(-)\n"
             }
           },
-          "updatedAt": "2026-07-06T16:23:44.232Z"
+          "updatedAt": "2026-07-06T16:40:31.270Z"
         }
       },
       "supervisor": {
         "exists": true,
-        "updatedAt": "2026-07-06T16:40:25.405Z",
-        "ageMs": 15,
+        "updatedAt": "2026-07-06T16:49:35.600Z",
+        "ageMs": 56975,
         "status": {
           "status": "running",
-          "cycle": 49,
+          "cycle": 58,
           "intervalMs": 60000,
           "ensured": [
             {
               "name": "source-harvester",
-              "pid": 31376,
+              "pid": 33160,
               "status": "running"
             },
             {
               "name": "source-harvester-social",
               "pid": 16028,
-              "status": "started"
+              "status": "running"
             },
             {
               "name": "source-harvester-specialist",
               "pid": 12516,
-              "status": "started"
+              "status": "running"
             },
             {
               "name": "source-harvester-ecosystem",
               "pid": 6892,
-              "status": "started"
+              "status": "running"
             },
             {
               "name": "source-harvester-linkedin",
-              "pid": 25408,
+              "pid": 34148,
               "status": "running"
             },
             {
               "name": "source-harvester-instagram",
               "pid": 27568,
-              "status": "started"
+              "status": "running"
             },
             {
               "name": "source-harvester-platforms",
@@ -1206,11 +1945,11 @@
             {
               "name": "source-harvester-communities",
               "pid": 10260,
-              "status": "started"
+              "status": "running"
             },
             {
               "name": "source-harvester-events",
-              "pid": 37972,
+              "pid": 9916,
               "status": "running"
             },
             {
@@ -1254,7 +1993,7 @@
             "ok": true,
             "counts": {
               "raw": 525,
-              "qualified": 41,
+              "qualified": 42,
               "working": 66,
               "contactable": 48,
               "aLeads": 35,
@@ -1269,16 +2008,16 @@
               "contactless": 243,
               "neverDeep": 17,
               "eligible": 230,
-              "dueNow": 97,
+              "dueNow": 105,
               "rotationDue": 76,
-              "enrichedLastHour": 111,
+              "enrichedLastHour": 102,
               "enrichedLast24h": 223,
-              "oldestDeepAgeHours": 77.2,
-              "running": 2
+              "oldestDeepAgeHours": 77.3,
+              "running": 0
             },
             "issues": []
           },
-          "updatedAt": "2026-07-06T16:40:25.405Z"
+          "updatedAt": "2026-07-06T16:49:35.600Z"
         }
       }
     },
@@ -1286,58 +2025,58 @@
       "autopilot-qualified-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.csv",
-        "size": 133847,
-        "updatedAt": "2026-07-06T16:40:24.375Z",
-        "ageMs": 1046.00341796875
+        "size": 135235,
+        "updatedAt": "2026-07-06T16:49:33.690Z",
+        "ageMs": 58885.343994140625
       },
       "autopilot-qualified-contactable-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.csv",
-        "size": 133847,
-        "updatedAt": "2026-07-06T16:40:24.478Z",
-        "ageMs": 943.48486328125
+        "size": 135235,
+        "updatedAt": "2026-07-06T16:49:33.739Z",
+        "ageMs": 58835.82373046875
       },
       "autopilot-hot-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.csv",
-        "size": 112366,
-        "updatedAt": "2026-07-06T16:40:24.573Z",
-        "ageMs": 847.96728515625
+        "size": 113754,
+        "updatedAt": "2026-07-06T16:49:33.782Z",
+        "ageMs": 58792.822509765625
       },
       "autopilot-working-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
-        "size": 179933,
-        "updatedAt": "2026-07-06T16:40:24.688Z",
-        "ageMs": 733.290771484375
+        "size": 179806,
+        "updatedAt": "2026-07-06T16:49:37.278Z",
+        "ageMs": 55297.476318359375
       },
       "autopilot-social-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
-        "size": 61673,
-        "updatedAt": "2026-07-06T16:40:24.605Z",
-        "ageMs": 816.456298828125
+        "size": 63103,
+        "updatedAt": "2026-07-06T16:49:37.222Z",
+        "ageMs": 55352.98388671875
       },
       "autopilot-linkedin-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
-        "size": 39658,
-        "updatedAt": "2026-07-06T16:40:24.622Z",
-        "ageMs": 799.456787109375
+        "size": 41088,
+        "updatedAt": "2026-07-06T16:49:37.233Z",
+        "ageMs": 55342.4765625
       },
       "autopilot-instagram-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
         "size": 17813,
-        "updatedAt": "2026-07-06T16:40:24.614Z",
-        "ageMs": 807.457275390625
+        "updatedAt": "2026-07-06T16:49:37.228Z",
+        "ageMs": 55346.984130859375
       },
       "autopilot-x-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
         "size": 4113,
-        "updatedAt": "2026-07-06T16:40:24.628Z",
-        "ageMs": 793.456787109375
+        "updatedAt": "2026-07-06T16:49:37.237Z",
+        "ageMs": 55338.475341796875
       }
     },
     "issues": []
@@ -1345,8 +2084,8 @@
   "quality": {
     "totals": {
       "raw": 525,
-      "exportQualified": 47,
-      "qualified": 41,
+      "exportQualified": 48,
+      "qualified": 42,
       "working": 66,
       "realDecisionContacts": 271,
       "salesReady": 17,
@@ -1373,7 +2112,7 @@
       "x": 4
     },
     "qualifiedByBucket": {
-      "linkedin": 17,
+      "linkedin": 18,
       "instagram": 7,
       "mql5": 7,
       "web": 3,
@@ -1482,9 +2221,9 @@
     ],
     "platformLeakSamples": [
       {
-        "name": "ZuluTrade Social Platform",
+        "name": "users forex incontrolFX Blue",
         "bucket": "specialist",
-        "contact": "pocketfxcopy@gmail.com"
+        "contact": "sales@fxbluelabs.com"
       },
       {
         "name": "01_xauusd_01",
@@ -1625,36 +2364,36 @@
       "name": "cloud-logger-worker",
       "status": "running",
       "phase": "waiting",
-      "age": "17m",
-      "ageMs": 1001203,
+      "age": "10m",
+      "ageMs": 601316,
       "cycle": null,
       "pid": null,
       "message": "",
       "current": null,
       "lastResult": {
         "summary": {
-          "at": "2026-07-06T16:23:40.411Z",
+          "at": "2026-07-06T16:40:27.412Z",
           "ok": true,
           "raw": 525,
-          "qualified": 42,
+          "qualified": 41,
           "working": 66,
           "contactable": 48,
           "salesReady": 17,
           "a1Hot": 22,
           "a2Strong": 13,
-          "platformContactLeaks": 1,
+          "platformContactLeaks": 2,
           "highValueNoContact": 152,
-          "providerErrors": 72,
+          "providerErrors": 9,
           "staleWorkers": [
             "engine-control"
           ],
           "issues": [],
           "smartTrail": {
-            "phase": "idle",
-            "processed": 20,
-            "stored": 20,
+            "phase": "smart-enriching",
+            "processed": 29,
+            "stored": 29,
             "errors": 0,
-            "current": "",
+            "current": "ZuluTrade Social Platform",
             "last": "ZuluTrade Social Platform",
             "best": "pocketfxcopy@gmail.com"
           },
@@ -1668,7 +2407,7 @@
             "instagram": 1
           },
           "qualifiedByBucket": {
-            "linkedin": 18,
+            "linkedin": 17,
             "instagram": 7,
             "mql5": 7,
             "web": 3,
@@ -1683,7 +2422,7 @@
           "ok": true,
           "committed": true,
           "pushed": true,
-          "commit": "[main 2c2887a] ops: update engine cloud report 2026-07-06T16:23:40.946Z\n 3 files changed, 934 insertions(+), 921 deletions(-)\n"
+          "commit": "[main 4d84499] ops: update engine cloud report 2026-07-06T16:40:27.835Z\n 3 files changed, 562 insertions(+), 1101 deletions(-)\n"
         }
       },
       "counts": {
@@ -1706,19 +2445,13 @@
     {
       "name": "contact-gap-worker",
       "status": "running",
-      "phase": "enriching-gap",
-      "age": "12m",
-      "ageMs": 698211,
+      "phase": "idle",
+      "age": "10s",
+      "ageMs": 9593,
       "cycle": null,
       "pid": null,
       "message": "",
-      "current": {
-        "id": "30c1154189d3a3e3",
-        "name": "What means Introducing Broker",
-        "url": "https://www.forexpeacearmy.com/community/threads/what-means-introducing-broker.12335/",
-        "bucket": "facebook_threads",
-        "score": 160
-      },
+      "current": null,
       "lastResult": {
         "status": "stored",
         "id": "563b97008ecfe1d6",
@@ -1728,7 +2461,7 @@
         "contactLinks": 30,
         "websites": 30,
         "hasRealContact": true,
-        "at": "2026-07-06T16:28:38.007Z"
+        "at": "2026-07-06T16:49:37.360Z"
       },
       "counts": {
         "raw": 0,
@@ -1742,8 +2475,8 @@
         "contactable": null,
         "hot": null,
         "totalRemoved": null,
-        "processed": 20,
-        "stored": 20,
+        "processed": 34,
+        "stored": 34,
         "errors": 0
       }
     },
@@ -1751,8 +2484,8 @@
       "name": "engine-control",
       "status": "done",
       "phase": "done",
-      "age": "57m",
-      "ageMs": 3424939,
+      "age": "1.1h",
+      "ageMs": 4032090,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -1779,8 +2512,8 @@
       "name": "enrichment-worker",
       "status": "running",
       "phase": "enriching",
-      "age": "9m",
-      "ageMs": 518077,
+      "age": "18s",
+      "ageMs": 18167,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -1804,7 +2537,7 @@
         "contactable": null,
         "hot": null,
         "totalRemoved": null,
-        "processed": 139,
+        "processed": 167,
         "stored": null,
         "errors": 0
       }
@@ -1813,9 +2546,9 @@
       "name": "lead-cleaner",
       "status": "running",
       "phase": "waiting",
-      "age": "3s",
-      "ageMs": 3139,
-      "cycle": 34,
+      "age": "1m",
+      "ageMs": 67820,
+      "cycle": 40,
       "pid": null,
       "message": "",
       "current": null,
@@ -1831,7 +2564,7 @@
         "working": null,
         "contactable": null,
         "hot": null,
-        "totalRemoved": 4,
+        "totalRemoved": 5,
         "processed": null,
         "stored": null,
         "errors": 0
@@ -1841,8 +2574,8 @@
       "name": "qualified-exporter",
       "status": "running",
       "phase": "n/a",
-      "age": "1s",
-      "ageMs": 639,
+      "age": "59s",
+      "ageMs": 58647,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -1855,10 +2588,10 @@
         "duplicates": 0,
         "providerErrors": 0,
         "total": 525,
-        "exported": 41,
+        "exported": 42,
         "working": 66,
-        "contactable": 41,
-        "hot": 35,
+        "contactable": 42,
+        "hot": 36,
         "totalRemoved": null,
         "processed": null,
         "stored": null,
@@ -1868,19 +2601,13 @@
     {
       "name": "smart-enrichment-worker",
       "status": "running",
-      "phase": "smart-enriching",
-      "age": "9m",
-      "ageMs": 523850,
+      "phase": "idle",
+      "age": "5s",
+      "ageMs": 4575,
       "cycle": null,
       "pid": null,
       "message": "",
-      "current": {
-        "id": "563b97008ecfe1d6",
-        "name": "ZuluTrade Social Platform",
-        "url": "https://www.zulutrade.com/trader/aaafx",
-        "platform": "ZuluTrade",
-        "bucket": "specialist"
-      },
+      "current": null,
       "lastResult": {
         "status": "stored",
         "id": "563b97008ecfe1d6",
@@ -1891,7 +2618,7 @@
         "websites": 30,
         "related": 0,
         "hasDecisionContact": true,
-        "at": "2026-07-06T16:31:17.701Z"
+        "at": "2026-07-06T16:49:31.639Z"
       },
       "counts": {
         "raw": 0,
@@ -1905,8 +2632,8 @@
         "contactable": null,
         "hot": null,
         "totalRemoved": null,
-        "processed": 29,
-        "stored": 29,
+        "processed": 41,
+        "stored": 41,
         "errors": 0
       }
     },
@@ -1914,8 +2641,8 @@
       "name": "source-harvester",
       "status": "running",
       "phase": "scan",
-      "age": "15m",
-      "ageMs": 894280,
+      "age": "4m",
+      "ageMs": 242841,
       "cycle": 1,
       "pid": null,
       "message": "Saved qualified lead: company murenamobile",
@@ -1942,18 +2669,18 @@
       "name": "source-harvester-communities",
       "status": "running",
       "phase": "scan",
-      "age": "1s",
-      "ageMs": 1150,
+      "age": "4m",
+      "ageMs": 226667,
       "cycle": 1,
       "pid": null,
-      "message": "Starting quality discovery with 116 queries",
+      "message": "Saved qualified lead: company murenamobile",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 0,
+        "raw": 11,
         "saved": 0,
-        "discarded": 0,
-        "duplicates": 0,
+        "discarded": 9,
+        "duplicates": 1,
         "providerErrors": 0,
         "total": 0,
         "exported": 0,
@@ -1970,19 +2697,19 @@
       "name": "source-harvester-ecosystem",
       "status": "running",
       "phase": "scan",
-      "age": "1s",
-      "ageMs": 1096,
+      "age": "37s",
+      "ageMs": 36739,
       "cycle": 1,
       "pid": null,
-      "message": "Starting quality discovery with 90 queries",
+      "message": "Saved qualified lead: company murenamobile",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 0,
+        "raw": 32,
         "saved": 0,
-        "discarded": 0,
-        "duplicates": 0,
-        "providerErrors": 0,
+        "discarded": 24,
+        "duplicates": 5,
+        "providerErrors": 18,
         "total": 0,
         "exported": 0,
         "working": null,
@@ -1998,18 +2725,18 @@
       "name": "source-harvester-events",
       "status": "running",
       "phase": "scan",
-      "age": "10m",
-      "ageMs": 609129,
+      "age": "3m",
+      "ageMs": 174543,
       "cycle": 1,
       "pid": null,
-      "message": "Saved qualified lead: TradingView Track All",
+      "message": "Saved qualified lead: company murenamobile",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 50,
-        "saved": 1,
-        "discarded": 35,
-        "duplicates": 13,
+        "raw": 10,
+        "saved": 0,
+        "discarded": 8,
+        "duplicates": 1,
         "providerErrors": 0,
         "total": 0,
         "exported": 0,
@@ -2026,18 +2753,18 @@
       "name": "source-harvester-instagram",
       "status": "running",
       "phase": "scan",
-      "age": "1s",
-      "ageMs": 1154,
+      "age": "6m",
+      "ageMs": 352071,
       "cycle": 1,
       "pid": null,
-      "message": "Starting quality discovery with 45 queries",
+      "message": "Saved qualified lead: help.instagram.com",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 0,
+        "raw": 9,
         "saved": 0,
-        "discarded": 0,
-        "duplicates": 0,
+        "discarded": 4,
+        "duplicates": 5,
         "providerErrors": 0,
         "total": 0,
         "exported": 0,
@@ -2054,8 +2781,8 @@
       "name": "source-harvester-linkedin",
       "status": "running",
       "phase": "scan",
-      "age": "11m",
-      "ageMs": 683299,
+      "age": "6m",
+      "ageMs": 363360,
       "cycle": 1,
       "pid": null,
       "message": "Starting quality discovery with 180 queries",
@@ -2082,19 +2809,19 @@
       "name": "source-harvester-platforms",
       "status": "running",
       "phase": "scan",
-      "age": "11m",
-      "ageMs": 683299,
+      "age": "1m",
+      "ageMs": 60444,
       "cycle": 1,
       "pid": null,
-      "message": "Starting quality discovery with 47 queries",
+      "message": "Saved qualified lead: 01 xauusd 01",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 0,
+        "raw": 8,
         "saved": 0,
-        "discarded": 0,
-        "duplicates": 0,
-        "providerErrors": 0,
+        "discarded": 1,
+        "duplicates": 3,
+        "providerErrors": 36,
         "total": 0,
         "exported": 0,
         "working": null,
@@ -2110,19 +2837,19 @@
       "name": "source-harvester-social",
       "status": "running",
       "phase": "scan",
-      "age": "1s",
-      "ageMs": 1145,
+      "age": "6m",
+      "ageMs": 384835,
       "cycle": 1,
       "pid": null,
-      "message": "Starting quality discovery with 120 queries",
+      "message": "Saved qualified lead: lilo org",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 0,
+        "raw": 6,
         "saved": 0,
-        "discarded": 0,
-        "duplicates": 0,
-        "providerErrors": 0,
+        "discarded": 1,
+        "duplicates": 1,
+        "providerErrors": 9,
         "total": 0,
         "exported": 0,
         "working": null,
@@ -2138,19 +2865,19 @@
       "name": "source-harvester-specialist",
       "status": "running",
       "phase": "scan",
-      "age": "1s",
-      "ageMs": 1152,
+      "age": "4m",
+      "ageMs": 257801,
       "cycle": 1,
       "pid": null,
-      "message": "Starting quality discovery with 120 queries",
+      "message": "Saved qualified lead: company murenamobile",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 0,
+        "raw": 7,
         "saved": 0,
-        "discarded": 0,
-        "duplicates": 0,
-        "providerErrors": 0,
+        "discarded": 5,
+        "duplicates": 1,
+        "providerErrors": 18,
         "total": 0,
         "exported": 0,
         "working": null,
@@ -2166,9 +2893,9 @@
       "name": "supervisor",
       "status": "running",
       "phase": "n/a",
-      "age": "0s",
-      "ageMs": 33,
-      "cycle": 49,
+      "age": "57s",
+      "ageMs": 56990,
+      "cycle": 58,
       "pid": null,
       "message": "",
       "current": null,
@@ -2194,8 +2921,8 @@
       "name": "ui-snapshot-worker",
       "status": "unknown",
       "phase": "n/a",
-      "age": "4s",
-      "ageMs": 3703,
+      "age": "2s",
+      "ageMs": 1880,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -2223,58 +2950,58 @@
     "autopilot-qualified-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.csv",
-      "size": 133847,
-      "updatedAt": "2026-07-06T16:40:24.375Z",
-      "ageMs": 1046.00341796875
+      "size": 135235,
+      "updatedAt": "2026-07-06T16:49:33.690Z",
+      "ageMs": 58885.343994140625
     },
     "autopilot-qualified-contactable-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.csv",
-      "size": 133847,
-      "updatedAt": "2026-07-06T16:40:24.478Z",
-      "ageMs": 943.48486328125
+      "size": 135235,
+      "updatedAt": "2026-07-06T16:49:33.739Z",
+      "ageMs": 58835.82373046875
     },
     "autopilot-hot-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.csv",
-      "size": 112366,
-      "updatedAt": "2026-07-06T16:40:24.573Z",
-      "ageMs": 847.96728515625
+      "size": 113754,
+      "updatedAt": "2026-07-06T16:49:33.782Z",
+      "ageMs": 58792.822509765625
     },
     "autopilot-working-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
-      "size": 179933,
-      "updatedAt": "2026-07-06T16:40:24.688Z",
-      "ageMs": 733.290771484375
+      "size": 179806,
+      "updatedAt": "2026-07-06T16:49:37.278Z",
+      "ageMs": 55297.476318359375
     },
     "autopilot-social-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
-      "size": 61673,
-      "updatedAt": "2026-07-06T16:40:24.605Z",
-      "ageMs": 816.456298828125
+      "size": 63103,
+      "updatedAt": "2026-07-06T16:49:37.222Z",
+      "ageMs": 55352.98388671875
     },
     "autopilot-linkedin-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
-      "size": 39658,
-      "updatedAt": "2026-07-06T16:40:24.622Z",
-      "ageMs": 799.456787109375
+      "size": 41088,
+      "updatedAt": "2026-07-06T16:49:37.233Z",
+      "ageMs": 55342.4765625
     },
     "autopilot-instagram-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
       "size": 17813,
-      "updatedAt": "2026-07-06T16:40:24.614Z",
-      "ageMs": 807.457275390625
+      "updatedAt": "2026-07-06T16:49:37.228Z",
+      "ageMs": 55346.984130859375
     },
     "autopilot-x-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
       "size": 4113,
-      "updatedAt": "2026-07-06T16:40:24.628Z",
-      "ageMs": 793.456787109375
+      "updatedAt": "2026-07-06T16:49:37.237Z",
+      "ageMs": 55338.475341796875
     }
   },
   "recentRuns": [
@@ -2886,6 +3613,17 @@
   ],
   "pruneHistory": [
     {
+      "at": "2026-07-06T16:44:52.846Z",
+      "reason": "lead-cleaner",
+      "removed": 1,
+      "before": 526,
+      "after": 525,
+      "byReason": {
+        "generic_platform_page": 1
+      },
+      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-06T16-44-52-845Z.json"
+    },
+    {
       "at": "2026-07-06T16:31:20.701Z",
       "reason": "lead-cleaner",
       "removed": 1,
@@ -2928,17 +3666,6 @@
         "generic_platform_page": 1
       },
       "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-06T15-47-40-981Z.json"
-    },
-    {
-      "at": "2026-07-06T15:23:58.797Z",
-      "reason": "lead-cleaner",
-      "removed": 1,
-      "before": 516,
-      "after": 515,
-      "byReason": {
-        "non_financial_platform_noise": 1
-      },
-      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-06T15-23-58-794Z.json"
     }
   ],
   "cleanupHistory": [
@@ -3021,11 +3748,11 @@
   "logs": {
     "source-harvester": {
       "out": [
-        "[source-harvester cycle 1] Starting quality discovery with 120 queries",
+        "[source-harvester cycle 1] Saved qualified lead: lilo org",
+        "[source-harvester cycle 1] Saved qualified lead: Forex Expo Dubai 2025 Conference to Feature 150 FX and",
         "[source-harvester cycle 1] Starting quality discovery with 120 queries",
         "[source-harvester cycle 1] Saved qualified lead: company murenamobile",
         "[source-harvester cycle 1] Saved qualified lead: lilo org",
-        "[source-harvester cycle 1] Saved qualified lead: Forex Expo Dubai 2025 Conference to Feature 150 FX and",
         "[source-harvester cycle 1] Starting quality discovery with 120 queries",
         "[source-harvester cycle 1] Saved qualified lead: company murenamobile",
         "[source-harvester cycle 1] Saved qualified lead: lilo org"
@@ -3035,39 +3762,39 @@
     "source-harvester-social": {
       "out": [
         "[source-harvester-social cycle 1] Saved qualified lead: Instagram photos and videos",
-        "[source-harvester-social cycle 1] Saved qualified lead: company murenamobile",
+        "[source-harvester-social cycle 1] Saved qualified lead: Badshah Broking",
+        "[source-harvester-social cycle 1] Saved qualified lead: reel DK7nfCvhFDa",
         "[source-harvester-social cycle 1] Starting quality discovery with 120 queries",
         "[source-harvester-social cycle 1] Saved qualified lead: lilo org",
         "[source-harvester-social cycle 1] Saved qualified lead: Instagram photos and videos",
         "[source-harvester-social cycle 1] Saved qualified lead: Badshah Broking",
-        "[source-harvester-social cycle 1] Saved qualified lead: reel DK7nfCvhFDa",
-        "[source-harvester-social cycle 1] Starting quality discovery with 120 queries"
+        "[source-harvester-social cycle 1] Saved qualified lead: reel DK7nfCvhFDa"
       ],
       "err": []
     },
     "source-harvester-specialist": {
       "out": [
-        "[source-harvester-specialist cycle 1] Saved qualified lead: lilo org",
-        "[source-harvester-specialist cycle 1] Starting quality discovery with 120 queries",
         "[source-harvester-specialist cycle 1] Saved qualified lead: company murenamobile",
         "[source-harvester-specialist cycle 1] Saved qualified lead: lilo org",
         "[source-harvester-specialist cycle 1] Starting quality discovery with 120 queries",
         "[source-harvester-specialist cycle 1] Saved qualified lead: company murenamobile",
         "[source-harvester-specialist cycle 1] Saved qualified lead: lilo org",
-        "[source-harvester-specialist cycle 1] Starting quality discovery with 120 queries"
+        "[source-harvester-specialist cycle 1] Starting quality discovery with 120 queries",
+        "[source-harvester-specialist cycle 1] Saved qualified lead: company murenamobile",
+        "[source-harvester-specialist cycle 1] Saved qualified lead: lilo org"
       ],
       "err": []
     },
     "source-harvester-ecosystem": {
       "out": [
-        "[source-harvester-ecosystem cycle 1] Saved qualified lead: lilo org",
-        "[source-harvester-ecosystem cycle 1] Saved qualified lead: forexexpodubai kudotrade",
         "[source-harvester-ecosystem cycle 1] Saved qualified lead: Yang Lin on LinkedIn Register",
         "[source-harvester-ecosystem cycle 1] Saved qualified lead: I m excited to share that I will be attending the Forex Expo Dubai on ...",
         "[source-harvester-ecosystem cycle 1] Saved qualified lead: Attending Forex Expo Dubai and also being one of the ...",
         "[source-harvester-ecosystem cycle 1] Saved qualified lead: The countdown has begun. The Forex Expo Dubai is set to kick off in",
         "[source-harvester-ecosystem cycle 1] Saved qualified lead: Attending the Forex Expo in Dubai soon and wondering how you",
-        "[source-harvester-ecosystem cycle 1] Starting quality discovery with 90 queries"
+        "[source-harvester-ecosystem cycle 1] Starting quality discovery with 90 queries",
+        "[source-harvester-ecosystem cycle 1] Saved qualified lead: company murenamobile",
+        "[source-harvester-ecosystem cycle 1] Saved qualified lead: lilo org"
       ],
       "err": []
     },
@@ -3086,53 +3813,53 @@
     },
     "source-harvester-instagram": {
       "out": [
-        "[source-harvester-instagram cycle 1] Starting quality discovery with 45 queries",
-        "[source-harvester-instagram cycle 1] Saved qualified lead: lilo org",
         "[source-harvester-instagram cycle 1] Saved qualified lead: help.instagram.com",
         "[source-harvester-instagram cycle 1] Starting quality discovery with 45 queries",
         "[source-harvester-instagram cycle 1] Saved qualified lead: lilo org",
         "[source-harvester-instagram cycle 1] Starting quality discovery with 45 queries",
         "[source-harvester-instagram cycle 1] Saved qualified lead: lilo org",
-        "[source-harvester-instagram cycle 1] Starting quality discovery with 45 queries"
+        "[source-harvester-instagram cycle 1] Starting quality discovery with 45 queries",
+        "[source-harvester-instagram cycle 1] Saved qualified lead: lilo org",
+        "[source-harvester-instagram cycle 1] Saved qualified lead: help.instagram.com"
       ],
       "err": []
     },
     "source-harvester-platforms": {
       "out": [
         "[source-harvester-platforms cycle 1] Starting quality discovery with 47 queries",
-        "[source-harvester-platforms cycle 1] Saved qualified lead: utazimamiltary messages",
-        "[source-harvester-platforms cycle 1] Saved qualified lead: mechanic seller",
-        "[source-harvester-platforms cycle 1] Starting quality discovery with 47 queries",
         "[source-harvester-platforms cycle 1] Saved qualified lead: users ajtrader2014FTA",
         "[source-harvester-platforms cycle 1] Saved qualified lead: golbagoltrade seller",
         "[source-harvester-platforms cycle 1] Saved qualified lead: 01 xauusd 01",
-        "[source-harvester-platforms cycle 1] Starting quality discovery with 47 queries"
+        "[source-harvester-platforms cycle 1] Starting quality discovery with 47 queries",
+        "[source-harvester-platforms cycle 1] Saved qualified lead: users ajtrader2014FTA",
+        "[source-harvester-platforms cycle 1] Saved qualified lead: golbagoltrade seller",
+        "[source-harvester-platforms cycle 1] Saved qualified lead: 01 xauusd 01"
       ],
       "err": []
     },
     "source-harvester-communities": {
       "out": [
-        "[source-harvester-communities cycle 1] Starting quality discovery with 116 queries",
-        "[source-harvester-communities cycle 1] Starting quality discovery with 116 queries",
         "[source-harvester-communities cycle 1] Saved qualified lead: company murenamobile",
         "[source-harvester-communities cycle 1] Saved qualified lead: lilo org",
         "[source-harvester-communities cycle 1] Starting quality discovery with 116 queries",
         "[source-harvester-communities cycle 1] Saved qualified lead: lilo org",
         "[source-harvester-communities cycle 1] Saved qualified lead: company murenamobile",
-        "[source-harvester-communities cycle 1] Starting quality discovery with 116 queries"
+        "[source-harvester-communities cycle 1] Starting quality discovery with 116 queries",
+        "[source-harvester-communities cycle 1] Saved qualified lead: company murenamobile",
+        "[source-harvester-communities cycle 1] Saved qualified lead: lilo org"
       ],
       "err": []
     },
     "source-harvester-events": {
       "out": [
-        "[source-harvester-events cycle 1] Saved qualified lead: profilephoto UserTileMedium p",
-        "[source-harvester-events cycle 1] Saved qualified lead: Opere com a Tickmill",
-        "[source-harvester-events cycle 1] Saved qualified lead: TradingView Track All",
         "[source-harvester-events cycle 1] Starting quality discovery with 120 queries",
         "[source-harvester-events cycle 1] Saved qualified lead: company murenamobile",
         "[source-harvester-events cycle 1] Saved qualified lead: lilo org",
         "[source-harvester-events cycle 1] Saved qualified lead: Opere com a Tickmill",
-        "[source-harvester-events cycle 1] Saved qualified lead: TradingView Track All"
+        "[source-harvester-events cycle 1] Saved qualified lead: TradingView Track All",
+        "[source-harvester-events cycle 1] Starting quality discovery with 120 queries",
+        "[source-harvester-events cycle 1] Saved qualified lead: company murenamobile",
+        "[source-harvester-events cycle 1] Saved qualified lead: lilo org"
       ],
       "err": []
     },
@@ -3144,8 +3871,8 @@
         "[enrichment-worker] stored scheduled_due 563b97008ecfe1d6 ZuluTrade Social Platform; emails=5; links=30; makers=0; best=pocketfxcopy@gmail.com",
         "[enrichment-worker] stored scheduled_due 563b97008ecfe1d6 ZuluTrade Social Platform; emails=5; links=30; makers=0; best=pocketfxcopy@gmail.com",
         "[enrichment-worker] stored scheduled_due 563b97008ecfe1d6 ZuluTrade Social Platform; emails=5; links=30; makers=0; best=pocketfxcopy@gmail.com",
-        "[enrichment-worker] stored scheduled_due 563b97008ecfe1d6 ZuluTrade Social Platform; emails=5; links=30; makers=0; best=pocketfxcopy@gmail.com",
-        "[enrichment-worker] stored scheduled_due 563b97008ecfe1d6 ZuluTrade Social Platform; emails=5; links=30; makers=0; best=pocketfxcopy@gmail.com"
+        "[enrichment-worker] rejected contactless_due cf06eb91c651d0de facebook; emails=0; links=0; makers=0; best=https://upload.facebook.com/facebook/",
+        "[enrichment-worker] rejected contactless_due a15d4216644b2179 Shop Your Way; emails=0; links=0; makers=0; best=https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600;700;800&display=swap"
       ],
       "err": []
     },
@@ -3159,27 +3886,27 @@
     },
     "lead-cleaner": {
       "out": [
-        "[lead-cleaner] 2026-07-06T13:36:26.790Z removed=1 totalRemoved=46",
         "[lead-cleaner] 2026-07-06T14:06:31.497Z removed=1 totalRemoved=47",
         "[lead-cleaner] 2026-07-06T14:56:55.503Z removed=1 totalRemoved=1",
         "[lead-cleaner] 2026-07-06T15:24:00.258Z removed=1 totalRemoved=2",
         "[lead-cleaner] 2026-07-06T15:47:42.445Z removed=1 totalRemoved=1",
         "[lead-cleaner] 2026-07-06T16:01:15.652Z removed=1 totalRemoved=2",
         "[lead-cleaner] 2026-07-06T16:20:49.429Z removed=1 totalRemoved=3",
-        "[lead-cleaner] 2026-07-06T16:31:22.362Z removed=1 totalRemoved=4"
+        "[lead-cleaner] 2026-07-06T16:31:22.362Z removed=1 totalRemoved=4",
+        "[lead-cleaner] 2026-07-06T16:44:54.262Z removed=1 totalRemoved=5"
       ],
       "err": []
     },
     "qualified-exporter": {
       "out": [
-        "[qualified-exporter] 2026-07-06T16:21:18.278Z total=525 qualified=42 contactable=42 hot=36 social=27 instagram=7 linkedin=18 x=1",
-        "[qualified-exporter] 2026-07-06T16:22:49.674Z total=525 qualified=42 contactable=42 hot=36 social=27 instagram=7 linkedin=18 x=1",
-        "[qualified-exporter] 2026-07-06T16:24:21.042Z total=525 qualified=42 contactable=42 hot=36 social=27 instagram=7 linkedin=18 x=1",
-        "[qualified-exporter] 2026-07-06T16:25:52.528Z total=525 qualified=41 contactable=41 hot=35 social=26 instagram=7 linkedin=17 x=1",
-        "[qualified-exporter] 2026-07-06T16:27:24.042Z total=525 qualified=41 contactable=41 hot=35 social=26 instagram=7 linkedin=17 x=1",
-        "[qualified-exporter] 2026-07-06T16:28:55.508Z total=525 qualified=41 contactable=41 hot=35 social=26 instagram=7 linkedin=17 x=1",
         "[qualified-exporter] 2026-07-06T16:30:26.965Z total=526 qualified=41 contactable=41 hot=35 social=26 instagram=7 linkedin=17 x=1",
-        "[qualified-exporter] 2026-07-06T16:40:24.797Z total=525 qualified=41 contactable=41 hot=35 social=26 instagram=7 linkedin=17 x=1"
+        "[qualified-exporter] 2026-07-06T16:40:24.797Z total=525 qualified=41 contactable=41 hot=35 social=26 instagram=7 linkedin=17 x=1",
+        "[qualified-exporter] 2026-07-06T16:41:56.265Z total=525 qualified=41 contactable=41 hot=35 social=26 instagram=7 linkedin=17 x=1",
+        "[qualified-exporter] 2026-07-06T16:43:27.845Z total=525 qualified=41 contactable=41 hot=35 social=26 instagram=7 linkedin=17 x=1",
+        "[qualified-exporter] 2026-07-06T16:44:59.255Z total=525 qualified=41 contactable=41 hot=35 social=26 instagram=7 linkedin=17 x=1",
+        "[qualified-exporter] 2026-07-06T16:46:30.851Z total=525 qualified=43 contactable=43 hot=35 social=28 instagram=8 linkedin=18 x=1",
+        "[qualified-exporter] 2026-07-06T16:48:02.512Z total=525 qualified=42 contactable=42 hot=36 social=27 instagram=7 linkedin=18 x=1",
+        "[qualified-exporter] 2026-07-06T16:49:33.940Z total=525 qualified=42 contactable=42 hot=36 social=27 instagram=7 linkedin=18 x=1"
       ],
       "err": [
         "[qualified-exporter] 2026-07-05T22:54:39.472Z SyntaxError: Unterminated string in JSON at position 521902 (line 9214 column 21)",
@@ -3192,14 +3919,14 @@
     },
     "ui-snapshot-worker": {
       "out": [
-        "[ui-snapshot] ok total=197 rejected=329 buildMs=399",
-        "[ui-snapshot] ok total=197 rejected=329 buildMs=389",
-        "[ui-snapshot] ok total=197 rejected=329 buildMs=373",
-        "[ui-snapshot] ok total=197 rejected=329 buildMs=409",
-        "[ui-snapshot] ok total=197 rejected=329 buildMs=397",
-        "[ui-snapshot] ok total=197 rejected=328 buildMs=441",
-        "[ui-snapshot] ok total=197 rejected=328 buildMs=375",
-        "[ui-snapshot] ok total=197 rejected=328 buildMs=552"
+        "[ui-snapshot] ok total=197 rejected=328 buildMs=376",
+        "[ui-snapshot] ok total=197 rejected=328 buildMs=365",
+        "[ui-snapshot] ok total=197 rejected=328 buildMs=382",
+        "[ui-snapshot] ok total=197 rejected=328 buildMs=362",
+        "[ui-snapshot] ok total=197 rejected=328 buildMs=380",
+        "[ui-snapshot] ok total=197 rejected=328 buildMs=380",
+        "[ui-snapshot] ok total=197 rejected=328 buildMs=377",
+        "[ui-snapshot] ok total=197 rejected=328 buildMs=372"
       ],
       "err": [
         "[ui-snapshot] Error: EPERM: operation not permitted, rename 'C:\\Users\\steve\\bd-lead-engine\\public\\ui-dashboard.json.31880.1783310997093.tmp' -> 'C:\\Users\\steve\\bd-lead-engine\\public\\ui-dashboard.json'",
@@ -3215,14 +3942,14 @@
     },
     "supervisor": {
       "out": [
-        "[supervisor] 2026-07-06T16:24:58.328Z cycle=42 ok=true raw=525 working=66 a=35",
-        "[supervisor] 2026-07-06T16:25:59.399Z cycle=43 ok=true raw=525 working=66 a=35",
-        "[supervisor] 2026-07-06T16:27:00.439Z cycle=44 ok=true raw=525 working=66 a=35",
-        "[supervisor] 2026-07-06T16:28:01.497Z cycle=45 ok=true raw=525 working=66 a=35",
-        "[supervisor] 2026-07-06T16:29:02.641Z cycle=46 ok=true raw=525 working=66 a=35",
-        "[supervisor] 2026-07-06T16:30:03.719Z cycle=47 ok=true raw=525 working=66 a=35",
-        "[supervisor] 2026-07-06T16:31:04.790Z cycle=48 ok=true raw=526 working=66 a=35",
-        "[supervisor] 2026-07-06T16:40:25.406Z cycle=49 ok=true raw=525 working=66 a=35"
+        "[supervisor] 2026-07-06T16:42:27.794Z cycle=51 ok=true raw=525 working=66 a=35",
+        "[supervisor] 2026-07-06T16:43:29.038Z cycle=52 ok=true raw=525 working=66 a=35",
+        "[supervisor] 2026-07-06T16:44:30.122Z cycle=53 ok=true raw=526 working=66 a=35",
+        "[supervisor] 2026-07-06T16:45:31.279Z cycle=54 ok=true raw=525 working=66 a=35",
+        "[supervisor] 2026-07-06T16:46:32.396Z cycle=55 ok=true raw=525 working=66 a=35",
+        "[supervisor] 2026-07-06T16:47:33.460Z cycle=56 ok=true raw=525 working=66 a=35",
+        "[supervisor] 2026-07-06T16:48:34.521Z cycle=57 ok=true raw=525 working=66 a=35",
+        "[supervisor] 2026-07-06T16:49:35.601Z cycle=58 ok=true raw=525 working=66 a=35"
       ],
       "err": []
     },
