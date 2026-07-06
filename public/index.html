@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#0f1720" />
     <title>BD Lead Engine</title>
-    <link rel="stylesheet" href="/styles.css?v=auto-inbox-1" />
+    <link rel="stylesheet" href="/styles.css?v=client-desk-1" />
     <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-    <script defer src="/app.js?v=auto-inbox-1"></script>
+    <script defer src="/app.js?v=client-desk-1"></script>
   </head>
   <body>
     <div class="app-shell">
@@ -20,26 +20,55 @@
           </div>
         </div>
         <div class="topbar-status">
-          <span id="runBadge" class="status-pill muted">Auto sourcing</span>
+          <span id="runBadge" class="status-pill live">Live</span>
           <span id="lastUpdated" class="status-pill">sync —</span>
         </div>
       </header>
 
       <main class="crm-shell">
-        <section class="overview-strip" aria-label="Resumo automático">
-          <div class="metric raw"><span>Base</span><strong id="metricRawTotal">0</strong></div>
-          <div class="metric hot"><span id="metricTotalLabel">Qualificadas</span><strong id="metricTotal">0</strong></div>
-          <div class="metric contact"><span>Contactáveis</span><strong id="metricContactable">0</strong></div>
-          <div class="metric"><span>A leads</span><strong id="metricA">0</strong></div>
-          <div class="metric"><span>Parceiros</span><strong id="metricPartners">0</strong></div>
-          <div class="metric booked"><span>Reuniões</span><strong id="metricBooked">0</strong></div>
-          <div class="metric hidden-metric"><span>Recruta</span><strong id="metricRecruitment">0</strong></div>
-          <div class="metric hidden-metric"><span>Contacto</span><strong id="metricEmailForm">0</strong></div>
-          <div class="engine-panel">
-            <div class="run-line"><strong>Engine</strong><span id="runMessage">Automático quando o host está ligado.</span></div>
-            <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
-            <div id="systemHealth" class="health-strip"></div>
-            <div id="eventList" class="event-list"></div>
+        <section class="overview" aria-label="Resumo comercial">
+          <div class="kpi-grid">
+            <div class="metric raw"><span>Base</span><strong id="metricRawTotal">0</strong></div>
+            <div class="metric hot"><span id="metricTotalLabel">Qualificadas</span><strong id="metricTotal">0</strong></div>
+            <div class="metric contact"><span>Contactáveis</span><strong id="metricContactable">0</strong></div>
+            <div class="metric"><span>A leads</span><strong id="metricA">0</strong></div>
+            <div class="metric"><span>Parceiros</span><strong id="metricPartners">0</strong></div>
+            <div class="metric booked"><span>Reuniões</span><strong id="metricBooked">0</strong></div>
+            <div class="metric hidden-metric"><span>Recruta</span><strong id="metricRecruitment">0</strong></div>
+            <div class="metric hidden-metric"><span>Contacto</span><strong id="metricEmailForm">0</strong></div>
+          </div>
+
+          <div class="insight-grid">
+            <article class="insight-card quality-card">
+              <div>
+                <p class="eyebrow">Qualidade</p>
+                <h2>Contactabilidade</h2>
+              </div>
+              <div class="quality-ring" id="qualityRing"><span id="qualityPercent">0%</span></div>
+              <p id="qualityCopy">A medir a cobertura de contactos válidos.</p>
+            </article>
+
+            <article class="insight-card">
+              <div class="insight-head">
+                <div>
+                  <p class="eyebrow">Aquisição</p>
+                  <h2>Principais fontes</h2>
+                </div>
+                <span id="topSourceLabel" class="mini-stat">—</span>
+              </div>
+              <div id="sourceChart" class="mini-chart"></div>
+            </article>
+
+            <article class="insight-card">
+              <div class="insight-head">
+                <div>
+                  <p class="eyebrow">Pipeline</p>
+                  <h2>Estado comercial</h2>
+                </div>
+                <span id="stageFocusLabel" class="mini-stat">—</span>
+              </div>
+              <div id="stageChart" class="mini-chart"></div>
+            </article>
           </div>
         </section>
 
