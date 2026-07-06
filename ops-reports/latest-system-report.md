@@ -1,11 +1,11 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T19:59:09.926Z
+Updated: 2026-07-06T20:09:17.075Z
 Health: OK
 
 ## Funnel
 Raw: 534
-Qualified: 47
+Qualified: 46
 Working: 74
 Contactable: 55
 Sales-ready: 17
@@ -13,20 +13,20 @@ A1 Hot: 24
 A2 Strong: 14
 
 ## Quality
-Platform contact leaks: 2
+Platform contact leaks: 1
 High-value without real contact: 155
 Sales-ready by bucket: {"mql5":7,"web":3,"tiktok":2,"myfxbook":2,"specialist":1,"telegram":1,"instagram":1}
-Qualified by bucket: {"linkedin":23,"instagram":7,"mql5":7,"web":3,"tiktok":2,"myfxbook":2,"specialist":1,"telegram":1,"x":1}
+Qualified by bucket: {"linkedin":22,"instagram":7,"mql5":7,"web":3,"tiktok":2,"myfxbook":2,"specialist":1,"telegram":1,"x":1}
 
 ## Sourcing / Workers
-Provider errors: 0
-Stale workers: cloud-logger-worker, contact-gap-worker, engine-control, enrichment-worker, qualified-exporter, smart-enrichment-worker, supervisor
-Issues: warning:enrichment-worker_stale_status, warning:smart-enrichment-worker_stale_status, warning:contact-gap-worker_stale_status, warning:qualified-exporter_stale_status, warning:cloud-logger-worker_stale_status, warning:stale_export
+Provider errors: 27
+Stale workers: engine-control
+Issues: none
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 74
-Stored: 74
+Processed: 81
+Stored: 81
 Errors: 0
 Current: ZuluTrade Social Platform
 Last: ZuluTrade Social Platform

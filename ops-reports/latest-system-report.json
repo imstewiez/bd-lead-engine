@@ -1,10 +1,10 @@
 {
   "ok": true,
-  "generatedAt": "2026-07-06T19:59:09.926Z",
+  "generatedAt": "2026-07-06T20:09:17.075Z",
   "summary": {
     "ok": true,
     "rawLeads": 534,
-    "qualified": 47,
+    "qualified": 46,
     "working": 74,
     "contactable": 55,
     "realDecisionContacts": 278,
@@ -12,71 +12,34 @@
     "a1Hot": 24,
     "a2Strong": 14,
     "salesReady": 17,
-    "platformContactLeaks": 2,
+    "platformContactLeaks": 1,
     "platformBestContactLeaks": 0,
     "highValueNoContact": 155,
     "identityTrailCoverage": 71,
     "websiteOnlyContacts": 4,
-    "duplicateLike": 19,
-    "uniqueKeys": 515,
-    "enrichmentDueNow": 103,
-    "enrichedLastHour": 120,
-    "enrichedLast24h": 232,
+    "duplicateLike": 20,
+    "uniqueKeys": 514,
+    "enrichmentDueNow": 119,
+    "enrichedLastHour": 71,
+    "enrichedLast24h": 228,
     "harvesters": 9,
-    "harvesterRawSeen": 0,
+    "harvesterRawSeen": 80,
     "harvesterSavedThisCycle": 0,
-    "providerErrors": 0,
+    "providerErrors": 27,
     "providerErrorsPerSaved": null,
     "salesReadyYield": 0.032,
-    "salesReadyPerProviderError": null,
+    "salesReadyPerProviderError": 0.63,
     "staleWorkers": [
-      "cloud-logger-worker",
-      "contact-gap-worker",
-      "engine-control",
-      "enrichment-worker",
-      "qualified-exporter",
-      "smart-enrichment-worker",
-      "supervisor"
+      "engine-control"
     ],
-    "issues": [
-      {
-        "severity": "warning",
-        "code": "enrichment-worker_stale_status",
-        "message": "enrichment-worker status is stale."
-      },
-      {
-        "severity": "warning",
-        "code": "smart-enrichment-worker_stale_status",
-        "message": "smart-enrichment-worker status is stale."
-      },
-      {
-        "severity": "warning",
-        "code": "contact-gap-worker_stale_status",
-        "message": "contact-gap-worker status is stale."
-      },
-      {
-        "severity": "warning",
-        "code": "qualified-exporter_stale_status",
-        "message": "qualified-exporter status is stale."
-      },
-      {
-        "severity": "warning",
-        "code": "cloud-logger-worker_stale_status",
-        "message": "cloud-logger-worker status is stale."
-      },
-      {
-        "severity": "warning",
-        "code": "stale_export",
-        "message": "autopilot-working-leads.csv is stale."
-      }
-    ]
+    "issues": []
   },
   "health": {
     "ok": true,
-    "updatedAt": "2026-07-06T19:59:07.626Z",
+    "updatedAt": "2026-07-06T20:09:15.440Z",
     "counts": {
       "raw": 534,
-      "qualified": 47,
+      "qualified": 46,
       "working": 74,
       "contactable": 55,
       "aLeads": 38,
@@ -87,20 +50,20 @@
       "sourceOnly": 0
     },
     "duplicate": {
-      "duplicateLike": 19,
-      "uniqueKeys": 515
+      "duplicateLike": 20,
+      "uniqueKeys": 514
     },
     "enrichmentQueue": {
       "stale": 274,
       "contactless": 245,
       "neverDeep": 17,
       "eligible": 239,
-      "dueNow": 103,
-      "rotationDue": 84,
-      "enrichedLastHour": 120,
-      "enrichedLast24h": 232,
-      "oldestDeepAgeHours": 80.5,
-      "running": 2
+      "dueNow": 119,
+      "rotationDue": 82,
+      "enrichedLastHour": 71,
+      "enrichedLast24h": 228,
+      "oldestDeepAgeHours": 80.7,
+      "running": 0
     },
     "tasks": {
       "source-harvester": {
@@ -175,8 +138,8 @@
     "statuses": {
       "source-harvester": {
         "exists": true,
-        "updatedAt": "2026-07-06T19:59:05.694Z",
-        "ageMs": 1926,
+        "updatedAt": "2026-07-06T20:04:00.421Z",
+        "ageMs": 315015,
         "status": {
           "status": "running",
           "workerName": "source-harvester",
@@ -214,11 +177,88 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-06T19:59:05.669Z",
+          "heartbeatAt": "2026-07-06T20:04:00.420Z",
           "progress": {
-            "message": "Starting quality discovery with 120 queries",
+            "message": "Saved qualified lead: lilo org",
             "status": "running",
-            "latestLead": null,
+            "latestLead": {
+              "id": "4f62eb3d6135f961",
+              "source": "qwant",
+              "sourceIntent": "partner",
+              "query": "\"forex\" \"Instagram\" \"trader\" Latin America",
+              "url": "https://www.instagram.com/lilo__org/",
+              "domain": "instagram.com",
+              "platform": "Instagram",
+              "title": "lilo org",
+              "name": "lilo org",
+              "snippet": "Extracted candidate for \"forex\" \"Instagram\" \"trader\" Latin America",
+              "fetchStatus": "skipped-social-or-platform",
+              "sourceQuery": "\"forex\" \"Instagram\" \"trader\" Latin America",
+              "emails": [],
+              "socialLinks": [],
+              "contactLinks": [],
+              "websiteLinks": [],
+              "phoneNumbers": [],
+              "forms": [],
+              "contactSources": [],
+              "relatedLinks": [],
+              "decisionMakerLinks": [],
+              "decisionMakers": [],
+              "contactConfidence": 74,
+              "contactQuality": "social",
+              "lastDeepEnrichedAt": "2026-07-06T20:04:00.378Z",
+              "bestContact": "https://www.instagram.com/lilo__org/",
+              "bestContactType": "social",
+              "bestContactSource": "https://www.instagram.com/lilo__org/",
+              "enrichmentAudit": {
+                "sourceDomain": "instagram.com",
+                "contactQuality": "social",
+                "contactConfidence": 74,
+                "profileFirst": true,
+                "searchTrailUsed": false,
+                "websiteCandidates": [],
+                "contactSources": [],
+                "relatedEvidenceCount": 0,
+                "note": "Contacts are prioritized from the source profile and its discovered website/linkhub before any public-search trail evidence."
+              },
+              "leadType": "partner",
+              "segment": "Creator / Influencer",
+              "countries": [
+                "LatAm"
+              ],
+              "country": "LatAm",
+              "languages": [
+                "English",
+                "Portuguese"
+              ],
+              "evidence": [
+                "Contact path",
+                "Trading ICP",
+                "Public profile"
+              ],
+              "score": 44,
+              "priority": "A",
+              "outbound": {
+                "opener": "Vi Extracted candidate for \"forex\" \"Instagram\" \"trader\" Latin America e parece haver uma ligação clara a creator / influencer.",
+                "dm": "Olá, vi o teu trabalho ligado a trading/forex e pareceu-me que pode haver uma conversa interessante de parceria. Lidero Business Development e trabalho com parceiros, comunidades e afiliados em mercados globais. Faz sentido falarmos 15 minutos esta semana?",
+                "followUp": "Acho que há potencial para uma conversa objetiva: audiência/comunidade de trading, estrutura de parceria e crescimento com uma corretora regulada. Tens disponibilidade esta semana?"
+              },
+              "entityType": "social_profile",
+              "entityReject": false,
+              "entityRejectReason": "",
+              "companyName": "lilo org",
+              "companyKey": "profile:instagram.com:lilo__org",
+              "entitySignals": [
+                "Contact path",
+                "Trading ICP",
+                "Public profile"
+              ],
+              "officialProp": false,
+              "commercialScore": 83,
+              "commercialTier": "A",
+              "contactable": true,
+              "qualityStatus": "qualified"
+            },
             "sourceStats": {
               "linkedin": {
                 "searches": 1,
@@ -228,18 +268,34 @@
                 "discarded": 0,
                 "duplicates": 0,
                 "errors": 0,
+                "providerErrors": 9,
+                "reasons": {
+                  "provider_errors": 1
+                }
+              },
+              "instagram": {
+                "searches": 1,
+                "raw": 10,
+                "qualified": 2,
+                "saved": 0,
+                "discarded": 8,
+                "duplicates": 1,
+                "errors": 0,
                 "providerErrors": 0,
-                "reasons": {}
+                "reasons": {
+                  "blocked_commercial_noise": 7,
+                  "hard_rejected": 1
+                }
               }
             }
           },
-          "updatedAt": "2026-07-06T19:59:05.694Z"
+          "updatedAt": "2026-07-06T20:04:00.421Z"
         }
       },
       "source-harvester-social": {
         "exists": true,
-        "updatedAt": "2026-07-06T19:59:05.689Z",
-        "ageMs": 1931,
+        "updatedAt": "2026-07-06T20:02:49.280Z",
+        "ageMs": 386156,
         "status": {
           "status": "running",
           "workerName": "source-harvester-social",
@@ -277,11 +333,87 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-06T19:59:05.667Z",
+          "heartbeatAt": "2026-07-06T20:02:49.276Z",
           "progress": {
-            "message": "Starting quality discovery with 120 queries",
+            "message": "Saved qualified lead: lilo org",
             "status": "running",
-            "latestLead": null,
+            "latestLead": {
+              "id": "4f62eb3d6135f961",
+              "source": "qwant",
+              "sourceIntent": "social",
+              "query": "site:instagram.com \"forex dubai\" \"whatsapp\"",
+              "url": "https://www.instagram.com/lilo__org/",
+              "domain": "instagram.com",
+              "platform": "Instagram",
+              "title": "lilo org",
+              "name": "lilo org",
+              "snippet": "Extracted candidate for site:instagram.com \"forex dubai\" \"whatsapp\"",
+              "fetchStatus": "skipped-social-or-platform",
+              "sourceQuery": "site:instagram.com \"forex dubai\" \"whatsapp\"",
+              "emails": [],
+              "socialLinks": [],
+              "contactLinks": [],
+              "websiteLinks": [],
+              "phoneNumbers": [],
+              "forms": [],
+              "contactSources": [],
+              "relatedLinks": [],
+              "decisionMakerLinks": [],
+              "decisionMakers": [],
+              "contactConfidence": 74,
+              "contactQuality": "social",
+              "lastDeepEnrichedAt": "2026-07-06T20:02:49.228Z",
+              "bestContact": "https://www.instagram.com/lilo__org/",
+              "bestContactType": "social",
+              "bestContactSource": "https://www.instagram.com/lilo__org/",
+              "enrichmentAudit": {
+                "sourceDomain": "instagram.com",
+                "contactQuality": "social",
+                "contactConfidence": 74,
+                "profileFirst": true,
+                "searchTrailUsed": false,
+                "websiteCandidates": [],
+                "contactSources": [],
+                "relatedEvidenceCount": 0,
+                "note": "Contacts are prioritized from the source profile and its discovered website/linkhub before any public-search trail evidence."
+              },
+              "leadType": "partner",
+              "segment": "Creator / Influencer",
+              "countries": [
+                "UAE"
+              ],
+              "country": "UAE",
+              "languages": [
+                "English"
+              ],
+              "evidence": [
+                "Contact path",
+                "Trading ICP",
+                "Public profile"
+              ],
+              "score": 47,
+              "priority": "A",
+              "outbound": {
+                "opener": "I saw Extracted candidate for site:instagram.com \"forex dubai\" \"whatsapp\" and there seems to be a clear angle around contact path.",
+                "dm": "Hi, I came across your work around trading/forex and thought there may be an interesting partnership conversation. I lead Business Development and work with partners, communities, and affiliates across global markets. Would a 15-minute call this week make sense?",
+                "followUp": "I think there is a concrete angle to explore: trading audience/community, partnership structure, and growth with a regulated broker. Do you have availability this week?"
+              },
+              "entityType": "social_profile",
+              "entityReject": false,
+              "entityRejectReason": "",
+              "companyName": "lilo org",
+              "companyKey": "profile:instagram.com:lilo__org",
+              "entitySignals": [
+                "Contact path",
+                "Trading ICP",
+                "Public profile"
+              ],
+              "officialProp": false,
+              "commercialScore": 89,
+              "commercialTier": "A",
+              "contactable": true,
+              "qualityStatus": "qualified"
+            },
             "sourceStats": {
               "linkedin": {
                 "searches": 1,
@@ -291,18 +423,33 @@
                 "discarded": 0,
                 "duplicates": 0,
                 "errors": 0,
+                "providerErrors": 9,
+                "reasons": {
+                  "provider_errors": 1
+                }
+              },
+              "instagram": {
+                "searches": 1,
+                "raw": 8,
+                "qualified": 1,
+                "saved": 0,
+                "discarded": 1,
+                "duplicates": 1,
+                "errors": 0,
                 "providerErrors": 0,
-                "reasons": {}
+                "reasons": {
+                  "blocked_commercial_noise": 1
+                }
               }
             }
           },
-          "updatedAt": "2026-07-06T19:59:05.689Z"
+          "updatedAt": "2026-07-06T20:02:49.280Z"
         }
       },
       "source-harvester-specialist": {
         "exists": true,
         "updatedAt": "2026-07-06T19:59:05.703Z",
-        "ageMs": 1918,
+        "ageMs": 609733,
         "status": {
           "status": "running",
           "workerName": "source-harvester-specialist",
@@ -365,7 +512,7 @@
       "source-harvester-ecosystem": {
         "exists": true,
         "updatedAt": "2026-07-06T19:59:05.688Z",
-        "ageMs": 1933,
+        "ageMs": 609749,
         "status": {
           "status": "running",
           "workerName": "source-harvester-ecosystem",
@@ -428,7 +575,7 @@
       "source-harvester-linkedin": {
         "exists": true,
         "updatedAt": "2026-07-06T19:59:05.701Z",
-        "ageMs": 1920,
+        "ageMs": 609736,
         "status": {
           "status": "running",
           "workerName": "source-harvester-linkedin",
@@ -490,8 +637,8 @@
       },
       "source-harvester-instagram": {
         "exists": true,
-        "updatedAt": "2026-07-06T19:59:05.673Z",
-        "ageMs": 1948,
+        "updatedAt": "2026-07-06T20:01:27.254Z",
+        "ageMs": 468183,
         "status": {
           "status": "running",
           "workerName": "source-harvester-instagram",
@@ -529,32 +676,111 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-06T19:59:05.636Z",
+          "heartbeatAt": "2026-07-06T20:01:27.252Z",
           "progress": {
-            "message": "Starting quality discovery with 45 queries",
+            "message": "Saved qualified lead: help.instagram.com",
             "status": "running",
-            "latestLead": null,
+            "latestLead": {
+              "id": "9474108863a251b2",
+              "source": "bing",
+              "sourceIntent": "partner",
+              "query": "\"instagram.com\" \"forex trader\" \"whatsapp\" Portugal",
+              "url": "https://help.instagram.com/",
+              "domain": "help.instagram.com",
+              "platform": "Instagram",
+              "title": "help.instagram.com",
+              "name": "help.instagram.com",
+              "snippet": "Extracted candidate for \"instagram.com\" \"forex trader\" \"whatsapp\" Portugal",
+              "fetchStatus": "skipped-social-or-platform",
+              "sourceQuery": "site:instagram.com \"forex trader\" \"whatsapp\" Portugal",
+              "emails": [],
+              "socialLinks": [],
+              "contactLinks": [],
+              "websiteLinks": [],
+              "phoneNumbers": [],
+              "forms": [],
+              "contactSources": [],
+              "relatedLinks": [],
+              "decisionMakerLinks": [],
+              "decisionMakers": [],
+              "trailSearched": true,
+              "contactConfidence": 15,
+              "contactQuality": "no-contact-yet",
+              "lastDeepEnrichedAt": "2026-07-06T20:01:27.208Z",
+              "bestContact": "",
+              "bestContactType": "",
+              "bestContactSource": "",
+              "enrichmentAudit": {
+                "sourceDomain": "help.instagram.com",
+                "contactQuality": "no-contact-yet",
+                "contactConfidence": 15,
+                "profileFirst": true,
+                "searchTrailUsed": true,
+                "websiteCandidates": [],
+                "contactSources": [],
+                "relatedEvidenceCount": 0,
+                "note": "Contacts are prioritized from the source profile and its discovered website/linkhub before any public-search trail evidence."
+              },
+              "leadType": "partner",
+              "segment": "Creator / Influencer",
+              "countries": [
+                "Portugal"
+              ],
+              "country": "Portugal",
+              "languages": [
+                "Portuguese"
+              ],
+              "evidence": [
+                "Contact path",
+                "Trading ICP",
+                "Public profile"
+              ],
+              "score": 49,
+              "priority": "B",
+              "outbound": {
+                "opener": "Vi Extracted candidate for \"instagram.com\" \"forex trader\" \"whatsapp\" Portugal e parece haver uma ligação clara a contact path.",
+                "dm": "Olá, vi o teu trabalho ligado a trading/forex e pareceu-me que pode haver uma conversa interessante de parceria. Lidero Business Development e trabalho com parceiros, comunidades e afiliados em mercados globais. Faz sentido falarmos 15 minutos esta semana?",
+                "followUp": "Acho que há potencial para uma conversa objetiva: audiência/comunidade de trading, estrutura de parceria e crescimento com uma corretora regulada. Tens disponibilidade esta semana?"
+              },
+              "entityType": "social_profile",
+              "entityReject": false,
+              "entityRejectReason": "",
+              "companyName": "help.instagram.com",
+              "companyKey": "name:help.instagram.com",
+              "entitySignals": [
+                "Contact path",
+                "Trading ICP",
+                "Public profile"
+              ],
+              "officialProp": false,
+              "commercialScore": 75,
+              "commercialTier": "B",
+              "contactable": false,
+              "qualityStatus": "qualified"
+            },
             "sourceStats": {
               "instagram": {
                 "searches": 1,
-                "raw": 0,
-                "qualified": 0,
+                "raw": 9,
+                "qualified": 2,
                 "saved": 0,
-                "discarded": 0,
-                "duplicates": 0,
+                "discarded": 5,
+                "duplicates": 2,
                 "errors": 0,
                 "providerErrors": 0,
-                "reasons": {}
+                "reasons": {
+                  "blocked_commercial_noise": 5
+                }
               }
             }
           },
-          "updatedAt": "2026-07-06T19:59:05.673Z"
+          "updatedAt": "2026-07-06T20:01:27.254Z"
         }
       },
       "source-harvester-platforms": {
         "exists": true,
-        "updatedAt": "2026-07-06T19:59:05.703Z",
-        "ageMs": 1919,
+        "updatedAt": "2026-07-06T20:02:50.507Z",
+        "ageMs": 384930,
         "status": {
           "status": "running",
           "workerName": "source-harvester-platforms",
@@ -594,11 +820,90 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-06T19:59:05.656Z",
+          "heartbeatAt": "2026-07-06T20:02:50.506Z",
           "progress": {
-            "message": "Starting quality discovery with 47 queries",
+            "message": "Saved qualified lead: users ajtrader2014FTA",
             "status": "running",
-            "latestLead": null,
+            "latestLead": {
+              "id": "1d0e519dff2ec594",
+              "source": "bing",
+              "sourceIntent": "specialist",
+              "query": "\"mql5.com/en/users\" \"XAUUSD\"",
+              "url": "https://www.mql5.com/en/users/ajtrader2014FTA",
+              "domain": "mql5.com",
+              "platform": "MQL5",
+              "title": "users ajtrader2014FTA",
+              "name": "users ajtrader2014FTA",
+              "snippet": "Extracted candidate for \"mql5.com/en/users\" \"XAUUSD\"",
+              "fetchStatus": "deep-failed: HTTP 404",
+              "sourceQuery": "site:mql5.com/en/users \"XAUUSD\"",
+              "emails": [],
+              "socialLinks": [],
+              "contactLinks": [],
+              "websiteLinks": [],
+              "phoneNumbers": [],
+              "forms": [],
+              "contactSources": [
+                "https://www.mql5.com/en/users/ajtrader2014FTA"
+              ],
+              "relatedLinks": [],
+              "decisionMakerLinks": [],
+              "decisionMakers": [],
+              "contactConfidence": 74,
+              "contactQuality": "social",
+              "lastDeepEnrichedAt": "2026-07-06T20:02:50.453Z",
+              "bestContact": "",
+              "bestContactType": "",
+              "bestContactSource": "",
+              "enrichmentAudit": {
+                "sourceDomain": "mql5.com",
+                "contactQuality": "social",
+                "contactConfidence": 74,
+                "profileFirst": true,
+                "searchTrailUsed": false,
+                "websiteCandidates": [],
+                "contactSources": [
+                  "https://www.mql5.com/en/users/ajtrader2014FTA"
+                ],
+                "relatedEvidenceCount": 0,
+                "note": "Contacts are prioritized from the source profile and its discovered website/linkhub before any public-search trail evidence."
+              },
+              "leadType": "partner",
+              "segment": "High-Calibre Trader",
+              "countries": [],
+              "country": "",
+              "languages": [
+                "English",
+                "Portuguese"
+              ],
+              "evidence": [
+                "Contact path",
+                "Trading ICP",
+                "Public profile"
+              ],
+              "score": 49,
+              "priority": "A",
+              "outbound": {
+                "opener": "Vi Extracted candidate for \"mql5.com/en/users\" \"XAUUSD\" e parece haver uma ligação clara a high-calibre trader.",
+                "dm": "Olá, vi o teu trabalho ligado a trading/forex e pareceu-me que pode haver uma conversa interessante de parceria. Lidero Business Development e trabalho com parceiros, comunidades e afiliados em mercados globais. Faz sentido falarmos 15 minutos esta semana?",
+                "followUp": "Acho que há potencial para uma conversa objetiva: audiência/comunidade de trading, estrutura de parceria e crescimento com uma corretora regulada. Tens disponibilidade esta semana?"
+              },
+              "entityType": "social_profile",
+              "entityReject": false,
+              "entityRejectReason": "",
+              "companyName": "users ajtrader2014FTA",
+              "companyKey": "domain:mql5.com",
+              "entitySignals": [
+                "Contact path",
+                "Trading ICP",
+                "Public profile"
+              ],
+              "officialProp": false,
+              "commercialScore": 84,
+              "commercialTier": "A",
+              "contactable": true,
+              "qualityStatus": "qualified"
+            },
             "sourceStats": {
               "myfxbook": {
                 "searches": 1,
@@ -608,18 +913,31 @@
                 "discarded": 0,
                 "duplicates": 0,
                 "errors": 0,
+                "providerErrors": 9,
+                "reasons": {
+                  "provider_errors": 1
+                }
+              },
+              "mql5": {
+                "searches": 1,
+                "raw": 2,
+                "qualified": 1,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 1,
+                "errors": 0,
                 "providerErrors": 0,
                 "reasons": {}
               }
             }
           },
-          "updatedAt": "2026-07-06T19:59:05.703Z"
+          "updatedAt": "2026-07-06T20:02:50.507Z"
         }
       },
       "source-harvester-communities": {
         "exists": true,
-        "updatedAt": "2026-07-06T19:59:05.677Z",
-        "ageMs": 1945,
+        "updatedAt": "2026-07-06T20:05:23.829Z",
+        "ageMs": 231608,
         "status": {
           "status": "running",
           "workerName": "source-harvester-communities",
@@ -657,32 +975,127 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-06T19:59:05.647Z",
+          "heartbeatAt": "2026-07-06T20:05:23.828Z",
           "progress": {
-            "message": "Starting quality discovery with 116 queries",
+            "message": "Saved qualified lead: company murenamobile",
             "status": "running",
-            "latestLead": null,
+            "latestLead": {
+              "id": "0164ff87a4821946",
+              "source": "qwant",
+              "sourceIntent": "partner",
+              "query": "\"forex\" \"discord\" \"trading\" South Africa",
+              "url": "https://www.linkedin.com/company/murenamobile",
+              "domain": "linkedin.com",
+              "platform": "LinkedIn",
+              "title": "company murenamobile",
+              "name": "company murenamobile",
+              "snippet": "Extracted candidate for \"forex\" \"discord\" \"trading\" South Africa",
+              "fetchStatus": "skipped-social-or-platform",
+              "sourceQuery": "\"forex\" \"discord\" \"trading\" South Africa",
+              "emails": [],
+              "socialLinks": [],
+              "contactLinks": [],
+              "websiteLinks": [],
+              "phoneNumbers": [],
+              "forms": [],
+              "contactSources": [],
+              "relatedLinks": [],
+              "decisionMakerLinks": [],
+              "decisionMakers": [],
+              "contactConfidence": 74,
+              "contactQuality": "social",
+              "lastDeepEnrichedAt": "2026-07-06T20:05:23.792Z",
+              "bestContact": "https://www.linkedin.com/company/murenamobile",
+              "bestContactType": "social",
+              "bestContactSource": "https://www.linkedin.com/company/murenamobile",
+              "enrichmentAudit": {
+                "sourceDomain": "linkedin.com",
+                "contactQuality": "social",
+                "contactConfidence": 74,
+                "profileFirst": true,
+                "searchTrailUsed": false,
+                "websiteCandidates": [],
+                "contactSources": [],
+                "relatedEvidenceCount": 0,
+                "note": "Contacts are prioritized from the source profile and its discovered website/linkhub before any public-search trail evidence."
+              },
+              "leadType": "partner",
+              "segment": "Community",
+              "countries": [
+                "South Africa"
+              ],
+              "country": "South Africa",
+              "languages": [
+                "English"
+              ],
+              "evidence": [
+                "Community/audience",
+                "Contact path",
+                "Trading ICP",
+                "Public profile",
+                "Company/partner path"
+              ],
+              "score": 43,
+              "priority": "A",
+              "outbound": {
+                "opener": "I saw Extracted candidate for \"forex\" \"discord\" \"trading\" South Africa and there seems to be a clear angle around community/audience.",
+                "dm": "Hi, I came across your work around trading/forex and thought there may be an interesting partnership conversation. I lead Business Development and work with partners, communities, and affiliates across global markets. Would a 15-minute call this week make sense?",
+                "followUp": "I think there is a concrete angle to explore: trading audience/community, partnership structure, and growth with a regulated broker. Do you have availability this week?"
+              },
+              "entityType": "social_profile",
+              "entityReject": false,
+              "entityRejectReason": "",
+              "companyName": "company murenamobile",
+              "companyKey": "linkedin:company:murenamobile",
+              "entitySignals": [
+                "Contact path",
+                "Trading ICP",
+                "Public profile",
+                "Company/partner path"
+              ],
+              "officialProp": false,
+              "commercialScore": 91,
+              "commercialTier": "A",
+              "contactable": true,
+              "qualityStatus": "qualified"
+            },
             "sourceStats": {
               "telegram": {
                 "searches": 1,
-                "raw": 0,
+                "raw": 1,
                 "qualified": 0,
                 "saved": 0,
-                "discarded": 0,
+                "discarded": 1,
                 "duplicates": 0,
                 "errors": 0,
                 "providerErrors": 0,
-                "reasons": {}
+                "reasons": {
+                  "hard_rejected": 1
+                }
+              },
+              "discord": {
+                "searches": 1,
+                "raw": 10,
+                "qualified": 2,
+                "saved": 0,
+                "discarded": 8,
+                "duplicates": 1,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "blocked_commercial_noise": 7,
+                  "hard_rejected": 1
+                }
               }
             }
           },
-          "updatedAt": "2026-07-06T19:59:05.677Z"
+          "updatedAt": "2026-07-06T20:05:23.829Z"
         }
       },
       "source-harvester-events": {
         "exists": true,
-        "updatedAt": "2026-07-06T19:59:05.679Z",
-        "ageMs": 1944,
+        "updatedAt": "2026-07-06T20:06:51.885Z",
+        "ageMs": 143553,
         "status": {
           "status": "running",
           "workerName": "source-harvester-events",
@@ -720,32 +1133,133 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-06T19:59:05.648Z",
+          "heartbeatAt": "2026-07-06T20:06:51.884Z",
           "progress": {
-            "message": "Starting quality discovery with 120 queries",
+            "message": "Saved qualified lead: Opere com a Tickmill",
             "status": "running",
-            "latestLead": null,
+            "latestLead": {
+              "id": "86d804405fe24307",
+              "source": "bing-rss",
+              "sourceIntent": "recruitment",
+              "query": "\"Tickmill\" \"affiliate manager\" LatAm",
+              "url": "https://www.tickmill.com/pt/",
+              "domain": "tickmill.com",
+              "platform": "Web",
+              "title": "Opere com a Tickmill | Corretora Multiativos | CFDs de Forex, Ações ...",
+              "name": "Opere com a Tickmill | Corretora Multiativos | CFDs de Forex, Ações ...",
+              "snippet": "Comece a investir nos Mercados Internacionais com uma corretora moderna e dinâmica. Opere mais de 180 CFDs com preços super competitivos na Tickmill. Comece a operar agora!",
+              "pageTitle": "Opere com a Tickmill | Corretora Multiativos | CFDs de Forex, Ações, Commodities, Índices e muito mais | Tickmill",
+              "pageDescription": "Comece a investir nos Mercados Internacionais com uma corretora moderna e dinâmica. Opere mais de 180 CFDs com preços super competitivos na Tickmill. Comece a operar agora!",
+              "pageText": "It looks like you are based in the Click proceed to be taken to . Avançar Selecionar idioma English Deutsch 中文简体 中文繁體 Indonesian Русский Español العربية Polski Italiano 한국어 ภาษาไทย Melayu Tiếng Việt Portuguese close Os CFD são instrumentos complexos e têm um risco elevado de perda rápida de dinheiro devido a alavancagem. 73% das contas de investidores de retalho perdem dinheiro na negociação de CFD com a Tickmill Europe Ltd.Deverá ponderar se compreende como os CFD funcionam e se consegue suportar o risco elevado de perda do seu dinheiro. Tickmill não é regulada pela CVM (Comissão de Valores Mobiliários) no Brasil. Não realizamos nenhuma atividade de marketing ativo nem oferta pública de valores para residentes no Brasil. Comece agora Comece aqui Por que operar com a gente? O que você pode operar? Depósitos e Saques Visão Geral das Contas Saiba mais Trading Mercados Commodities Forex Criptomoedas Índices de Bolsa Ações Plataformas MetaTrader 4 MetaTrader 5 Condições de Trading Depósitos e Saques Spreads e Swaps Alavancagem e Margem Clientes Profissionais Custos de Futuros e Opções Instrumentos Calculadora de Forex Central de Sinais Acuity Trading Trading schedule Receba Juros Contas Visão Geral das Contas Conta Islâmica Conta Demo Sobre Nós Diretores Prêmios Segurança do Capital Licenças e Reguaçôes Vagas Abertas Documentos Legais Suporte Contato Perguntas Frequentes (FAQs) Educação Lives Seminários Vídeos Pesquisar Criar Conta Iniciar sessão Comece agora Comece aqui Por que operar com a gente? O que você pode operar? Depósitos e Saques Visão Geral das Contas Saiba mais Trading Mercados Commodities Forex Criptomoedas Índices de Bolsa Ações Plataformas MetaTrader 4 MetaTrader 5 Condições de Trading Depósitos e Saques Spreads e Swaps Alavancagem e Margem Clientes Profissionais Custos de Futuros e Opções Instrumentos Calculadora de Forex Central de Sinais Acuity Trading Trading schedule Receba Juros Contas Visão Geral das Contas Conta Islâmica Conta Demo Sobre Nós Diretores Prêmios Segurança do Capital Licenças e Reguaçôes Vagas Abertas Documentos Legais Suporte Contato Perguntas Frequentes (FAQs) Educação Lives Seminários Vídeos Criar Conta Iniciar sessão pt Bem-vindo à Nova Tickmill Opere mais de 600 CFDs, incluindo Forex, Commodities, Índices, Criptomoedas e muito mais, em plataformas feitas para alta performance. Começar a Operar Experimente a demo Atendimento Dedicado Execução Ultrarrápida Segurança do Capital do Cliente Spreads Reduzidos Conheça os ativos disponíveis para operar Forex e CFDs com a gente Forex Mais de 60 pares de moedas, incluindo as principais e USDBRL Alavancagem até 1:30 Spreads a partir de 0,0 pips Commodities Metais e Energia Spreads muito baixos Alavancagem até 1:20 Criptomoedas Bitcoin, Ethereum e outras Leverage up to 1:2 Zero commissions Índices das Bolsas Mais de 20 índices globais, incluindo Nasdaq e SP500 Alavancagem até 1:20 Zero comissões Ações e ETFs Mais de 500 ativos como NVIDIA, Apple e mais Alavancagem até 1:5 Zero comissões* Bônus Bônus Alemão Alavancagem até 1:5 Spreads reduzidos Saber mais *Podem ser aplicadas outras taxas. Condições excepcionais em todas as contas de operação com CFDs CONTA RAW Aproveite spreads justos e comissões competitivas. MT4 MT5 Depósito Inicial 100 Moedas base disponíveis USD, EUR, GBP, PLN, CHF Spreads desde 0.0 pip Alavancagem máx. para Clientes de Varejo 1:30 Alavancagem mín. para Clientes Profissionais 1:500 Comissões $3 por lado, por 100.000 negociados Criar Conta CONTA CLASSIC Tenha acesso a mercados globais e opere sem comissões. MT4 MT5 Depósito Inicial 100 Moedas base disponíveis USD, EUR, GBP, PLN, CHF Spreads desde 1.6 pip Alavancagem máx. para Clientes de Varejo 1:30 Alavancagem mín. para Clientes Profissionais 1:500 Comissões Zero comissões Criar Conta Visão Geral das Contas Depósitos e Retiradas Performance de verdade pra quem opera Forex e CFDs com foco em resultado 180+ Países Atendidos +196 Bilhões de média de volume mensal de trading 0.15 seg Tempo médio de execução * Os números referem-se à atividade do Grupo Tickmill em 2024 para a negociação de Forex/CFDs As melhores plataformas de trading Forex e CFD à sua disposição MT5 Ordens pendentes avançadas Ferramentas de análise superiores Gráficos completamente personalizáveis Calendário económico integrado Disponível em: Windows MacOS Android iOS WebTrader Saiba mais MT4 Ferramentas gráficas e analíticas avançadas Ferramentas sofisticadas de gestão de ordens Consultores Especializados disponíveis Negocie a partir do seu computador ou dispositivo móvel Disponível em: Windows Android iOS WebTrader Saiba mais MT5 Ordens pendentes avançadas Ferramentas de análise superiores Gráficos completamente personalizáveis Calendário económico integrado Disponível em: Windows MacOS Android iOS WebTrader Saiba mais MT4 Ferramentas gráficas e analíticas avançadas Ferramentas sofisticadas de gestão de ordens Consultores Especializados disponíveis Negocie a partir do seu computador ou dispositivo móvel Disponível em: Windows Android iOS WebTrader Saiba mais Licenças do Grupo Tickmill Tickmill Ltd FSA Seychelles,Licença N.º SD008 Tickmill UK Ltd FCA, Registo N.º 717270Escritório de representação em Dubai(DFSA, Ref N.º F007663) Tickmill Europe Ltd CySEC, Licença N.º 278/15 Tickmill South Africa (Pty) Ltd FSCA, FSP N.º 49464 Anos de Crescimento.Milhões de Operações.Simplesmente Funciona. 830M+ Operações executadas 623.867 Clientes satisfeitos * Os números aplicam-se a todas as entidades do Grupo Tickmill Começar a Operar Experimente a demo INSTRUMENTOS DE NEGOCIAÇÃO Forex Índices das Bolsas Commodities Criptomoedas Ações CONTAS DE NEGOCIAÇÃO Visão Geral das Contas Conta Classic Conta Raw Clientes Profissionais Conta Islâmica Conta Demo FERRAMENTAS Calendário Econômico Calculadoras de Trading Advanced Trading Toolkit Acuity Trading Calendário de Resultados Financeiros Ferramenta Signal Centre Juros na Sua Conta SOBRE A TICKMILL Por quê a Tickmill? Segurança do Capital Gestão Global Licenças e Regulamentações Notícias Prêmios Documentação Legal Carreira Profissional RSC CONDIÇÕES DE NEGOCIAÇÃO Depósitos e Saques Spreads e Swaps Alavancagem e margem Custos e Taxas de Negociação PLATAFORMAS DE NEGOCIAÇÃO MetaTrader 5 MetaTrader 4 Plataforma WebTrader MetaTrader para Mac App da Tickmil Tickmill VPS EDUCATIVO Lives Seminários Ebooks Tutoriais em Vídeo Glossário Forex PARCERIA White Label Programa de Afiliados (CPA) SUPORTE Contatos Perguntas Frequentes A Tickmill Europe Ltd é autorizada e regulamentada pela Cyprus Securities and Exchange Commission – CySEC (número de licença CIF 278/15) e é membro do Investor Compensation Fund (ICF), tendo seu escritório comercial e registrado em Kedron 9, Mesa Geitonia 4004, Chipre.A Tickmill Europe Ltd é registrada na German Federal Financial Supervisory Authority – BaFin (número de registro: 146511), na French Autorité de Contrôle Prudentiel et de Résolution – ACPR (número de registro 75473), na Italian Commissione Nazionale per le Società e la Borsa – CONSOB (número de registro 4310), na Spanish Comisión Nacional de Mercado de Valores – CNVM (número de registro: 4082).A Tickmill Europe Ltd está licenciada para prestar serviços de investimento de Recepção e Transmissão de Ordens, Execução de Ordens em Nome de Clientes, Negociação por Conta Própria e Gestão de Carteiras em relação a Valores Mobiliários, Opções, Futuros, SWAPS, Contratos de Taxa de Juros a Termo, Contratos Financeiros por Diferença (CFDs) e outros Derivativos. A Empresa presta serviços de investimento e serviços auxiliares a residentes da União Europeia e do Espaço Econômico Europeu.Aviso de Risco: CFDs são instrumentos complexos e apresentam alto risco de perda rápida de dinheiro devido à alavancagem. 73% das contas de investidores de varejo perdem dinheiro ao negociar CFDs com a Tickmill Europe Ltd. Você deve considerar se entende como os CFDs funcionam e se pode correr o alto risco de perder seu dinheiro. Você deve estar ciente de todos os r",
+              "emails": [],
+              "socialLinks": [],
+              "contactLinks": [],
+              "fetchStatus": "deep-failed: Skipped blocked/broker/referral page",
+              "sourceQuery": "\"Tickmill\" \"affiliate manager\" LatAm",
+              "websiteLinks": [],
+              "phoneNumbers": [],
+              "forms": [],
+              "contactSources": [],
+              "relatedLinks": [],
+              "decisionMakerLinks": [],
+              "decisionMakers": [],
+              "trailSearched": true,
+              "contactConfidence": 15,
+              "contactQuality": "no-contact-yet",
+              "lastDeepEnrichedAt": "2026-07-06T20:06:51.836Z",
+              "bestContact": "",
+              "bestContactType": "",
+              "bestContactSource": "",
+              "enrichmentAudit": {
+                "sourceDomain": "tickmill.com",
+                "contactQuality": "no-contact-yet",
+                "contactConfidence": 15,
+                "profileFirst": true,
+                "searchTrailUsed": true,
+                "websiteCandidates": [],
+                "contactSources": [],
+                "relatedEvidenceCount": 0,
+                "note": "Contacts are prioritized from the source profile and its discovered website/linkhub before any public-search trail evidence."
+              },
+              "leadType": "recruitment",
+              "segment": "Affiliate",
+              "countries": [
+                "Brazil",
+                "UAE",
+                "South Africa",
+                "United Kingdom"
+              ],
+              "country": "Brazil",
+              "languages": [
+                "Portuguese",
+                "Spanish",
+                "English"
+              ],
+              "evidence": [
+                "Affiliate angle",
+                "Broker background",
+                "Contact path",
+                "Trading ICP"
+              ],
+              "score": 100,
+              "priority": "A",
+              "outbound": {
+                "opener": "Vi o teu percurso ligado a brokers/BD e pareceu-me relevante para expansão comercial em Brazil, UAE, South Africa, United Kingdom.",
+                "dm": "Olá, vi o teu perfil e o teu percurso em brokerage/partnerships chamou-me a atenção. Lidero Business Development e estou a mapear talento comercial forte para crescimento internacional. Faz sentido termos uma conversa curta esta semana?",
+                "followUp": "Acho que pode haver fit pelo teu background em affiliate angle. Se fizer sentido, trocamos 15 minutos e vemos se há espaço para colaborar."
+              },
+              "entityType": "partner_entity",
+              "entityReject": false,
+              "entityRejectReason": "",
+              "companyName": "Opere com a Tickmill",
+              "companyKey": "domain:tickmill.com",
+              "entitySignals": [
+                "Contact path",
+                "Trading ICP"
+              ],
+              "officialProp": false,
+              "commercialScore": 92,
+              "commercialTier": "A",
+              "contactable": false,
+              "qualityStatus": "qualified"
+            },
             "sourceStats": {
               "ecosystem": {
-                "searches": 1,
-                "raw": 0,
-                "qualified": 0,
+                "searches": 2,
+                "raw": 20,
+                "qualified": 2,
                 "saved": 0,
-                "discarded": 0,
-                "duplicates": 0,
+                "discarded": 8,
+                "duplicates": 12,
                 "errors": 0,
                 "providerErrors": 0,
-                "reasons": {}
+                "reasons": {
+                  "blocked_commercial_noise": 7,
+                  "hard_rejected": 1
+                }
+              },
+              "recruitment": {
+                "searches": 2,
+                "raw": 20,
+                "qualified": 1,
+                "saved": 0,
+                "discarded": 11,
+                "duplicates": 1,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "blocked_commercial_noise": 11
+                }
               }
             }
           },
-          "updatedAt": "2026-07-06T19:59:05.679Z"
+          "updatedAt": "2026-07-06T20:06:51.885Z"
         }
       },
       "enrichment-worker": {
         "exists": true,
-        "updatedAt": "2026-07-06T19:37:16.398Z",
-        "ageMs": 1311225,
+        "updatedAt": "2026-07-06T20:08:52.152Z",
+        "ageMs": 23286,
         "status": {
           "status": "running",
           "phase": "enriching",
@@ -761,22 +1275,22 @@
             "maxTrailQueries": 18,
             "trailLimit": 7
           },
-          "processed": 354,
+          "processed": 377,
           "rejected": 29,
           "errors": 0,
           "idleCycles": 0,
           "queue": {
             "eligible": 221,
-            "dueNow": 84,
+            "dueNow": 82,
             "never": 0,
             "contactlessDue": 0,
             "scheduledDue": 82,
-            "rotationDue": 2,
-            "recentlyEnriched1h": 137,
-            "recentlyEnriched24h": 193,
+            "rotationDue": 0,
+            "recentlyEnriched1h": 72,
+            "recentlyEnriched24h": 188,
             "blockedRunning": 1,
             "blockedNoise": 0,
-            "oldestDeepAgeHours": 67.2
+            "oldestDeepAgeHours": 67.7
           },
           "current": {
             "id": "563b97008ecfe1d6",
@@ -785,18 +1299,18 @@
             "platform": "ZuluTrade",
             "dueReason": "scheduled_due"
           },
-          "updatedAt": "2026-07-06T19:37:16.398Z"
+          "updatedAt": "2026-07-06T20:08:52.152Z"
         }
       },
       "smart-enrichment-worker": {
         "exists": true,
-        "updatedAt": "2026-07-06T19:37:13.294Z",
-        "ageMs": 1314329,
+        "updatedAt": "2026-07-06T20:08:49.638Z",
+        "ageMs": 25800,
         "status": {
           "status": "running",
           "phase": "smart-enriching",
-          "processed": 74,
-          "stored": 74,
+          "processed": 81,
+          "stored": 81,
           "rejected": 0,
           "errors": 0,
           "current": {
@@ -816,54 +1330,54 @@
             "websites": 30,
             "related": 0,
             "hasDecisionContact": true,
-            "at": "2026-07-06T19:37:05.609Z"
+            "at": "2026-07-06T20:07:53.369Z"
           },
-          "updatedAt": "2026-07-06T19:37:13.294Z"
+          "updatedAt": "2026-07-06T20:08:49.638Z"
         }
       },
       "contact-gap-worker": {
         "exists": true,
-        "updatedAt": "2026-07-06T19:36:30.285Z",
-        "ageMs": 1357338,
+        "updatedAt": "2026-07-06T20:05:46.932Z",
+        "ageMs": 208506,
         "status": {
           "status": "running",
           "phase": "enriching-gap",
-          "processed": 64,
-          "stored": 64,
+          "processed": 67,
+          "stored": 67,
           "rejected": 0,
           "errors": 0,
           "current": {
-            "id": "4f0613f8f161d374",
-            "name": "Gold Spot US Dollar",
-            "url": "https://www.myfxbook.com/forex-market/currencies/XAUUSD",
-            "bucket": "tiktok",
-            "score": 181
+            "id": "c9b66bfed6e2fa00",
+            "name": "fr.linkedin.com",
+            "url": "https://fr.linkedin.com/",
+            "bucket": "linkedin",
+            "score": 178
           },
           "lastResult": {
             "status": "stored",
-            "id": "abdb9dbb5728e6a6",
-            "name": "AUUSD Live Gold Price Tracker",
-            "bucket": "tiktok",
-            "bestContact": "https://xauusd.finance/",
-            "contactLinks": 2,
-            "websites": 13,
+            "id": "bbb74715d4f0c53e",
+            "name": "Evolution",
+            "bucket": "discord",
+            "bestContact": "https://www.forexevolution.co.za/",
+            "contactLinks": 0,
+            "websites": 1,
             "hasRealContact": false,
-            "at": "2026-07-06T19:36:21.063Z"
+            "at": "2026-07-06T20:05:37.711Z"
           },
-          "updatedAt": "2026-07-06T19:36:30.285Z"
+          "updatedAt": "2026-07-06T20:05:46.932Z"
         }
       },
       "lead-cleaner": {
         "exists": true,
-        "updatedAt": "2026-07-06T19:59:05.220Z",
-        "ageMs": 2404,
+        "updatedAt": "2026-07-06T20:08:07.910Z",
+        "ageMs": 67529,
         "status": {
           "status": "running",
           "phase": "waiting",
-          "cycle": 80,
+          "cycle": 86,
           "intervalMs": 90000,
           "limit": 1000,
-          "totalRemoved": 9,
+          "totalRemoved": 10,
           "errors": 0,
           "lastRun": {
             "ok": true,
@@ -876,13 +1390,13 @@
             "sample": [],
             "exported": null
           },
-          "updatedAt": "2026-07-06T19:59:05.220Z"
+          "updatedAt": "2026-07-06T20:08:07.910Z"
         }
       },
       "qualified-exporter": {
         "exists": true,
-        "updatedAt": "2026-07-06T19:36:00.951Z",
-        "ageMs": 1386673,
+        "updatedAt": "2026-07-06T20:08:16.814Z",
+        "ageMs": 58625,
         "status": {
           "status": "running",
           "intervalMs": 90000,
@@ -905,50 +1419,50 @@
             "workingJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.json",
             "researchCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.csv",
             "researchJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.json",
-            "exported": 48,
+            "exported": 46,
             "working": 74,
             "researchSources": 70,
-            "contactable": 48,
-            "hot": 39,
-            "social": 33,
-            "instagram": 8,
-            "linkedin": 23,
+            "contactable": 46,
+            "hot": 38,
+            "social": 31,
+            "instagram": 7,
+            "linkedin": 22,
             "x": 1,
-            "total": 535
+            "total": 534
           },
-          "updatedAt": "2026-07-06T19:36:00.951Z"
+          "updatedAt": "2026-07-06T20:08:16.814Z"
         }
       },
       "ui-snapshot-worker": {
         "exists": true,
-        "updatedAt": "2026-07-06T19:59:04.699Z",
-        "ageMs": 2925,
+        "updatedAt": "2026-07-06T20:09:14.101Z",
+        "ageMs": 1338,
         "status": {
           "ok": true,
-          "updatedAt": "2026-07-06T19:59:04.699Z",
+          "updatedAt": "2026-07-06T20:09:14.101Z",
           "total": 207,
           "rawTotal": 534,
           "rejectedTotal": 327,
-          "buildMs": 917,
+          "buildMs": 365,
           "qualityGate": "commercial-noise-policy-v3"
         }
       },
       "cloud-logger-worker": {
         "exists": true,
-        "updatedAt": "2026-07-06T19:36:54.745Z",
-        "ageMs": 1332880,
+        "updatedAt": "2026-07-06T19:59:13.528Z",
+        "ageMs": 601911,
         "status": {
           "status": "running",
           "phase": "waiting",
           "intervalMs": 600000,
-          "cycles": 13,
+          "cycles": 14,
           "errors": 0,
           "lastResult": {
             "summary": {
-              "at": "2026-07-06T19:36:50.815Z",
+              "at": "2026-07-06T19:59:09.926Z",
               "ok": true,
-              "raw": 535,
-              "qualified": 48,
+              "raw": 534,
+              "qualified": 47,
               "working": 74,
               "contactable": 55,
               "salesReady": 17,
@@ -956,15 +1470,52 @@
               "a2Strong": 14,
               "platformContactLeaks": 2,
               "highValueNoContact": 155,
-              "providerErrors": 63,
+              "providerErrors": 0,
               "staleWorkers": [
-                "engine-control"
+                "cloud-logger-worker",
+                "contact-gap-worker",
+                "engine-control",
+                "enrichment-worker",
+                "qualified-exporter",
+                "smart-enrichment-worker",
+                "supervisor"
               ],
-              "issues": [],
+              "issues": [
+                {
+                  "severity": "warning",
+                  "code": "enrichment-worker_stale_status",
+                  "message": "enrichment-worker status is stale."
+                },
+                {
+                  "severity": "warning",
+                  "code": "smart-enrichment-worker_stale_status",
+                  "message": "smart-enrichment-worker status is stale."
+                },
+                {
+                  "severity": "warning",
+                  "code": "contact-gap-worker_stale_status",
+                  "message": "contact-gap-worker status is stale."
+                },
+                {
+                  "severity": "warning",
+                  "code": "qualified-exporter_stale_status",
+                  "message": "qualified-exporter status is stale."
+                },
+                {
+                  "severity": "warning",
+                  "code": "cloud-logger-worker_stale_status",
+                  "message": "cloud-logger-worker status is stale."
+                },
+                {
+                  "severity": "warning",
+                  "code": "stale_export",
+                  "message": "autopilot-working-leads.csv is stale."
+                }
+              ],
               "smartTrail": {
                 "phase": "smart-enriching",
-                "processed": 73,
-                "stored": 73,
+                "processed": 74,
+                "stored": 74,
                 "errors": 0,
                 "current": "ZuluTrade Social Platform",
                 "last": "ZuluTrade Social Platform",
@@ -981,7 +1532,7 @@
               },
               "qualifiedByBucket": {
                 "linkedin": 23,
-                "instagram": 8,
+                "instagram": 7,
                 "mql5": 7,
                 "web": 3,
                 "tiktok": 2,
@@ -995,64 +1546,64 @@
               "ok": true,
               "committed": true,
               "pushed": true,
-              "commit": "[main 08f232e] ops: update engine cloud report 2026-07-06T19:36:51.287Z\n 3 files changed, 740 insertions(+), 907 deletions(-)\n"
+              "commit": "[main c97757d] ops: update engine cloud report 2026-07-06T19:59:11.064Z\n 3 files changed, 401 insertions(+), 1051 deletions(-)\n"
             }
           },
-          "updatedAt": "2026-07-06T19:36:54.745Z"
+          "updatedAt": "2026-07-06T19:59:13.528Z"
         }
       },
       "supervisor": {
         "exists": true,
-        "updatedAt": "2026-07-06T19:37:11.955Z",
-        "ageMs": 1315670,
+        "updatedAt": "2026-07-06T20:08:20.707Z",
+        "ageMs": 54732,
         "status": {
           "status": "running",
-          "cycle": 115,
+          "cycle": 125,
           "intervalMs": 60000,
           "ensured": [
             {
               "name": "source-harvester",
-              "pid": 38976,
+              "pid": 24540,
               "status": "running"
             },
             {
               "name": "source-harvester-social",
-              "pid": 30484,
+              "pid": 12228,
               "status": "running"
             },
             {
               "name": "source-harvester-specialist",
-              "pid": 39728,
-              "status": "started"
+              "pid": 23980,
+              "status": "running"
             },
             {
               "name": "source-harvester-ecosystem",
-              "pid": 17796,
+              "pid": 39640,
               "status": "running"
             },
             {
               "name": "source-harvester-linkedin",
-              "pid": 35708,
+              "pid": 34668,
               "status": "running"
             },
             {
               "name": "source-harvester-instagram",
-              "pid": 11600,
+              "pid": 28276,
               "status": "running"
             },
             {
               "name": "source-harvester-platforms",
-              "pid": 36828,
+              "pid": 480,
               "status": "running"
             },
             {
               "name": "source-harvester-communities",
-              "pid": 22124,
+              "pid": 39440,
               "status": "running"
             },
             {
               "name": "source-harvester-events",
-              "pid": 22572,
+              "pid": 38120,
               "status": "running"
             },
             {
@@ -1096,7 +1647,7 @@
             "ok": true,
             "counts": {
               "raw": 534,
-              "qualified": 47,
+              "qualified": 46,
               "working": 74,
               "contactable": 55,
               "aLeads": 38,
@@ -1111,16 +1662,16 @@
               "contactless": 245,
               "neverDeep": 17,
               "eligible": 239,
-              "dueNow": 102,
-              "rotationDue": 84,
-              "enrichedLastHour": 138,
-              "enrichedLast24h": 233,
-              "oldestDeepAgeHours": 80.1,
-              "running": 1
+              "dueNow": 116,
+              "rotationDue": 82,
+              "enrichedLastHour": 74,
+              "enrichedLast24h": 228,
+              "oldestDeepAgeHours": 80.7,
+              "running": 2
             },
             "issues": []
           },
-          "updatedAt": "2026-07-06T19:37:11.955Z"
+          "updatedAt": "2026-07-06T20:08:20.707Z"
         }
       }
     },
@@ -1128,102 +1679,71 @@
       "autopilot-qualified-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.csv",
-        "size": 142525,
-        "updatedAt": "2026-07-06T19:59:07.413Z",
-        "ageMs": 212.052001953125
+        "size": 141095,
+        "updatedAt": "2026-07-06T20:08:16.560Z",
+        "ageMs": 58878.712646484375
       },
       "autopilot-qualified-contactable-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.csv",
-        "size": 142525,
-        "updatedAt": "2026-07-06T19:59:07.491Z",
-        "ageMs": 133.533447265625
+        "size": 141095,
+        "updatedAt": "2026-07-06T20:08:16.615Z",
+        "ageMs": 58823.711181640625
       },
       "autopilot-hot-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.csv",
-        "size": 118210,
-        "updatedAt": "2026-07-06T19:59:07.557Z",
-        "ageMs": 67.64892578125
+        "size": 116780,
+        "updatedAt": "2026-07-06T20:08:16.659Z",
+        "ageMs": 58781.197021484375
       },
       "autopilot-working-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
-        "size": 192103,
-        "updatedAt": "2026-07-06T19:37:10.812Z",
-        "ageMs": 1316813.2783203125
+        "size": 192047,
+        "updatedAt": "2026-07-06T20:09:10.498Z",
+        "ageMs": 4941.5703125
       },
       "autopilot-social-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
-        "size": 70440,
-        "updatedAt": "2026-07-06T19:59:07.581Z",
-        "ageMs": 43.63818359375
+        "size": 69010,
+        "updatedAt": "2026-07-06T20:09:10.436Z",
+        "ageMs": 5003.598876953125
       },
       "autopilot-linkedin-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
-        "size": 48465,
-        "updatedAt": "2026-07-06T19:59:07.598Z",
-        "ageMs": 27.62255859375
+        "size": 47035,
+        "updatedAt": "2026-07-06T20:09:10.447Z",
+        "ageMs": 4992.59716796875
       },
       "autopilot-instagram-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
         "size": 17773,
-        "updatedAt": "2026-07-06T19:59:07.590Z",
-        "ageMs": 36.1337890625
+        "updatedAt": "2026-07-06T20:09:10.442Z",
+        "ageMs": 4997.599853515625
       },
       "autopilot-x-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
         "size": 4113,
-        "updatedAt": "2026-07-06T19:59:07.603Z",
-        "ageMs": 22.5966796875
+        "updatedAt": "2026-07-06T20:09:10.451Z",
+        "ageMs": 4988.5966796875
       }
     },
-    "issues": [
-      {
-        "severity": "warning",
-        "code": "enrichment-worker_stale_status",
-        "message": "enrichment-worker status is stale."
-      },
-      {
-        "severity": "warning",
-        "code": "smart-enrichment-worker_stale_status",
-        "message": "smart-enrichment-worker status is stale."
-      },
-      {
-        "severity": "warning",
-        "code": "contact-gap-worker_stale_status",
-        "message": "contact-gap-worker status is stale."
-      },
-      {
-        "severity": "warning",
-        "code": "qualified-exporter_stale_status",
-        "message": "qualified-exporter status is stale."
-      },
-      {
-        "severity": "warning",
-        "code": "cloud-logger-worker_stale_status",
-        "message": "cloud-logger-worker status is stale."
-      },
-      {
-        "severity": "warning",
-        "code": "stale_export",
-        "message": "autopilot-working-leads.csv is stale."
-      }
-    ]
+    "issues": []
   },
   "quality": {
     "totals": {
       "raw": 534,
-      "exportQualified": 53,
-      "qualified": 47,
+      "exportQualified": 52,
+      "qualified": 46,
       "working": 74,
       "realDecisionContacts": 278,
       "salesReady": 17,
-      "platformContactLeaks": 2,
+      "platformContactLeaks": 1,
       "platformBestContactLeaks": 0,
       "highValueNoContact": 155,
       "identityTrailCoverage": 71,
@@ -1246,7 +1766,7 @@
       "x": 4
     },
     "qualifiedByBucket": {
-      "linkedin": 23,
+      "linkedin": 22,
       "instagram": 7,
       "mql5": 7,
       "web": 3,
@@ -1358,11 +1878,6 @@
         "name": "ZuluTrade Social Platform",
         "bucket": "specialist",
         "contact": "pocketfxcopy@gmail.com"
-      },
-      {
-        "name": "01_xauusd_01",
-        "bucket": "specialist",
-        "contact": "sales@fxbluelabs.com"
       }
     ],
     "platformBestContactLeakSamples": [],
@@ -1498,18 +2013,18 @@
       "name": "cloud-logger-worker",
       "status": "running",
       "phase": "waiting",
-      "age": "22m",
-      "ageMs": 1332897,
+      "age": "10m",
+      "ageMs": 601923,
       "cycle": null,
       "pid": null,
       "message": "",
       "current": null,
       "lastResult": {
         "summary": {
-          "at": "2026-07-06T19:36:50.815Z",
+          "at": "2026-07-06T19:59:09.926Z",
           "ok": true,
-          "raw": 535,
-          "qualified": 48,
+          "raw": 534,
+          "qualified": 47,
           "working": 74,
           "contactable": 55,
           "salesReady": 17,
@@ -1517,15 +2032,52 @@
           "a2Strong": 14,
           "platformContactLeaks": 2,
           "highValueNoContact": 155,
-          "providerErrors": 63,
+          "providerErrors": 0,
           "staleWorkers": [
-            "engine-control"
+            "cloud-logger-worker",
+            "contact-gap-worker",
+            "engine-control",
+            "enrichment-worker",
+            "qualified-exporter",
+            "smart-enrichment-worker",
+            "supervisor"
           ],
-          "issues": [],
+          "issues": [
+            {
+              "severity": "warning",
+              "code": "enrichment-worker_stale_status",
+              "message": "enrichment-worker status is stale."
+            },
+            {
+              "severity": "warning",
+              "code": "smart-enrichment-worker_stale_status",
+              "message": "smart-enrichment-worker status is stale."
+            },
+            {
+              "severity": "warning",
+              "code": "contact-gap-worker_stale_status",
+              "message": "contact-gap-worker status is stale."
+            },
+            {
+              "severity": "warning",
+              "code": "qualified-exporter_stale_status",
+              "message": "qualified-exporter status is stale."
+            },
+            {
+              "severity": "warning",
+              "code": "cloud-logger-worker_stale_status",
+              "message": "cloud-logger-worker status is stale."
+            },
+            {
+              "severity": "warning",
+              "code": "stale_export",
+              "message": "autopilot-working-leads.csv is stale."
+            }
+          ],
           "smartTrail": {
             "phase": "smart-enriching",
-            "processed": 73,
-            "stored": 73,
+            "processed": 74,
+            "stored": 74,
             "errors": 0,
             "current": "ZuluTrade Social Platform",
             "last": "ZuluTrade Social Platform",
@@ -1542,7 +2094,7 @@
           },
           "qualifiedByBucket": {
             "linkedin": 23,
-            "instagram": 8,
+            "instagram": 7,
             "mql5": 7,
             "web": 3,
             "tiktok": 2,
@@ -1556,7 +2108,7 @@
           "ok": true,
           "committed": true,
           "pushed": true,
-          "commit": "[main 08f232e] ops: update engine cloud report 2026-07-06T19:36:51.287Z\n 3 files changed, 740 insertions(+), 907 deletions(-)\n"
+          "commit": "[main c97757d] ops: update engine cloud report 2026-07-06T19:59:11.064Z\n 3 files changed, 401 insertions(+), 1051 deletions(-)\n"
         }
       },
       "counts": {
@@ -1580,28 +2132,28 @@
       "name": "contact-gap-worker",
       "status": "running",
       "phase": "enriching-gap",
-      "age": "23m",
-      "ageMs": 1357357,
+      "age": "3m",
+      "ageMs": 208519,
       "cycle": null,
       "pid": null,
       "message": "",
       "current": {
-        "id": "4f0613f8f161d374",
-        "name": "Gold Spot US Dollar",
-        "url": "https://www.myfxbook.com/forex-market/currencies/XAUUSD",
-        "bucket": "tiktok",
-        "score": 181
+        "id": "c9b66bfed6e2fa00",
+        "name": "fr.linkedin.com",
+        "url": "https://fr.linkedin.com/",
+        "bucket": "linkedin",
+        "score": 178
       },
       "lastResult": {
         "status": "stored",
-        "id": "abdb9dbb5728e6a6",
-        "name": "AUUSD Live Gold Price Tracker",
-        "bucket": "tiktok",
-        "bestContact": "https://xauusd.finance/",
-        "contactLinks": 2,
-        "websites": 13,
+        "id": "bbb74715d4f0c53e",
+        "name": "Evolution",
+        "bucket": "discord",
+        "bestContact": "https://www.forexevolution.co.za/",
+        "contactLinks": 0,
+        "websites": 1,
         "hasRealContact": false,
-        "at": "2026-07-06T19:36:21.063Z"
+        "at": "2026-07-06T20:05:37.711Z"
       },
       "counts": {
         "raw": 0,
@@ -1615,8 +2167,8 @@
         "contactable": null,
         "hot": null,
         "totalRemoved": null,
-        "processed": 64,
-        "stored": 64,
+        "processed": 67,
+        "stored": 67,
         "errors": 0
       }
     },
@@ -1624,8 +2176,8 @@
       "name": "engine-control",
       "status": "done",
       "phase": "done",
-      "age": "4.3h",
-      "ageMs": 15347146,
+      "age": "4.4h",
+      "ageMs": 15954955,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -1652,8 +2204,8 @@
       "name": "enrichment-worker",
       "status": "running",
       "phase": "enriching",
-      "age": "22m",
-      "ageMs": 1311249,
+      "age": "23s",
+      "ageMs": 23300,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -1677,7 +2229,7 @@
         "contactable": null,
         "hot": null,
         "totalRemoved": null,
-        "processed": 354,
+        "processed": 377,
         "stored": null,
         "errors": 0
       }
@@ -1686,9 +2238,9 @@
       "name": "lead-cleaner",
       "status": "running",
       "phase": "waiting",
-      "age": "2s",
-      "ageMs": 2428,
-      "cycle": 80,
+      "age": "1m",
+      "ageMs": 67542,
+      "cycle": 86,
       "pid": null,
       "message": "",
       "current": null,
@@ -1704,7 +2256,7 @@
         "working": null,
         "contactable": null,
         "hot": null,
-        "totalRemoved": 9,
+        "totalRemoved": 10,
         "processed": null,
         "stored": null,
         "errors": 0
@@ -1714,8 +2266,8 @@
       "name": "qualified-exporter",
       "status": "running",
       "phase": "n/a",
-      "age": "23m",
-      "ageMs": 1386698,
+      "age": "59s",
+      "ageMs": 58638,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -1727,11 +2279,11 @@
         "discarded": 0,
         "duplicates": 0,
         "providerErrors": 0,
-        "total": 535,
-        "exported": 48,
+        "total": 534,
+        "exported": 46,
         "working": 74,
-        "contactable": 48,
-        "hot": 39,
+        "contactable": 46,
+        "hot": 38,
         "totalRemoved": null,
         "processed": null,
         "stored": null,
@@ -1742,8 +2294,8 @@
       "name": "smart-enrichment-worker",
       "status": "running",
       "phase": "smart-enriching",
-      "age": "22m",
-      "ageMs": 1314355,
+      "age": "26s",
+      "ageMs": 25815,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -1764,7 +2316,7 @@
         "websites": 30,
         "related": 0,
         "hasDecisionContact": true,
-        "at": "2026-07-06T19:37:05.609Z"
+        "at": "2026-07-06T20:07:53.369Z"
       },
       "counts": {
         "raw": 0,
@@ -1778,8 +2330,8 @@
         "contactable": null,
         "hot": null,
         "totalRemoved": null,
-        "processed": 74,
-        "stored": 74,
+        "processed": 81,
+        "stored": 81,
         "errors": 0
       }
     },
@@ -1787,19 +2339,19 @@
       "name": "source-harvester",
       "status": "running",
       "phase": "scan",
-      "age": "2s",
-      "ageMs": 1958,
+      "age": "5m",
+      "ageMs": 315034,
       "cycle": 1,
       "pid": null,
-      "message": "Starting quality discovery with 120 queries",
+      "message": "Saved qualified lead: lilo org",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 0,
+        "raw": 10,
         "saved": 0,
-        "discarded": 0,
-        "duplicates": 0,
-        "providerErrors": 0,
+        "discarded": 8,
+        "duplicates": 1,
+        "providerErrors": 9,
         "total": 0,
         "exported": 0,
         "working": null,
@@ -1815,18 +2367,18 @@
       "name": "source-harvester-communities",
       "status": "running",
       "phase": "scan",
-      "age": "2s",
-      "ageMs": 1972,
+      "age": "4m",
+      "ageMs": 231624,
       "cycle": 1,
       "pid": null,
-      "message": "Starting quality discovery with 116 queries",
+      "message": "Saved qualified lead: company murenamobile",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 0,
+        "raw": 11,
         "saved": 0,
-        "discarded": 0,
-        "duplicates": 0,
+        "discarded": 9,
+        "duplicates": 1,
         "providerErrors": 0,
         "total": 0,
         "exported": 0,
@@ -1843,8 +2395,8 @@
       "name": "source-harvester-ecosystem",
       "status": "running",
       "phase": "scan",
-      "age": "2s",
-      "ageMs": 1962,
+      "age": "10m",
+      "ageMs": 609765,
       "cycle": 1,
       "pid": null,
       "message": "Starting quality discovery with 90 queries",
@@ -1871,18 +2423,18 @@
       "name": "source-harvester-events",
       "status": "running",
       "phase": "scan",
-      "age": "2s",
-      "ageMs": 1971,
+      "age": "2m",
+      "ageMs": 143568,
       "cycle": 1,
       "pid": null,
-      "message": "Starting quality discovery with 120 queries",
+      "message": "Saved qualified lead: Opere com a Tickmill",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 0,
+        "raw": 40,
         "saved": 0,
-        "discarded": 0,
-        "duplicates": 0,
+        "discarded": 19,
+        "duplicates": 13,
         "providerErrors": 0,
         "total": 0,
         "exported": 0,
@@ -1899,18 +2451,18 @@
       "name": "source-harvester-instagram",
       "status": "running",
       "phase": "scan",
-      "age": "2s",
-      "ageMs": 1977,
+      "age": "8m",
+      "ageMs": 468199,
       "cycle": 1,
       "pid": null,
-      "message": "Starting quality discovery with 45 queries",
+      "message": "Saved qualified lead: help.instagram.com",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 0,
+        "raw": 9,
         "saved": 0,
-        "discarded": 0,
-        "duplicates": 0,
+        "discarded": 5,
+        "duplicates": 2,
         "providerErrors": 0,
         "total": 0,
         "exported": 0,
@@ -1927,8 +2479,8 @@
       "name": "source-harvester-linkedin",
       "status": "running",
       "phase": "scan",
-      "age": "2s",
-      "ageMs": 1950,
+      "age": "10m",
+      "ageMs": 609753,
       "cycle": 1,
       "pid": null,
       "message": "Starting quality discovery with 180 queries",
@@ -1955,19 +2507,19 @@
       "name": "source-harvester-platforms",
       "status": "running",
       "phase": "scan",
-      "age": "2s",
-      "ageMs": 1948,
+      "age": "6m",
+      "ageMs": 384947,
       "cycle": 1,
       "pid": null,
-      "message": "Starting quality discovery with 47 queries",
+      "message": "Saved qualified lead: users ajtrader2014FTA",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 0,
+        "raw": 2,
         "saved": 0,
         "discarded": 0,
-        "duplicates": 0,
-        "providerErrors": 0,
+        "duplicates": 1,
+        "providerErrors": 9,
         "total": 0,
         "exported": 0,
         "working": null,
@@ -1983,19 +2535,19 @@
       "name": "source-harvester-social",
       "status": "running",
       "phase": "scan",
-      "age": "2s",
-      "ageMs": 1962,
+      "age": "6m",
+      "ageMs": 386174,
       "cycle": 1,
       "pid": null,
-      "message": "Starting quality discovery with 120 queries",
+      "message": "Saved qualified lead: lilo org",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 0,
+        "raw": 8,
         "saved": 0,
-        "discarded": 0,
-        "duplicates": 0,
-        "providerErrors": 0,
+        "discarded": 1,
+        "duplicates": 1,
+        "providerErrors": 9,
         "total": 0,
         "exported": 0,
         "working": null,
@@ -2011,8 +2563,8 @@
       "name": "source-harvester-specialist",
       "status": "running",
       "phase": "scan",
-      "age": "2s",
-      "ageMs": 1949,
+      "age": "10m",
+      "ageMs": 609751,
       "cycle": 1,
       "pid": null,
       "message": "Starting quality discovery with 120 queries",
@@ -2039,9 +2591,9 @@
       "name": "supervisor",
       "status": "running",
       "phase": "n/a",
-      "age": "22m",
-      "ageMs": 1315697,
-      "cycle": 115,
+      "age": "55s",
+      "ageMs": 54748,
+      "cycle": 125,
       "pid": null,
       "message": "",
       "current": null,
@@ -2067,8 +2619,8 @@
       "name": "ui-snapshot-worker",
       "status": "unknown",
       "phase": "n/a",
-      "age": "3s",
-      "ageMs": 2953,
+      "age": "1s",
+      "ageMs": 1354,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -2096,58 +2648,58 @@
     "autopilot-qualified-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.csv",
-      "size": 142525,
-      "updatedAt": "2026-07-06T19:59:07.413Z",
-      "ageMs": 212.052001953125
+      "size": 141095,
+      "updatedAt": "2026-07-06T20:08:16.560Z",
+      "ageMs": 58878.712646484375
     },
     "autopilot-qualified-contactable-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.csv",
-      "size": 142525,
-      "updatedAt": "2026-07-06T19:59:07.491Z",
-      "ageMs": 133.533447265625
+      "size": 141095,
+      "updatedAt": "2026-07-06T20:08:16.615Z",
+      "ageMs": 58823.711181640625
     },
     "autopilot-hot-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.csv",
-      "size": 118210,
-      "updatedAt": "2026-07-06T19:59:07.557Z",
-      "ageMs": 67.64892578125
+      "size": 116780,
+      "updatedAt": "2026-07-06T20:08:16.659Z",
+      "ageMs": 58781.197021484375
     },
     "autopilot-working-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
-      "size": 192103,
-      "updatedAt": "2026-07-06T19:37:10.812Z",
-      "ageMs": 1316813.2783203125
+      "size": 192047,
+      "updatedAt": "2026-07-06T20:09:10.498Z",
+      "ageMs": 4941.5703125
     },
     "autopilot-social-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
-      "size": 70440,
-      "updatedAt": "2026-07-06T19:59:07.581Z",
-      "ageMs": 43.63818359375
+      "size": 69010,
+      "updatedAt": "2026-07-06T20:09:10.436Z",
+      "ageMs": 5003.598876953125
     },
     "autopilot-linkedin-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
-      "size": 48465,
-      "updatedAt": "2026-07-06T19:59:07.598Z",
-      "ageMs": 27.62255859375
+      "size": 47035,
+      "updatedAt": "2026-07-06T20:09:10.447Z",
+      "ageMs": 4992.59716796875
     },
     "autopilot-instagram-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
       "size": 17773,
-      "updatedAt": "2026-07-06T19:59:07.590Z",
-      "ageMs": 36.1337890625
+      "updatedAt": "2026-07-06T20:09:10.442Z",
+      "ageMs": 4997.599853515625
     },
     "autopilot-x-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
       "size": 4113,
-      "updatedAt": "2026-07-06T19:59:07.603Z",
-      "ageMs": 22.5966796875
+      "updatedAt": "2026-07-06T20:09:10.451Z",
+      "ageMs": 4988.5966796875
     }
   },
   "recentRuns": [
@@ -2759,6 +3311,17 @@
   ],
   "pruneHistory": [
     {
+      "at": "2026-07-06T20:03:35.738Z",
+      "reason": "lead-cleaner",
+      "removed": 1,
+      "before": 535,
+      "after": 534,
+      "byReason": {
+        "generic_platform_page": 1
+      },
+      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-06T20-03-35-736Z.json"
+    },
+    {
       "at": "2026-07-06T19:36:56.075Z",
       "reason": "lead-cleaner",
       "removed": 1,
@@ -2801,17 +3364,6 @@
         "generic_platform_page": 1
       },
       "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-06T16-44-52-845Z.json"
-    },
-    {
-      "at": "2026-07-06T16:31:20.701Z",
-      "reason": "lead-cleaner",
-      "removed": 1,
-      "before": 526,
-      "after": 525,
-      "byReason": {
-        "non_financial_platform_noise": 1
-      },
-      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-06T16-31-20-698Z.json"
     }
   ],
   "cleanupHistory": [
@@ -2894,27 +3446,27 @@
   "logs": {
     "source-harvester": {
       "out": [
-        "[source-harvester cycle 1] Starting quality discovery with 120 queries",
-        "[source-harvester cycle 1] Starting quality discovery with 120 queries",
         "[source-harvester cycle 1] Saved qualified lead: forex instagram influencers",
         "[source-harvester cycle 1] Saved qualified lead: company murenamobile",
         "[source-harvester cycle 1] Saved qualified lead: lilo org",
         "[source-harvester cycle 1] Saved qualified lead: Forex Expo Dubai 2025 Conference to Feature 150 FX and",
         "[source-harvester cycle 1] Starting quality discovery with 120 queries",
-        "[source-harvester cycle 1] Starting quality discovery with 120 queries"
+        "[source-harvester cycle 1] Starting quality discovery with 120 queries",
+        "[source-harvester cycle 1] Saved qualified lead: lilo org",
+        "[source-harvester cycle 1] Saved qualified lead: company murenamobile"
       ],
       "err": []
     },
     "source-harvester-social": {
       "out": [
-        "[source-harvester-social cycle 1] Saved qualified lead: company murenamobile",
-        "[source-harvester-social cycle 1] Saved qualified lead: help.instagram.com",
+        "[source-harvester-social cycle 1] Saved qualified lead: Instagram photos and videos",
+        "[source-harvester-social cycle 1] Saved qualified lead: Badshah Broking",
+        "[source-harvester-social cycle 1] Saved qualified lead: reel DK7nfCvhFDa",
         "[source-harvester-social cycle 1] Starting quality discovery with 120 queries",
         "[source-harvester-social cycle 1] Saved qualified lead: lilo org",
         "[source-harvester-social cycle 1] Saved qualified lead: Instagram photos and videos",
         "[source-harvester-social cycle 1] Saved qualified lead: Badshah Broking",
-        "[source-harvester-social cycle 1] Saved qualified lead: reel DK7nfCvhFDa",
-        "[source-harvester-social cycle 1] Starting quality discovery with 120 queries"
+        "[source-harvester-social cycle 1] Saved qualified lead: reel DK7nfCvhFDa"
       ],
       "err": []
     },
@@ -2959,53 +3511,53 @@
     },
     "source-harvester-instagram": {
       "out": [
-        "[source-harvester-instagram cycle 1] Saved qualified lead: help.instagram.com",
-        "[source-harvester-instagram cycle 1] Starting quality discovery with 45 queries",
         "[source-harvester-instagram cycle 1] Saved qualified lead: lilo org",
         "[source-harvester-instagram cycle 1] Saved qualified lead: help.instagram.com",
         "[source-harvester-instagram cycle 1] Starting quality discovery with 45 queries",
         "[source-harvester-instagram cycle 1] Saved qualified lead: lilo org",
         "[source-harvester-instagram cycle 1] Saved qualified lead: help.instagram.com",
-        "[source-harvester-instagram cycle 1] Starting quality discovery with 45 queries"
+        "[source-harvester-instagram cycle 1] Starting quality discovery with 45 queries",
+        "[source-harvester-instagram cycle 1] Saved qualified lead: lilo org",
+        "[source-harvester-instagram cycle 1] Saved qualified lead: help.instagram.com"
       ],
       "err": []
     },
     "source-harvester-platforms": {
       "out": [
-        "[source-harvester-platforms cycle 1] Saved qualified lead: users ajtrader2014FTA",
-        "[source-harvester-platforms cycle 1] Saved qualified lead: golbagoltrade seller",
         "[source-harvester-platforms cycle 1] Saved qualified lead: 01 xauusd 01",
         "[source-harvester-platforms cycle 1] Starting quality discovery with 47 queries",
         "[source-harvester-platforms cycle 1] Saved qualified lead: users ajtrader2014FTA",
         "[source-harvester-platforms cycle 1] Saved qualified lead: golbagoltrade seller",
         "[source-harvester-platforms cycle 1] Saved qualified lead: 01 xauusd 01",
-        "[source-harvester-platforms cycle 1] Starting quality discovery with 47 queries"
+        "[source-harvester-platforms cycle 1] Starting quality discovery with 47 queries",
+        "[source-harvester-platforms cycle 1] Saved qualified lead: users ajtrader2014FTA",
+        "[source-harvester-platforms cycle 1] Saved qualified lead: golbagoltrade seller"
       ],
       "err": []
     },
     "source-harvester-communities": {
       "out": [
-        "[source-harvester-communities cycle 1] Starting quality discovery with 116 queries",
-        "[source-harvester-communities cycle 1] Starting quality discovery with 116 queries",
         "[source-harvester-communities cycle 1] Saved qualified lead: company murenamobile",
         "[source-harvester-communities cycle 1] Saved qualified lead: lilo org",
         "[source-harvester-communities cycle 1] Starting quality discovery with 116 queries",
         "[source-harvester-communities cycle 1] Saved qualified lead: lilo org",
         "[source-harvester-communities cycle 1] Saved qualified lead: company murenamobile",
-        "[source-harvester-communities cycle 1] Starting quality discovery with 116 queries"
+        "[source-harvester-communities cycle 1] Starting quality discovery with 116 queries",
+        "[source-harvester-communities cycle 1] Saved qualified lead: company murenamobile",
+        "[source-harvester-communities cycle 1] Saved qualified lead: lilo org"
       ],
       "err": []
     },
     "source-harvester-events": {
       "out": [
-        "[source-harvester-events cycle 1] Saved qualified lead: lilo org",
-        "[source-harvester-events cycle 1] Saved qualified lead: Attend",
-        "[source-harvester-events cycle 1] Saved qualified lead: Opere com a Tickmill",
         "[source-harvester-events cycle 1] Starting quality discovery with 120 queries",
         "[source-harvester-events cycle 1] Saved qualified lead: company murenamobile",
         "[source-harvester-events cycle 1] Saved qualified lead: lilo org",
         "[source-harvester-events cycle 1] Saved qualified lead: Opere com a Tickmill",
-        "[source-harvester-events cycle 1] Starting quality discovery with 120 queries"
+        "[source-harvester-events cycle 1] Starting quality discovery with 120 queries",
+        "[source-harvester-events cycle 1] Saved qualified lead: company murenamobile",
+        "[source-harvester-events cycle 1] Saved qualified lead: lilo org",
+        "[source-harvester-events cycle 1] Saved qualified lead: Opere com a Tickmill"
       ],
       "err": []
     },
@@ -3032,27 +3584,27 @@
     },
     "lead-cleaner": {
       "out": [
-        "[lead-cleaner] 2026-07-06T15:47:42.445Z removed=1 totalRemoved=1",
         "[lead-cleaner] 2026-07-06T16:01:15.652Z removed=1 totalRemoved=2",
         "[lead-cleaner] 2026-07-06T16:20:49.429Z removed=1 totalRemoved=3",
         "[lead-cleaner] 2026-07-06T16:31:22.362Z removed=1 totalRemoved=4",
         "[lead-cleaner] 2026-07-06T16:44:54.262Z removed=1 totalRemoved=5",
         "[lead-cleaner] 2026-07-06T17:01:27.658Z removed=1 totalRemoved=6",
         "[lead-cleaner] 2026-07-06T19:00:52.104Z removed=2 totalRemoved=8",
-        "[lead-cleaner] 2026-07-06T19:36:57.713Z removed=1 totalRemoved=9"
+        "[lead-cleaner] 2026-07-06T19:36:57.713Z removed=1 totalRemoved=9",
+        "[lead-cleaner] 2026-07-06T20:03:37.397Z removed=1 totalRemoved=10"
       ],
       "err": []
     },
     "qualified-exporter": {
       "out": [
-        "[qualified-exporter] 2026-07-06T19:26:52.098Z total=534 qualified=47 contactable=47 hot=39 social=32 instagram=7 linkedin=23 x=1",
-        "[qualified-exporter] 2026-07-06T19:28:23.818Z total=534 qualified=47 contactable=47 hot=39 social=32 instagram=7 linkedin=23 x=1",
-        "[qualified-exporter] 2026-07-06T19:29:55.228Z total=534 qualified=47 contactable=47 hot=39 social=32 instagram=7 linkedin=23 x=1",
-        "[qualified-exporter] 2026-07-06T19:31:26.600Z total=534 qualified=47 contactable=47 hot=39 social=32 instagram=7 linkedin=23 x=1",
-        "[qualified-exporter] 2026-07-06T19:32:58.016Z total=534 qualified=47 contactable=47 hot=39 social=32 instagram=7 linkedin=23 x=1",
-        "[qualified-exporter] 2026-07-06T19:34:29.557Z total=534 qualified=47 contactable=47 hot=39 social=32 instagram=7 linkedin=23 x=1",
         "[qualified-exporter] 2026-07-06T19:36:00.951Z total=535 qualified=48 contactable=48 hot=39 social=33 instagram=8 linkedin=23 x=1",
-        "[qualified-exporter] 2026-07-06T19:59:07.791Z total=534 qualified=47 contactable=47 hot=39 social=32 instagram=7 linkedin=23 x=1"
+        "[qualified-exporter] 2026-07-06T19:59:07.791Z total=534 qualified=47 contactable=47 hot=39 social=32 instagram=7 linkedin=23 x=1",
+        "[qualified-exporter] 2026-07-06T20:00:39.341Z total=534 qualified=47 contactable=47 hot=39 social=32 instagram=7 linkedin=23 x=1",
+        "[qualified-exporter] 2026-07-06T20:02:10.784Z total=534 qualified=47 contactable=47 hot=39 social=32 instagram=7 linkedin=23 x=1",
+        "[qualified-exporter] 2026-07-06T20:03:42.172Z total=534 qualified=47 contactable=47 hot=39 social=32 instagram=7 linkedin=23 x=1",
+        "[qualified-exporter] 2026-07-06T20:05:13.616Z total=534 qualified=46 contactable=46 hot=38 social=31 instagram=7 linkedin=22 x=1",
+        "[qualified-exporter] 2026-07-06T20:06:45.401Z total=534 qualified=46 contactable=46 hot=38 social=31 instagram=7 linkedin=22 x=1",
+        "[qualified-exporter] 2026-07-06T20:08:16.814Z total=534 qualified=46 contactable=46 hot=38 social=31 instagram=7 linkedin=22 x=1"
       ],
       "err": [
         "[qualified-exporter] 2026-07-05T22:54:39.472Z SyntaxError: Unterminated string in JSON at position 521902 (line 9214 column 21)",
@@ -3065,14 +3617,14 @@
     },
     "ui-snapshot-worker": {
       "out": [
-        "[ui-snapshot] ok total=207 rejected=327 buildMs=450",
-        "[ui-snapshot] ok total=207 rejected=328 buildMs=384",
-        "[ui-snapshot] ok total=207 rejected=328 buildMs=378",
-        "[ui-snapshot] ok total=207 rejected=328 buildMs=381",
-        "[ui-snapshot] ok total=207 rejected=328 buildMs=380",
-        "[ui-snapshot] ok total=207 rejected=327 buildMs=497",
-        "[ui-snapshot] ok total=207 rejected=327 buildMs=384",
-        "[ui-snapshot] ok total=207 rejected=327 buildMs=917"
+        "[ui-snapshot] ok total=207 rejected=327 buildMs=375",
+        "[ui-snapshot] ok total=207 rejected=327 buildMs=402",
+        "[ui-snapshot] ok total=207 rejected=327 buildMs=371",
+        "[ui-snapshot] ok total=207 rejected=327 buildMs=377",
+        "[ui-snapshot] ok total=207 rejected=327 buildMs=389",
+        "[ui-snapshot] ok total=207 rejected=327 buildMs=369",
+        "[ui-snapshot] ok total=207 rejected=327 buildMs=400",
+        "[ui-snapshot] ok total=207 rejected=327 buildMs=365"
       ],
       "err": [
         "[ui-snapshot] Error: EPERM: operation not permitted, rename 'C:\\Users\\steve\\bd-lead-engine\\public\\ui-dashboard.json.31880.1783310997093.tmp' -> 'C:\\Users\\steve\\bd-lead-engine\\public\\ui-dashboard.json'",
@@ -3088,14 +3640,14 @@
     },
     "supervisor": {
       "out": [
-        "[supervisor] 2026-07-06T19:30:03.651Z cycle=108 ok=true raw=534 working=74 a=38",
-        "[supervisor] 2026-07-06T19:31:04.823Z cycle=109 ok=true raw=534 working=74 a=38",
-        "[supervisor] 2026-07-06T19:32:05.949Z cycle=110 ok=true raw=534 working=74 a=38",
-        "[supervisor] 2026-07-06T19:33:07.278Z cycle=111 ok=true raw=534 working=74 a=38",
-        "[supervisor] 2026-07-06T19:34:08.350Z cycle=112 ok=true raw=534 working=74 a=38",
-        "[supervisor] 2026-07-06T19:35:09.497Z cycle=113 ok=true raw=534 working=74 a=38",
-        "[supervisor] 2026-07-06T19:36:10.835Z cycle=114 ok=true raw=535 working=74 a=38",
-        "[supervisor] 2026-07-06T19:37:11.956Z cycle=115 ok=true raw=534 working=74 a=38"
+        "[supervisor] 2026-07-06T20:01:12.676Z cycle=118 ok=true raw=534 working=74 a=38 issues=contact-gap-worker_stale_status",
+        "[supervisor] 2026-07-06T20:02:13.809Z cycle=119 ok=true raw=534 working=74 a=38",
+        "[supervisor] 2026-07-06T20:03:14.957Z cycle=120 ok=true raw=535 working=74 a=38",
+        "[supervisor] 2026-07-06T20:04:16.136Z cycle=121 ok=true raw=534 working=74 a=38",
+        "[supervisor] 2026-07-06T20:05:17.242Z cycle=122 ok=true raw=534 working=74 a=38",
+        "[supervisor] 2026-07-06T20:06:18.321Z cycle=123 ok=true raw=534 working=74 a=38",
+        "[supervisor] 2026-07-06T20:07:19.393Z cycle=124 ok=true raw=534 working=74 a=38",
+        "[supervisor] 2026-07-06T20:08:20.708Z cycle=125 ok=true raw=534 working=74 a=38"
       ],
       "err": []
     },
