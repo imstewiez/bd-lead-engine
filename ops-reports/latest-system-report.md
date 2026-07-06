@@ -1,11 +1,11 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T03:07:00.910Z
+Updated: 2026-07-06T03:17:10.405Z
 Health: OK
 
 ## Funnel
 Raw: 1223
-Qualified: 97
+Qualified: 98
 Working: 127
 Contactable: 105
 Sales-ready: 38
@@ -14,22 +14,22 @@ A2 Strong: 17
 
 ## Quality
 Platform contact leaks: 0
-High-value without real contact: 219
+High-value without real contact: 220
 Sales-ready by bucket: {"web":8,"x":7,"myfxbook":6,"mql5":5,"specialist":4,"instagram":3,"tiktok":2,"facebook_threads":1,"linkedin":1,"telegram":1}
-Qualified by bucket: {"linkedin":43,"instagram":12,"x":9,"web":9,"facebook_threads":6,"myfxbook":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
+Qualified by bucket: {"linkedin":43,"instagram":13,"x":9,"web":9,"facebook_threads":6,"myfxbook":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
 
 ## Sourcing / Workers
-Provider errors: 351
+Provider errors: 549
 Stale workers: engine-control
 Issues: warning:duplicate_pressure
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 5
-Stored: 5
+Processed: 8
+Stored: 8
 Errors: 0
-Current: Abdullah Ghafoor | Professional Forex Trader - Instagram
-Last: profilephoto:UserTileMedium p
+Current: @5minutosfaciles
+Last: @carlosmena3340
 
 ## Recent Errors
 ### qualified-exporter
