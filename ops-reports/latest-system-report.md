@@ -1,13 +1,13 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T01:00:34.518Z
+Updated: 2026-07-06T01:10:43.659Z
 Health: OK
 
 ## Funnel
 Raw: 1221
 Qualified: 95
 Working: 124
-Contactable: 103
+Contactable: 102
 Sales-ready: 38
 A1 Hot: 41
 A2 Strong: 15
@@ -19,17 +19,18 @@ Sales-ready by bucket: {"web":8,"x":7,"myfxbook":6,"mql5":5,"specialist":4,"inst
 Qualified by bucket: {"linkedin":41,"instagram":12,"x":9,"web":9,"facebook_threads":6,"myfxbook":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
 
 ## Sourcing / Workers
-Provider errors: 270
+Provider errors: 486
 Stale workers: engine-control
 Issues: warning:duplicate_pressure
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 3
-Stored: 3
+Processed: 5
+Stored: 5
 Errors: 0
-Current: Yahoo Mail - Facebook
-Last: DISBOARD
+Current: ) | TikTok
+Last: Mark's - Facebook
+Last best contact: https://www.facebook.com/MarksClothing/
 
 ## Recent Errors
 ### qualified-exporter
