@@ -1,11 +1,11 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T04:03:02.981Z
-Health: OK
+Updated: 2026-07-06T04:06:11.486Z
+Health: CHECK
 
 ## Funnel
 Raw: 1226
-Qualified: 98
+Qualified: 99
 Working: 127
 Contactable: 105
 Sales-ready: 39
@@ -16,12 +16,12 @@ A2 Strong: 17
 Platform contact leaks: 0
 High-value without real contact: 220
 Sales-ready by bucket: {"web":9,"x":7,"myfxbook":6,"mql5":5,"specialist":4,"instagram":3,"tiktok":2,"facebook_threads":1,"linkedin":1,"telegram":1}
-Qualified by bucket: {"linkedin":43,"instagram":12,"web":10,"x":9,"facebook_threads":6,"myfxbook":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
+Qualified by bucket: {"linkedin":43,"instagram":13,"web":10,"x":9,"facebook_threads":6,"myfxbook":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
 
 ## Sourcing / Workers
-Provider errors: 0
+Provider errors: 27
 Stale workers: none
-Issues: warning:duplicate_pressure
+Issues: warning:duplicate_pressure, critical:source-harvester_not_running, critical:source-harvester-social_not_running, critical:source-harvester-specialist_not_running, critical:source-harvester-linkedin_not_running, critical:source-harvester-instagram_not_running, critical:source-harvester-platforms_not_running, critical:source-harvester-events_not_running, critical:ui-snapshot-worker_not_running, warning:supervisor_not_running
 
 ## Smart Enrichment
 Phase: smart-enriching
