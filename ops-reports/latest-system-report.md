@@ -1,11 +1,11 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T19:06:31.466Z
+Updated: 2026-07-06T19:16:38.964Z
 Health: OK
 
 ## Funnel
 Raw: 534
-Qualified: 46
+Qualified: 47
 Working: 74
 Contactable: 55
 Sales-ready: 17
@@ -13,24 +13,23 @@ A1 Hot: 24
 A2 Strong: 14
 
 ## Quality
-Platform contact leaks: 0
+Platform contact leaks: 1
 High-value without real contact: 156
 Sales-ready by bucket: {"mql5":7,"web":3,"tiktok":2,"myfxbook":2,"specialist":1,"telegram":1,"instagram":1}
-Qualified by bucket: {"linkedin":22,"instagram":7,"mql5":7,"web":3,"tiktok":2,"myfxbook":2,"specialist":1,"telegram":1,"x":1}
+Qualified by bucket: {"linkedin":23,"instagram":7,"mql5":7,"web":3,"tiktok":2,"myfxbook":2,"specialist":1,"telegram":1,"x":1}
 
 ## Sourcing / Workers
-Provider errors: 36
+Provider errors: 125
 Stale workers: engine-control
 Issues: none
 
 ## Smart Enrichment
-Phase: smart-enriching
-Processed: 59
-Stored: 59
+Phase: idle
+Processed: 60
+Stored: 60
 Errors: 0
-Current: Instagram
 Last: Instagram
-Last best contact: https://www.instagram.com/kelvin_goldtrader/
+Last best contact: https://www.instagram.com/xosabrinanicolexo/
 
 ## Recent Errors
 ### qualified-exporter
