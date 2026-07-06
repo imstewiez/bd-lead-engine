@@ -1,6 +1,6 @@
 {
   "name": "aveniq-lead-workspace",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "private": true,
   "description": "AVENIQ — automated lead intelligence workspace for modern revenue teams.",
   "type": "module",
@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "node src/server.js",
-    "check": "node --check src/server.js && node --check public/app.js && node --check src/engine.js && node --check src/enrichment-worker.js && node --check src/commercial-intelligence.js && node --check src/noise-policy.js && node --check src/quality-repair.js && node --check src/restore-specialist-leads.js && node --check src/cleanup-leads.js && node --check src/activity-report.js",
+    "check": "node --check src/server.js && node --check public/app.js && node --check src/engine.js && node --check src/enrichment-worker.js && node --check src/smart-enrichment-worker.js && node --check src/contact-gap-worker.js && node --check src/lead-pruner.js && node --check src/ui-snapshot.js && node --check src/commercial-intelligence.js && node --check src/noise-policy.js && node --check src/quality-repair.js && node --check src/restore-specialist-leads.js && node --check src/cleanup-leads.js && node --check src/activity-report.js",
     "activity": "node src/activity-report.js",
     "activity:overnight": "node src/activity-report.js --hours=12",
     "quality:repair": "node src/quality-repair.js",
