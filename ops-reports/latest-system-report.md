@@ -1,36 +1,34 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T00:32:29.397Z
+Updated: 2026-07-06T00:37:06.786Z
 Health: OK
 
 ## Funnel
-Raw: 1225
+Raw: 1222
 Qualified: 97
 Working: 123
 Contactable: 102
 Sales-ready: 38
-A1 Hot: 42
+A1 Hot: 41
 A2 Strong: 16
 
 ## Quality
-Platform contact leaks: 22
-High-value without real contact: 221
+Platform contact leaks: 0
+High-value without real contact: 218
 Sales-ready by bucket: {"web":8,"x":7,"myfxbook":6,"mql5":5,"specialist":4,"instagram":3,"tiktok":2,"facebook_threads":1,"linkedin":1,"telegram":1}
 Qualified by bucket: {"linkedin":42,"instagram":13,"x":9,"web":9,"facebook_threads":6,"myfxbook":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
 
 ## Sourcing / Workers
-Provider errors: 1872
-Stale workers: engine-control
+Provider errors: 0
+Stale workers: none
 Issues: warning:duplicate_pressure
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 116
-Stored: 116
+Processed: 0
+Stored: 0
 Errors: 0
-Current: Paul Exler GerFX Momentum Capture EA 233% growth since 2017 Reliability 99% Algo trading 0 Copy for 999 USD per month
-Last: Nelson Xavier Uzcategui Garcia GOLD MINERS EA V4 LOW DD 101% growth since 2026 Reliability 98% Algo trading 0 Copy for 30 USD per month
-Last best contact: +31 10 669 0521
+Current: PAMM recommendation | Forex Forum by Myfxbook
 
 ## Recent Errors
 ### qualified-exporter
