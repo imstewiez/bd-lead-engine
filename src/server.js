@@ -8,6 +8,7 @@ import { runScan } from "./engine.js";
 import { exportLeads } from "./exporter.js";
 import { healthSnapshot } from "./health.js";
 import { countBySource, sourceBucket } from "./mql5-limit.js";
+import { isBlockedCommercialLead } from "./noise-policy.js";
 import { ensureBackgroundTasks } from "./process-manager.js";
 import { getRootDir, readDb, updateLead } from "./store.js";
 import { platformFromUrl, sleep, toCsvCell } from "./utils.js";
@@ -17,7 +18,7 @@ const __dirname = path.dirname(__filename);
 const rootDir = getRootDir();
 const publicDir = path.join(rootDir, "public");
 const PORT = Number(process.env.PORT || 8787);
-const UI_CACHE_TTL_MS = Number(process.env.UI_CACHE_TTL_MS || 10000);
+const UI_CACHE_TTL_MS = Number(process.env.UI_CACHE_TTL_MS || 2500);
 
 const SCAN_PRESETS = {
   quality: { maxQueries: 90, limitPerQuery: 8, deepEnrich: true, fetchPages: true, searchContacts: true, maxContactPages: 8, maxExternalWebsites: 6, maxTrailQueries: 24, trailLimit: 8, exportEvery: 3 },
@@ -26,6 +27,8 @@ const SCAN_PRESETS = {
   latam: { regionSet: "latam", maxQueries: 180, limitPerQuery: 12, deepEnrich: true, fetchPages: true, searchContacts: true, maxContactPages: 7, maxExternalWebsites: 5, maxTrailQueries: 22, trailLimit: 8, exportEvery: 4 },
   super: { regionSet: "global", maxQueries: 260, limitPerQuery: 15, deepEnrich: true, fetchPages: true, searchContacts: true, maxContactPages: 8, maxExternalWebsites: 6, maxTrailQueries: 24, trailLimit: 8, includePartners: true, includeRecruitment: true, includeIntentPosts: true, includeEcosystem: true, includeSocialProfiles: true, includeForums: true, includeSpecialistSources: true, exportEvery: 3, delayMs: 7000 }
 };
+
+const SOURCE_CATEGORY_KEYS = ["specialist", "social", "linkedin", "instagram", "x-twitter", "telegram", "discord", "myfxbook", "mql5", "fxblue", "forums", "web"];
 
 const app = express();
 app.use(express.json({ limit: "1mb" }));
@@ -43,15 +46,36 @@ function platformForLead(lead = {}) {
   return lead.platform || platformFromUrl(lead.url || "") || "Unknown";
 }
 
+function sourceText(lead = {}) {
+  return `${platformForLead(lead)} ${lead.url || ""} ${sourceBucket(lead)} ${lead.entityType || ""} ${lead.segment || ""}`.toLowerCase();
+}
+
+function sourceCategoryMatches(lead = {}, category = "") {
+  const text = sourceText(lead);
+  const value = String(category || "").trim().toLowerCase();
+  if (!value) return true;
+  if (value === "specialist") return /mql5|myfxbook|fxblue|zulutrade|darwinex|signalstart|collective2|forexfactory|babypips|specialist/.test(text);
+  if (value === "social") return /linkedin|instagram|x\/twitter|twitter|telegram|t\.me|discord|tiktok|facebook|threads|reddit/.test(text);
+  if (value === "linkedin") return /linkedin/.test(text);
+  if (value === "instagram") return /instagram/.test(text);
+  if (value === "x-twitter") return /x\/twitter|twitter|x\.com/.test(text);
+  if (value === "telegram") return /telegram|t\.me/.test(text);
+  if (value === "discord") return /discord/.test(text);
+  if (value === "myfxbook") return /myfxbook/.test(text);
+  if (value === "mql5") return /mql5/.test(text);
+  if (value === "fxblue") return /fxblue/.test(text);
+  if (value === "forums") return /forexfactory|babypips|earnforex|reddit|forum/.test(text);
+  if (value === "web") return !SOURCE_CATEGORY_KEYS.filter((key) => key !== "web").some((key) => sourceCategoryMatches(lead, key));
+  return false;
+}
+
 function platformMatchesFilter(lead, filter) {
   const value = String(filter || "").trim().toLowerCase();
   if (!value) return true;
+  if (value === "non-mql5") return !sourceCategoryMatches(lead, "mql5");
+  if (SOURCE_CATEGORY_KEYS.includes(value)) return sourceCategoryMatches(lead, value);
   const platform = platformForLead(lead).toLowerCase();
   const url = String(lead.url || "").toLowerCase();
-  const text = `${platform} ${url} ${sourceBucket(lead)}`;
-  if (value === "social") return /linkedin|instagram|x\/twitter|twitter|telegram|discord|tiktok|facebook|threads|reddit/.test(text);
-  if (value === "specialist") return /mql5|myfxbook|fxblue|zulutrade|darwinex|signalstart|collective2|tradingview|forexfactory|babypips/.test(text);
-  if (value === "non-mql5") return !/mql5|mql5\.com/.test(text);
   return platform === value || url.includes(value) || sourceBucket(lead) === value;
 }
 
@@ -66,10 +90,10 @@ function sortForUi(leads) {
 function applyLeadFilters(leads, filters = {}) {
   let filtered = leads;
   const q = String(filters.q || "").trim().toLowerCase();
-  if (q) filtered = filtered.filter((lead) => [lead.name, lead.title, lead.snippet, lead.url, lead.domain, lead.country, lead.leadType, lead.segment, sourceBucket(lead), ...(lead.languages || []), ...(lead.evidence || [])].filter(Boolean).join(" ").toLowerCase().includes(q));
-  if (filters.priority) filtered = filtered.filter((lead) => lead.priority === filters.priority);
+  if (q) filtered = filtered.filter((lead) => [lead.name, lead.companyName, lead.title, lead.snippet, lead.url, lead.domain, lead.country, lead.leadType, lead.segment, lead.entityType, sourceBucket(lead), ...(lead.languages || []), ...(lead.evidence || [])].filter(Boolean).join(" ").toLowerCase().includes(q));
+  if (filters.priority) filtered = filtered.filter((lead) => lead.priority === filters.priority || lead.commercialTier === filters.priority);
   if (filters.leadType) filtered = filtered.filter((lead) => lead.leadType === filters.leadType);
-  if (filters.stage) filtered = filtered.filter((lead) => lead.stage === filters.stage);
+  if (filters.stage) filtered = filtered.filter((lead) => (lead.stage || "new") === filters.stage);
   if (filters.segment) filtered = filtered.filter((lead) => lead.segment === filters.segment);
   if (filters.platform) filtered = filtered.filter((lead) => platformMatchesFilter(lead, filters.platform));
   return filtered;
@@ -77,9 +101,11 @@ function applyLeadFilters(leads, filters = {}) {
 
 function isUiLead(lead = {}) {
   if (!lead.url && !lead.name && !lead.title) return false;
+  if (isBlockedCommercialLead(lead)) return false;
   if (lead.segment === "Broker Site") return false;
-  if (lead.priority === "D" && Number(lead.score || 0) < 35) return false;
-  return Number(lead.score || 0) >= 35 || lead.qualificationStatus === "research_candidate" || lead.leadType === "partner" || lead.leadType === "recruitment" || lead.leadType === "institution";
+  if (["rejected", "trash", "archive"].includes(String(lead.qualityStatus || "").toLowerCase())) return false;
+  const score = Number(lead.commercialScore || lead.score || 0);
+  return score >= 38 || lead.qualificationStatus === "research_candidate" || ["partner", "recruitment", "institution"].includes(lead.leadType);
 }
 
 function leadsForUi(db, query = {}) {
@@ -90,11 +116,17 @@ function leadsForUi(db, query = {}) {
   return sortForUi(applyLeadFilters(source, query));
 }
 
+function categoryCounts(leads = []) {
+  const counts = { all: leads.length, "non-mql5": leads.filter((lead) => !sourceCategoryMatches(lead, "mql5")).length };
+  for (const key of SOURCE_CATEGORY_KEYS) counts[key] = leads.filter((lead) => sourceCategoryMatches(lead, key)).length;
+  return counts;
+}
+
 function summarize(leads, db) {
   const counts = {
     total: leads.length,
-    priorityA: leads.filter((lead) => lead.priority === "A" || Number(lead.score || 0) >= 76).length,
-    priorityB: leads.filter((lead) => lead.priority === "B").length,
+    priorityA: leads.filter((lead) => lead.priority === "A" || lead.commercialTier === "A" || Number(lead.commercialScore || lead.score || 0) >= 76).length,
+    priorityB: leads.filter((lead) => lead.priority === "B" || lead.commercialTier === "B").length,
     partners: leads.filter((lead) => lead.leadType === "partner").length,
     recruitment: leads.filter((lead) => lead.leadType === "recruitment").length,
     institutions: leads.filter((lead) => lead.leadType === "institution").length,
@@ -110,7 +142,7 @@ function summarize(leads, db) {
   const bySegment = leads.reduce((acc, lead) => { acc[lead.segment || "Unclear"] = (acc[lead.segment || "Unclear"] || 0) + 1; return acc; }, {});
   const byCountry = leads.reduce((acc, lead) => { const key = lead.country || "Unknown"; acc[key] = (acc[key] || 0) + 1; return acc; }, {});
   const byPlatform = leads.reduce((acc, lead) => { const key = platformForLead(lead); acc[key] = (acc[key] || 0) + 1; return acc; }, {});
-  return { counts, bySegment, byCountry, byPlatform, bySource: countBySource(leads), rawTotal: db.leads?.length || leads.length, lastRun: db.runs?.[0] || null, activeRun: { ...activeRun, continuous } };
+  return { counts, bySegment, byCountry, byPlatform, bySourceCategory: categoryCounts(leads), bySource: countBySource(leads), rawTotal: db.leads?.length || leads.length, lastRun: db.runs?.[0] || null, activeRun: { ...activeRun, continuous } };
 }
 
 function queryKey(query = {}) {
@@ -124,10 +156,10 @@ async function dashboardPayload(query = {}) {
   const updatedAt = db.updatedAt || "";
   const now = Date.now();
   if (dashboardCache.value && dashboardCache.key === key && dashboardCache.updatedAt === updatedAt && now - dashboardCache.createdAt < UI_CACHE_TTL_MS) return dashboardCache.value;
-  const limit = Math.min(Number(query.limit || 180), 250);
+  const limit = Math.min(Number(query.limit || 180), 500);
   const offset = Math.max(Number(query.offset || 0), 0);
   const leads = leadsForUi(db, query);
-  const value = { total: leads.length, leads: leads.slice(offset, offset + limit), summary: summarize(leads, db), run: { ...activeRun, continuous }, health: await healthSnapshot().catch(() => null), cachedAt: new Date().toISOString() };
+  const value = { total: leads.length, leads: leads.slice(offset, offset + limit), summary: summarize(leads, db), run: { ...activeRun, continuous }, health: null, cachedAt: new Date().toISOString() };
   dashboardCache = { key, updatedAt, createdAt: now, value };
   return value;
 }
@@ -167,7 +199,7 @@ async function autoStartBackgroundTasks() {
 app.get("/api/config", (_req, res) => res.json({ defaultScan: DEFAULT_SCAN, searchProfiles: SEARCH_PROFILES, scanPresets: SCAN_PRESETS, autoStart: process.env.AUTO_START_SOURCING !== "false" }));
 app.get("/api/dashboard", async (req, res, next) => { try { res.json(await dashboardPayload(req.query)); } catch (error) { next(error); } });
 app.get("/api/summary", async (req, res, next) => { try { res.json((await dashboardPayload(req.query)).summary); } catch (error) { next(error); } });
-app.get("/api/diagnostics", async (req, res, next) => { try { const data = await dashboardPayload(req.query); res.json({ updatedAt: data.cachedAt, totals: { raw: data.summary.rawTotal, qualified: data.summary.counts.total, contactable: data.summary.counts.contactable, clusters: 0 }, bySource: data.summary.bySource, lastRun: data.summary.lastRun, activeRun: data.run }); } catch (error) { next(error); } });
+app.get("/api/diagnostics", async (req, res, next) => { try { const data = await dashboardPayload(req.query); res.json({ updatedAt: data.cachedAt, totals: { raw: data.summary.rawTotal, qualified: data.summary.counts.total, contactable: data.summary.counts.contactable, clusters: 0 }, bySource: data.summary.bySource, bySourceCategory: data.summary.bySourceCategory, lastRun: data.summary.lastRun, activeRun: data.run }); } catch (error) { next(error); } });
 app.get("/api/clusters", async (_req, res) => res.json({ total: 0, clusters: [] }));
 app.get("/api/leads", async (req, res, next) => { try { const data = await dashboardPayload(req.query); res.json({ total: data.total, leads: data.leads }); } catch (error) { next(error); } });
 app.patch("/api/leads/:id", async (req, res, next) => { try { const patch = {}; if (typeof req.body.stage === "string") patch.stage = req.body.stage; if (typeof req.body.notes === "string") patch.notes = req.body.notes; const lead = await updateLead(req.params.id, patch); dashboardCache = { key: "", updatedAt: "", createdAt: 0, value: null }; if (!lead) return res.status(404).json({ error: "Lead not found" }); res.json({ lead }); } catch (error) { next(error); } });
@@ -193,7 +225,7 @@ app.get("*", (_req, res) => res.sendFile(path.join(publicDir, "index.html")));
 app.use((error, _req, res, _next) => { console.error(error); res.status(500).json({ error: error.message }); });
 
 app.listen(PORT, () => {
-  console.log(`BD Lead Engine running at http://localhost:${PORT}`);
-  console.log(process.env.AUTO_START_SOURCING === "false" ? "Auto sourcing disabled." : "Auto sourcing enabled: background workers and super continuous mode will start automatically.");
+  console.log(`AVENIQ running at http://localhost:${PORT}`);
+  console.log(process.env.AUTO_START_SOURCING === "false" ? "Auto sourcing disabled." : "Auto sourcing enabled.");
   setTimeout(() => { autoStartBackgroundTasks().catch((error) => console.error(`[background] ${error.stack || error.message}`)); autoStartSuper(); }, 1200);
 });
