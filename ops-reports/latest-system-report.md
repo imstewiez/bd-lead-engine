@@ -1,7 +1,7 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T04:06:11.486Z
-Health: CHECK
+Updated: 2026-07-06T04:06:20.597Z
+Health: OK
 
 ## Funnel
 Raw: 1226
@@ -19,9 +19,9 @@ Sales-ready by bucket: {"web":9,"x":7,"myfxbook":6,"mql5":5,"specialist":4,"inst
 Qualified by bucket: {"linkedin":43,"instagram":13,"web":10,"x":9,"facebook_threads":6,"myfxbook":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
 
 ## Sourcing / Workers
-Provider errors: 27
+Provider errors: 0
 Stale workers: none
-Issues: warning:duplicate_pressure, critical:source-harvester_not_running, critical:source-harvester-social_not_running, critical:source-harvester-specialist_not_running, critical:source-harvester-linkedin_not_running, critical:source-harvester-instagram_not_running, critical:source-harvester-platforms_not_running, critical:source-harvester-events_not_running, critical:ui-snapshot-worker_not_running, warning:supervisor_not_running
+Issues: warning:duplicate_pressure
 
 ## Smart Enrichment
 Phase: smart-enriching
