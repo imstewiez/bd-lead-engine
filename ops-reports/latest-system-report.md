@@ -1,34 +1,36 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T05:11:23.491Z
+Updated: 2026-07-06T05:21:27.109Z
 Health: OK
 
 ## Funnel
-Raw: 672
-Qualified: 56
-Working: 80
+Raw: 690
+Qualified: 57
+Working: 81
 Contactable: 62
 Sales-ready: 22
-A1 Hot: 28
-A2 Strong: 8
+A1 Hot: 29
+A2 Strong: 7
 
 ## Quality
 Platform contact leaks: 0
-High-value without real contact: 174
+High-value without real contact: 177
 Sales-ready by bucket: {"web":7,"x":7,"instagram":3,"tiktok":2,"specialist":1,"myfxbook":1,"telegram":1}
-Qualified by bucket: {"linkedin":21,"instagram":13,"x":9,"web":8,"tiktok":2,"telegram":1,"specialist":1,"myfxbook":1}
+Qualified by bucket: {"linkedin":23,"instagram":12,"x":9,"web":8,"tiktok":2,"telegram":1,"specialist":1,"myfxbook":1}
 
 ## Sourcing / Workers
-Provider errors: 0
+Provider errors: 135
 Stale workers: none
 Issues: none
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 0
-Stored: 0
+Processed: 2
+Stored: 2
 Errors: 0
-Current: Posts X
+Current: younginvestors8294
+Last: Instagram
+Last best contact: https://www.instagram.com/joshstrading/
 
 ## Recent Errors
 ### qualified-exporter
