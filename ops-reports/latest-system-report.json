@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "generatedAt": "2026-07-06T00:37:06.786Z",
+  "generatedAt": "2026-07-06T00:37:09.130Z",
   "summary": {
     "ok": true,
     "rawLeads": 1222,
@@ -40,7 +40,7 @@
   },
   "health": {
     "ok": true,
-    "updatedAt": "2026-07-06T00:37:02.578Z",
+    "updatedAt": "2026-07-06T00:37:05.130Z",
     "counts": {
       "raw": 1222,
       "qualified": 97,
@@ -139,7 +139,7 @@
       "source-harvester": {
         "exists": true,
         "updatedAt": "2026-07-06T00:36:59.922Z",
-        "ageMs": 2651,
+        "ageMs": 5202,
         "status": {
           "status": "running",
           "workerName": "source-harvester",
@@ -202,7 +202,7 @@
       "source-harvester-social": {
         "exists": true,
         "updatedAt": "2026-07-06T00:36:59.907Z",
-        "ageMs": 2667,
+        "ageMs": 5217,
         "status": {
           "status": "running",
           "workerName": "source-harvester-social",
@@ -265,7 +265,7 @@
       "source-harvester-specialist": {
         "exists": true,
         "updatedAt": "2026-07-06T00:36:59.913Z",
-        "ageMs": 2661,
+        "ageMs": 5212,
         "status": {
           "status": "running",
           "workerName": "source-harvester-specialist",
@@ -328,7 +328,7 @@
       "source-harvester-ecosystem": {
         "exists": true,
         "updatedAt": "2026-07-06T00:36:59.938Z",
-        "ageMs": 2636,
+        "ageMs": 5187,
         "status": {
           "status": "running",
           "workerName": "source-harvester-ecosystem",
@@ -391,7 +391,7 @@
       "source-harvester-linkedin": {
         "exists": true,
         "updatedAt": "2026-07-06T00:36:59.891Z",
-        "ageMs": 2683,
+        "ageMs": 5234,
         "status": {
           "status": "running",
           "workerName": "source-harvester-linkedin",
@@ -454,7 +454,7 @@
       "source-harvester-instagram": {
         "exists": true,
         "updatedAt": "2026-07-06T00:36:59.895Z",
-        "ageMs": 2679,
+        "ageMs": 5230,
         "status": {
           "status": "running",
           "workerName": "source-harvester-instagram",
@@ -517,7 +517,7 @@
       "source-harvester-platforms": {
         "exists": true,
         "updatedAt": "2026-07-06T00:36:59.888Z",
-        "ageMs": 2686,
+        "ageMs": 5238,
         "status": {
           "status": "running",
           "workerName": "source-harvester-platforms",
@@ -582,7 +582,7 @@
       "source-harvester-communities": {
         "exists": true,
         "updatedAt": "2026-07-06T00:36:59.913Z",
-        "ageMs": 2662,
+        "ageMs": 5213,
         "status": {
           "status": "running",
           "workerName": "source-harvester-communities",
@@ -645,7 +645,7 @@
       "source-harvester-events": {
         "exists": true,
         "updatedAt": "2026-07-06T00:36:59.903Z",
-        "ageMs": 2672,
+        "ageMs": 5223,
         "status": {
           "status": "running",
           "workerName": "source-harvester-events",
@@ -707,11 +707,11 @@
       },
       "enrichment-worker": {
         "exists": true,
-        "updatedAt": "2026-07-06T00:36:59.863Z",
-        "ageMs": 2712,
+        "updatedAt": "2026-07-06T00:37:02.633Z",
+        "ageMs": 2493,
         "status": {
           "status": "running",
-          "phase": "started",
+          "phase": "enriching",
           "options": {
             "delayMs": 2200,
             "idleMs": 5000,
@@ -725,13 +725,36 @@
             "maxTrailQueries": 26,
             "trailLimit": 10
           },
-          "updatedAt": "2026-07-06T00:36:59.863Z"
+          "processed": 0,
+          "rejected": 0,
+          "errors": 0,
+          "idleCycles": 0,
+          "queue": {
+            "eligible": 622,
+            "dueNow": 446,
+            "never": 181,
+            "contactlessDue": 123,
+            "scheduledDue": 139,
+            "rotationDue": 3,
+            "recentlyEnriched1h": 199,
+            "recentlyEnriched24h": 407,
+            "blockedRunning": 7,
+            "oldestDeepAgeHours": 48.2
+          },
+          "current": {
+            "id": "9578d29afa4efdff",
+            "name": "profilephoto:UserTileStatic p",
+            "url": "https://storage.live.com/users/0x%7B0%7D/myprofile/expressionprofile/profilephoto:UserTileStatic/p?ck=1&ex=720&sid=231CD6CFD55F6B051F5CC142D4F46A50&fofoff=1",
+            "platform": "Web",
+            "dueReason": "contactless_due"
+          },
+          "updatedAt": "2026-07-06T00:37:02.633Z"
         }
       },
       "smart-enrichment-worker": {
         "exists": true,
         "updatedAt": "2026-07-06T00:37:00.738Z",
-        "ageMs": 1837,
+        "ageMs": 4389,
         "status": {
           "status": "running",
           "phase": "smart-enriching",
@@ -752,7 +775,7 @@
       "contact-gap-worker": {
         "exists": true,
         "updatedAt": "2026-07-06T00:37:01.699Z",
-        "ageMs": 876,
+        "ageMs": 3428,
         "status": {
           "status": "running",
           "phase": "enriching-gap",
@@ -773,7 +796,7 @@
       "lead-cleaner": {
         "exists": true,
         "updatedAt": "2026-07-06T00:36:59.097Z",
-        "ageMs": 3479,
+        "ageMs": 6030,
         "status": {
           "status": "running",
           "phase": "waiting",
@@ -798,8 +821,8 @@
       },
       "qualified-exporter": {
         "exists": true,
-        "updatedAt": "2026-07-06T00:36:16.215Z",
-        "ageMs": 46361,
+        "updatedAt": "2026-07-06T00:37:03.433Z",
+        "ageMs": 1694,
         "status": {
           "status": "running",
           "intervalMs": 45000,
@@ -831,28 +854,28 @@
             "instagram": 12,
             "linkedin": 42,
             "x": 9,
-            "total": 1223
+            "total": 1222
           },
-          "updatedAt": "2026-07-06T00:36:16.215Z"
+          "updatedAt": "2026-07-06T00:37:03.433Z"
         }
       },
       "cloud-logger-worker": {
         "exists": true,
-        "updatedAt": "2026-07-06T00:36:58.960Z",
-        "ageMs": 3616,
+        "updatedAt": "2026-07-06T00:37:02.727Z",
+        "ageMs": 2401,
         "status": {
           "status": "running",
           "phase": "started",
           "intervalMs": 600000,
-          "loop": true,
-          "once": false,
-          "updatedAt": "2026-07-06T00:36:58.960Z"
+          "loop": false,
+          "once": true,
+          "updatedAt": "2026-07-06T00:37:02.727Z"
         }
       },
       "supervisor": {
         "exists": true,
         "updatedAt": "2026-07-06T00:37:02.472Z",
-        "ageMs": 104,
+        "ageMs": 2656,
         "status": {
           "status": "running",
           "cycle": 1,
@@ -978,57 +1001,57 @@
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.csv",
         "size": 301931,
-        "updatedAt": "2026-07-06T00:36:57.706Z",
-        "ageMs": 4870.639404296875
+        "updatedAt": "2026-07-06T00:37:02.661Z",
+        "ageMs": 2468.46728515625
       },
       "autopilot-qualified-contactable-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.csv",
         "size": 301931,
-        "updatedAt": "2026-07-06T00:36:57.814Z",
-        "ageMs": 4762.977294921875
+        "updatedAt": "2026-07-06T00:37:02.827Z",
+        "ageMs": 2302.14208984375
       },
       "autopilot-hot-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.csv",
         "size": 202080,
-        "updatedAt": "2026-07-06T00:36:57.897Z",
-        "ageMs": 4681.40283203125
+        "updatedAt": "2026-07-06T00:37:02.956Z",
+        "ageMs": 2173.110107421875
       },
       "autopilot-working-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
         "size": 327427,
-        "updatedAt": "2026-07-06T00:36:58.068Z",
-        "ageMs": 4510.09228515625
+        "updatedAt": "2026-07-06T00:37:03.215Z",
+        "ageMs": 1914.152099609375
       },
       "autopilot-social-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
         "size": 169898,
-        "updatedAt": "2026-07-06T00:36:57.944Z",
-        "ageMs": 4633.863037109375
+        "updatedAt": "2026-07-06T00:37:03.029Z",
+        "ageMs": 2099.947265625
       },
       "autopilot-linkedin-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
         "size": 94146,
-        "updatedAt": "2026-07-06T00:36:57.970Z",
-        "ageMs": 4608.335693359375
+        "updatedAt": "2026-07-06T00:37:03.068Z",
+        "ageMs": 2060.91064453125
       },
       "autopilot-instagram-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
         "size": 20832,
-        "updatedAt": "2026-07-06T00:36:57.958Z",
-        "ageMs": 4619.84619140625
+        "updatedAt": "2026-07-06T00:37:03.052Z",
+        "ageMs": 2076.92236328125
       },
       "autopilot-x-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
         "size": 40259,
-        "updatedAt": "2026-07-06T00:36:57.987Z",
-        "ageMs": 4590.829345703125
+        "updatedAt": "2026-07-06T00:37:03.100Z",
+        "ageMs": 2029.3759765625
       }
     },
     "issues": [
@@ -1335,8 +1358,8 @@
       "name": "cloud-logger-worker",
       "status": "running",
       "phase": "started",
-      "age": "4s",
-      "ageMs": 3645,
+      "age": "2s",
+      "ageMs": 2423,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -1363,8 +1386,8 @@
       "name": "contact-gap-worker",
       "status": "running",
       "phase": "enriching-gap",
-      "age": "1s",
-      "ageMs": 907,
+      "age": "3s",
+      "ageMs": 3451,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -1397,8 +1420,8 @@
       "name": "engine-control",
       "status": "running",
       "phase": "started",
-      "age": "13s",
-      "ageMs": 12731,
+      "age": "15s",
+      "ageMs": 15276,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -1424,13 +1447,19 @@
     {
       "name": "enrichment-worker",
       "status": "running",
-      "phase": "started",
+      "phase": "enriching",
       "age": "3s",
-      "ageMs": 2743,
+      "ageMs": 2518,
       "cycle": null,
       "pid": null,
       "message": "",
-      "current": null,
+      "current": {
+        "id": "9578d29afa4efdff",
+        "name": "profilephoto:UserTileStatic p",
+        "url": "https://storage.live.com/users/0x%7B0%7D/myprofile/expressionprofile/profilephoto:UserTileStatic/p?ck=1&ex=720&sid=231CD6CFD55F6B051F5CC142D4F46A50&fofoff=1",
+        "platform": "Web",
+        "dueReason": "contactless_due"
+      },
       "lastResult": null,
       "counts": {
         "raw": 0,
@@ -1444,17 +1473,17 @@
         "contactable": null,
         "hot": null,
         "totalRemoved": null,
-        "processed": null,
+        "processed": 0,
         "stored": null,
-        "errors": null
+        "errors": 0
       }
     },
     {
       "name": "lead-cleaner",
       "status": "running",
       "phase": "waiting",
-      "age": "4s",
-      "ageMs": 3510,
+      "age": "6s",
+      "ageMs": 6054,
       "cycle": 1,
       "pid": null,
       "message": "",
@@ -1481,8 +1510,8 @@
       "name": "qualified-exporter",
       "status": "running",
       "phase": "n/a",
-      "age": "46s",
-      "ageMs": 46392,
+      "age": "2s",
+      "ageMs": 1718,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -1494,7 +1523,7 @@
         "discarded": 0,
         "duplicates": 0,
         "providerErrors": 0,
-        "total": 1223,
+        "total": 1222,
         "exported": 97,
         "working": 123,
         "contactable": 97,
@@ -1509,8 +1538,8 @@
       "name": "smart-enrichment-worker",
       "status": "running",
       "phase": "smart-enriching",
-      "age": "2s",
-      "ageMs": 1869,
+      "age": "4s",
+      "ageMs": 4413,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -1543,8 +1572,8 @@
       "name": "source-harvester",
       "status": "running",
       "phase": "scan",
-      "age": "3s",
-      "ageMs": 2687,
+      "age": "5s",
+      "ageMs": 5232,
       "cycle": 1,
       "pid": null,
       "message": "Starting scan with 170 balanced queries",
@@ -1571,8 +1600,8 @@
       "name": "source-harvester-communities",
       "status": "running",
       "phase": "scan",
-      "age": "3s",
-      "ageMs": 2694,
+      "age": "5s",
+      "ageMs": 5239,
       "cycle": 1,
       "pid": null,
       "message": "Starting scan with 142 balanced queries",
@@ -1599,8 +1628,8 @@
       "name": "source-harvester-ecosystem",
       "status": "running",
       "phase": "scan",
-      "age": "3s",
-      "ageMs": 2670,
+      "age": "5s",
+      "ageMs": 5214,
       "cycle": 1,
       "pid": null,
       "message": "Starting scan with 135 balanced queries",
@@ -1627,8 +1656,8 @@
       "name": "source-harvester-events",
       "status": "running",
       "phase": "scan",
-      "age": "3s",
-      "ageMs": 2705,
+      "age": "5s",
+      "ageMs": 5249,
       "cycle": 1,
       "pid": null,
       "message": "Starting scan with 163 balanced queries",
@@ -1655,8 +1684,8 @@
       "name": "source-harvester-instagram",
       "status": "running",
       "phase": "scan",
-      "age": "3s",
-      "ageMs": 2713,
+      "age": "5s",
+      "ageMs": 5257,
       "cycle": 1,
       "pid": null,
       "message": "Starting scan with 55 balanced queries",
@@ -1683,8 +1712,8 @@
       "name": "source-harvester-linkedin",
       "status": "running",
       "phase": "scan",
-      "age": "3s",
-      "ageMs": 2717,
+      "age": "5s",
+      "ageMs": 5261,
       "cycle": 1,
       "pid": null,
       "message": "Starting scan with 219 balanced queries",
@@ -1711,8 +1740,8 @@
       "name": "source-harvester-platforms",
       "status": "running",
       "phase": "scan",
-      "age": "3s",
-      "ageMs": 2720,
+      "age": "5s",
+      "ageMs": 5265,
       "cycle": 1,
       "pid": null,
       "message": "Starting scan with 48 balanced queries",
@@ -1739,8 +1768,8 @@
       "name": "source-harvester-social",
       "status": "running",
       "phase": "scan",
-      "age": "3s",
-      "ageMs": 2702,
+      "age": "5s",
+      "ageMs": 5246,
       "cycle": 1,
       "pid": null,
       "message": "Starting scan with 176 balanced queries",
@@ -1767,8 +1796,8 @@
       "name": "source-harvester-specialist",
       "status": "running",
       "phase": "scan",
-      "age": "3s",
-      "ageMs": 2696,
+      "age": "5s",
+      "ageMs": 5240,
       "cycle": 1,
       "pid": null,
       "message": "Starting scan with 135 balanced queries",
@@ -1795,8 +1824,8 @@
       "name": "supervisor",
       "status": "running",
       "phase": "n/a",
-      "age": "0s",
-      "ageMs": 137,
+      "age": "3s",
+      "ageMs": 2682,
       "cycle": 1,
       "pid": null,
       "message": "",
@@ -1825,57 +1854,57 @@
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.csv",
       "size": 301931,
-      "updatedAt": "2026-07-06T00:36:57.706Z",
-      "ageMs": 4870.639404296875
+      "updatedAt": "2026-07-06T00:37:02.661Z",
+      "ageMs": 2468.46728515625
     },
     "autopilot-qualified-contactable-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.csv",
       "size": 301931,
-      "updatedAt": "2026-07-06T00:36:57.814Z",
-      "ageMs": 4762.977294921875
+      "updatedAt": "2026-07-06T00:37:02.827Z",
+      "ageMs": 2302.14208984375
     },
     "autopilot-hot-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.csv",
       "size": 202080,
-      "updatedAt": "2026-07-06T00:36:57.897Z",
-      "ageMs": 4681.40283203125
+      "updatedAt": "2026-07-06T00:37:02.956Z",
+      "ageMs": 2173.110107421875
     },
     "autopilot-working-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
       "size": 327427,
-      "updatedAt": "2026-07-06T00:36:58.068Z",
-      "ageMs": 4510.09228515625
+      "updatedAt": "2026-07-06T00:37:03.215Z",
+      "ageMs": 1914.152099609375
     },
     "autopilot-social-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
       "size": 169898,
-      "updatedAt": "2026-07-06T00:36:57.944Z",
-      "ageMs": 4633.863037109375
+      "updatedAt": "2026-07-06T00:37:03.029Z",
+      "ageMs": 2099.947265625
     },
     "autopilot-linkedin-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
       "size": 94146,
-      "updatedAt": "2026-07-06T00:36:57.970Z",
-      "ageMs": 4608.335693359375
+      "updatedAt": "2026-07-06T00:37:03.068Z",
+      "ageMs": 2060.91064453125
     },
     "autopilot-instagram-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
       "size": 20832,
-      "updatedAt": "2026-07-06T00:36:57.958Z",
-      "ageMs": 4619.84619140625
+      "updatedAt": "2026-07-06T00:37:03.052Z",
+      "ageMs": 2076.92236328125
     },
     "autopilot-x-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
       "size": 40259,
-      "updatedAt": "2026-07-06T00:36:57.987Z",
-      "ageMs": 4590.829345703125
+      "updatedAt": "2026-07-06T00:37:03.100Z",
+      "ageMs": 2029.3759765625
     }
   },
   "recentRuns": [
