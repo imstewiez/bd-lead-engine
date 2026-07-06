@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { randomUUID } from "node:crypto";
 import { cleanEmails, cleanForms, hasDirectOutboundPath } from "./contact-cleaner.js";
 import { enhanceCommercialLead } from "./commercial-intelligence.js";
 import { isExportQualified, isWorkingLead } from "./exporter.js";
@@ -16,6 +17,8 @@ const rejectedSnapshotPath = path.join(dataDir, "ui-dashboard-rejected.json");
 const statusPath = path.join(dataDir, "ui-snapshot-worker-status.json");
 const intervalMs = Number(process.argv.find((arg) => arg.startsWith("--intervalMs="))?.split("=")[1] || process.env.UI_SNAPSHOT_INTERVAL_MS || 12000);
 const once = process.argv.includes("--once");
+
+const RETRYABLE_RENAME_ERRORS = new Set(["EPERM", "EBUSY", "EACCES"]);
 
 function platformForLead(lead = {}) { return lead.platform || platformFromUrl(lead.url || "") || "Unknown"; }
 function searchableText(lead = {}) { return [lead.name, lead.companyName, lead.title, lead.snippet, lead.url, lead.domain, lead.country, lead.leadType, lead.segment, lead.entityType, ...(lead.evidence || [])].filter(Boolean).join(" ").toLowerCase(); }
@@ -45,19 +48,51 @@ function summarize(leads, rawTotal) {
   return { counts, byPlatform, bySegment, byCountry, rawTotal };
 }
 async function sleep(ms) { return new Promise((resolve) => setTimeout(resolve, ms)); }
+function retryDelay(attempt) {
+  const exponentialFloor = Math.min(300, 50 * 2 ** Math.max(0, attempt - 1));
+  return exponentialFloor + Math.floor(Math.random() * Math.max(1, 300 - exponentialFloor + 1));
+}
+async function fsyncDirectoryBestEffort(dirPath) {
+  let handle = null;
+  try { handle = await fs.open(dirPath, "r"); await handle.sync(); }
+  catch { /* Windows can reject directory handles; temp-file fsync still protects payload integrity. */ }
+  finally { if (handle) await handle.close().catch(() => {}); }
+}
 async function writeJsonAtomic(filePath, value) {
   await fs.mkdir(path.dirname(filePath), { recursive: true });
-  const tmp = `${filePath}.${process.pid}.${Date.now()}.tmp`;
+  const dir = path.dirname(filePath);
+  const base = path.basename(filePath);
+  const tmp = path.join(dir, `.${base}.tmp.${Date.now()}.${process.pid}.${randomUUID()}`);
   const payload = `${JSON.stringify(value, null, 2)}\n`;
-  await fs.writeFile(tmp, payload, "utf8");
-  let lastError = null;
-  for (let attempt = 1; attempt <= 12; attempt += 1) {
-    try { await fs.rename(tmp, filePath); return; }
-    catch (error) { lastError = error; if (!["EPERM", "EACCES", "EBUSY"].includes(error.code)) throw error; await sleep(80 * attempt); }
+  let handle = null;
+
+  try {
+    handle = await fs.open(tmp, "wx");
+    await handle.writeFile(payload, "utf8");
+    await handle.sync();
+  } finally {
+    if (handle) await handle.close().catch(() => {});
   }
-  await fs.copyFile(tmp, filePath);
+
+  let lastError = null;
+  const maxRetries = 5;
+  for (let attempt = 0; attempt <= maxRetries; attempt += 1) {
+    try {
+      await fs.rename(tmp, filePath);
+      await fsyncDirectoryBestEffort(dir);
+      return;
+    } catch (error) {
+      lastError = error;
+      if (!RETRYABLE_RENAME_ERRORS.has(error.code) || attempt === maxRetries) break;
+      await sleep(retryDelay(attempt + 1));
+    }
+  }
+
   await fs.rm(tmp, { force: true }).catch(() => {});
-  if (lastError) return;
+  const fatal = new Error(`Failed atomic snapshot rename for ${filePath} after ${maxRetries + 1} attempts: ${lastError?.message || "unknown error"}`);
+  fatal.code = lastError?.code || "ATOMIC_RENAME_FAILED";
+  fatal.cause = lastError;
+  throw fatal;
 }
 export async function buildUiSnapshot() {
   const startedAt = Date.now();
