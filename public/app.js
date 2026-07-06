@@ -9,17 +9,30 @@ const PIPELINE_STAGES = [
   { key: "lost", label: "Perdido" }
 ];
 
-const MAX_LEADS_FETCH = 260;
+const MAX_LEADS_FETCH = 500;
 const DASHBOARD_REFRESH_MS = 12000;
 const SNAPSHOT_MAX_AGE_MS = 90000;
+const SOURCE_FILTERS = [
+  ["", "Todas"],
+  ["specialist", "Especialistas"],
+  ["social", "Social/DM"],
+  ["linkedin", "LinkedIn"],
+  ["instagram", "Instagram"],
+  ["telegram", "Telegram"],
+  ["myfxbook", "Myfxbook"],
+  ["mql5", "MQL5"],
+  ["forums", "Fóruns"],
+  ["web", "Web"]
+];
 
 const state = {
   leads: [],
+  lastAllLeads: [],
   selectedId: null,
   summary: null,
   health: null,
   filters: { q: "", priority: "", leadType: "", stage: "", platform: "", viewMode: "qualified" },
-  ui: { leadsSignature: "", loadingLeads: false, running: false, iconRefreshQueued: false, toastTimer: null }
+  ui: { leadsSignature: "", loadingLeads: false, running: false, iconRefreshQueued: false, toastTimer: null, abortController: null }
 };
 
 const $ = (selector) => document.querySelector(selector);
@@ -35,11 +48,7 @@ function iconRefresh() {
 }
 
 function escapeHtml(value = "") {
-  return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
+  return String(value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
 function shortUrl(url = "") {
@@ -51,7 +60,7 @@ function shortUrl(url = "") {
   }
 }
 
-async function api(path, options) {
+async function api(path, options = {}) {
   const response = await fetch(path, { headers: { "content-type": "application/json" }, ...options });
   if (!response.ok) {
     const body = await response.json().catch(() => ({}));
@@ -69,14 +78,8 @@ function toast(message) {
   state.ui.toastTimer = setTimeout(() => node.classList.remove("show"), 2200);
 }
 
-function compactNumber(value) {
-  return Number(value || 0).toLocaleString("en-US");
-}
-
-function percent(part, total) {
-  if (!total) return 0;
-  return Math.max(0, Math.min(100, Math.round((Number(part || 0) / Number(total || 0)) * 100)));
-}
+function compactNumber(value) { return Number(value || 0).toLocaleString("en-US"); }
+function percent(part, total) { return total ? Math.max(0, Math.min(100, Math.round((Number(part || 0) / Number(total || 0)) * 100))) : 0; }
 
 function filterQueryString({ includeLimit = false } = {}) {
   const params = new URLSearchParams();
@@ -95,15 +98,56 @@ function hasLiveFilters() {
 }
 
 function leadsSignature(leads = []) {
-  return leads.map((lead) => [lead.id, lead.stage, lead.score, lead.contactConfidence, lead.lastSeen, lead.updatedAt].join(":")).join("|");
+  return leads.map((lead) => [lead.id, lead.stage, lead.commercialScore, lead.score, lead.contactConfidence, lead.lastSeen, lead.updatedAt].join(":")).join("|");
 }
 
-function snapshotHealth(summary = {}) {
-  return {
-    ok: true,
-    counts: { working: summary.counts?.total || 0, contactable: summary.counts?.contactable || 0 },
-    enrichmentQueue: { dueNow: 0 }
-  };
+function updateLastUpdated(value = new Date()) {
+  const node = $("#lastUpdated");
+  if (!node) return;
+  const date = value instanceof Date ? value : new Date(value);
+  node.textContent = `Atualizado ${date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
+}
+
+function sourceText(lead = {}) {
+  return `${platformForLead(lead)} ${lead.url || ""} ${lead.sourceBucket || ""} ${lead.entityType || ""} ${lead.segment || ""}`.toLowerCase();
+}
+
+function categoryMatches(lead = {}, category = "") {
+  const text = sourceText(lead);
+  const value = String(category || "").toLowerCase();
+  if (!value) return true;
+  if (value === "specialist") return /mql5|myfxbook|fxblue|zulutrade|darwinex|signalstart|collective2|forexfactory|babypips|specialist/.test(text);
+  if (value === "social") return /linkedin|instagram|x\/twitter|twitter|telegram|t\.me|discord|tiktok|facebook|threads|reddit/.test(text);
+  if (value === "linkedin") return /linkedin/.test(text);
+  if (value === "instagram") return /instagram/.test(text);
+  if (value === "telegram") return /telegram|t\.me/.test(text);
+  if (value === "myfxbook") return /myfxbook/.test(text);
+  if (value === "mql5") return /mql5/.test(text);
+  if (value === "forums") return /forexfactory|babypips|earnforex|reddit|forum/.test(text);
+  if (value === "web") return !["specialist", "social"].some((key) => categoryMatches(lead, key));
+  return text.includes(value);
+}
+
+function applyLocalFilters(leads = state.lastAllLeads) {
+  let filtered = [...leads];
+  const q = String(state.filters.q || "").toLowerCase().trim();
+  if (q) filtered = filtered.filter((lead) => [lead.name, lead.companyName, lead.title, lead.snippet, lead.url, lead.country, lead.leadType, lead.segment, lead.entityType, ...(lead.evidence || [])].filter(Boolean).join(" ").toLowerCase().includes(q));
+  if (state.filters.priority) filtered = filtered.filter((lead) => lead.priority === state.filters.priority || lead.commercialTier === state.filters.priority);
+  if (state.filters.leadType) filtered = filtered.filter((lead) => lead.leadType === state.filters.leadType);
+  if (state.filters.stage) filtered = filtered.filter((lead) => (lead.stage || "new") === state.filters.stage);
+  if (state.filters.platform) filtered = filtered.filter((lead) => categoryMatches(lead, state.filters.platform));
+  return filtered;
+}
+
+function renderLocalPreview() {
+  if (!state.lastAllLeads.length) return;
+  const leads = applyLocalFilters();
+  state.leads = leads;
+  if (!state.selectedId || !state.leads.some((lead) => lead.id === state.selectedId)) state.selectedId = state.leads[0]?.id || null;
+  state.ui.leadsSignature = leadsSignature(leads);
+  renderLeads();
+  renderDetail();
+  renderSourceActiveStates();
 }
 
 async function loadStaticSnapshot() {
@@ -116,24 +160,8 @@ async function loadStaticSnapshot() {
     const generatedAt = Date.parse(snapshot.generatedAt || "");
     if (!Number.isFinite(generatedAt) || Date.now() - generatedAt > SNAPSHOT_MAX_AGE_MS) return null;
     const summary = snapshot.summary || { counts: { total: snapshot.total || 0 }, rawTotal: snapshot.total || 0 };
-    return {
-      total: snapshot.total || 0,
-      leads: (snapshot.leads || []).slice(0, MAX_LEADS_FETCH),
-      summary,
-      health: snapshotHealth(summary),
-      run: { status: "idle", continuous: { status: "auto" } },
-      snapshot: true
-    };
-  } catch {
-    return null;
-  }
-}
-
-function updateLastUpdated(value = new Date()) {
-  const node = $("#lastUpdated");
-  if (!node) return;
-  const date = value instanceof Date ? value : new Date(value);
-  node.textContent = `Atualizado ${date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
+    return { total: snapshot.total || 0, leads: (snapshot.leads || []).slice(0, MAX_LEADS_FETCH), summary, health: null, run: { status: "idle", continuous: { status: "auto" } }, snapshot: true };
+  } catch { return null; }
 }
 
 function applyDashboardData(data, { forceLeads = false } = {}) {
@@ -144,6 +172,7 @@ function applyDashboardData(data, { forceLeads = false } = {}) {
   state.summary = data.summary || null;
   state.health = data.health || null;
   state.leads = leads;
+  if (!hasLiveFilters()) state.lastAllLeads = leads;
 
   if (!state.selectedId && state.leads.length) state.selectedId = state.leads[0].id;
   if (state.selectedId && !state.leads.some((lead) => lead.id === state.selectedId)) state.selectedId = state.leads[0]?.id || null;
@@ -161,22 +190,30 @@ function applyDashboardData(data, { forceLeads = false } = {}) {
 }
 
 async function loadDashboard({ forceLeads = false } = {}) {
-  if (state.ui.loadingLeads) return;
+  if (state.ui.loadingLeads && !forceLeads) return;
+  if (forceLeads && state.ui.abortController) state.ui.abortController.abort();
+  const controller = new AbortController();
+  state.ui.abortController = controller;
   state.ui.loadingLeads = true;
+  $("#leadRows")?.classList.add("is-loading");
   try {
     const snapshot = await loadStaticSnapshot();
-    if (snapshot) {
+    if (snapshot && !forceLeads) {
       applyDashboardData(snapshot, { forceLeads });
       if (!state.ui.running) return;
     }
     const query = filterQueryString({ includeLimit: true });
-    const data = await api(`/api/dashboard${query ? `?${query}` : ""}`);
+    const data = await api(`/api/dashboard${query ? `?${query}` : ""}`, { signal: controller.signal });
     applyDashboardData(data, { forceLeads });
   } catch (error) {
-    toast(error.message || "Erro ao carregar dashboard");
-    throw error;
+    if (error.name !== "AbortError") {
+      toast(error.message || "Erro ao carregar dashboard");
+      throw error;
+    }
   } finally {
+    if (state.ui.abortController === controller) state.ui.abortController = null;
     state.ui.loadingLeads = false;
+    $("#leadRows")?.classList.remove("is-loading");
   }
 }
 
@@ -197,13 +234,9 @@ function renderSummary() {
 
 function renderRun(run = {}) {
   const continuous = run.continuous || {};
-  const isRunning = run.status === "running" || continuous.status === "running" || continuous.status === "stopping";
-  state.ui.running = isRunning;
+  state.ui.running = run.status === "running" || continuous.status === "running" || continuous.status === "stopping";
   const badge = $("#runBadge");
-  if (badge) {
-    badge.textContent = "Live";
-    badge.className = isRunning ? "status-pill live" : "status-pill live";
-  }
+  if (badge) { badge.textContent = "Live"; badge.className = "status-pill live"; }
   iconRefresh();
 }
 
@@ -212,67 +245,58 @@ function platformClass(value = "") { return platformLabel(value).toLowerCase().r
 function platformForLead(lead = {}) { return lead.platform || "Web"; }
 function countryLabel(value = "") { return value || "Global"; }
 
+function renderSourceActiveStates() {
+  $$("#platformStrip .source-chip").forEach((button) => button.classList.toggle("active", String(state.filters.platform || "") === String(button.dataset.platform || "")));
+}
+
+async function setPlatformFilter(value) {
+  state.filters.platform = value || "";
+  const filter = $("#platformFilter");
+  if (filter) filter.value = state.filters.platform;
+  resetLeadView();
+  renderSourceActiveStates();
+  renderLocalPreview();
+  await loadDashboard({ forceLeads: true });
+}
+
 function renderPlatformStrip() {
+  const categoryCounts = state.summary?.bySourceCategory || {};
   const byPlatform = state.summary?.byPlatform || {};
-  const entries = Object.entries(byPlatform).sort((a, b) => b[1] - a[1]);
-  const nonMql5Count = entries.filter(([name]) => !/mql5/i.test(name)).reduce((sum, [, count]) => sum + count, 0);
-  const socialCount = entries.filter(([name]) => /linkedin|instagram|x\/twitter|telegram|discord|tiktok|facebook|threads|reddit/i.test(name)).reduce((sum, [, count]) => sum + count, 0);
-  const specialistCount = entries.filter(([name]) => /mql5|myfxbook|fxblue|zulutrade|darwinex|signalstart|collective2|tradingview|forexfactory|babypips/i.test(name)).reduce((sum, [, count]) => sum + count, 0);
+  const platformEntries = Object.entries(byPlatform)
+    .filter(([name]) => !SOURCE_FILTERS.some(([key]) => key && key.toLowerCase() === String(name).toLowerCase()))
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 8);
   const buttons = [
-    ["", "Todas", state.summary?.counts?.total || 0],
-    ["non-mql5", "Sem MQL5", nonMql5Count],
-    ["social", "Social/DM", socialCount],
-    ["specialist", "Especialistas", specialistCount],
-    ...entries.map(([name, count]) => [name, name, count])
+    ...SOURCE_FILTERS.map(([value, label]) => [value, label, value ? categoryCounts[value] || 0 : state.summary?.counts?.total || 0]),
+    ...platformEntries.map(([name, count]) => [name, name, count])
   ];
   $("#platformStrip").innerHTML = buttons
     .filter(([, , count], index) => index === 0 || Number(count || 0) > 0)
-    .slice(0, 16)
-    .map(([value, label, count]) => {
-      const active = String(state.filters.platform || "") === String(value || "") ? "active" : "";
-      return `<button class="source-chip ${active}" data-platform="${escapeHtml(value)}" type="button"><span>${escapeHtml(label)}</span><strong>${compactNumber(count || 0)}</strong></button>`;
-    })
+    .map(([value, label, count]) => `<button class="source-chip ${String(state.filters.platform || "") === String(value || "") ? "active" : ""}" data-platform="${escapeHtml(value)}" type="button"><span>${escapeHtml(label)}</span><strong>${compactNumber(count || 0)}</strong></button>`)
     .join("");
-  $$("#platformStrip .source-chip").forEach((button) => button.addEventListener("click", async () => {
-    state.filters.platform = button.dataset.platform || "";
-    const filter = $("#platformFilter");
-    if (filter) filter.value = state.filters.platform;
-    resetLeadView();
-    await loadDashboard({ forceLeads: true });
-  }));
+  $$("#platformStrip .source-chip").forEach((button) => button.addEventListener("click", () => setPlatformFilter(button.dataset.platform || "").catch((error) => console.error(error))));
 }
 
 function renderInsights() {
   const counts = state.summary?.counts || {};
   const contactPct = percent(counts.contactable || 0, counts.total || 0);
-  const ring = $("#qualityRing");
-  const pctNode = $("#qualityPercent");
-  if (ring) ring.style.setProperty("--pct", `${contactPct}%`);
-  if (pctNode) pctNode.textContent = `${contactPct}%`;
-  const qualityCopy = $("#qualityCopy");
-  if (qualityCopy) qualityCopy.textContent = `${compactNumber(counts.contactable || 0)} de ${compactNumber(counts.total || 0)} leads têm contacto acionável.`;
+  $("#qualityRing")?.style.setProperty("--pct", `${contactPct}%`);
+  if ($("#qualityPercent")) $("#qualityPercent").textContent = `${contactPct}%`;
+  if ($("#qualityCopy")) $("#qualityCopy").textContent = `${compactNumber(counts.contactable || 0)} de ${compactNumber(counts.total || 0)} leads têm contacto acionável.`;
 
   const sourceEntries = Object.entries(state.summary?.byPlatform || {}).sort((a, b) => b[1] - a[1]).slice(0, 5);
-  const topSourceLabel = $("#topSourceLabel");
-  if (topSourceLabel) topSourceLabel.textContent = sourceEntries[0] ? `${sourceEntries[0][0]} · ${compactNumber(sourceEntries[0][1])}` : "—";
+  if ($("#topSourceLabel")) $("#topSourceLabel").textContent = sourceEntries[0] ? `${sourceEntries[0][0]} · ${compactNumber(sourceEntries[0][1])}` : "—";
   renderBarChart("#sourceChart", sourceEntries, { kind: "platform" });
 
-  const stageEntries = PIPELINE_STAGES
-    .map((stage) => [stage.label, state.leads.filter((lead) => stageKey(lead.stage) === stage.key).length, stage.key])
-    .filter(([, value]) => value > 0)
-    .slice(0, 5);
-  const stageFocusLabel = $("#stageFocusLabel");
-  if (stageFocusLabel) stageFocusLabel.textContent = stageEntries[0] ? `${stageEntries[0][0]} · ${compactNumber(stageEntries[0][1])}` : "—";
+  const stageEntries = PIPELINE_STAGES.map((stage) => [stage.label, state.leads.filter((lead) => stageKey(lead.stage) === stage.key).length, stage.key]).filter(([, value]) => value > 0).slice(0, 5);
+  if ($("#stageFocusLabel")) $("#stageFocusLabel").textContent = stageEntries[0] ? `${stageEntries[0][0]} · ${compactNumber(stageEntries[0][1])}` : "—";
   renderBarChart("#stageChart", stageEntries, { kind: "stage" });
 }
 
 function renderBarChart(selector, entries = [], options = {}) {
   const node = $(selector);
   if (!node) return;
-  if (!entries.length) {
-    node.innerHTML = `<div class="empty-chart">Sem dados nesta vista.</div>`;
-    return;
-  }
+  if (!entries.length) { node.innerHTML = `<div class="empty-chart">Sem dados nesta vista.</div>`; return; }
   const max = Math.max(...entries.map(([, value]) => Number(value || 0)), 1);
   node.innerHTML = entries.map(([label, value, key]) => {
     const width = Math.max(5, Math.round((Number(value || 0) / max) * 100));
@@ -280,16 +304,8 @@ function renderBarChart(selector, entries = [], options = {}) {
     return `<button class="chart-row" type="button" ${dataAttrs}><span>${escapeHtml(label)}</span><strong>${compactNumber(value)}</strong><i><b style="width:${width}%"></b></i></button>`;
   }).join("");
   node.querySelectorAll(".chart-row").forEach((row) => row.addEventListener("click", async () => {
-    if (options.kind === "stage") {
-      state.filters.stage = row.dataset.stage || "";
-      $("#stageFilter").value = state.filters.stage;
-    } else {
-      state.filters.platform = row.dataset.platform || "";
-      const filter = $("#platformFilter");
-      if (filter) filter.value = state.filters.platform;
-    }
-    resetLeadView();
-    await loadDashboard({ forceLeads: true });
+    if (options.kind === "stage") { state.filters.stage = row.dataset.stage || ""; $("#stageFilter").value = state.filters.stage; resetLeadView(); renderLocalPreview(); await loadDashboard({ forceLeads: true }); }
+    else { await setPlatformFilter(row.dataset.platform || ""); }
   }));
 }
 
@@ -297,43 +313,16 @@ function typeLabel(value = "") {
   const labels = { partner: "Parceiro", institution: "Instituição", recruitment: "Recruta", research: "Pesquisa" };
   return labels[String(value).toLowerCase()] || value || "Pesquisa";
 }
-function stageLabel(value = "") {
-  const labels = Object.fromEntries(PIPELINE_STAGES.map((stage) => [stage.key, stage.label]));
-  return labels[String(value || "new").toLowerCase()] || String(value || "new").replace(/_/g, " ");
-}
-function stageKey(value = "") {
-  const key = String(value || "new").toLowerCase();
-  return PIPELINE_STAGES.some((stage) => stage.key === key) ? key : "new";
-}
+function stageLabel(value = "") { const labels = Object.fromEntries(PIPELINE_STAGES.map((stage) => [stage.key, stage.label])); return labels[String(value || "new").toLowerCase()] || String(value || "new").replace(/_/g, " "); }
+function stageKey(value = "") { const key = String(value || "new").toLowerCase(); return PIPELINE_STAGES.some((stage) => stage.key === key) ? key : "new"; }
 function segmentLabel(value = "") {
-  const labels = {
-    "Fund / Asset Manager": "Fundos / Asset Manager",
-    "Event / Expo": "Eventos",
-    "Prop / Funded Trading": "Prop / Funded",
-    "IB / Partner": "IB / Parceiro",
-    "High-Calibre Trader": "Trader Pro",
-    "Trading Education": "Educação",
-    Affiliate: "Afiliado",
-    Community: "Comunidade",
-    "Creator / Influencer": "Criador",
-    "Broker-Seeking / Intent Post": "Procura corretora",
-    "Broker Talent": "Talento broker"
-  };
+  const labels = { "Fund / Asset Manager": "Fundos / Asset Manager", "Event / Expo": "Eventos", "Prop / Funded Trading": "Prop / Funded", "IB / Partner": "IB / Parceiro", "High-Calibre Trader": "Trader Pro", "Trading Education": "Educação", Affiliate: "Afiliado", Community: "Comunidade", "Creator / Influencer": "Criador", "Broker-Seeking / Intent Post": "Procura corretora", "Broker Talent": "Talento broker" };
   return labels[value] || value || "";
 }
 function priorityClass(priority) { return String(priority || "d").toLowerCase(); }
 function contactConfidence(lead = {}) { return Math.max(0, Math.min(100, Number(lead.contactConfidence || 0))); }
-function leadTitle(lead = {}) {
-  const value = lead.name || lead.title || "Untitled";
-  return String(value)
-    .replace(/^\)?\s*\/\s*posts\s*\/\s*x(?:\s*-\s*twitter)?/i, "X profile/post")
-    .replace(/^thread\s*›\s*/i, "ForexFactory thread: ")
-    .replace(/^past-events\s*›\s*/i, "Event: ");
-}
-
-function selectedLeadClass(lead) {
-  return lead.id === state.selectedId ? "selected" : "";
-}
+function leadTitle(lead = {}) { return String(lead.companyName || lead.name || lead.title || "Untitled").replace(/^\)?\s*\/\s*posts\s*\/\s*x(?:\s*-\s*twitter)?/i, "X profile/post").replace(/^thread\s*›\s*/i, "ForexFactory thread: ").replace(/^past-events\s*›\s*/i, "Event: "); }
+function selectedLeadClass(lead) { return lead.id === state.selectedId ? "selected" : ""; }
 
 function leadRow(lead) {
   const confidence = contactConfidence(lead);
@@ -344,7 +333,7 @@ function leadRow(lead) {
     <div><span class="source-pill ${platformClass(source)}">${escapeHtml(source)}</span></div>
     <div><span class="type-pill ${escapeHtml(lead.leadType || "")}">${escapeHtml(typeLabel(lead.leadType))}</span></div>
     <div class="muted-cell">${escapeHtml(segmentLabel(lead.segment) || countryLabel(lead.country))}</div>
-    <div class="score-cell">${Number(lead.score || 0)}</div>
+    <div class="score-cell">${Number(lead.commercialScore || lead.score || 0)}</div>
     <div class="confidence-cell"><span>${confidence}%</span><i style="width:${confidence}%"></i></div>
     <div><span class="stage-pill">${escapeHtml(stageLabel(lead.stage))}</span></div>
   </div>`;
@@ -352,129 +341,44 @@ function leadRow(lead) {
 
 function renderLeads() {
   const rows = state.leads.map(leadRow).join("");
-  $("#leadRows").innerHTML = `<div class="lead-table">
-    <div class="table-row table-head"><span>Lead</span><span>Fonte</span><span>Tipo</span><span>Segmento</span><span>Score</span><span>Contacto</span><span>Estado</span></div>
-    ${rows || `<div class="empty-table">Ainda não há leads nesta vista.</div>`}
-  </div>`;
-  $$(".lead-row").forEach((row) => row.addEventListener("click", (event) => {
-    if (event.target.closest("a")) return;
-    selectLead(row.dataset.id);
-  }));
+  $("#leadRows").innerHTML = `<div class="lead-table"><div class="table-row table-head"><span>Lead</span><span>Fonte</span><span>Tipo</span><span>Segmento</span><span>Score</span><span>Contacto</span><span>Estado</span></div>${rows || `<div class="empty-table">Ainda não há leads nesta vista.</div>`}</div>`;
+  $$(".lead-row").forEach((row) => row.addEventListener("click", (event) => { if (!event.target.closest("a")) selectLead(row.dataset.id); }));
   iconRefresh();
 }
 
-function selectLead(id) {
-  state.selectedId = id;
-  $$(".lead-row").forEach((row) => row.classList.toggle("selected", row.dataset.id === id));
-  renderDetail();
-}
-
-function uniqueList(items = []) {
-  return [...new Set(items.filter(Boolean).map((item) => String(item).trim()).filter(Boolean))];
-}
-
-function renderLinkList(title, links = []) {
-  const clean = uniqueList(links).slice(0, 8);
-  if (!clean.length) return "";
-  return `<div class="detail-section"><h3>${escapeHtml(title)}</h3><div class="link-list">${clean.map((link) => `<a class="mini-chip" href="${escapeHtml(link)}" target="_blank" rel="noreferrer">${escapeHtml(shortUrl(link))}</a>`).join("")}</div></div>`;
-}
-
-function contactTypeLabel(value = "") {
-  const labels = { email: "Email", whatsapp: "WhatsApp", phone: "Telefone", form: "Formulário", social: "Social/DM", website: "Website", "direct-link": "Link direto" };
-  return labels[String(value).toLowerCase()] || value || "Contacto";
-}
-function contactHref(contact = "", type = "") {
-  if (/^https?:\/\//i.test(contact)) return contact;
-  if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact)) return `mailto:${contact}`;
-  if (type === "phone" || type === "whatsapp") return `tel:${contact.replace(/[^+\d]/g, "")}`;
-  return "";
-}
+function selectLead(id) { state.selectedId = id; $$(".lead-row").forEach((row) => row.classList.toggle("selected", row.dataset.id === id)); renderDetail(); }
+function uniqueList(items = []) { return [...new Set(items.filter(Boolean).map((item) => String(item).trim()).filter(Boolean))]; }
+function renderLinkList(title, links = []) { const clean = uniqueList(links).slice(0, 8); return clean.length ? `<div class="detail-section"><h3>${escapeHtml(title)}</h3><div class="link-list">${clean.map((link) => `<a class="mini-chip" href="${escapeHtml(link)}" target="_blank" rel="noreferrer">${escapeHtml(shortUrl(link))}</a>`).join("")}</div></div>` : ""; }
+function contactTypeLabel(value = "") { const labels = { email: "Email", whatsapp: "WhatsApp", phone: "Telefone", form: "Formulário", social: "Social/DM", website: "Website", "direct-link": "Link direto" }; return labels[String(value).toLowerCase()] || value || "Contacto"; }
+function contactHref(contact = "", type = "") { if (/^https?:\/\//i.test(contact)) return contact; if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact)) return `mailto:${contact}`; if (type === "phone" || type === "whatsapp") return `tel:${contact.replace(/[^+\d]/g, "")}`; return ""; }
 function contactDisplay(contact = "") { return /^https?:\/\//i.test(contact) ? shortUrl(contact) : contact; }
-
-function renderBestContact(lead = {}) {
-  const contact = lead.bestContact || "";
-  if (!contact) return "";
-  const type = lead.bestContactType || lead.contactQuality || "";
-  const href = contactHref(contact, type);
-  const source = lead.bestContactSource || "";
-  const contactNode = href ? `<a class="contact-value" href="${escapeHtml(href)}" target="_blank" rel="noreferrer">${escapeHtml(contactDisplay(contact))}</a>` : `<span class="contact-value">${escapeHtml(contact)}</span>`;
-  return `<div class="detail-section primary-contact"><h3>Melhor contacto</h3><div class="contact-line"><span class="priority-pill a">${escapeHtml(contactTypeLabel(type))}</span><span class="mini-chip">${Number(lead.contactConfidence || 0)}%</span></div>${contactNode}${source ? `<p>Fonte: ${escapeHtml(contactDisplay(source))}</p>` : ""}</div>`;
-}
-
-function renderForms(forms = []) {
-  const clean = forms.slice(0, 4);
-  if (!clean.length) return "";
-  return `<div class="detail-section"><h3>Formulários</h3><div class="link-list">${clean.map((form) => `<a class="mini-chip" href="${escapeHtml(form.pageUrl || form.action || "")}" target="_blank" rel="noreferrer">${escapeHtml(shortUrl(form.pageUrl || form.action || ""))}</a>`).join("")}</div></div>`;
-}
+function renderBestContact(lead = {}) { const contact = lead.bestContact || ""; if (!contact) return ""; const type = lead.bestContactType || lead.contactQuality || ""; const href = contactHref(contact, type); const source = lead.bestContactSource || ""; const contactNode = href ? `<a class="contact-value" href="${escapeHtml(href)}" target="_blank" rel="noreferrer">${escapeHtml(contactDisplay(contact))}</a>` : `<span class="contact-value">${escapeHtml(contact)}</span>`; return `<div class="detail-section primary-contact"><h3>Melhor contacto</h3><div class="contact-line"><span class="priority-pill a">${escapeHtml(contactTypeLabel(type))}</span><span class="mini-chip">${Number(lead.contactConfidence || 0)}%</span></div>${contactNode}${source ? `<p>Fonte: ${escapeHtml(contactDisplay(source))}</p>` : ""}</div>`; }
+function renderForms(forms = []) { const clean = forms.slice(0, 4); return clean.length ? `<div class="detail-section"><h3>Formulários</h3><div class="link-list">${clean.map((form) => `<a class="mini-chip" href="${escapeHtml(form.pageUrl || form.action || "")}" target="_blank" rel="noreferrer">${escapeHtml(shortUrl(form.pageUrl || form.action || ""))}</a>`).join("")}</div></div>` : ""; }
 
 function renderDetail() {
   const lead = state.leads.find((item) => item.id === state.selectedId);
   const panel = $("#detailPanel");
-  if (!lead) {
-    panel.innerHTML = `<div class="empty-state"><i data-lucide="mouse-pointer-2"></i><p>Seleciona uma lead para abrir o dossiê comercial.</p></div>`;
-    iconRefresh();
-    return;
-  }
-  const emails = uniqueList(lead.emails || []);
-  const languages = uniqueList(lead.languages || []);
-  const evidence = uniqueList(lead.evidence || []);
-  const socialLinks = uniqueList(lead.socialLinks || []);
-  const contactLinks = uniqueList(lead.contactLinks || []);
-  const websiteLinks = uniqueList(lead.websiteLinks || []);
-  const phoneNumbers = uniqueList(lead.phoneNumbers || []);
-  const forms = lead.forms || [];
-
-  panel.innerHTML = `<div class="detail-header">
-    <div class="detail-meta"><span class="priority-pill ${priorityClass(lead.priority)}">Lead ${escapeHtml(lead.priority || "D")}</span><span class="stage-pill">${escapeHtml(stageLabel(lead.stage))}</span><span class="source-pill ${platformClass(platformForLead(lead))}">${escapeHtml(platformForLead(lead))}</span></div>
-    <h2>${escapeHtml(leadTitle(lead))}</h2>
-    <a href="${escapeHtml(lead.url)}" target="_blank" rel="noreferrer">${escapeHtml(shortUrl(lead.url))}</a>
-  </div>
-  <div class="detail-section"><h3>Pipeline</h3><label class="field stage-select"><span>Estado comercial</span><select id="detailStage">${PIPELINE_STAGES.map((stage) => `<option value="${stage.key}" ${stage.key === stageKey(lead.stage) ? "selected" : ""}>${stage.label}</option>`).join("")}</select></label><div class="detail-meta"><span class="mini-chip">Score ${Number(lead.score || 0)}</span><span class="mini-chip">Contacto ${lead.contactConfidence || 0}%</span><span class="mini-chip">${escapeHtml(segmentLabel(lead.segment) || "Pesquisa")}</span><span class="mini-chip">${escapeHtml(countryLabel(lead.country))}</span>${languages.map((language) => `<span class="mini-chip">${escapeHtml(language)}</span>`).join("")}</div></div>
-  ${renderBestContact(lead)}
-  <div class="detail-section"><h3>Contexto</h3><p>${escapeHtml(lead.snippet || "No snippet captured.")}</p></div>
-  ${evidence.length ? `<div class="detail-section"><h3>Sinais</h3><div class="evidence-list">${evidence.slice(0, 10).map((item) => `<span class="mini-chip">${escapeHtml(item)}</span>`).join("")}</div></div>` : ""}
-  ${emails.length ? `<div class="detail-section"><h3>Email</h3><div class="link-list">${emails.slice(0, 6).map((email) => `<a class="mini-chip" href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a>`).join("")}</div></div>` : ""}
-  ${phoneNumbers.length ? `<div class="detail-section"><h3>Telefones</h3><div class="link-list">${phoneNumbers.slice(0, 6).map((phone) => `<span class="mini-chip">${escapeHtml(phone)}</span>`).join("")}</div></div>` : ""}
-  ${renderForms(forms)}${renderLinkList("Social", socialLinks)}${renderLinkList("Contact paths", contactLinks)}${renderLinkList("Websites", websiteLinks)}`;
-
+  if (!lead) { panel.innerHTML = `<div class="empty-state"><i data-lucide="mouse-pointer-2"></i><p>Seleciona uma lead para abrir o dossiê comercial.</p></div>`; iconRefresh(); return; }
+  const emails = uniqueList(lead.emails || []), languages = uniqueList(lead.languages || []), evidence = uniqueList(lead.evidence || []), socialLinks = uniqueList(lead.socialLinks || []), contactLinks = uniqueList(lead.contactLinks || []), websiteLinks = uniqueList(lead.websiteLinks || []), phoneNumbers = uniqueList(lead.phoneNumbers || []), forms = lead.forms || [];
+  panel.innerHTML = `<div class="detail-header"><div class="detail-meta"><span class="priority-pill ${priorityClass(lead.priority)}">Lead ${escapeHtml(lead.priority || "D")}</span><span class="stage-pill">${escapeHtml(stageLabel(lead.stage))}</span><span class="source-pill ${platformClass(platformForLead(lead))}">${escapeHtml(platformForLead(lead))}</span></div><h2>${escapeHtml(leadTitle(lead))}</h2><a href="${escapeHtml(lead.url)}" target="_blank" rel="noreferrer">${escapeHtml(shortUrl(lead.url))}</a></div><div class="detail-section"><h3>Pipeline</h3><label class="field stage-select"><span>Estado comercial</span><select id="detailStage">${PIPELINE_STAGES.map((stage) => `<option value="${stage.key}" ${stage.key === stageKey(lead.stage) ? "selected" : ""}>${stage.label}</option>`).join("")}</select></label><div class="detail-meta"><span class="mini-chip">Score ${Number(lead.commercialScore || lead.score || 0)}</span><span class="mini-chip">Contacto ${lead.contactConfidence || 0}%</span><span class="mini-chip">${escapeHtml(segmentLabel(lead.segment) || "Pesquisa")}</span><span class="mini-chip">${escapeHtml(countryLabel(lead.country))}</span>${languages.map((language) => `<span class="mini-chip">${escapeHtml(language)}</span>`).join("")}</div></div>${renderBestContact(lead)}<div class="detail-section"><h3>Contexto</h3><p>${escapeHtml(lead.snippet || "No snippet captured.")}</p></div>${evidence.length ? `<div class="detail-section"><h3>Sinais</h3><div class="evidence-list">${evidence.slice(0, 10).map((item) => `<span class="mini-chip">${escapeHtml(item)}</span>`).join("")}</div></div>` : ""}${emails.length ? `<div class="detail-section"><h3>Email</h3><div class="link-list">${emails.slice(0, 6).map((email) => `<a class="mini-chip" href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a>`).join("")}</div></div>` : ""}${phoneNumbers.length ? `<div class="detail-section"><h3>Telefones</h3><div class="link-list">${phoneNumbers.slice(0, 6).map((phone) => `<span class="mini-chip">${escapeHtml(phone)}</span>`).join("")}</div></div>` : ""}${renderForms(forms)}${renderLinkList("Social", socialLinks)}${renderLinkList("Contact paths", contactLinks)}${renderLinkList("Websites", websiteLinks)}`;
   $("#detailStage").addEventListener("change", async (event) => updateLeadStage(lead.id, event.target.value));
   iconRefresh();
 }
 
-async function updateLeadStage(id, stage) {
-  const lead = state.leads.find((item) => item.id === id);
-  if (!lead || stageKey(lead.stage) === stage) return;
-  await api(`/api/leads/${id}`, { method: "PATCH", body: JSON.stringify({ stage }) });
-  state.selectedId = id;
-  state.ui.leadsSignature = "";
-  await loadDashboard({ forceLeads: true });
-}
-
-function resetLeadView() {
-  state.selectedId = null;
-  state.ui.leadsSignature = "";
-}
+async function updateLeadStage(id, stage) { const lead = state.leads.find((item) => item.id === id); if (!lead || stageKey(lead.stage) === stage) return; await api(`/api/leads/${id}`, { method: "PATCH", body: JSON.stringify({ stage }) }); state.selectedId = id; state.ui.leadsSignature = ""; await loadDashboard({ forceLeads: true }); }
+function resetLeadView() { state.selectedId = null; state.ui.leadsSignature = ""; }
+async function applyFilterChange() { resetLeadView(); renderLocalPreview(); await loadDashboard({ forceLeads: true }); }
 
 function bindControls() {
-  $("#searchInput").addEventListener("input", (event) => {
-    state.filters.q = event.target.value;
-    clearTimeout(window.searchTimer);
-    window.searchTimer = setTimeout(() => {
-      resetLeadView();
-      loadDashboard({ forceLeads: true }).catch((error) => console.error(error));
-    }, 380);
-  });
-  $("#viewModeFilter").addEventListener("change", async (event) => { state.filters.viewMode = event.target.value; resetLeadView(); await loadDashboard({ forceLeads: true }); });
-  $("#platformFilter").addEventListener("change", async (event) => { state.filters.platform = event.target.value; resetLeadView(); await loadDashboard({ forceLeads: true }); });
-  $("#priorityFilter").addEventListener("change", async (event) => { state.filters.priority = event.target.value; resetLeadView(); await loadDashboard({ forceLeads: true }); });
-  $("#typeFilter").addEventListener("change", async (event) => { state.filters.leadType = event.target.value; resetLeadView(); await loadDashboard({ forceLeads: true }); });
-  $("#stageFilter").addEventListener("change", async (event) => { state.filters.stage = event.target.value; resetLeadView(); await loadDashboard({ forceLeads: true }); });
+  $("#searchInput").addEventListener("input", (event) => { state.filters.q = event.target.value; clearTimeout(window.searchTimer); renderLocalPreview(); window.searchTimer = setTimeout(() => applyFilterChange().catch((error) => console.error(error)), 260); });
+  $("#viewModeFilter").addEventListener("change", async (event) => { state.filters.viewMode = event.target.value; await applyFilterChange(); });
+  $("#platformFilter").addEventListener("change", async (event) => { await setPlatformFilter(event.target.value); });
+  $("#priorityFilter").addEventListener("change", async (event) => { state.filters.priority = event.target.value; await applyFilterChange(); });
+  $("#typeFilter").addEventListener("change", async (event) => { state.filters.leadType = event.target.value; await applyFilterChange(); });
+  $("#stageFilter").addEventListener("change", async (event) => { state.filters.stage = event.target.value; await applyFilterChange(); });
 }
 
 bindControls();
 iconRefresh();
 loadDashboard({ forceLeads: true }).catch((error) => console.error(error));
-setInterval(() => {
-  if (document.visibilityState === "hidden") return;
-  loadDashboard().catch((error) => console.error(error));
-}, DASHBOARD_REFRESH_MS);
+setInterval(() => { if (document.visibilityState === "hidden") return; loadDashboard().catch((error) => console.error(error)); }, DASHBOARD_REFRESH_MS);
