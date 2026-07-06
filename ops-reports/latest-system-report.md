@@ -1,11 +1,11 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T22:03:53.637Z
+Updated: 2026-07-06T22:13:59.037Z
 Health: OK
 
 ## Funnel
 Raw: 543
-Qualified: 52
+Qualified: 50
 Working: 79
 Contactable: 60
 Sales-ready: 21
@@ -13,24 +13,23 @@ A1 Hot: 28
 A2 Strong: 14
 
 ## Quality
-Platform contact leaks: 2
+Platform contact leaks: 1
 High-value without real contact: 158
 Sales-ready by bucket: {"mql5":7,"specialist":6,"web":3,"myfxbook":2,"tiktok":2,"instagram":1}
-Qualified by bucket: {"linkedin":23,"instagram":8,"mql5":7,"specialist":6,"web":3,"tiktok":2,"myfxbook":2,"x":1}
+Qualified by bucket: {"linkedin":22,"instagram":7,"mql5":7,"specialist":6,"web":3,"tiktok":2,"myfxbook":2,"x":1}
 
 ## Sourcing / Workers
-Provider errors: 63
+Provider errors: 19
 Stale workers: engine-control
 Issues: none
 
 ## Smart Enrichment
-Phase: smart-enriching
-Processed: 74
-Stored: 74
+Phase: idle
+Processed: 76
+Stored: 76
 Errors: 0
-Current: Instagram
-Last: users forex gold investorFX Blue
-Last best contact: accounts@fxbluelabs.com
+Last: haraj
+Last best contact: https://www.instagram.com/haraj
 
 ## Recent Errors
 ### qualified-exporter
