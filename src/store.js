@@ -8,6 +8,7 @@ const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, "..");
 const dataDir = path.join(rootDir, "data");
 const dbPath = path.join(dataDir, "leads.json");
+const backupPath = path.join(dataDir, "leads.json.bak");
 const lockPath = path.join(dataDir, "leads.lock");
 
 const emptyDb = () => ({
@@ -24,21 +25,74 @@ export function getDbPath() {
   return dbPath;
 }
 
-export async function readDb() {
-  await fs.mkdir(dataDir, { recursive: true });
-  try {
-    const raw = await fs.readFile(dbPath, "utf8");
-    return JSON.parse(raw);
-  } catch (error) {
-    if (error.code !== "ENOENT") throw error;
-    const db = emptyDb();
-    await writeDb(db);
-    return db;
-  }
-}
-
 async function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function normalizeDb(db = {}) {
+  return {
+    ...db,
+    leads: Array.isArray(db.leads) ? db.leads : [],
+    runs: Array.isArray(db.runs) ? db.runs : [],
+    updatedAt: db.updatedAt || nowIso()
+  };
+}
+
+async function parseDbFile(filePath) {
+  const raw = await fs.readFile(filePath, "utf8");
+  if (!raw.trim()) {
+    const error = new SyntaxError(`${path.basename(filePath)} is empty`);
+    error.code = "EMPTY_JSON";
+    throw error;
+  }
+  return normalizeDb(JSON.parse(raw));
+}
+
+async function quarantineBadDb(error) {
+  const stamp = nowIso().replace(/[:.]/g, "-");
+  const corruptPath = path.join(dataDir, `leads.corrupt.${stamp}.json`);
+  await fs.copyFile(dbPath, corruptPath).catch(() => {});
+  await fs.appendFile(
+    path.join(dataDir, "store-recovery.log"),
+    `${nowIso()} recovered leads.json after ${error.name || "Error"}: ${error.message || error}\n`,
+    "utf8"
+  ).catch(() => {});
+  return corruptPath;
+}
+
+export async function readDb() {
+  await fs.mkdir(dataDir, { recursive: true });
+
+  for (let attempt = 1; attempt <= 8; attempt += 1) {
+    try {
+      return await parseDbFile(dbPath);
+    } catch (error) {
+      if (error.code === "ENOENT") {
+        const db = emptyDb();
+        await writeDb(db);
+        return db;
+      }
+
+      const transient = error instanceof SyntaxError || error.code === "EMPTY_JSON" || ["EBUSY", "EPERM", "EACCES"].includes(error.code);
+      if (!transient || attempt === 8) {
+        try {
+          const backupDb = await parseDbFile(backupPath);
+          await quarantineBadDb(error);
+          await writeDb(backupDb);
+          return backupDb;
+        } catch {
+          await quarantineBadDb(error);
+          const db = emptyDb();
+          await writeDb(db);
+          return db;
+        }
+      }
+
+      await sleep(60 * attempt + Math.floor(Math.random() * 120));
+    }
+  }
+
+  return emptyDb();
 }
 
 async function withDbLock(fn) {
@@ -92,9 +146,11 @@ async function renameWithRetry(tempPath, finalPath) {
 export async function writeDb(db) {
   await fs.mkdir(dataDir, { recursive: true });
   db.updatedAt = nowIso();
+  const serialized = `${JSON.stringify(normalizeDb(db), null, 2)}\n`;
   const tempPath = `${dbPath}.${process.pid}.${Date.now()}.tmp`;
-  await fs.writeFile(tempPath, `${JSON.stringify(db, null, 2)}\n`, "utf8");
+  await fs.writeFile(tempPath, serialized, "utf8");
   await renameWithRetry(tempPath, dbPath);
+  await fs.writeFile(backupPath, serialized, "utf8").catch(() => {});
 }
 
 export async function upsertLeads(incoming, runId) {
