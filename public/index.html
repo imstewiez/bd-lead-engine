@@ -3,11 +3,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#11161a" />
+    <meta name="theme-color" content="#0f1720" />
     <title>BD Lead Engine</title>
-    <link rel="stylesheet" href="/styles.css?v=auto-desk-1" />
+    <link rel="stylesheet" href="/styles.css?v=auto-inbox-1" />
     <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-    <script defer src="/app.js?v=auto-desk-1"></script>
+    <script defer src="/app.js?v=auto-inbox-1"></script>
   </head>
   <body>
     <div class="app-shell">
@@ -20,24 +20,14 @@
           </div>
         </div>
         <div class="topbar-status">
-          <span id="runBadge" class="badge muted">Auto</span>
-          <span id="lastUpdated" class="system-chip">sync —</span>
+          <span id="runBadge" class="status-pill muted">Auto sourcing</span>
+          <span id="lastUpdated" class="status-pill">sync —</span>
         </div>
       </header>
 
       <main class="crm-shell">
-        <section class="auto-strip" aria-label="Estado automático do motor">
-          <div class="run-line">
-            <strong>Auto sourcing</strong>
-            <span id="runMessage">O motor arranca sozinho com o host e mantém sourcing/enrichment em background.</span>
-          </div>
-          <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
-          <div id="systemHealth" class="health-strip"></div>
-          <div id="eventList" class="event-list"></div>
-        </section>
-
-        <section class="metric-strip" aria-label="Resumo do pipeline">
-          <div class="metric"><span>Base</span><strong id="metricRawTotal">0</strong></div>
+        <section class="overview-strip" aria-label="Resumo automático">
+          <div class="metric raw"><span>Base</span><strong id="metricRawTotal">0</strong></div>
           <div class="metric hot"><span id="metricTotalLabel">Qualificadas</span><strong id="metricTotal">0</strong></div>
           <div class="metric contact"><span>Contactáveis</span><strong id="metricContactable">0</strong></div>
           <div class="metric"><span>A leads</span><strong id="metricA">0</strong></div>
@@ -45,14 +35,20 @@
           <div class="metric booked"><span>Reuniões</span><strong id="metricBooked">0</strong></div>
           <div class="metric hidden-metric"><span>Recruta</span><strong id="metricRecruitment">0</strong></div>
           <div class="metric hidden-metric"><span>Contacto</span><strong id="metricEmailForm">0</strong></div>
+          <div class="engine-panel">
+            <div class="run-line"><strong>Engine</strong><span id="runMessage">Automático quando o host está ligado.</span></div>
+            <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+            <div id="systemHealth" class="health-strip"></div>
+            <div id="eventList" class="event-list"></div>
+          </div>
         </section>
 
         <section class="work-grid">
-          <section class="pipeline-panel">
+          <section class="lead-workspace">
             <div class="workspace-header">
               <div>
-                <p class="eyebrow">Pipeline</p>
-                <h2>Leads por estado</h2>
+                <p class="eyebrow">Lead inbox</p>
+                <h2>Leads qualificadas</h2>
               </div>
               <div class="workspace-tools">
                 <div class="search-box">
@@ -69,7 +65,7 @@
               </div>
             </div>
             <div class="source-strip" id="platformStrip"></div>
-            <div class="pipeline-board" id="leadRows"></div>
+            <div class="lead-table-shell" id="leadRows"></div>
           </section>
 
           <aside class="detail-panel" id="detailPanel">
