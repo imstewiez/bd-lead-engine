@@ -1,11 +1,11 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T20:59:01.633Z
+Updated: 2026-07-06T21:09:07.716Z
 Health: OK
 
 ## Funnel
 Raw: 542
-Qualified: 50
+Qualified: 51
 Working: 79
 Contactable: 60
 Sales-ready: 21
@@ -13,24 +13,24 @@ A1 Hot: 28
 A2 Strong: 14
 
 ## Quality
-Platform contact leaks: 3
+Platform contact leaks: 1
 High-value without real contact: 158
 Sales-ready by bucket: {"mql5":7,"specialist":6,"web":3,"myfxbook":2,"tiktok":2,"instagram":1}
-Qualified by bucket: {"linkedin":22,"instagram":7,"mql5":7,"specialist":6,"web":3,"tiktok":2,"myfxbook":2,"x":1}
+Qualified by bucket: {"linkedin":23,"instagram":7,"mql5":7,"specialist":6,"web":3,"tiktok":2,"myfxbook":2,"x":1}
 
 ## Sourcing / Workers
-Provider errors: 70
-Stale workers: none
+Provider errors: 131
+Stale workers: engine-control
 Issues: none
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 2
-Stored: 2
+Processed: 16
+Stored: 16
 Errors: 0
-Current: analysis for forex ea
-Last: Goldbod
-Last best contact: +233 030 295 3279
+Current: users forex gold investorFX Blue
+Last: users forex gold investorFX Blue
+Last best contact: accounts@fxbluelabs.com
 
 ## Recent Errors
 ### qualified-exporter
