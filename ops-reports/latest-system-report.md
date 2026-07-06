@@ -1,6 +1,6 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T01:49:24.545Z
+Updated: 2026-07-06T01:59:33.748Z
 Health: OK
 
 ## Funnel
@@ -19,17 +19,18 @@ Sales-ready by bucket: {"web":8,"x":7,"myfxbook":6,"mql5":5,"specialist":4,"inst
 Qualified by bucket: {"linkedin":42,"instagram":13,"x":9,"web":9,"facebook_threads":6,"myfxbook":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
 
 ## Sourcing / Workers
-Provider errors: 450
+Provider errors: 657
 Stale workers: engine-control
 Issues: warning:duplicate_pressure
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 5
-Stored: 5
+Processed: 7
+Stored: 7
 Errors: 0
-Current: ) - Instagram
-Last: PAMM recommendation | Forex Forum by Myfxbook
+Current: QUAL | Águeda - Facebook
+Last: V (@thv) • Instagram photos and videos
+Last best contact: https://www.instagram.com/thv/
 
 ## Recent Errors
 ### qualified-exporter
