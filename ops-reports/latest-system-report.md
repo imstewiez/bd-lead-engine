@@ -1,35 +1,35 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T02:09:42.453Z
+Updated: 2026-07-06T02:19:50.619Z
 Health: OK
 
 ## Funnel
-Raw: 1219
-Qualified: 96
-Working: 125
-Contactable: 103
+Raw: 1223
+Qualified: 99
+Working: 127
+Contactable: 105
 Sales-ready: 38
 A1 Hot: 42
-A2 Strong: 19
+A2 Strong: 17
 
 ## Quality
 Platform contact leaks: 0
-High-value without real contact: 214
+High-value without real contact: 216
 Sales-ready by bucket: {"web":8,"x":7,"myfxbook":6,"mql5":5,"specialist":4,"instagram":3,"tiktok":2,"facebook_threads":1,"linkedin":1,"telegram":1}
-Qualified by bucket: {"linkedin":41,"instagram":13,"x":9,"web":9,"facebook_threads":6,"myfxbook":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
+Qualified by bucket: {"linkedin":43,"instagram":14,"x":9,"web":9,"facebook_threads":6,"myfxbook":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
 
 ## Sourcing / Workers
-Provider errors: 873
+Provider errors: 1110
 Stale workers: engine-control
 Issues: warning:duplicate_pressure
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 9
-Stored: 9
+Processed: 11
+Stored: 11
 Errors: 0
-Current: @vivirdeltrading6395
-Last: @TradeHacker3585
+Current: @fxdavetrades
+Last: @MrCat206Fx
 
 ## Recent Errors
 ### qualified-exporter
