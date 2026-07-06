@@ -1,63 +1,105 @@
 <!doctype html>
-<html lang="pt">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#0f1720" />
-    <title>AVENIQ · Lead Intelligence Workspace</title>
+    <meta name="theme-color" content="#0A0D14" />
+    <title>AXIOM | Commercial Intelligence Terminal</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="stylesheet" href="/styles.css?v=aveniq-1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css?v=axiom-terminal-1" />
     <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-    <script defer src="/app.js?v=aveniq-1"></script>
+    <script defer src="/app.js?v=axiom-terminal-1"></script>
   </head>
   <body>
-    <div class="app-shell">
-      <header class="topbar">
-        <div class="brand-lockup" aria-label="AVENIQ">
-          <img class="brand-mark" src="/brand/aveniq-mark.svg" alt="" />
-          <div>
-            <p class="eyebrow">Lead intelligence workspace</p>
-            <h1>AVENIQ</h1>
+    <div class="app-shell terminal-shell">
+      <header class="topbar terminal-header">
+        <div class="brand-lockup" aria-label="AXIOM Commercial Intelligence Terminal">
+          <div class="brand-mark terminal-mark" aria-hidden="true">AX</div>
+          <div class="brand-copy">
+            <p class="eyebrow">AXIOM // Commercial Intelligence</p>
+            <h1>Commercial Intelligence Terminal</h1>
           </div>
         </div>
-        <div class="topbar-status">
-          <span id="runBadge" class="status-pill live">Live</span>
-          <span id="lastUpdated" class="status-pill">Atualizado —</span>
+
+        <div class="topbar-status" aria-label="System status">
+          <span id="runBadge" class="status-pill live">SYSTEM ONLINE</span>
+          <span class="status-pill system-ready"><span class="live-dot">●</span> PLATFORM READY</span>
+          <span id="lastUpdated" class="status-pill">SYNC —</span>
         </div>
       </header>
 
-      <main class="crm-shell">
-        <section class="overview" aria-label="Resumo comercial">
-          <div class="hero-panel">
+      <main class="crm-shell command-cockpit">
+        <section class="overview terminal-overview" aria-label="Command Cockpit summary">
+          <div class="hero-panel command-panel">
             <div class="hero-copy">
-              <p class="eyebrow">Clarity. Momentum. Impact.</p>
-              <h2>Lead intelligence for predictable growth.</h2>
-              <p>Prioriza oportunidades com maior probabilidade de contacto, parceria e conversão.</p>
+              <p class="eyebrow">Command Cockpit</p>
+              <h2>Quantitative sourcing grid for broker, prop, IB and trading-sector targets.</h2>
+              <p>AXIOM ranks commercial intent, contact deliverability and execution readiness across the full outbound target graph.</p>
             </div>
-            <div class="quality-card">
-              <p class="eyebrow">Contactabilidade</p>
-              <div class="quality-ring" id="qualityRing"><span id="qualityPercent">0%</span></div>
-              <p id="qualityCopy">A medir a cobertura de contactos acionáveis.</p>
+
+            <div class="command-stack" aria-label="Execution actions">
+              <span class="command-token primary">Initialize Sourcing Engine</span>
+              <span class="command-token">Entity Graph Resolution</span>
+              <span class="command-token">Deploy to Pipeline (CSV Push)</span>
             </div>
           </div>
 
-          <div class="kpi-grid">
-            <div class="metric raw"><span>Base</span><strong id="metricRawTotal">0</strong></div>
-            <div class="metric hot"><span id="metricTotalLabel">Qualificadas</span><strong id="metricTotal">0</strong></div>
-            <div class="metric contact"><span>Contactáveis</span><strong id="metricContactable">0</strong></div>
-            <div class="metric"><span>A leads</span><strong id="metricA">0</strong></div>
-            <div class="metric"><span>Parceiros</span><strong id="metricPartners">0</strong></div>
-            <div class="metric booked"><span>Reuniões</span><strong id="metricBooked">0</strong></div>
-            <div class="metric hidden-metric"><span>Recruta</span><strong id="metricRecruitment">0</strong></div>
-            <div class="metric hidden-metric"><span>Contacto</span><strong id="metricEmailForm">0</strong></div>
+          <div class="kpi-grid terminal-kpis">
+            <div class="metric raw">
+              <span>Harvested Targets</span>
+              <strong id="metricRawTotal">0</strong>
+            </div>
+            <div class="metric hot">
+              <span id="metricTotalLabel">Execution-Ready Prospects (A-Tier)</span>
+              <strong id="metricTotal">0</strong>
+            </div>
+            <div class="metric contact">
+              <span>Signal Paths / Deliverability</span>
+              <strong id="metricContactable">0</strong>
+            </div>
+            <div class="metric signal">
+              <span>A-Tier Signal Cluster</span>
+              <strong id="metricA">0</strong>
+            </div>
+            <div class="metric worker">
+              <span>Active Workers</span>
+              <strong id="metricActiveWorkers">AUTO</strong>
+            </div>
+            <div class="metric booked">
+              <span>Meetings Locked</span>
+              <strong id="metricBooked">0</strong>
+            </div>
+            <div class="metric hidden-metric">
+              <span>Recruitment Targets</span>
+              <strong id="metricRecruitment">0</strong>
+            </div>
+            <div class="metric hidden-metric">
+              <span>Email / Form Routes</span>
+              <strong id="metricEmailForm">0</strong>
+            </div>
           </div>
 
-          <div class="insight-grid">
+          <div class="insight-grid terminal-insights">
+            <article class="insight-card quality-card">
+              <div class="insight-head compact-head">
+                <div>
+                  <p class="eyebrow">Signal Accuracy / Deliverability</p>
+                  <h2>Contact route coverage</h2>
+                </div>
+                <span class="mini-stat">LIVE</span>
+              </div>
+              <div class="quality-ring" id="qualityRing" aria-hidden="true"><span id="qualityPercent">0%</span></div>
+              <p id="qualityCopy">Measuring actionable contact route coverage.</p>
+            </article>
+
             <article class="insight-card">
               <div class="insight-head">
                 <div>
-                  <p class="eyebrow">Aquisição</p>
-                  <h2>Principais fontes</h2>
+                  <p class="eyebrow">Acquisition Feed</p>
+                  <h2>Dominant source vectors</h2>
                 </div>
                 <span id="topSourceLabel" class="mini-stat">—</span>
               </div>
@@ -67,8 +109,8 @@
             <article class="insight-card">
               <div class="insight-head">
                 <div>
-                  <p class="eyebrow">Pipeline</p>
-                  <h2>Estado comercial</h2>
+                  <p class="eyebrow">Execution Pipeline</p>
+                  <h2>Commercial stage matrix</h2>
                 </div>
                 <span id="stageFocusLabel" class="mini-stat">—</span>
               </div>
@@ -77,35 +119,61 @@
           </div>
         </section>
 
-        <section class="work-grid">
-          <section class="lead-workspace">
+        <section class="work-grid terminal-workgrid">
+          <section class="lead-workspace terminal-grid-panel">
             <div class="workspace-header">
               <div>
-                <p class="eyebrow">Lead inbox</p>
-                <h2>Leads qualificadas</h2>
+                <p class="eyebrow">Target Data Grid</p>
+                <h2>Execution-ready prospect matrix</h2>
               </div>
               <div class="workspace-tools">
                 <div class="search-box">
                   <i data-lucide="search"></i>
-                  <input id="searchInput" placeholder="Pesquisar lead, país, fonte, segmento..." autocomplete="off" />
+                  <input id="searchInput" placeholder="Search entity, market, platform, segment, instrument..." autocomplete="off" />
                 </div>
                 <div class="filter-row">
-                  <select id="viewModeFilter" aria-label="Vista"><option value="qualified">Qualified</option><option value="raw">Raw base</option></select>
-                  <select id="priorityFilter" aria-label="Prioridade"><option value="">Prioridade</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select>
-                  <select id="typeFilter" aria-label="Tipo"><option value="">Tipo</option><option value="partner">Parceiro</option><option value="institution">Instituição</option><option value="recruitment">Recruta</option><option value="research">Pesquisa</option></select>
-                  <select id="stageFilter" aria-label="Estado"><option value="">Estado</option><option value="new">Novo</option><option value="contacted">Contactado</option><option value="replied">Respondeu</option><option value="meeting_booked">Reunião</option><option value="no_show">No-show</option><option value="negotiating">Negociação</option><option value="won">Ganho</option><option value="lost">Perdido</option></select>
-                  <select id="platformFilter" class="visually-hidden" aria-label="Fonte"><option value=""></option></select>
+                  <select id="viewModeFilter" aria-label="View mode">
+                    <option value="qualified">Execution-ready</option>
+                    <option value="raw">Raw harvested graph</option>
+                  </select>
+                  <select id="priorityFilter" aria-label="Priority">
+                    <option value="">Signal tier</option>
+                    <option value="A">A-Tier</option>
+                    <option value="B">B-Tier</option>
+                    <option value="C">C-Tier</option>
+                    <option value="D">Noise / Review</option>
+                  </select>
+                  <select id="typeFilter" aria-label="Commercial model">
+                    <option value="">Model type</option>
+                    <option value="partner">IB / Affiliate</option>
+                    <option value="institution">Institution</option>
+                    <option value="recruitment">Broker talent</option>
+                    <option value="research">Research signal</option>
+                  </select>
+                  <select id="stageFilter" aria-label="Pipeline stage">
+                    <option value="">Pipeline state</option>
+                    <option value="new">Uncontacted</option>
+                    <option value="contacted">Activated</option>
+                    <option value="replied">Replied</option>
+                    <option value="meeting_booked">Meeting locked</option>
+                    <option value="no_show">No-show</option>
+                    <option value="negotiating">Negotiating</option>
+                    <option value="won">Won</option>
+                    <option value="lost">Lost</option>
+                  </select>
+                  <select id="platformFilter" class="visually-hidden" aria-label="Source vector"><option value=""></option></select>
                 </div>
               </div>
             </div>
-            <div class="source-strip" id="platformStrip"></div>
-            <div class="lead-table-shell" id="leadRows"></div>
+
+            <div class="source-strip" id="platformStrip" aria-label="Source vector filters"></div>
+            <div class="lead-table-shell" id="leadRows" aria-live="polite"></div>
           </section>
 
-          <aside class="detail-panel" id="detailPanel">
+          <aside class="detail-panel terminal-detail" id="detailPanel">
             <div class="empty-state">
               <i data-lucide="mouse-pointer-2"></i>
-              <p>Seleciona uma lead para abrir o dossiê comercial.</p>
+              <p>Select a target to open the commercial intelligence dossier.</p>
             </div>
           </aside>
         </section>
