@@ -4,29 +4,43 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#0f1720" />
-    <title>BD Lead Engine</title>
-    <link rel="stylesheet" href="/styles.css?v=client-desk-1" />
+    <title>AVENIQ · Lead Intelligence Workspace</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="/styles.css?v=aveniq-1" />
     <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-    <script defer src="/app.js?v=client-desk-1"></script>
+    <script defer src="/app.js?v=aveniq-1"></script>
   </head>
   <body>
     <div class="app-shell">
       <header class="topbar">
-        <div class="brand-lockup">
-          <div class="brand-mark">BD</div>
+        <div class="brand-lockup" aria-label="AVENIQ">
+          <img class="brand-mark" src="/brand/aveniq-mark.svg" alt="" />
           <div>
-            <p class="eyebrow">Lead operations</p>
-            <h1>BD Lead Engine</h1>
+            <p class="eyebrow">Lead intelligence workspace</p>
+            <h1>AVENIQ</h1>
           </div>
         </div>
         <div class="topbar-status">
           <span id="runBadge" class="status-pill live">Live</span>
-          <span id="lastUpdated" class="status-pill">sync —</span>
+          <span id="lastUpdated" class="status-pill">Atualizado —</span>
         </div>
       </header>
 
       <main class="crm-shell">
         <section class="overview" aria-label="Resumo comercial">
+          <div class="hero-panel">
+            <div class="hero-copy">
+              <p class="eyebrow">Clarity. Momentum. Impact.</p>
+              <h2>Lead intelligence for predictable growth.</h2>
+              <p>Prioriza oportunidades com maior probabilidade de contacto, parceria e conversão.</p>
+            </div>
+            <div class="quality-card">
+              <p class="eyebrow">Contactabilidade</p>
+              <div class="quality-ring" id="qualityRing"><span id="qualityPercent">0%</span></div>
+              <p id="qualityCopy">A medir a cobertura de contactos acionáveis.</p>
+            </div>
+          </div>
+
           <div class="kpi-grid">
             <div class="metric raw"><span>Base</span><strong id="metricRawTotal">0</strong></div>
             <div class="metric hot"><span id="metricTotalLabel">Qualificadas</span><strong id="metricTotal">0</strong></div>
@@ -39,15 +53,6 @@
           </div>
 
           <div class="insight-grid">
-            <article class="insight-card quality-card">
-              <div>
-                <p class="eyebrow">Qualidade</p>
-                <h2>Contactabilidade</h2>
-              </div>
-              <div class="quality-ring" id="qualityRing"><span id="qualityPercent">0%</span></div>
-              <p id="qualityCopy">A medir a cobertura de contactos válidos.</p>
-            </article>
-
             <article class="insight-card">
               <div class="insight-head">
                 <div>
