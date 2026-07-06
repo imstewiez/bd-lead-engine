@@ -1,6 +1,6 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T02:56:50.952Z
+Updated: 2026-07-06T03:07:00.910Z
 Health: OK
 
 ## Funnel
@@ -14,21 +14,21 @@ A2 Strong: 17
 
 ## Quality
 Platform contact leaks: 0
-High-value without real contact: 218
+High-value without real contact: 219
 Sales-ready by bucket: {"web":8,"x":7,"myfxbook":6,"mql5":5,"specialist":4,"instagram":3,"tiktok":2,"facebook_threads":1,"linkedin":1,"telegram":1}
 Qualified by bucket: {"linkedin":43,"instagram":12,"x":9,"web":9,"facebook_threads":6,"myfxbook":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
 
 ## Sourcing / Workers
-Provider errors: 135
-Stale workers: none
+Provider errors: 351
+Stale workers: engine-control
 Issues: warning:duplicate_pressure
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 2
-Stored: 2
+Processed: 5
+Stored: 5
 Errors: 0
-Current: forex instagram influencers
+Current: Abdullah Ghafoor | Professional Forex Trader - Instagram
 Last: profilephoto:UserTileMedium p
 
 ## Recent Errors
