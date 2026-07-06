@@ -1,36 +1,34 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-06T05:21:27.109Z
+Updated: 2026-07-06T05:22:14.183Z
 Health: OK
 
 ## Funnel
-Raw: 690
-Qualified: 57
-Working: 81
-Contactable: 62
-Sales-ready: 22
-A1 Hot: 29
-A2 Strong: 7
+Raw: 899
+Qualified: 70
+Working: 96
+Contactable: 76
+Sales-ready: 35
+A1 Hot: 36
+A2 Strong: 9
 
 ## Quality
 Platform contact leaks: 0
-High-value without real contact: 177
-Sales-ready by bucket: {"web":7,"x":7,"instagram":3,"tiktok":2,"specialist":1,"myfxbook":1,"telegram":1}
-Qualified by bucket: {"linkedin":23,"instagram":12,"x":9,"web":8,"tiktok":2,"telegram":1,"specialist":1,"myfxbook":1}
+High-value without real contact: 195
+Sales-ready by bucket: {"web":7,"x":7,"myfxbook":6,"mql5":5,"specialist":4,"instagram":3,"tiktok":2,"telegram":1}
+Qualified by bucket: {"linkedin":23,"instagram":12,"x":9,"web":8,"myfxbook":6,"mql5":5,"specialist":4,"tiktok":2,"telegram":1}
 
 ## Sourcing / Workers
-Provider errors: 135
+Provider errors: 0
 Stale workers: none
 Issues: none
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 2
-Stored: 2
+Processed: 0
+Stored: 0
 Errors: 0
-Current: younginvestors8294
-Last: Instagram
-Last best contact: https://www.instagram.com/joshstrading/
+Current: kevinhorna894
 
 ## Recent Errors
 ### qualified-exporter
