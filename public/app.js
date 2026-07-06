@@ -9,8 +9,7 @@ const PIPELINE_STAGES = [
   { key: "lost", label: "Perdido" }
 ];
 
-const MAX_LEADS_FETCH = 220;
-const MAX_CARDS_PER_LANE = 45;
+const MAX_LEADS_FETCH = 260;
 const DASHBOARD_REFRESH_MS = 12000;
 const SNAPSHOT_MAX_AGE_MS = 90000;
 
@@ -20,7 +19,7 @@ const state = {
   summary: null,
   health: null,
   filters: { q: "", priority: "", leadType: "", stage: "", platform: "", viewMode: "qualified" },
-  ui: { leadsSignature: "", loadingLeads: false, dragging: false, running: false, iconRefreshQueued: false, toastTimer: null }
+  ui: { leadsSignature: "", loadingLeads: false, running: false, iconRefreshQueued: false, toastTimer: null }
 };
 
 const $ = (selector) => document.querySelector(selector);
@@ -46,9 +45,9 @@ function escapeHtml(value = "") {
 function shortUrl(url = "") {
   try {
     const parsed = new URL(url);
-    return `${parsed.hostname.replace(/^www\./, "")}${parsed.pathname === "/" ? "" : parsed.pathname}`.slice(0, 78);
+    return `${parsed.hostname.replace(/^www\./, "")}${parsed.pathname === "/" ? "" : parsed.pathname}`.slice(0, 74);
   } catch {
-    return String(url || "").slice(0, 78);
+    return String(url || "").slice(0, 74);
   }
 }
 
@@ -67,7 +66,7 @@ function toast(message) {
   node.textContent = message;
   node.classList.add("show");
   clearTimeout(state.ui.toastTimer);
-  state.ui.toastTimer = setTimeout(() => node.classList.remove("show"), 2400);
+  state.ui.toastTimer = setTimeout(() => node.classList.remove("show"), 2200);
 }
 
 function compactNumber(value) {
@@ -204,18 +203,17 @@ function renderRun(run = {}) {
 
   const badge = $("#runBadge");
   if (badge) {
-    badge.textContent = isRunning ? "Running" : "Auto";
-    badge.className = isRunning ? "badge" : "badge muted";
+    badge.textContent = isRunning ? "Running" : "Auto sourcing";
+    badge.className = isRunning ? "status-pill live" : "status-pill muted";
   }
 
-  const message = isRunning
-    ? "Sourcing e enrichment a correr automaticamente em background."
-    : "O motor arranca sozinho com o host e mantém sourcing/enrichment em background.";
-  $("#runMessage").textContent = message;
+  $("#runMessage").textContent = isRunning
+    ? "Sourcing e enrichment a correr em background."
+    : "Automático quando o host está ligado.";
 
   const completed = Number(run.completedQueries || 0);
   const total = Number(run.totalQueries || 0);
-  const pct = total ? Math.round((completed / total) * 100) : isRunning ? 35 : 0;
+  const pct = total ? Math.round((completed / total) * 100) : isRunning ? 42 : 0;
   $("#progressBar").style.width = `${Math.min(100, pct)}%`;
   renderRunEvents(run.events || []);
   iconRefresh();
@@ -306,74 +304,57 @@ function leadTitle(lead = {}) {
     .replace(/^past-events\s*›\s*/i, "Event: ");
 }
 
-function dealCard(lead) {
-  const selected = lead.id === state.selectedId ? "selected" : "";
-  const snippet = (lead.snippet || lead.outbound?.opener || "").slice(0, 90);
-  const confidence = contactConfidence(lead);
-  return `<article class="deal-card ${selected}" data-id="${escapeHtml(lead.id)}" draggable="true"><div class="deal-top"><div><div class="deal-title">${escapeHtml(leadTitle(lead))}</div><a class="deal-url" href="${escapeHtml(lead.url)}" target="_blank" rel="noreferrer">${escapeHtml(shortUrl(lead.url))}</a></div><span class="priority-pill ${priorityClass(lead.priority)}">${escapeHtml(lead.priority || "D")}</span></div><div class="deal-meta"><span class="source-pill ${platformClass(platformForLead(lead))}">${escapeHtml(platformForLead(lead))}</span><span class="type-pill ${escapeHtml(lead.leadType || "")}">${escapeHtml(typeLabel(lead.leadType))}</span></div><div class="deal-note">${escapeHtml(segmentLabel(lead.segment) || countryLabel(lead.country))}</div>${snippet ? `<div class="deal-note muted-note">${escapeHtml(snippet)}</div>` : ""}<div class="deal-score"><span>Score ${Number(lead.score || 0)}</span><span>Contacto ${confidence}%</span></div><div class="deal-quality" title="Confiança do contacto"><span style="width:${confidence}%"></span></div></article>`;
+function selectedLeadClass(lead) {
+  return lead.id === state.selectedId ? "selected" : "";
 }
 
-function groupedLeads() {
-  const groups = Object.fromEntries(PIPELINE_STAGES.map((stage) => [stage.key, []]));
-  for (const lead of state.leads) groups[stageKey(lead.stage)].push(lead);
-  return groups;
+function leadRow(lead) {
+  const confidence = contactConfidence(lead);
+  const title = leadTitle(lead);
+  const source = platformForLead(lead);
+  return `<div class="table-row lead-row ${selectedLeadClass(lead)}" data-id="${escapeHtml(lead.id)}">
+    <div class="lead-main-cell"><strong>${escapeHtml(title)}</strong><a href="${escapeHtml(lead.url)}" target="_blank" rel="noreferrer">${escapeHtml(shortUrl(lead.url))}</a></div>
+    <div><span class="source-pill ${platformClass(source)}">${escapeHtml(source)}</span></div>
+    <div><span class="type-pill ${escapeHtml(lead.leadType || "")}">${escapeHtml(typeLabel(lead.leadType))}</span></div>
+    <div class="muted-cell">${escapeHtml(segmentLabel(lead.segment) || countryLabel(lead.country))}</div>
+    <div class="score-cell">${Number(lead.score || 0)}</div>
+    <div class="confidence-cell"><span>${confidence}%</span><i style="width:${confidence}%"></i></div>
+    <div><span class="stage-pill">${escapeHtml(stageLabel(lead.stage))}</span></div>
+  </div>`;
+}
+
+function renderLeads() {
+  const total = state.leads.length;
+  const rows = state.leads.map(leadRow).join("");
+  $("#leadRows").innerHTML = `<div class="lead-table">
+    <div class="table-row table-head"><span>Lead</span><span>Fonte</span><span>Tipo</span><span>Segmento</span><span>Score</span><span>Contacto</span><span>Estado</span></div>
+    ${rows || `<div class="empty-table">${total ? "Sem resultados nesta vista." : "Ainda não há leads nesta vista."}</div>`}
+  </div>`;
+  $$(".lead-row").forEach((row) => row.addEventListener("click", (event) => {
+    if (event.target.closest("a")) return;
+    selectLead(row.dataset.id);
+  }));
+  iconRefresh();
 }
 
 function selectLead(id) {
   state.selectedId = id;
-  $$(".deal-card").forEach((card) => card.classList.toggle("selected", card.dataset.id === id));
+  $$(".lead-row").forEach((row) => row.classList.toggle("selected", row.dataset.id === id));
   renderDetail();
 }
 
-function renderLeads() {
-  const groups = groupedLeads();
-  const total = state.leads.length;
-  $("#leadRows").innerHTML = PIPELINE_STAGES.map((stage) => {
-    const leads = groups[stage.key] || [];
-    const visible = leads.slice(0, MAX_CARDS_PER_LANE);
-    const hidden = Math.max(0, leads.length - visible.length);
-    return `<section class="pipeline-lane" data-stage="${stage.key}"><header class="lane-head"><div class="lane-title"><span class="lane-dot"></span>${escapeHtml(stage.label)}</div><span class="lane-count">${compactNumber(leads.length)}</span></header><div class="lane-body">${visible.length ? visible.map(dealCard).join("") : `<div class="empty-lane">${total ? "Arrasta leads para aqui." : "Sem leads nesta vista."}</div>`}${hidden ? `<div class="lane-more">+${compactNumber(hidden)} ocultas. Usa pesquisa ou filtros.</div>` : ""}</div></section>`;
-  }).join("");
-
-  $$(".deal-card").forEach((card) => {
-    card.addEventListener("click", (event) => { if (!event.target.closest("a, button, select")) selectLead(card.dataset.id); });
-    card.addEventListener("dragstart", (event) => {
-      state.ui.dragging = true;
-      card.classList.add("dragging");
-      event.dataTransfer.setData("text/plain", card.dataset.id);
-    });
-    card.addEventListener("dragend", () => {
-      state.ui.dragging = false;
-      card.classList.remove("dragging");
-    });
-  });
-  $$(".pipeline-lane").forEach((lane) => {
-    lane.addEventListener("dragover", (event) => { event.preventDefault(); lane.classList.add("drag-over"); });
-    lane.addEventListener("dragleave", () => lane.classList.remove("drag-over"));
-    lane.addEventListener("drop", async (event) => {
-      event.preventDefault();
-      lane.classList.remove("drag-over");
-      state.ui.dragging = false;
-      const id = event.dataTransfer.getData("text/plain");
-      const stage = lane.dataset.stage;
-      if (id && stage) await updateLeadStage(id, stage);
-    });
-  });
-  iconRefresh();
+function uniqueList(items = []) {
+  return [...new Set(items.filter(Boolean).map((item) => String(item).trim()).filter(Boolean))];
 }
 
 function renderLinkList(title, links = []) {
-  if (!links.length) return "";
-  return `<div class="detail-section"><h3>${escapeHtml(title)}</h3><div class="link-list">${links.map((link) => `<a class="mini-chip" href="${escapeHtml(link)}" target="_blank" rel="noreferrer">${escapeHtml(shortUrl(link))}</a>`).join("")}</div></div>`;
-}
-
-function renderForms(forms = []) {
-  if (!forms.length) return "";
-  return `<div class="detail-section"><h3>Formulários</h3>${forms.map((form) => `<div class="message-box"><p><strong>${escapeHtml(form.method || "GET")}</strong> ${escapeHtml(shortUrl(form.action || form.pageUrl || ""))}</p><p>${escapeHtml((form.fields || []).join(", ") || form.label || "Contact form")}</p><a class="mini-chip" href="${escapeHtml(form.pageUrl || form.action || "")}" target="_blank" rel="noreferrer">Abrir formulário</a></div>`).join("")}</div>`;
+  const clean = uniqueList(links).slice(0, 8);
+  if (!clean.length) return "";
+  return `<div class="detail-section"><h3>${escapeHtml(title)}</h3><div class="link-list">${clean.map((link) => `<a class="mini-chip" href="${escapeHtml(link)}" target="_blank" rel="noreferrer">${escapeHtml(shortUrl(link))}</a>`).join("")}</div></div>`;
 }
 
 function contactTypeLabel(value = "") {
-  const labels = { email: "Email", whatsapp: "WhatsApp validado", phone: "Telefone", form: "Formulário", social: "Social/DM", website: "Website", "direct-link": "Link direto" };
+  const labels = { email: "Email", whatsapp: "WhatsApp", phone: "Telefone", form: "Formulário", social: "Social/DM", website: "Website", "direct-link": "Link direto" };
   return labels[String(value).toLowerCase()] || value || "Contacto";
 }
 function contactHref(contact = "", type = "") {
@@ -390,8 +371,14 @@ function renderBestContact(lead = {}) {
   const type = lead.bestContactType || lead.contactQuality || "";
   const href = contactHref(contact, type);
   const source = lead.bestContactSource || "";
-  const contactNode = href ? `<a class="mini-chip" href="${escapeHtml(href)}" target="_blank" rel="noreferrer">${escapeHtml(contactDisplay(contact))}</a>` : `<span class="mini-chip">${escapeHtml(contact)}</span>`;
-  return `<div class="detail-section"><h3>Melhor contacto</h3><div class="message-box"><div class="detail-meta"><span class="priority-pill a">${escapeHtml(contactTypeLabel(type))}</span><span class="mini-chip">Confiança ${Number(lead.contactConfidence || 0)}%</span></div><div class="link-list">${contactNode}</div>${source ? `<p>Fonte: ${escapeHtml(contactDisplay(source))}</p>` : ""}<button class="copy-button" data-copy="${escapeHtml(contact)}"><i data-lucide="copy"></i> Copiar</button></div></div>`;
+  const contactNode = href ? `<a class="contact-value" href="${escapeHtml(href)}" target="_blank" rel="noreferrer">${escapeHtml(contactDisplay(contact))}</a>` : `<span class="contact-value">${escapeHtml(contact)}</span>`;
+  return `<div class="detail-section primary-contact"><h3>Melhor contacto</h3><div class="contact-line"><span class="priority-pill a">${escapeHtml(contactTypeLabel(type))}</span><span class="mini-chip">${Number(lead.contactConfidence || 0)}%</span></div>${contactNode}${source ? `<p>Fonte: ${escapeHtml(contactDisplay(source))}</p>` : ""}</div>`;
+}
+
+function renderForms(forms = []) {
+  const clean = forms.slice(0, 4);
+  if (!clean.length) return "";
+  return `<div class="detail-section"><h3>Formulários</h3><div class="link-list">${clean.map((form) => `<a class="mini-chip" href="${escapeHtml(form.pageUrl || form.action || "")}" target="_blank" rel="noreferrer">${escapeHtml(shortUrl(form.pageUrl || form.action || ""))}</a>`).join("")}</div></div>`;
 }
 
 function renderDetail() {
@@ -402,20 +389,29 @@ function renderDetail() {
     iconRefresh();
     return;
   }
-  const emails = lead.emails || [];
-  const languages = lead.languages || [];
-  const evidence = lead.evidence || [];
-  const socialLinks = lead.socialLinks || [];
-  const contactLinks = lead.contactLinks || [];
-  const websiteLinks = lead.websiteLinks || [];
-  const phoneNumbers = lead.phoneNumbers || [];
+  const emails = uniqueList(lead.emails || []);
+  const languages = uniqueList(lead.languages || []);
+  const evidence = uniqueList(lead.evidence || []);
+  const socialLinks = uniqueList(lead.socialLinks || []);
+  const contactLinks = uniqueList(lead.contactLinks || []);
+  const websiteLinks = uniqueList(lead.websiteLinks || []);
+  const phoneNumbers = uniqueList(lead.phoneNumbers || []);
   const forms = lead.forms || [];
-  panel.innerHTML = `<div class="detail-header"><div class="detail-meta"><span class="priority-pill ${priorityClass(lead.priority)}">Lead ${escapeHtml(lead.priority || "D")}</span><span class="stage-pill">${escapeHtml(stageLabel(lead.stage))}</span><span class="type-pill ${escapeHtml(lead.leadType || "")}">${escapeHtml(typeLabel(lead.leadType))}</span><span class="source-pill ${platformClass(platformForLead(lead))}">${escapeHtml(platformForLead(lead))}</span></div><h2>${escapeHtml(leadTitle(lead))}</h2><a href="${escapeHtml(lead.url)}" target="_blank" rel="noreferrer">${escapeHtml(shortUrl(lead.url))}</a></div><div class="detail-section"><h3>Pipeline</h3><label class="field stage-select"><span>Estado comercial</span><select id="detailStage">${PIPELINE_STAGES.map((stage) => `<option value="${stage.key}" ${stage.key === stageKey(lead.stage) ? "selected" : ""}>${stage.label}</option>`).join("")}</select></label><div class="detail-meta"><span class="mini-chip">Score ${Number(lead.score || 0)}</span><span class="mini-chip">Contacto ${lead.contactConfidence || 0}%</span><span class="mini-chip">${escapeHtml(segmentLabel(lead.segment) || "Pesquisa")}</span><span class="mini-chip">${escapeHtml(countryLabel(lead.country))}</span>${languages.map((language) => `<span class="mini-chip">${escapeHtml(language)}</span>`).join("")}</div></div><div class="detail-section"><h3>Sinais</h3><div class="evidence-list">${(evidence.length ? evidence : ["Needs review"]).map((item) => `<span class="mini-chip">${escapeHtml(item)}</span>`).join("")}</div></div><div class="detail-section"><h3>Contexto</h3><p>${escapeHtml(lead.snippet || "No snippet captured.")}</p></div>${renderBestContact(lead)}${emails.length ? `<div class="detail-section"><h3>Email</h3><div class="link-list">${emails.map((email) => `<a class="mini-chip" href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a>`).join("")}</div></div>` : ""}${phoneNumbers.length ? `<div class="detail-section"><h3>Telefones</h3><div class="link-list">${phoneNumbers.map((phone) => `<span class="mini-chip">${escapeHtml(phone)}</span>`).join("")}</div></div>` : ""}${renderForms(forms)}${renderLinkList("Social", socialLinks)}${renderLinkList("Contact paths", contactLinks)}${renderLinkList("Websites", websiteLinks)}`;
+
+  panel.innerHTML = `<div class="detail-header">
+    <div class="detail-meta"><span class="priority-pill ${priorityClass(lead.priority)}">Lead ${escapeHtml(lead.priority || "D")}</span><span class="stage-pill">${escapeHtml(stageLabel(lead.stage))}</span><span class="source-pill ${platformClass(platformForLead(lead))}">${escapeHtml(platformForLead(lead))}</span></div>
+    <h2>${escapeHtml(leadTitle(lead))}</h2>
+    <a href="${escapeHtml(lead.url)}" target="_blank" rel="noreferrer">${escapeHtml(shortUrl(lead.url))}</a>
+  </div>
+  <div class="detail-section"><h3>Pipeline</h3><label class="field stage-select"><span>Estado comercial</span><select id="detailStage">${PIPELINE_STAGES.map((stage) => `<option value="${stage.key}" ${stage.key === stageKey(lead.stage) ? "selected" : ""}>${stage.label}</option>`).join("")}</select></label><div class="detail-meta"><span class="mini-chip">Score ${Number(lead.score || 0)}</span><span class="mini-chip">Contacto ${lead.contactConfidence || 0}%</span><span class="mini-chip">${escapeHtml(segmentLabel(lead.segment) || "Pesquisa")}</span><span class="mini-chip">${escapeHtml(countryLabel(lead.country))}</span>${languages.map((language) => `<span class="mini-chip">${escapeHtml(language)}</span>`).join("")}</div></div>
+  ${renderBestContact(lead)}
+  <div class="detail-section"><h3>Contexto</h3><p>${escapeHtml(lead.snippet || "No snippet captured.")}</p></div>
+  ${evidence.length ? `<div class="detail-section"><h3>Sinais</h3><div class="evidence-list">${evidence.slice(0, 10).map((item) => `<span class="mini-chip">${escapeHtml(item)}</span>`).join("")}</div></div>` : ""}
+  ${emails.length ? `<div class="detail-section"><h3>Email</h3><div class="link-list">${emails.slice(0, 6).map((email) => `<a class="mini-chip" href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a>`).join("")}</div></div>` : ""}
+  ${phoneNumbers.length ? `<div class="detail-section"><h3>Telefones</h3><div class="link-list">${phoneNumbers.slice(0, 6).map((phone) => `<span class="mini-chip">${escapeHtml(phone)}</span>`).join("")}</div></div>` : ""}
+  ${renderForms(forms)}${renderLinkList("Social", socialLinks)}${renderLinkList("Contact paths", contactLinks)}${renderLinkList("Websites", websiteLinks)}`;
+
   $("#detailStage").addEventListener("change", async (event) => updateLeadStage(lead.id, event.target.value));
-  $$(".copy-button").forEach((button) => button.addEventListener("click", async () => {
-    await navigator.clipboard.writeText(button.dataset.copy || "");
-    toast("Copiado");
-  }));
   iconRefresh();
 }
 
@@ -440,7 +436,7 @@ function bindControls() {
     window.searchTimer = setTimeout(() => {
       resetLeadView();
       loadDashboard({ forceLeads: true }).catch((error) => console.error(error));
-    }, 420);
+    }, 380);
   });
   $("#viewModeFilter").addEventListener("change", async (event) => { state.filters.viewMode = event.target.value; resetLeadView(); await loadDashboard({ forceLeads: true }); });
   $("#platformFilter").addEventListener("change", async (event) => { state.filters.platform = event.target.value; resetLeadView(); await loadDashboard({ forceLeads: true }); });
@@ -453,6 +449,6 @@ bindControls();
 iconRefresh();
 loadDashboard({ forceLeads: true }).catch((error) => console.error(error));
 setInterval(() => {
-  if (document.visibilityState === "hidden" || state.ui.dragging) return;
+  if (document.visibilityState === "hidden") return;
   loadDashboard().catch((error) => console.error(error));
 }, DASHBOARD_REFRESH_MS);
