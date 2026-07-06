@@ -89,10 +89,7 @@ export async function dedupeStore() {
   return db.dedupe;
 }
 
-const isCli = import.meta.url === `file://${process.argv[1].replace(/\\/g, "/")}`;
-if (isCli) {
-  dedupeStore().then((result) => console.log(JSON.stringify(result, null, 2))).catch((error) => {
-    console.error(error);
-    process.exitCode = 1;
-  });
-}
+dedupeStore().then((result) => console.log(JSON.stringify(result, null, 2))).catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});
