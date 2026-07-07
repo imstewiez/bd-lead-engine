@@ -88,6 +88,11 @@ async function sanitizeContacts() {
   return run(process.execPath, ["src/contact-sanitizer.js"], { stdio: "inherit" });
 }
 
+async function cleanupLeads() {
+  await log("[engine] pruning invalid/noisy leads");
+  return run(process.execPath, ["src/cleanup-leads.js"], { stdio: "inherit" });
+}
+
 async function prewarmUiSnapshot() {
   await log("[engine] prewarming UI snapshot");
   return run(process.execPath, ["src/ui-snapshot.js", "--once"], { stdio: "inherit" });
@@ -122,9 +127,10 @@ await writeStatus({ status: "running", phase: "started", startedAt });
 const pull = await pullLatest();
 const stop = await stopEngine();
 const sanitize = await sanitizeContacts();
+const cleanup = await cleanupLeads();
 const prewarm = await prewarmUiSnapshot();
 const start = await startEngine();
 const cloud = await cloudSnapshot();
 const report = await printReport();
-await writeStatus({ status: "done", phase: "done", startedAt, finishedAt: nowIso(), pull, stop, sanitize, prewarm, start, cloud, report });
+await writeStatus({ status: "done", phase: "done", startedAt, finishedAt: nowIso(), pull, stop, sanitize, cleanup, prewarm, start, cloud, report });
 await log("[engine] ready");
