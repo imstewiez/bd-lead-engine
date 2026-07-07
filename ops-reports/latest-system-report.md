@@ -1,10 +1,10 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-07T00:41:37.943Z
+Updated: 2026-07-07T00:51:40.900Z
 Health: OK
 
 ## Funnel
-Raw: 117
+Raw: 119
 Qualified: 30
 Working: 48
 Contactable: 35
@@ -14,22 +14,22 @@ A2 Strong: 6
 
 ## Quality
 Platform contact leaks: 0
-High-value without real contact: 9
+High-value without real contact: 10
 Sales-ready by bucket: {"mql5":4,"tiktok":2,"myfxbook":1,"web":1}
 Qualified by bucket: {"linkedin":21,"mql5":4,"tiktok":2,"web":1,"myfxbook":1,"instagram":1}
 
 ## Sourcing / Workers
-Provider errors: 54
-Stale workers: none
+Provider errors: 81
+Stale workers: engine-control
 Issues: none
 
 ## Smart Enrichment
-Phase: smart-enriching
-Processed: 3
-Stored: 3
+Phase: idle
+Processed: 5
+Stored: 5
 Errors: 0
-Current: lilo org
-Last: users ajtrader2014FTA
+Last: 01_xauusd_01
+Last best contact: +1 205 920 2180
 
 ## Recent Errors
 ### qualified-exporter
