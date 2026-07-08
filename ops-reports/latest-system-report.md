@@ -1,10 +1,10 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-08T17:34:25.861Z
+Updated: 2026-07-08T17:44:28.855Z
 Health: OK
 
 ## Funnel
-Raw: 110
+Raw: 111
 Qualified: 28
 Working: 44
 Contactable: 31
@@ -14,22 +14,21 @@ A2 Strong: 5
 
 ## Quality
 Platform contact leaks: 0
-High-value without real contact: 19
+High-value without real contact: 20
 Sales-ready by bucket: {"web":3,"tiktok":2,"mql5":1}
 Qualified by bucket: {"linkedin":21,"web":3,"tiktok":2,"instagram":1,"mql5":1}
 
 ## Sourcing / Workers
-Provider errors: 63
+Provider errors: 54
 Stale workers: engine-control
 Issues: none
 
 ## Smart Enrichment
 Phase: idle
-Processed: 15
-Stored: 15
+Processed: 16
+Stored: 16
 Errors: 0
-Last: Nguyen Hang Hai Ha
-Last best contact: https://t.me/mql5dev
+Last: Forex Factory | Global markets for the smart money.
 
 ## Recent Errors
 ### qualified-exporter
