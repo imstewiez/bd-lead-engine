@@ -1,27 +1,27 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-07T03:02:31.056Z
+Updated: 2026-07-08T16:24:04.556Z
 Health: OK
 
 ## Funnel
-Raw: 120
-Qualified: 27
-Working: 45
-Contactable: 32
-Sales-ready: 5
-A1 Hot: 16
-A2 Strong: 6
+Raw: 82
+Qualified: 23
+Working: 40
+Contactable: 29
+Sales-ready: 3
+A1 Hot: 15
+A2 Strong: 5
 
 ## Quality
-Platform contact leaks: 1
-High-value without real contact: 13
-Sales-ready by bucket: {"mql5":2,"tiktok":2,"web":1}
-Qualified by bucket: {"linkedin":21,"tiktok":2,"mql5":2,"web":1,"instagram":1}
+Platform contact leaks: 0
+High-value without real contact: 0
+Sales-ready by bucket: {"tiktok":2,"web":1}
+Qualified by bucket: {"linkedin":20,"tiktok":2,"web":1}
 
 ## Sourcing / Workers
 Provider errors: 51
-Stale workers: engine-control
-Issues: none
+Stale workers: contact-gap-worker, enrichment-worker, smart-enrichment-worker, source-harvester, source-harvester-communities, source-harvester-ecosystem, source-harvester-events, source-harvester-instagram, source-harvester-linkedin, source-harvester-platforms, source-harvester-social, source-harvester-specialist
+Issues: warning:source-harvester_stale_status, warning:source-harvester-social_stale_status, warning:source-harvester-specialist_stale_status, warning:source-harvester-ecosystem_stale_status, warning:source-harvester-linkedin_stale_status, warning:source-harvester-instagram_stale_status, warning:source-harvester-platforms_stale_status, warning:source-harvester-communities_stale_status, warning:source-harvester-events_stale_status, warning:enrichment-worker_stale_status, warning:smart-enrichment-worker_stale_status, warning:contact-gap-worker_stale_status
 
 ## Smart Enrichment
 Phase: idle
