@@ -95,6 +95,7 @@ export function pruneReasons(lead = {}) {
   const raw = rawLeadText(cleaned);
   const name = nameOf(cleaned);
   const hardReasons = leadRejectionReasons(cleaned);
+  const realContact = hasRealDecisionContact(cleaned);
 
   if (hardReasons.length) reasons.push(...hardReasons.map((reason) => `hard reject: ${reason}`));
   if (isBlockedCommercialLead(cleaned)) reasons.push("commercial noise policy");
@@ -104,10 +105,13 @@ export function pruneReasons(lead = {}) {
   if (WEAK_IDENTITY.test(name) && score >= 75) reasons.push("weak/generic identity with high score");
   if ((cleaned.emails || lead.emails || []).some((email) => PLACEHOLDER_EMAIL_DOMAIN.test(email) || isPlatformOwnedEmail(email, cleaned))) reasons.push("placeholder/platform email contamination");
   if (cleaned.bestContact && (isPlatformOwnedUrl(cleaned.bestContact, cleaned) || isPlatformProfileUrl(cleaned.bestContact))) reasons.push("best contact is platform-owned URL");
-  if (score >= 76 && !hasRealDecisionContact(cleaned)) reasons.push("A/high-score lead without real decision contact");
+  if (score >= 75 && !realContact) reasons.push("high-score lead without real decision contact");
+  if (["forum", "reddit", "web"].includes(bucket) && score >= 70 && !realContact) reasons.push("content/community lead without contact route");
+  if (bucket === "discord" && score >= 65 && !realContact) reasons.push("discord/community lead without contact route");
   if (["linkedin", "instagram", "tiktok", "x", "facebook"].includes(bucket) && SYNTHETIC_SEARCH_SNIPPET.test(cleaned.snippet || "")) reasons.push("query-driven social result");
-  if (["fxblue", "zulutrade"].includes(bucket) && !hasRealDecisionContact(cleaned)) reasons.push("platform strategy profile without owned contact route");
+  if (["fxblue", "zulutrade", "specialist"].includes(bucket) && !realContact && /fxblue|zulutrade/i.test(cleaned.url || "")) reasons.push("platform strategy profile without owned contact route");
   if (domain === "youtube.com" || domain.endsWith(".youtube.com")) {
+    if (!realContact) reasons.push("YouTube lead without contact route");
     if (!STRICT_VISIBLE_ICP.test(`${name} ${visible}`) || (cleaned.emails || []).some((email) => isPlatformOwnedEmail(email, cleaned))) reasons.push("weak/contaminated YouTube lead");
   }
   if (!STRICT_VISIBLE_ICP.test(visible) && score >= 85 && !/mql5\.com\/en\/users\/[^/]+\/seller/i.test(cleaned.url || "")) reasons.push("high score without visible ICP evidence");
