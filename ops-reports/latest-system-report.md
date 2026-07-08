@@ -1,11 +1,11 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-08T18:04:35.541Z
+Updated: 2026-07-08T18:14:38.727Z
 Health: OK
 
 ## Funnel
-Raw: 111
-Qualified: 26
+Raw: 112
+Qualified: 28
 Working: 44
 Contactable: 31
 Sales-ready: 6
@@ -16,19 +16,20 @@ A2 Strong: 5
 Platform contact leaks: 0
 High-value without real contact: 21
 Sales-ready by bucket: {"web":3,"tiktok":2,"mql5":1}
-Qualified by bucket: {"linkedin":20,"web":3,"tiktok":2,"mql5":1}
+Qualified by bucket: {"linkedin":21,"web":3,"tiktok":2,"instagram":1,"mql5":1}
 
 ## Sourcing / Workers
-Provider errors: 18
+Provider errors: 36
 Stale workers: engine-control
 Issues: none
 
 ## Smart Enrichment
 Phase: idle
-Processed: 16
-Stored: 16
+Processed: 17
+Stored: 17
 Errors: 0
-Last: Forex Factory | Global markets for the smart money.
+Last: AU USD Gold Price Analysis & Live Chart
+Last best contact: 0046-7689-4797-991
 
 ## Recent Errors
 ### qualified-exporter
