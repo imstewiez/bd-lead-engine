@@ -1,10 +1,10 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-08T23:26:13.697Z
+Updated: 2026-07-08T23:36:16.498Z
 Health: OK
 
 ## Funnel
-Raw: 113
+Raw: 112
 Qualified: 26
 Working: 43
 Contactable: 30
@@ -24,12 +24,11 @@ Stale workers: engine-control
 Issues: none
 
 ## Smart Enrichment
-Phase: smart-enriching
-Processed: 18
-Stored: 18
+Phase: idle
+Processed: 19
+Stored: 19
 Errors: 0
-Current: EUR/USD - Forex Factory
-Last: calendar.forexfactory.com
+Last: EUR/USD - Forex Factory
 
 ## Recent Errors
 ### qualified-exporter
