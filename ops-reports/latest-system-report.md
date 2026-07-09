@@ -1,36 +1,35 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-09T17:16:12.131Z
+Updated: 2026-07-09T17:26:15.557Z
 Health: OK
 
 ## Funnel
-Raw: 114
+Raw: 126
 Qualified: 36
-Working: 53
-Contactable: 42
+Working: 54
+Contactable: 43
 Sales-ready: 9
-A1 Hot: 19
-A2 Strong: 9
+A1 Hot: 18
+A2 Strong: 8
 
 ## Quality
-Platform contact leaks: 2
-High-value without real contact: 10
-Sales-ready by bucket: {"mql5":5,"web":2,"tiktok":1,"myfxbook":1}
-Qualified by bucket: {"linkedin":25,"mql5":5,"tiktok":2,"web":2,"instagram":1,"myfxbook":1}
+Platform contact leaks: 0
+High-value without real contact: 20
+Sales-ready by bucket: {"mql5":5,"web":2,"tiktok":2}
+Qualified by bucket: {"linkedin":25,"mql5":5,"tiktok":2,"web":2,"instagram":2}
 
 ## Sourcing / Workers
-Provider errors: 27
-Stale workers: none
+Provider errors: 13
+Stale workers: engine-control
 Issues: none
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 4
-Stored: 4
+Processed: 8
+Stored: 8
 Errors: 0
-Current: lilo org
-Last: ) - Instagram
-Last best contact: https://www.instagram.com/classic_forex_trader/
+Current: ) - Instagram
+Last: Myfxbook
 
 ## Recent Errors
 ### qualified-exporter
