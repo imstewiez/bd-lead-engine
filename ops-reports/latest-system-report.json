@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "generatedAt": "2026-07-09T17:06:08.083Z",
+  "generatedAt": "2026-07-09T17:06:10.064Z",
   "summary": {
     "ok": true,
     "rawLeads": 83,
@@ -19,96 +19,22 @@
     "websiteOnlyContacts": 0,
     "duplicateLike": 0,
     "uniqueKeys": 83,
-    "enrichmentDueNow": 70,
-    "enrichedLastHour": 0,
+    "enrichmentDueNow": 69,
+    "enrichedLastHour": 1,
     "enrichedLast24h": 71,
     "harvesters": 9,
-    "harvesterRawSeen": 102,
-    "harvesterSavedThisCycle": 5,
-    "providerErrors": 63,
-    "providerErrorsPerSaved": 12.6,
+    "harvesterRawSeen": 0,
+    "harvesterSavedThisCycle": 0,
+    "providerErrors": 0,
+    "providerErrorsPerSaved": null,
     "salesReadyYield": 0.048,
-    "salesReadyPerProviderError": 0.063,
-    "staleWorkers": [
-      "contact-gap-worker",
-      "enrichment-worker",
-      "smart-enrichment-worker",
-      "source-harvester",
-      "source-harvester-communities",
-      "source-harvester-ecosystem",
-      "source-harvester-events",
-      "source-harvester-instagram",
-      "source-harvester-linkedin",
-      "source-harvester-platforms",
-      "source-harvester-social",
-      "source-harvester-specialist"
-    ],
-    "issues": [
-      {
-        "severity": "warning",
-        "code": "source-harvester_stale_status",
-        "message": "source-harvester status is stale."
-      },
-      {
-        "severity": "warning",
-        "code": "source-harvester-social_stale_status",
-        "message": "source-harvester-social status is stale."
-      },
-      {
-        "severity": "warning",
-        "code": "source-harvester-specialist_stale_status",
-        "message": "source-harvester-specialist status is stale."
-      },
-      {
-        "severity": "warning",
-        "code": "source-harvester-ecosystem_stale_status",
-        "message": "source-harvester-ecosystem status is stale."
-      },
-      {
-        "severity": "warning",
-        "code": "source-harvester-linkedin_stale_status",
-        "message": "source-harvester-linkedin status is stale."
-      },
-      {
-        "severity": "warning",
-        "code": "source-harvester-instagram_stale_status",
-        "message": "source-harvester-instagram status is stale."
-      },
-      {
-        "severity": "warning",
-        "code": "source-harvester-platforms_stale_status",
-        "message": "source-harvester-platforms status is stale."
-      },
-      {
-        "severity": "warning",
-        "code": "source-harvester-communities_stale_status",
-        "message": "source-harvester-communities status is stale."
-      },
-      {
-        "severity": "warning",
-        "code": "source-harvester-events_stale_status",
-        "message": "source-harvester-events status is stale."
-      },
-      {
-        "severity": "warning",
-        "code": "enrichment-worker_stale_status",
-        "message": "enrichment-worker status is stale."
-      },
-      {
-        "severity": "warning",
-        "code": "smart-enrichment-worker_stale_status",
-        "message": "smart-enrichment-worker status is stale."
-      },
-      {
-        "severity": "warning",
-        "code": "contact-gap-worker_stale_status",
-        "message": "contact-gap-worker status is stale."
-      }
-    ]
+    "salesReadyPerProviderError": null,
+    "staleWorkers": [],
+    "issues": []
   },
   "health": {
     "ok": true,
-    "updatedAt": "2026-07-09T17:06:07.806Z",
+    "updatedAt": "2026-07-09T17:06:09.828Z",
     "counts": {
       "raw": 83,
       "qualified": 24,
@@ -130,12 +56,12 @@
       "contactless": 20,
       "neverDeep": 0,
       "eligible": 70,
-      "dueNow": 70,
-      "rotationDue": 50,
-      "enrichedLastHour": 0,
+      "dueNow": 69,
+      "rotationDue": 49,
+      "enrichedLastHour": 1,
       "enrichedLast24h": 71,
       "oldestDeepAgeHours": 149.6,
-      "running": 0
+      "running": 2
     },
     "tasks": {
       "source-harvester": {
@@ -210,8 +136,8 @@
     "statuses": {
       "source-harvester": {
         "exists": true,
-        "updatedAt": "2026-07-09T04:12:38.546Z",
-        "ageMs": 46409255,
+        "updatedAt": "2026-07-09T17:06:08.199Z",
+        "ageMs": 1624,
         "status": {
           "status": "running",
           "workerName": "source-harvester",
@@ -249,284 +175,11 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-09T04:12:38.545Z",
+          "heartbeatAt": "2026-07-09T17:06:08.178Z",
           "progress": {
-            "message": "Saved qualified lead: Forex Factory",
+            "message": "Starting quality discovery with 120 queries",
             "status": "running",
-            "latestLead": {
-              "id": "5a2b688f32f7b3a8",
-              "source": "bing-rss",
-              "sourceIntent": "partner",
-              "query": "\"forex\" \"Instagram\" \"trader\" Latin America",
-              "url": "https://www.forexfactory.com/",
-              "domain": "forexfactory.com",
-              "platform": "ForexFactory",
-              "title": "Forex Factory | Global markets for the smart money.",
-              "name": "Forex Factory | Global markets for the smart money.",
-              "snippet": "Forex Factory connects traders to global financial markets with real-time data, charts, news, and the internet’s most trusted economic calendar for over 20 years.",
-              "fetchStatus": "deep-ok",
-              "sourceQuery": "\"forex\" \"Instagram\" \"trader\" Latin America",
-              "emails": [],
-              "socialLinks": [
-                "https://www.facebook.com/forexfactory/",
-                "https://twitter.com/ForexFactory",
-                "https://mds-api.forexfactory.com/",
-                "https://bds-api.forexfactory.com/",
-                "https://explorer-api.forexfactory.com/api.php/",
-                "https://www.facebook.com/metalsmine",
-                "https://twitter.com/MetalsMine",
-                "https://www.forexfactory.com/",
-                "https://www.facebook.com/energyexch",
-                "https://twitter.com/EnergyEXCH",
-                "https://www.facebook.com/cryptocraftdotcom",
-                "https://twitter.com/CryptoCraft",
-                "https://www.linkedin.com/company/fair-economy"
-              ],
-              "contactLinks": [
-                "https://www.facebook.com/forexfactory/",
-                "https://twitter.com/ForexFactory",
-                "https://www.metalsmine.com/contact",
-                "https://www.facebook.com/metalsmine",
-                "https://twitter.com/MetalsMine",
-                "https://www.metalsmine.com/contact?subject=technical",
-                "https://www.energyexch.com/contact",
-                "https://www.facebook.com/energyexch",
-                "https://twitter.com/EnergyEXCH",
-                "https://www.energyexch.com/contact?subject=technical",
-                "https://www.cryptocraft.com/contact",
-                "https://www.facebook.com/cryptocraftdotcom",
-                "https://twitter.com/CryptoCraft",
-                "https://www.cryptocraft.com/contact?subject=technical",
-                "https://www.linkedin.com/company/fair-economy",
-                "https://cdn.prod.website-files.com/6671d848ac83c72666c7cf54/6672c1237d1ecc7c61c58bdf_about-ligh-mode-poster-00001.jpg&quot",
-                "https://cdn.prod.website-files.com/6671d848ac83c72666c7cf54/667434bf5d9d30cf3a4649ea_about-dark-mode-poster-00001.jpg&quot"
-              ],
-              "websiteLinks": [
-                "https://www.metalsmine.com/",
-                "https://www.energyexch.com/",
-                "https://www.cryptocraft.com/",
-                "https://www.faireconomy.com/",
-                "https://resources.faireconomy.media/",
-                "https://assets.faireconomy.media/",
-                "https://assets.faireconomy.media/images/misc",
-                "https://www.metalsmine.com/forums",
-                "https://www.metalsmine.com/calendar",
-                "https://www.metalsmine.com/market",
-                "https://www.metalsmine.com/search",
-                "https://www.metalsmine.com/create-account",
-                "https://www.metalsmine.com/timezone",
-                "https://www.metalsmine.com/resetpassword",
-                "https://www.metalsmine.com/mission",
-                "https://www.metalsmine.com/products",
-                "https://www.metalsmine.com/blog",
-                "https://www.metalsmine.com/bug-bounty",
-                "https://www.metalsmine.com/userguide",
-                "https://www.metalsmine.com/traders",
-                "https://www.energyexch.com/calendar",
-                "https://www.energyexch.com/market",
-                "https://www.energyexch.com/search",
-                "https://www.energyexch.com/create-account",
-                "https://www.energyexch.com/timezone",
-                "https://www.energyexch.com/resetpassword",
-                "https://www.energyexch.com/mission",
-                "https://www.energyexch.com/products",
-                "https://www.energyexch.com/blog",
-                "https://www.energyexch.com/bug-bounty"
-              ],
-              "phoneNumbers": [
-                "005261793429"
-              ],
-              "forms": [
-                {
-                  "pageUrl": "https://www.metalsmine.com/contact",
-                  "action": "https://www.metalsmine.com/search",
-                  "method": "GET",
-                  "fields": [
-                    "search"
-                  ],
-                  "label": "Form 1"
-                },
-                {
-                  "pageUrl": "https://www.metalsmine.com/contact",
-                  "action": "https://www.metalsmine.com/contact",
-                  "method": "POST",
-                  "fields": [
-                    "_csrf",
-                    "url",
-                    "subject",
-                    "other_subject",
-                    "name",
-                    "email",
-                    "message"
-                  ],
-                  "label": "Subject: Website Feedback Feature Request Help Request Other Name: Email: Message: Submit:"
-                },
-                {
-                  "pageUrl": "https://www.energyexch.com/contact",
-                  "action": "https://www.energyexch.com/search",
-                  "method": "GET",
-                  "fields": [
-                    "search"
-                  ],
-                  "label": "Form 1"
-                },
-                {
-                  "pageUrl": "https://www.energyexch.com/contact",
-                  "action": "https://www.energyexch.com/contact",
-                  "method": "POST",
-                  "fields": [
-                    "_csrf",
-                    "url",
-                    "subject",
-                    "other_subject",
-                    "name",
-                    "email",
-                    "message"
-                  ],
-                  "label": "Subject: Website Feedback Feature Request Help Request Other Name: Email: Message: Submit:"
-                },
-                {
-                  "pageUrl": "https://www.cryptocraft.com/contact",
-                  "action": "https://www.cryptocraft.com/search",
-                  "method": "GET",
-                  "fields": [
-                    "search"
-                  ],
-                  "label": "Form 1"
-                },
-                {
-                  "pageUrl": "https://www.cryptocraft.com/contact",
-                  "action": "https://www.cryptocraft.com/contact",
-                  "method": "POST",
-                  "fields": [
-                    "_csrf",
-                    "url",
-                    "subject",
-                    "other_subject",
-                    "name",
-                    "email",
-                    "message"
-                  ],
-                  "label": "Subject: Website Feedback Feature Request Help Request Other Name: Email: Message: Submit:"
-                },
-                {
-                  "pageUrl": "https://www.faireconomy.com/",
-                  "action": "https://www.faireconomy.com/",
-                  "method": "POST",
-                  "fields": [
-                    "Name",
-                    "Email",
-                    "Message"
-                  ],
-                  "label": "Form 1"
-                }
-              ],
-              "contactSources": [
-                "https://www.forexfactory.com/",
-                "https://www.metalsmine.com/",
-                "https://www.metalsmine.com/contact",
-                "https://www.metalsmine.com/contact-us",
-                "https://www.metalsmine.com/contacto",
-                "https://www.metalsmine.com/contato",
-                "https://www.metalsmine.com/about",
-                "https://www.metalsmine.com/about-us",
-                "https://www.energyexch.com/",
-                "https://www.energyexch.com/contact",
-                "https://www.energyexch.com/contact-us",
-                "https://www.energyexch.com/contacto",
-                "https://www.energyexch.com/contato",
-                "https://www.energyexch.com/about",
-                "https://www.energyexch.com/about-us",
-                "https://www.cryptocraft.com/",
-                "https://www.cryptocraft.com/contact",
-                "https://www.cryptocraft.com/contact-us",
-                "https://www.cryptocraft.com/contacto",
-                "https://www.cryptocraft.com/contato"
-              ],
-              "relatedLinks": [],
-              "decisionMakerLinks": [
-                "https://www.linkedin.com/company/fair-economy"
-              ],
-              "decisionMakers": [],
-              "pageTitle": "Forex Factory | Global markets for the smart money.",
-              "pageDescription": "Forex Factory connects traders to global financial markets with real-time data, charts, news, and the internet’s most trusted economic calendar for over 20 years.",
-              "pageText": "Forex Factory | Global markets for the smart money. Forums Trades News Calendar Market Brokers 5:12am Search User/Email: Password: Create Account Login Forums Trades News Calendar Market Brokers Forums Trades News Calendar Market Brokers Login Create Account 5:12am Traders Online 50,037 Page Layout Forex Trader Search Log In / Create Account User/Email: Password: Not registered yet? Forgot your password? Traders Online 50,037 Page Layout Forex Trader Forex Broker Activity Live Forex Spreads Live Gold Spreads Broker Guide Updates Majors About EUR/USD GBP/USD USD/JPY USD/CHF USD/CAD AUD/USD NZD/USD Gold/USD News / Latest Stories Stream Moderate Chinese inflation won’t stand in the way of a rate cut From think.ing.com | 11 min ago China's June CPI inflation slowed down to 1.0% year-on-year, down from 1.2% in May. This came in a hair lower than forecasts (market: 1.1%, ING: 1.1%), and marked a three-month low. The primary reason for the slowdown was non-food inflation, which fell 0.4pp in June to 1.5% YoY. Within non-food categories, we saw transportation fuel inflation drop sharply ... Family that founded egg empire pocketed $320M during alleged price-fixing scheme From nypost.com | 56 min ago The family that founded the largest egg producer in the US pocketed about $320 million from selling part of its controlling stake in Cal-Maine Foods just weeks after federal investigators began probing an alleged scheme to manipulate egg prices that sent grocery bills soaring for millions. The Adams family, which controlled Mississippi-based Cal-Maine for ... US military completes another round of strikes against Iran From @diegobloomberg | 1 hr 3 min ago | 1 comment *US MILITARY COMPLETES ANOTHER ROUND OF STRIKES AGAINST IRAN China's producer inflation hits near 4-year high in June From finance.yahoo.com | 1 hr 42 min ago China's producer price inflation surged for a fourth straight month in June to its highest since July 2022, ​while consumer prices extended gains, official data showed on Thursday, indicating that cost pressures remained elevated for domestic ⁠manufacturers. The producer price index (PPI) rose 4.1% year-on-year, National Bureau ⁠of Statistics data showed, ... More News / Hot Story Minutes of the Federal Open Market Committee From federalreserve.gov | 10 hr ago | 151 comments The manager turned first to an overview of market developments during the intermeeting period. Asset prices were affected by a number of factors, including developments related to the conflict in the Middle East, continued solid real economic data, higher inflation data, and ongoing investment in artificial intelligence (AI). Optimism around a near-term resolution of the conflict in the Middle East and the announcement of a memorandum of understanding between the U.S. and Iran pushed the oil futures curve and near-term inflation compensation materially lower relative to levels from the time of the April FOMC meeting. Expected policy rates, Treasury yields, the U.S. dollar, and domestic equity prices all rose. Regarding monetary policy expectations, the manager observed that market participants and respondents to the Open Market Desk Survey of Market Expectations (Desk survey) generally expected no change in the target range of the federal funds rate at the June FOMC meeting. Market- and survey-based measures of expected policy rates moved higher over the intermeeting period. In the Desk survey, the median of the modal paths of the federal funds rate implied no changes in the target range through the beginning of 2027 and one rate cut in the second quarter of next year. Market pricing suggested that one rate hike was priced for mid-2027, but the manager noted that these measures were likely boosted, in part, by term premiums. The manager then discussed inflation expectations. He noted that optimism around the Iran conflict pushed market-based measures of expected inflation significantly lower over the period, leaving near-term inflation expectations only moderately higher than they were before the onset of the conflict. Longer-term inflation expectations remained well anchored near the Committee's 2 percent longer-run inflation objective. Fed: Officials saw the labor market remaining stable in the near term. *FED: A FEW SAW CASE FOR RAISING RATES AT JUNE FOMC MEEETING Fed Minutes: Fed staff forecast for inflation in 2026 and 2027 was higher than in April forecast, reflecting the Middle East war and effects of AI buildout. FOMC Minutes Show 'A Few' Fed Members Wanted To Hike In June, 'Majority' Fear Higher Inflation Today's FOMC minutes will be scrutinized for further insight into policymakers' appetite for additional rate hikes and the thinking behind the Committee's hawkish shift at last month's meeting. The minutes are an account of the June 17th meeting and therefore will not reflect subsequent developments, including the softer-than-expected June nonfarm payrolls report or Chair Warsh's appearance at the ECB's Sintra Forum. Since the last FOMC meeting (June 17th), the dollar has strengthened (on the hawkishness) and gold (and bitcoin) mirrored that with sizable declines. Stocks are flat, bond yields are higher (prices down), and oil remains lower, but accelerating in the last couple of days... More Today: Jul 9 Filter Date 5:12am Currency Impact Alerts Detail Actual Forecast Previous Graph 5:12am Actual Thu Jul 9 Thu Jul 9 12:01am GBP RICS House Price Balance -33% -31% -34% 12:50am JPY M2 Money Stock y/y 2.2% 2.4% 2.4% 2:30am CNY CPI y/y 1.0% 1.1% 1.2% CNY PPI y/y 4.1% 4.1% 3.9% 7:00am EUR German Trade Balance 14.9B 14.5B JPY Prelim Machine Tool Orders y/y 37.5% All Day EUR Eurogroup Meetings 12:30pm EUR ECB Monetary Policy Meeting Accounts 1:30pm USD Unemployment Claims 218K 215K 2:00pm USD FOMC Member Williams Speaks 3:00pm USD Existing Home Sales 4.19M 4.17M 3:30pm USD Natural Gas Storage 60B 87B 5:00pm CHF Gov Board Member Martin Speaks 6:01pm USD 30-y Bond Auction 5.02|2.3 All Day NZD Bank Holiday More Sessions Forums / Latest Replies canyouu replied < 1 min ago one guy saw my analysis online few years back and wanted to learn and came to my place, that was initial stages of when I found market structure but I didn't know more than half ... No attacks just gold trades/analysis Striker5555 replied 1 min ago Brother actually its total confusing, I mean there is no proper template . If you or any seniors could share the Indicator and template it would be really helpful for new comers ... The Grail of the Knights of the Round Table 1hr replied 2 min ago This guy has got ahold of the best game early access video Potential Plays and Youtube heat sakaida1125 replied 7 min ago snb are literally just a bunch of rigid sysadmins tbh. no way they'll let the franc keep rallying and break the server balance. that 0.8000 handle is basically hardcoded into ... USD/CHF ZennithFool replied 8 min ago Guys, I saw one headline that said \" Gold dips as hosility in the middle east revives inflation concerns\" Isn't gold supposed to bull run when there is inflation? Can someone ... Gold with No Drama babytrader12 replied 9 min ago In sha allah No attacks just gold trades/analysis Gelubrin replied 11 min ago Did you like Ichimoku? It is really beautiful. EURUSD & GOLD Sidd04 replied 12 min ago Yup, it's true. That's why I have a lot of respect for Canyouu. Even though the last two weeks have been nothing but losses so far, it's not a big deal. We all manage our risk, ... No attacks just gold trades/analysis ThaoAnh replied 15 min ago image image Any pair which can be traded canyouu replied 17 min ago more than difficult No attacks just gold trades/analysis canyouu replied 18 min ago Paceluke welcome here and I'm glad you found me here , i couldn't say more because of the too much unnecessary rules there, i explain a lot of things here when people ask me ... No attacks just gold trades/analysis sakaida1125 replied 21 min ago ll that rigid fundamental stuff about fed rate hikes and treasury yields just got completely wiped out by trump's tariffs � it's like a forced system update from a rogue political ... Gold�s Recent Bearishness Indicative of a Larger Trend? mloistianto replied 23 min ago you know,.even if one day i reach a level where u are now. i probably doesnt have the courage to teach people. Its not easy to become good at trading. and its definitely harder to ... No attacks just gold trades/analysis Toboso01 replied 30 min ago Thursday Key Labels * DO: $62,238 | DP: $62,477 | WP: $61,756 News image Strategic Objectives * Bulls: Defend the macro Weekly Pivot (WP: $61,756) floor and aggressively reclaim ... Bitcoin trading calls MoneyPrinte replied 36 min ago flip to sell Gold with No Drama More Forums / Most Replied 12H Gold with No Drama leads|Interactive Trading|61,929 replies ZennithFool replied 8 min ago Guys, I saw one headline that said \" Gold dips as hosility in the middle east revives ... No attacks just gold trades/analysis leads|Trading Discussion|5,377 replies canyouu replied < 1 min ago one guy saw my analysis online few years back and wanted to learn and came to my place, that ... I am all for Gold leads|Interactive Trading|740 replies SleepCity replied 3 hr ago that looks really good, can i ask how you design that? EURUSD Exclusive leads|Interactive Trading|1,593 replies 255k replied 5 hr ago 1 minuta {image} EURUSD only leads|Interactive Trading|229,209 replies FirstWav3 replied 4 hr ago Holding shorts pays a premium currently. You don't have to hold over night either. Just be in ... John Ehlers Indicators leads|Platform Tech|62 replies heispark replied 3 hr ago It seems ChatGPT doesn't agree with you: ===================== The statement contains **a ... Nasdaq-Simple Intraday Strategy leads|Interactive Trading|4,883 replies ngonlip replied 10 hr ago US100 shit show now !! another easy short scalp before the fed minutes The Grail of the Knights of the Round Table leads|Trading Systems|70 replies Striker5555 replied 1 min ago Broth",
-              "contactConfidence": 90,
-              "contactQuality": "phone",
-              "lastDeepEnrichedAt": "2026-07-09T04:12:38.498Z",
-              "bestContact": "005261793429",
-              "bestContactType": "phone",
-              "bestContactSource": "https://www.forexfactory.com/",
-              "enrichmentAudit": {
-                "sourceDomain": "forexfactory.com",
-                "contactQuality": "phone",
-                "contactConfidence": 90,
-                "profileFirst": true,
-                "searchTrailUsed": false,
-                "websiteCandidates": [
-                  "https://www.metalsmine.com/",
-                  "https://www.energyexch.com/",
-                  "https://www.cryptocraft.com/",
-                  "https://www.faireconomy.com/",
-                  "https://resources.faireconomy.media/",
-                  "https://assets.faireconomy.media/",
-                  "https://assets.faireconomy.media/images/misc",
-                  "https://www.metalsmine.com/forums",
-                  "https://www.metalsmine.com/calendar",
-                  "https://www.metalsmine.com/market"
-                ],
-                "contactSources": [
-                  "https://www.forexfactory.com/",
-                  "https://www.metalsmine.com/",
-                  "https://www.metalsmine.com/contact",
-                  "https://www.metalsmine.com/contact-us",
-                  "https://www.metalsmine.com/contacto",
-                  "https://www.metalsmine.com/contato",
-                  "https://www.metalsmine.com/about",
-                  "https://www.metalsmine.com/about-us",
-                  "https://www.energyexch.com/",
-                  "https://www.energyexch.com/contact"
-                ],
-                "relatedEvidenceCount": 0,
-                "note": "Contacts are prioritized from the source profile and its discovered website/linkhub before any public-search trail evidence."
-              },
-              "leadType": "partner",
-              "segment": "Creator / Influencer",
-              "countries": [],
-              "country": "",
-              "languages": [
-                "English",
-                "Spanish",
-                "Portuguese"
-              ],
-              "evidence": [
-                "Contact path",
-                "Trading ICP",
-                "Public profile"
-              ],
-              "score": 66,
-              "priority": "A",
-              "outbound": {
-                "opener": "Vi Forex Factory connects traders to global financial markets with real-time data, charts, news, and the internet’s most trusted economic calendar for over 20 years. e parece haver uma ligação clara a contact path.",
-                "dm": "Olá, vi o teu trabalho ligado a trading/forex e pareceu-me que pode haver uma conversa interessante de parceria. Lidero Business Development e trabalho com parceiros, comunidades e afiliados em mercados globais. Faz sentido falarmos 15 minutos esta semana?",
-                "followUp": "Acho que há potencial para uma conversa objetiva: audiência/comunidade de trading, estrutura de parceria e crescimento com uma corretora regulada. Tens disponibilidade esta semana?"
-              },
-              "entityType": "social_profile",
-              "entityReject": false,
-              "entityRejectReason": "",
-              "companyName": "Forex Factory",
-              "companyKey": "domain:forexfactory.com",
-              "entitySignals": [
-                "Contact path",
-                "Trading ICP",
-                "Public profile"
-              ],
-              "officialProp": false,
-              "commercialScore": 100,
-              "commercialTier": "A",
-              "contactable": true,
-              "qualityStatus": "qualified"
-            },
+            "latestLead": null,
             "sourceStats": {
               "linkedin": {
                 "searches": 1,
@@ -536,33 +189,18 @@
                 "discarded": 0,
                 "duplicates": 0,
                 "errors": 0,
-                "providerErrors": 9,
-                "reasons": {
-                  "provider_errors": 1
-                }
-              },
-              "instagram": {
-                "searches": 1,
-                "raw": 10,
-                "qualified": 1,
-                "saved": 0,
-                "discarded": 1,
-                "duplicates": 1,
-                "errors": 0,
                 "providerErrors": 0,
-                "reasons": {
-                  "blocked_commercial_noise": 1
-                }
+                "reasons": {}
               }
             }
           },
-          "updatedAt": "2026-07-09T04:12:38.546Z"
+          "updatedAt": "2026-07-09T17:06:08.199Z"
         }
       },
       "source-harvester-social": {
         "exists": true,
-        "updatedAt": "2026-07-09T04:20:59.433Z",
-        "ageMs": 45908369,
+        "updatedAt": "2026-07-09T17:06:08.197Z",
+        "ageMs": 1627,
         "status": {
           "status": "running",
           "workerName": "source-harvester-social",
@@ -600,7 +238,7 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-09T04:20:59.421Z",
+          "heartbeatAt": "2026-07-09T17:06:08.176Z",
           "progress": {
             "message": "Starting quality discovery with 120 queries",
             "status": "running",
@@ -619,13 +257,13 @@
               }
             }
           },
-          "updatedAt": "2026-07-09T04:20:59.433Z"
+          "updatedAt": "2026-07-09T17:06:08.197Z"
         }
       },
       "source-harvester-specialist": {
         "exists": true,
-        "updatedAt": "2026-07-09T04:16:16.429Z",
-        "ageMs": 46191373,
+        "updatedAt": "2026-07-09T17:06:08.200Z",
+        "ageMs": 1624,
         "status": {
           "status": "running",
           "workerName": "source-harvester-specialist",
@@ -663,90 +301,11 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-09T04:16:16.428Z",
+          "heartbeatAt": "2026-07-09T17:06:08.178Z",
           "progress": {
-            "message": "Saved qualified lead: company murenamobile",
+            "message": "Starting quality discovery with 120 queries",
             "status": "running",
-            "latestLead": {
-              "id": "0164ff87a4821946",
-              "source": "qwant",
-              "sourceIntent": "specialist",
-              "query": "\"signal seller\" \"forex\" \"telegram\" United Kingdom",
-              "url": "https://www.linkedin.com/company/murenamobile",
-              "domain": "linkedin.com",
-              "platform": "LinkedIn",
-              "title": "company murenamobile",
-              "name": "company murenamobile",
-              "snippet": "Extracted candidate for \"signal seller\" \"forex\" \"telegram\" United Kingdom",
-              "fetchStatus": "skipped-social-or-platform",
-              "sourceQuery": "\"signal seller\" \"forex\" \"telegram\" United Kingdom",
-              "emails": [],
-              "socialLinks": [],
-              "contactLinks": [],
-              "websiteLinks": [],
-              "phoneNumbers": [],
-              "forms": [],
-              "contactSources": [],
-              "relatedLinks": [],
-              "decisionMakerLinks": [],
-              "decisionMakers": [],
-              "contactConfidence": 74,
-              "contactQuality": "social",
-              "lastDeepEnrichedAt": "2026-07-09T04:16:16.397Z",
-              "bestContact": "https://www.linkedin.com/company/murenamobile",
-              "bestContactType": "social",
-              "bestContactSource": "https://www.linkedin.com/company/murenamobile",
-              "enrichmentAudit": {
-                "sourceDomain": "linkedin.com",
-                "contactQuality": "social",
-                "contactConfidence": 74,
-                "profileFirst": true,
-                "searchTrailUsed": false,
-                "websiteCandidates": [],
-                "contactSources": [],
-                "relatedEvidenceCount": 0,
-                "note": "Contacts are prioritized from the source profile and its discovered website/linkhub before any public-search trail evidence."
-              },
-              "leadType": "partner",
-              "segment": "Community",
-              "countries": [
-                "United Kingdom"
-              ],
-              "country": "United Kingdom",
-              "languages": [
-                "English"
-              ],
-              "evidence": [
-                "Community/audience",
-                "Contact path",
-                "Trading ICP",
-                "Public profile",
-                "Company/partner path"
-              ],
-              "score": 57,
-              "priority": "A",
-              "outbound": {
-                "opener": "I saw Extracted candidate for \"signal seller\" \"forex\" \"telegram\" United Kingdom and there seems to be a clear angle around community/audience.",
-                "dm": "Hi, I came across your work around trading/forex and thought there may be an interesting partnership conversation. I lead Business Development and work with partners, communities, and affiliates across global markets. Would a 15-minute call this week make sense?",
-                "followUp": "I think there is a concrete angle to explore: trading audience/community, partnership structure, and growth with a regulated broker. Do you have availability this week?"
-              },
-              "entityType": "social_profile",
-              "entityReject": false,
-              "entityRejectReason": "",
-              "companyName": "company murenamobile",
-              "companyKey": "linkedin:company:murenamobile",
-              "entitySignals": [
-                "Contact path",
-                "Trading ICP",
-                "Public profile",
-                "Company/partner path"
-              ],
-              "officialProp": false,
-              "commercialScore": 99,
-              "commercialTier": "A",
-              "contactable": true,
-              "qualityStatus": "qualified"
-            },
+            "latestLead": null,
             "sourceStats": {
               "linkedin": {
                 "searches": 1,
@@ -756,47 +315,18 @@
                 "discarded": 0,
                 "duplicates": 0,
                 "errors": 0,
-                "providerErrors": 9,
-                "reasons": {
-                  "provider_errors": 1
-                }
-              },
-              "x": {
-                "searches": 1,
-                "raw": 0,
-                "qualified": 0,
-                "saved": 0,
-                "discarded": 0,
-                "duplicates": 0,
-                "errors": 0,
-                "providerErrors": 9,
-                "reasons": {
-                  "provider_errors": 1
-                }
-              },
-              "telegram": {
-                "searches": 1,
-                "raw": 9,
-                "qualified": 2,
-                "saved": 0,
-                "discarded": 4,
-                "duplicates": 1,
-                "errors": 0,
                 "providerErrors": 0,
-                "reasons": {
-                  "blocked_commercial_noise": 3,
-                  "hard_rejected": 1
-                }
+                "reasons": {}
               }
             }
           },
-          "updatedAt": "2026-07-09T04:16:16.429Z"
+          "updatedAt": "2026-07-09T17:06:08.200Z"
         }
       },
       "source-harvester-ecosystem": {
         "exists": true,
-        "updatedAt": "2026-07-09T04:19:57.525Z",
-        "ageMs": 45970277,
+        "updatedAt": "2026-07-09T17:06:08.202Z",
+        "ageMs": 1622,
         "status": {
           "status": "running",
           "workerName": "source-harvester-ecosystem",
@@ -834,184 +364,32 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-09T04:19:57.524Z",
+          "heartbeatAt": "2026-07-09T17:06:08.182Z",
           "progress": {
-            "message": "Saved qualified lead: company murenamobile",
+            "message": "Starting quality discovery with 90 queries",
             "status": "running",
-            "latestLead": {
-              "id": "0164ff87a4821946",
-              "source": "qwant",
-              "sourceIntent": "ecosystem",
-              "query": "\"asset management\" \"forex\" Latin America",
-              "url": "https://www.linkedin.com/company/murenamobile",
-              "domain": "linkedin.com",
-              "platform": "LinkedIn",
-              "title": "company murenamobile",
-              "name": "company murenamobile",
-              "snippet": "Extracted candidate for \"asset management\" \"forex\" Latin America",
-              "fetchStatus": "skipped-social-or-platform",
-              "sourceQuery": "\"asset management\" \"forex\" Latin America",
-              "emails": [],
-              "socialLinks": [],
-              "contactLinks": [],
-              "websiteLinks": [],
-              "phoneNumbers": [],
-              "forms": [],
-              "contactSources": [],
-              "relatedLinks": [],
-              "decisionMakerLinks": [],
-              "decisionMakers": [],
-              "contactConfidence": 74,
-              "contactQuality": "social",
-              "lastDeepEnrichedAt": "2026-07-09T04:19:57.505Z",
-              "bestContact": "https://www.linkedin.com/company/murenamobile",
-              "bestContactType": "social",
-              "bestContactSource": "https://www.linkedin.com/company/murenamobile",
-              "enrichmentAudit": {
-                "sourceDomain": "linkedin.com",
-                "contactQuality": "social",
-                "contactConfidence": 74,
-                "profileFirst": true,
-                "searchTrailUsed": false,
-                "websiteCandidates": [],
-                "contactSources": [],
-                "relatedEvidenceCount": 0,
-                "note": "Contacts are prioritized from the source profile and its discovered website/linkhub before any public-search trail evidence."
-              },
-              "leadType": "institution",
-              "segment": "Fund / Asset Manager",
-              "countries": [
-                "LatAm"
-              ],
-              "country": "LatAm",
-              "languages": [
-                "English",
-                "Portuguese"
-              ],
-              "evidence": [
-                "Fund/asset manager angle",
-                "Institutional angle",
-                "Contact path",
-                "Trading ICP",
-                "Public profile",
-                "Company/partner path"
-              ],
-              "score": 80,
-              "priority": "A",
-              "outbound": {
-                "opener": "Vi Extracted candidate for \"asset management\" \"forex\" Latin America e parece haver uma ligação clara a fund/asset manager angle.",
-                "dm": "Olá, vi o teu trabalho ligado a trading/forex e pareceu-me que pode haver uma conversa interessante de parceria. Lidero Business Development e trabalho com parceiros, comunidades e afiliados em mercados globais. Faz sentido falarmos 15 minutos esta semana?",
-                "followUp": "Acho que há potencial para uma conversa objetiva: audiência/comunidade de trading, estrutura de parceria e crescimento com uma corretora regulada. Tens disponibilidade esta semana?"
-              },
-              "entityType": "social_profile",
-              "entityReject": false,
-              "entityRejectReason": "",
-              "companyName": "company murenamobile",
-              "companyKey": "linkedin:company:murenamobile",
-              "entitySignals": [
-                "Contact path",
-                "Trading ICP",
-                "Public profile",
-                "Company/partner path"
-              ],
-              "officialProp": false,
-              "commercialScore": 85,
-              "commercialTier": "A",
-              "contactable": true,
-              "qualityStatus": "qualified"
-            },
+            "latestLead": null,
             "sourceStats": {
               "linkedin": {
-                "searches": 2,
+                "searches": 1,
                 "raw": 0,
                 "qualified": 0,
                 "saved": 0,
                 "discarded": 0,
                 "duplicates": 0,
                 "errors": 0,
-                "providerErrors": 18,
-                "reasons": {
-                  "provider_errors": 2
-                }
-              },
-              "telegram": {
-                "searches": 1,
-                "raw": 8,
-                "qualified": 0,
-                "saved": 0,
-                "discarded": 8,
-                "duplicates": 0,
-                "errors": 0,
                 "providerErrors": 0,
-                "reasons": {
-                  "hard_rejected": 7,
-                  "blocked_commercial_noise": 1
-                }
-              },
-              "discord": {
-                "searches": 1,
-                "raw": 8,
-                "qualified": 0,
-                "saved": 0,
-                "discarded": 8,
-                "duplicates": 0,
-                "errors": 0,
-                "providerErrors": 0,
-                "reasons": {
-                  "blocked_commercial_noise": 7,
-                  "hard_rejected": 1
-                }
-              },
-              "ecosystem": {
-                "searches": 2,
-                "raw": 0,
-                "qualified": 0,
-                "saved": 0,
-                "discarded": 0,
-                "duplicates": 0,
-                "errors": 0,
-                "providerErrors": 18,
-                "reasons": {
-                  "provider_errors": 2
-                }
-              },
-              "recruitment": {
-                "searches": 2,
-                "raw": 16,
-                "qualified": 0,
-                "saved": 0,
-                "discarded": 13,
-                "duplicates": 3,
-                "errors": 0,
-                "providerErrors": 0,
-                "reasons": {
-                  "hard_rejected": 4,
-                  "blocked_commercial_noise": 9
-                }
-              },
-              "web": {
-                "searches": 2,
-                "raw": 15,
-                "qualified": 3,
-                "saved": 0,
-                "discarded": 9,
-                "duplicates": 5,
-                "errors": 0,
-                "providerErrors": 0,
-                "reasons": {
-                  "blocked_commercial_noise": 7,
-                  "hard_rejected": 2
-                }
+                "reasons": {}
               }
             }
           },
-          "updatedAt": "2026-07-09T04:19:57.525Z"
+          "updatedAt": "2026-07-09T17:06:08.202Z"
         }
       },
       "source-harvester-linkedin": {
         "exists": true,
-        "updatedAt": "2026-07-09T04:12:56.353Z",
-        "ageMs": 46391449,
+        "updatedAt": "2026-07-09T17:06:08.197Z",
+        "ageMs": 1627,
         "status": {
           "status": "running",
           "workerName": "source-harvester-linkedin",
@@ -1049,7 +427,7 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-09T04:12:56.341Z",
+          "heartbeatAt": "2026-07-09T17:06:08.172Z",
           "progress": {
             "message": "Starting quality discovery with 180 queries",
             "status": "running",
@@ -1068,13 +446,13 @@
               }
             }
           },
-          "updatedAt": "2026-07-09T04:12:56.353Z"
+          "updatedAt": "2026-07-09T17:06:08.197Z"
         }
       },
       "source-harvester-instagram": {
         "exists": true,
-        "updatedAt": "2026-07-09T04:14:57.033Z",
-        "ageMs": 46270769,
+        "updatedAt": "2026-07-09T17:06:08.196Z",
+        "ageMs": 1629,
         "status": {
           "status": "running",
           "workerName": "source-harvester-instagram",
@@ -1112,7 +490,7 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-09T04:14:57.019Z",
+          "heartbeatAt": "2026-07-09T17:06:08.178Z",
           "progress": {
             "message": "Starting quality discovery with 45 queries",
             "status": "running",
@@ -1131,13 +509,13 @@
               }
             }
           },
-          "updatedAt": "2026-07-09T04:14:57.033Z"
+          "updatedAt": "2026-07-09T17:06:08.196Z"
         }
       },
       "source-harvester-platforms": {
         "exists": true,
-        "updatedAt": "2026-07-09T04:10:44.826Z",
-        "ageMs": 46522977,
+        "updatedAt": "2026-07-09T17:06:08.197Z",
+        "ageMs": 1628,
         "status": {
           "status": "running",
           "workerName": "source-harvester-platforms",
@@ -1177,112 +555,32 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-09T04:10:44.825Z",
+          "heartbeatAt": "2026-07-09T17:06:08.178Z",
           "progress": {
-            "message": "Saved qualified lead: Myfxbook",
+            "message": "Starting quality discovery with 47 queries",
             "status": "running",
-            "latestLead": {
-              "id": "516984246166b93c",
-              "source": "bing",
-              "sourceIntent": "specialist",
-              "query": "\"myfxbook.com\" \"forex\" \"manager\"",
-              "url": "https://www.myfxbook.com/members/ForexManagerDBA",
-              "domain": "myfxbook.com",
-              "platform": "Myfxbook",
-              "title": "Myfxbook",
-              "name": "Myfxbook",
-              "snippet": "Dec 11, 2011 · Join FOREX MANAGER .com with the longest & most profitable verified performance. 12 YEARS VERIFIED highly successful managed account service. Trading results & statistics that are …",
-              "fetchStatus": "deep-failed: HTTP 403",
-              "sourceQuery": "site:myfxbook.com/members \"forex\" \"manager\"",
-              "emails": [],
-              "socialLinks": [],
-              "contactLinks": [],
-              "websiteLinks": [],
-              "phoneNumbers": [],
-              "forms": [],
-              "contactSources": [
-                "https://www.myfxbook.com/members/ForexManagerDBA"
-              ],
-              "relatedLinks": [],
-              "decisionMakerLinks": [],
-              "decisionMakers": [],
-              "contactConfidence": 74,
-              "contactQuality": "social",
-              "lastDeepEnrichedAt": "2026-07-09T04:10:44.779Z",
-              "bestContact": "",
-              "bestContactType": "",
-              "bestContactSource": "",
-              "enrichmentAudit": {
-                "sourceDomain": "myfxbook.com",
-                "contactQuality": "social",
-                "contactConfidence": 74,
-                "profileFirst": true,
-                "searchTrailUsed": false,
-                "websiteCandidates": [],
-                "contactSources": [
-                  "https://www.myfxbook.com/members/ForexManagerDBA"
-                ],
-                "relatedEvidenceCount": 0,
-                "note": "Contacts are prioritized from the source profile and its discovered website/linkhub before any public-search trail evidence."
-              },
-              "leadType": "partner",
-              "segment": "IB / Partner",
-              "countries": [],
-              "country": "",
-              "languages": [
-                "English",
-                "Spanish",
-                "Portuguese"
-              ],
-              "evidence": [
-                "Contact path",
-                "Trading ICP",
-                "Public profile"
-              ],
-              "score": 51,
-              "priority": "A",
-              "outbound": {
-                "opener": "Vi Dec 11, 2011 · Join FOREX MANAGER .com with the longest & most profitable verified performance. e parece haver uma ligação clara a ib / partner.",
-                "dm": "Olá, vi o teu trabalho ligado a trading/forex e pareceu-me que pode haver uma conversa interessante de parceria. Lidero Business Development e trabalho com parceiros, comunidades e afiliados em mercados globais. Faz sentido falarmos 15 minutos esta semana?",
-                "followUp": "Acho que há potencial para uma conversa objetiva: audiência/comunidade de trading, estrutura de parceria e crescimento com uma corretora regulada. Tens disponibilidade esta semana?"
-              },
-              "entityType": "social_profile",
-              "entityReject": false,
-              "entityRejectReason": "",
-              "companyName": "Myfxbook",
-              "companyKey": "domain:myfxbook.com",
-              "entitySignals": [
-                "Contact path",
-                "Trading ICP",
-                "Public profile"
-              ],
-              "officialProp": false,
-              "commercialScore": 84,
-              "commercialTier": "A",
-              "contactable": true,
-              "qualityStatus": "qualified"
-            },
+            "latestLead": null,
             "sourceStats": {
               "myfxbook": {
                 "searches": 1,
-                "raw": 2,
-                "qualified": 1,
+                "raw": 0,
+                "qualified": 0,
                 "saved": 0,
                 "discarded": 0,
-                "duplicates": 1,
+                "duplicates": 0,
                 "errors": 0,
                 "providerErrors": 0,
                 "reasons": {}
               }
             }
           },
-          "updatedAt": "2026-07-09T04:10:44.826Z"
+          "updatedAt": "2026-07-09T17:06:08.197Z"
         }
       },
       "source-harvester-communities": {
         "exists": true,
-        "updatedAt": "2026-07-09T04:14:01.332Z",
-        "ageMs": 46326471,
+        "updatedAt": "2026-07-09T17:06:08.201Z",
+        "ageMs": 1624,
         "status": {
           "status": "running",
           "workerName": "source-harvester-communities",
@@ -1320,321 +618,32 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-09T04:14:01.331Z",
+          "heartbeatAt": "2026-07-09T17:06:08.179Z",
           "progress": {
-            "message": "Saved qualified lead: Forex Factory",
+            "message": "Starting quality discovery with 116 queries",
             "status": "running",
-            "latestLead": {
-              "id": "5a2b688f32f7b3a8",
-              "source": "bing-rss",
-              "sourceIntent": "partner",
-              "query": "\"forex\" \"discord\" \"trading\" South Africa",
-              "url": "https://www.forexfactory.com/",
-              "domain": "forexfactory.com",
-              "platform": "ForexFactory",
-              "title": "Forex Factory | Global markets for the smart money.",
-              "name": "Forex Factory | Global markets for the smart money.",
-              "snippet": "Forex Factory connects traders to global financial markets with real-time data, charts, news, and the internet’s most trusted economic calendar for over 20 years.",
-              "fetchStatus": "deep-ok",
-              "sourceQuery": "\"forex\" \"discord\" \"trading\" South Africa",
-              "emails": [],
-              "socialLinks": [
-                "https://www.facebook.com/forexfactory/",
-                "https://twitter.com/ForexFactory",
-                "https://mds-api.forexfactory.com/",
-                "https://bds-api.forexfactory.com/",
-                "https://explorer-api.forexfactory.com/api.php/",
-                "https://www.facebook.com/metalsmine",
-                "https://twitter.com/MetalsMine",
-                "https://www.forexfactory.com/",
-                "https://www.facebook.com/energyexch",
-                "https://twitter.com/EnergyEXCH",
-                "https://www.facebook.com/cryptocraftdotcom",
-                "https://twitter.com/CryptoCraft",
-                "https://www.linkedin.com/company/fair-economy"
-              ],
-              "contactLinks": [
-                "https://www.facebook.com/forexfactory/",
-                "https://twitter.com/ForexFactory",
-                "https://www.metalsmine.com/contact",
-                "https://www.facebook.com/metalsmine",
-                "https://twitter.com/MetalsMine",
-                "https://www.metalsmine.com/contact?subject=technical",
-                "https://www.energyexch.com/contact",
-                "https://www.facebook.com/energyexch",
-                "https://twitter.com/EnergyEXCH",
-                "https://www.energyexch.com/contact?subject=technical",
-                "https://www.cryptocraft.com/contact",
-                "https://www.facebook.com/cryptocraftdotcom",
-                "https://twitter.com/CryptoCraft",
-                "https://www.cryptocraft.com/contact?subject=technical",
-                "https://www.linkedin.com/company/fair-economy",
-                "https://cdn.prod.website-files.com/6671d848ac83c72666c7cf54/6672c1237d1ecc7c61c58bdf_about-ligh-mode-poster-00001.jpg&quot",
-                "https://cdn.prod.website-files.com/6671d848ac83c72666c7cf54/667434bf5d9d30cf3a4649ea_about-dark-mode-poster-00001.jpg&quot"
-              ],
-              "websiteLinks": [
-                "https://www.metalsmine.com/",
-                "https://www.energyexch.com/",
-                "https://www.cryptocraft.com/",
-                "https://www.faireconomy.com/",
-                "https://resources.faireconomy.media/",
-                "https://assets.faireconomy.media/",
-                "https://assets.faireconomy.media/images/misc",
-                "https://www.metalsmine.com/forums",
-                "https://www.metalsmine.com/calendar",
-                "https://www.metalsmine.com/market",
-                "https://www.metalsmine.com/search",
-                "https://www.metalsmine.com/create-account",
-                "https://www.metalsmine.com/timezone",
-                "https://www.metalsmine.com/resetpassword",
-                "https://www.metalsmine.com/mission",
-                "https://www.metalsmine.com/products",
-                "https://www.metalsmine.com/blog",
-                "https://www.metalsmine.com/bug-bounty",
-                "https://www.metalsmine.com/userguide",
-                "https://www.metalsmine.com/traders",
-                "https://www.energyexch.com/calendar",
-                "https://www.energyexch.com/market",
-                "https://www.energyexch.com/search",
-                "https://www.energyexch.com/create-account",
-                "https://www.energyexch.com/timezone",
-                "https://www.energyexch.com/resetpassword",
-                "https://www.energyexch.com/mission",
-                "https://www.energyexch.com/products",
-                "https://www.energyexch.com/blog",
-                "https://www.energyexch.com/bug-bounty"
-              ],
-              "phoneNumbers": [
-                "005261793429"
-              ],
-              "forms": [
-                {
-                  "pageUrl": "https://www.metalsmine.com/contact",
-                  "action": "https://www.metalsmine.com/search",
-                  "method": "GET",
-                  "fields": [
-                    "search"
-                  ],
-                  "label": "Form 1"
-                },
-                {
-                  "pageUrl": "https://www.metalsmine.com/contact",
-                  "action": "https://www.metalsmine.com/contact",
-                  "method": "POST",
-                  "fields": [
-                    "_csrf",
-                    "url",
-                    "subject",
-                    "other_subject",
-                    "name",
-                    "email",
-                    "message"
-                  ],
-                  "label": "Subject: Website Feedback Feature Request Help Request Other Name: Email: Message: Submit:"
-                },
-                {
-                  "pageUrl": "https://www.energyexch.com/contact",
-                  "action": "https://www.energyexch.com/search",
-                  "method": "GET",
-                  "fields": [
-                    "search"
-                  ],
-                  "label": "Form 1"
-                },
-                {
-                  "pageUrl": "https://www.energyexch.com/contact",
-                  "action": "https://www.energyexch.com/contact",
-                  "method": "POST",
-                  "fields": [
-                    "_csrf",
-                    "url",
-                    "subject",
-                    "other_subject",
-                    "name",
-                    "email",
-                    "message"
-                  ],
-                  "label": "Subject: Website Feedback Feature Request Help Request Other Name: Email: Message: Submit:"
-                },
-                {
-                  "pageUrl": "https://www.cryptocraft.com/contact",
-                  "action": "https://www.cryptocraft.com/search",
-                  "method": "GET",
-                  "fields": [
-                    "search"
-                  ],
-                  "label": "Form 1"
-                },
-                {
-                  "pageUrl": "https://www.cryptocraft.com/contact",
-                  "action": "https://www.cryptocraft.com/contact",
-                  "method": "POST",
-                  "fields": [
-                    "_csrf",
-                    "url",
-                    "subject",
-                    "other_subject",
-                    "name",
-                    "email",
-                    "message"
-                  ],
-                  "label": "Subject: Website Feedback Feature Request Help Request Other Name: Email: Message: Submit:"
-                },
-                {
-                  "pageUrl": "https://www.faireconomy.com/",
-                  "action": "https://www.faireconomy.com/",
-                  "method": "POST",
-                  "fields": [
-                    "Name",
-                    "Email",
-                    "Message"
-                  ],
-                  "label": "Form 1"
-                }
-              ],
-              "contactSources": [
-                "https://www.forexfactory.com/",
-                "https://www.metalsmine.com/",
-                "https://www.metalsmine.com/contact",
-                "https://www.metalsmine.com/contact-us",
-                "https://www.metalsmine.com/contacto",
-                "https://www.metalsmine.com/contato",
-                "https://www.metalsmine.com/about",
-                "https://www.metalsmine.com/about-us",
-                "https://www.metalsmine.com/sobre",
-                "https://www.energyexch.com/",
-                "https://www.energyexch.com/contact",
-                "https://www.energyexch.com/contact-us",
-                "https://www.energyexch.com/contacto",
-                "https://www.energyexch.com/contato",
-                "https://www.energyexch.com/about",
-                "https://www.energyexch.com/about-us",
-                "https://www.energyexch.com/sobre",
-                "https://www.cryptocraft.com/",
-                "https://www.cryptocraft.com/contact",
-                "https://www.cryptocraft.com/contact-us"
-              ],
-              "relatedLinks": [],
-              "decisionMakerLinks": [
-                "https://www.linkedin.com/company/fair-economy"
-              ],
-              "decisionMakers": [],
-              "pageTitle": "Forex Factory | Global markets for the smart money.",
-              "pageDescription": "Forex Factory connects traders to global financial markets with real-time data, charts, news, and the internet’s most trusted economic calendar for over 20 years.",
-              "pageText": "Forex Factory | Global markets for the smart money. Forums Trades News Calendar Market Brokers 5:13am Search User/Email: Password: Create Account Login Forums Trades News Calendar Market Brokers Forums Trades News Calendar Market Brokers Login Create Account 5:13am Traders Online 49,158 Page Layout Forex Trader Search Log In / Create Account User/Email: Password: Not registered yet? Forgot your password? Traders Online 49,158 Page Layout Forex Trader Forex Broker Activity Live Forex Spreads Live Gold Spreads Broker Guide Updates Majors About EUR/USD GBP/USD USD/JPY USD/CHF USD/CAD AUD/USD NZD/USD Gold/USD News / Latest Stories Stream Moderate Chinese inflation won’t stand in the way of a rate cut From think.ing.com | 13 min ago China's June CPI inflation slowed down to 1.0% year-on-year, down from 1.2% in May. This came in a hair lower than forecasts (market: 1.1%, ING: 1.1%), and marked a three-month low. The primary reason for the slowdown was non-food inflation, which fell 0.4pp in June to 1.5% YoY. Within non-food categories, we saw transportation fuel inflation drop sharply ... Family that founded egg empire pocketed $320M during alleged price-fixing scheme From nypost.com | 58 min ago The family that founded the largest egg producer in the US pocketed about $320 million from selling part of its controlling stake in Cal-Maine Foods just weeks after federal investigators began probing an alleged scheme to manipulate egg prices that sent grocery bills soaring for millions. The Adams family, which controlled Mississippi-based Cal-Maine for ... US military completes another round of strikes against Iran From @diegobloomberg | 1 hr 5 min ago | 1 comment *US MILITARY COMPLETES ANOTHER ROUND OF STRIKES AGAINST IRAN China's producer inflation hits near 4-year high in June From finance.yahoo.com | 1 hr 43 min ago China's producer price inflation surged for a fourth straight month in June to its highest since July 2022, ​while consumer prices extended gains, official data showed on Thursday, indicating that cost pressures remained elevated for domestic ⁠manufacturers. The producer price index (PPI) rose 4.1% year-on-year, National Bureau ⁠of Statistics data showed, ... More News / Hot Story Minutes of the Federal Open Market Committee From federalreserve.gov | 10 hr ago | 151 comments The manager turned first to an overview of market developments during the intermeeting period. Asset prices were affected by a number of factors, including developments related to the conflict in the Middle East, continued solid real economic data, higher inflation data, and ongoing investment in artificial intelligence (AI). Optimism around a near-term resolution of the conflict in the Middle East and the announcement of a memorandum of understanding between the U.S. and Iran pushed the oil futures curve and near-term inflation compensation materially lower relative to levels from the time of the April FOMC meeting. Expected policy rates, Treasury yields, the U.S. dollar, and domestic equity prices all rose. Regarding monetary policy expectations, the manager observed that market participants and respondents to the Open Market Desk Survey of Market Expectations (Desk survey) generally expected no change in the target range of the federal funds rate at the June FOMC meeting. Market- and survey-based measures of expected policy rates moved higher over the intermeeting period. In the Desk survey, the median of the modal paths of the federal funds rate implied no changes in the target range through the beginning of 2027 and one rate cut in the second quarter of next year. Market pricing suggested that one rate hike was priced for mid-2027, but the manager noted that these measures were likely boosted, in part, by term premiums. The manager then discussed inflation expectations. He noted that optimism around the Iran conflict pushed market-based measures of expected inflation significantly lower over the period, leaving near-term inflation expectations only moderately higher than they were before the onset of the conflict. Longer-term inflation expectations remained well anchored near the Committee's 2 percent longer-run inflation objective. Fed: Officials saw the labor market remaining stable in the near term. *FED: A FEW SAW CASE FOR RAISING RATES AT JUNE FOMC MEEETING Fed Minutes: Fed staff forecast for inflation in 2026 and 2027 was higher than in April forecast, reflecting the Middle East war and effects of AI buildout. FOMC Minutes Show 'A Few' Fed Members Wanted To Hike In June, 'Majority' Fear Higher Inflation Today's FOMC minutes will be scrutinized for further insight into policymakers' appetite for additional rate hikes and the thinking behind the Committee's hawkish shift at last month's meeting. The minutes are an account of the June 17th meeting and therefore will not reflect subsequent developments, including the softer-than-expected June nonfarm payrolls report or Chair Warsh's appearance at the ECB's Sintra Forum. Since the last FOMC meeting (June 17th), the dollar has strengthened (on the hawkishness) and gold (and bitcoin) mirrored that with sizable declines. Stocks are flat, bond yields are higher (prices down), and oil remains lower, but accelerating in the last couple of days... More Today: Jul 9 Filter Date 5:13am Currency Impact Alerts Detail Actual Forecast Previous Graph 5:13am Actual Thu Jul 9 Thu Jul 9 12:01am GBP RICS House Price Balance -33% -31% -34% 12:50am JPY M2 Money Stock y/y 2.2% 2.4% 2.4% 2:30am CNY CPI y/y 1.0% 1.1% 1.2% CNY PPI y/y 4.1% 4.1% 3.9% 7:00am EUR German Trade Balance 14.9B 14.5B JPY Prelim Machine Tool Orders y/y 37.5% All Day EUR Eurogroup Meetings 12:30pm EUR ECB Monetary Policy Meeting Accounts 1:30pm USD Unemployment Claims 218K 215K 2:00pm USD FOMC Member Williams Speaks 3:00pm USD Existing Home Sales 4.19M 4.17M 3:30pm USD Natural Gas Storage 60B 87B 5:00pm CHF Gov Board Member Martin Speaks 6:01pm USD 30-y Bond Auction 5.02|2.3 All Day NZD Bank Holiday More Sessions Forums / Latest Replies canyouu replied < 1 min ago one guy saw my analysis online few years back and wanted to learn and came to my place, that was initial stages of when I found market structure but I didn't know more than half ... No attacks just gold trades/analysis Striker5555 replied 1 min ago Brother actually its total confusing, I mean there is no proper template . If you or any seniors could share the Indicator and template it would be really helpful for new comers ... The Grail of the Knights of the Round Table 1hr replied 2 min ago This guy has got ahold of the best game early access video Potential Plays and Youtube heat sakaida1125 replied 7 min ago snb are literally just a bunch of rigid sysadmins tbh. no way they'll let the franc keep rallying and break the server balance. that 0.8000 handle is basically hardcoded into ... USD/CHF ZennithFool replied 8 min ago Guys, I saw one headline that said \" Gold dips as hosility in the middle east revives inflation concerns\" Isn't gold supposed to bull run when there is inflation? Can someone ... Gold with No Drama babytrader12 replied 9 min ago In sha allah No attacks just gold trades/analysis Gelubrin replied 11 min ago Did you like Ichimoku? It is really beautiful. EURUSD & GOLD Sidd04 replied 12 min ago Yup, it's true. That's why I have a lot of respect for Canyouu. Even though the last two weeks have been nothing but losses so far, it's not a big deal. We all manage our risk, ... No attacks just gold trades/analysis ThaoAnh replied 15 min ago image image Any pair which can be traded canyouu replied 17 min ago more than difficult No attacks just gold trades/analysis canyouu replied 18 min ago Paceluke welcome here and I'm glad you found me here , i couldn't say more because of the too much unnecessary rules there, i explain a lot of things here when people ask me ... No attacks just gold trades/analysis sakaida1125 replied 21 min ago ll that rigid fundamental stuff about fed rate hikes and treasury yields just got completely wiped out by trump's tariffs � it's like a forced system update from a rogue political ... Gold�s Recent Bearishness Indicative of a Larger Trend? mloistianto replied 23 min ago you know,.even if one day i reach a level where u are now. i probably doesnt have the courage to teach people. Its not easy to become good at trading. and its definitely harder to ... No attacks just gold trades/analysis Toboso01 replied 30 min ago Thursday Key Labels * DO: $62,238 | DP: $62,477 | WP: $61,756 News image Strategic Objectives * Bulls: Defend the macro Weekly Pivot (WP: $61,756) floor and aggressively reclaim ... Bitcoin trading calls MoneyPrinte replied 36 min ago flip to sell Gold with No Drama More Forums / Most Replied 12H Gold with No Drama leads|Interactive Trading|61,929 replies ZennithFool replied 9 min ago Guys, I saw one headline that said \" Gold dips as hosility in the middle east revives ... No attacks just gold trades/analysis leads|Trading Discussion|5,377 replies canyouu replied 1 min ago one guy saw my analysis online few years back and wanted to learn and came to my place, that ... I am all for Gold leads|Interactive Trading|740 replies SleepCity replied 3 hr ago that looks really good, can i ask how you design that? EURUSD Exclusive leads|Interactive Trading|1,593 replies 255k replied 5 hr ago 1 minuta {image} EURUSD only leads|Interactive Trading|229,209 replies FirstWav3 replied 4 hr ago Holding shorts pays a premium currently. You don't have to hold over night either. Just be in ... John Ehlers Indicators leads|Platform Tech|62 replies heispark replied 3 hr ago It seems ChatGPT doesn't agree with you: ===================== The statement contains **a ... Nasdaq-Simple Intraday Strategy leads|Interactive Trading|4,883 replies ngonlip replied 10 hr ago US100 shit show now !! another easy short scalp before the fed minutes The Grail of the Knights of the Round Table leads|Trading Systems|70 replies Striker5555 replied 2 min ago Brother",
-              "contactConfidence": 90,
-              "contactQuality": "phone",
-              "lastDeepEnrichedAt": "2026-07-09T04:14:01.303Z",
-              "bestContact": "005261793429",
-              "bestContactType": "phone",
-              "bestContactSource": "https://www.forexfactory.com/",
-              "enrichmentAudit": {
-                "sourceDomain": "forexfactory.com",
-                "contactQuality": "phone",
-                "contactConfidence": 90,
-                "profileFirst": true,
-                "searchTrailUsed": false,
-                "websiteCandidates": [
-                  "https://www.metalsmine.com/",
-                  "https://www.energyexch.com/",
-                  "https://www.cryptocraft.com/",
-                  "https://www.faireconomy.com/",
-                  "https://resources.faireconomy.media/",
-                  "https://assets.faireconomy.media/",
-                  "https://assets.faireconomy.media/images/misc",
-                  "https://www.metalsmine.com/forums",
-                  "https://www.metalsmine.com/calendar",
-                  "https://www.metalsmine.com/market"
-                ],
-                "contactSources": [
-                  "https://www.forexfactory.com/",
-                  "https://www.metalsmine.com/",
-                  "https://www.metalsmine.com/contact",
-                  "https://www.metalsmine.com/contact-us",
-                  "https://www.metalsmine.com/contacto",
-                  "https://www.metalsmine.com/contato",
-                  "https://www.metalsmine.com/about",
-                  "https://www.metalsmine.com/about-us",
-                  "https://www.metalsmine.com/sobre",
-                  "https://www.energyexch.com/"
-                ],
-                "relatedEvidenceCount": 0,
-                "note": "Contacts are prioritized from the source profile and its discovered website/linkhub before any public-search trail evidence."
-              },
-              "leadType": "partner",
-              "segment": "Creator / Influencer",
-              "countries": [],
-              "country": "",
-              "languages": [
-                "English",
-                "Spanish",
-                "Portuguese"
-              ],
-              "evidence": [
-                "Contact path",
-                "Trading ICP",
-                "Public profile"
-              ],
-              "score": 66,
-              "priority": "A",
-              "outbound": {
-                "opener": "Vi Forex Factory connects traders to global financial markets with real-time data, charts, news, and the internet’s most trusted economic calendar for over 20 years. e parece haver uma ligação clara a contact path.",
-                "dm": "Olá, vi o teu trabalho ligado a trading/forex e pareceu-me que pode haver uma conversa interessante de parceria. Lidero Business Development e trabalho com parceiros, comunidades e afiliados em mercados globais. Faz sentido falarmos 15 minutos esta semana?",
-                "followUp": "Acho que há potencial para uma conversa objetiva: audiência/comunidade de trading, estrutura de parceria e crescimento com uma corretora regulada. Tens disponibilidade esta semana?"
-              },
-              "entityType": "social_profile",
-              "entityReject": false,
-              "entityRejectReason": "",
-              "companyName": "Forex Factory",
-              "companyKey": "domain:forexfactory.com",
-              "entitySignals": [
-                "Contact path",
-                "Trading ICP",
-                "Public profile"
-              ],
-              "officialProp": false,
-              "commercialScore": 100,
-              "commercialTier": "A",
-              "contactable": true,
-              "qualityStatus": "qualified"
-            },
+            "latestLead": null,
             "sourceStats": {
               "telegram": {
                 "searches": 1,
-                "raw": 12,
-                "qualified": 5,
-                "saved": 5,
-                "discarded": 7,
+                "raw": 0,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 0,
                 "duplicates": 0,
                 "errors": 0,
                 "providerErrors": 0,
-                "reasons": {
-                  "hard_rejected": 2,
-                  "blocked_commercial_noise": 5
-                }
-              },
-              "discord": {
-                "searches": 1,
-                "raw": 12,
-                "qualified": 1,
-                "saved": 0,
-                "discarded": 1,
-                "duplicates": 1,
-                "errors": 0,
-                "providerErrors": 0,
-                "reasons": {
-                  "blocked_commercial_noise": 1
-                }
+                "reasons": {}
               }
             }
           },
-          "updatedAt": "2026-07-09T04:14:01.332Z"
+          "updatedAt": "2026-07-09T17:06:08.201Z"
         }
       },
       "source-harvester-events": {
         "exists": true,
-        "updatedAt": "2026-07-09T04:16:51.041Z",
-        "ageMs": 46156762,
+        "updatedAt": "2026-07-09T17:06:08.199Z",
+        "ageMs": 1627,
         "status": {
           "status": "running",
           "workerName": "source-harvester-events",
@@ -1672,310 +681,35 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-09T04:16:51.040Z",
+          "heartbeatAt": "2026-07-09T17:06:08.181Z",
           "progress": {
-            "message": "Saved qualified lead: Forex Factory",
+            "message": "Starting quality discovery with 120 queries",
             "status": "running",
-            "latestLead": {
-              "id": "5a2b688f32f7b3a8",
-              "source": "bing-rss",
-              "sourceIntent": "ecosystem",
-              "query": "\"forex expo\" \"sponsors\" Argentina",
-              "url": "https://www.forexfactory.com/",
-              "domain": "forexfactory.com",
-              "platform": "ForexFactory",
-              "title": "Forex Factory | Global markets for the smart money.",
-              "name": "Forex Factory | Global markets for the smart money.",
-              "snippet": "Forex Factory connects traders to global financial markets with real-time data, charts, news, and the internet’s most trusted economic calendar for over 20 years.",
-              "fetchStatus": "deep-ok",
-              "sourceQuery": "\"forex expo\" \"sponsors\" Argentina",
-              "emails": [],
-              "socialLinks": [
-                "https://www.facebook.com/forexfactory/",
-                "https://twitter.com/ForexFactory",
-                "https://mds-api.forexfactory.com/",
-                "https://bds-api.forexfactory.com/",
-                "https://explorer-api.forexfactory.com/api.php/",
-                "https://www.facebook.com/metalsmine",
-                "https://twitter.com/MetalsMine",
-                "https://www.forexfactory.com/",
-                "https://www.facebook.com/energyexch",
-                "https://twitter.com/EnergyEXCH",
-                "https://www.facebook.com/cryptocraftdotcom",
-                "https://twitter.com/CryptoCraft",
-                "https://www.linkedin.com/company/fair-economy"
-              ],
-              "contactLinks": [
-                "https://www.facebook.com/forexfactory/",
-                "https://twitter.com/ForexFactory",
-                "https://www.metalsmine.com/contact",
-                "https://www.facebook.com/metalsmine",
-                "https://twitter.com/MetalsMine",
-                "https://www.metalsmine.com/contact?subject=technical",
-                "https://www.energyexch.com/contact",
-                "https://www.facebook.com/energyexch",
-                "https://twitter.com/EnergyEXCH",
-                "https://www.energyexch.com/contact?subject=technical",
-                "https://www.cryptocraft.com/contact",
-                "https://www.facebook.com/cryptocraftdotcom",
-                "https://twitter.com/CryptoCraft",
-                "https://www.cryptocraft.com/contact?subject=technical",
-                "https://www.linkedin.com/company/fair-economy",
-                "https://cdn.prod.website-files.com/6671d848ac83c72666c7cf54/6672c1237d1ecc7c61c58bdf_about-ligh-mode-poster-00001.jpg&quot",
-                "https://cdn.prod.website-files.com/6671d848ac83c72666c7cf54/667434bf5d9d30cf3a4649ea_about-dark-mode-poster-00001.jpg&quot"
-              ],
-              "websiteLinks": [
-                "https://www.metalsmine.com/",
-                "https://www.energyexch.com/",
-                "https://www.cryptocraft.com/",
-                "https://www.faireconomy.com/",
-                "https://resources.faireconomy.media/",
-                "https://assets.faireconomy.media/",
-                "https://assets.faireconomy.media/images/misc",
-                "https://www.metalsmine.com/forums",
-                "https://www.metalsmine.com/calendar",
-                "https://www.metalsmine.com/market",
-                "https://www.metalsmine.com/search",
-                "https://www.metalsmine.com/create-account",
-                "https://www.metalsmine.com/timezone",
-                "https://www.metalsmine.com/resetpassword",
-                "https://www.metalsmine.com/mission",
-                "https://www.metalsmine.com/products",
-                "https://www.metalsmine.com/blog",
-                "https://www.metalsmine.com/bug-bounty",
-                "https://www.metalsmine.com/userguide",
-                "https://www.metalsmine.com/traders",
-                "https://www.energyexch.com/calendar",
-                "https://www.energyexch.com/market",
-                "https://www.energyexch.com/search",
-                "https://www.energyexch.com/create-account",
-                "https://www.energyexch.com/timezone",
-                "https://www.energyexch.com/resetpassword",
-                "https://www.energyexch.com/mission",
-                "https://www.energyexch.com/products",
-                "https://www.energyexch.com/blog",
-                "https://www.energyexch.com/bug-bounty"
-              ],
-              "phoneNumbers": [
-                "005261793429"
-              ],
-              "forms": [
-                {
-                  "pageUrl": "https://www.metalsmine.com/contact",
-                  "action": "https://www.metalsmine.com/search",
-                  "method": "GET",
-                  "fields": [
-                    "search"
-                  ],
-                  "label": "Form 1"
-                },
-                {
-                  "pageUrl": "https://www.metalsmine.com/contact",
-                  "action": "https://www.metalsmine.com/contact",
-                  "method": "POST",
-                  "fields": [
-                    "_csrf",
-                    "url",
-                    "subject",
-                    "other_subject",
-                    "name",
-                    "email",
-                    "message"
-                  ],
-                  "label": "Subject: Website Feedback Feature Request Help Request Other Name: Email: Message: Submit:"
-                },
-                {
-                  "pageUrl": "https://www.energyexch.com/contact",
-                  "action": "https://www.energyexch.com/search",
-                  "method": "GET",
-                  "fields": [
-                    "search"
-                  ],
-                  "label": "Form 1"
-                },
-                {
-                  "pageUrl": "https://www.energyexch.com/contact",
-                  "action": "https://www.energyexch.com/contact",
-                  "method": "POST",
-                  "fields": [
-                    "_csrf",
-                    "url",
-                    "subject",
-                    "other_subject",
-                    "name",
-                    "email",
-                    "message"
-                  ],
-                  "label": "Subject: Website Feedback Feature Request Help Request Other Name: Email: Message: Submit:"
-                },
-                {
-                  "pageUrl": "https://www.cryptocraft.com/contact",
-                  "action": "https://www.cryptocraft.com/search",
-                  "method": "GET",
-                  "fields": [
-                    "search"
-                  ],
-                  "label": "Form 1"
-                },
-                {
-                  "pageUrl": "https://www.cryptocraft.com/contact",
-                  "action": "https://www.cryptocraft.com/contact",
-                  "method": "POST",
-                  "fields": [
-                    "_csrf",
-                    "url",
-                    "subject",
-                    "other_subject",
-                    "name",
-                    "email",
-                    "message"
-                  ],
-                  "label": "Subject: Website Feedback Feature Request Help Request Other Name: Email: Message: Submit:"
-                },
-                {
-                  "pageUrl": "https://www.faireconomy.com/",
-                  "action": "https://www.faireconomy.com/",
-                  "method": "POST",
-                  "fields": [
-                    "Name",
-                    "Email",
-                    "Message"
-                  ],
-                  "label": "Form 1"
-                }
-              ],
-              "contactSources": [
-                "https://www.forexfactory.com/",
-                "https://www.metalsmine.com/",
-                "https://www.metalsmine.com/contact",
-                "https://www.metalsmine.com/contact-us",
-                "https://www.metalsmine.com/contacto",
-                "https://www.metalsmine.com/contato",
-                "https://www.metalsmine.com/about",
-                "https://www.metalsmine.com/about-us",
-                "https://www.metalsmine.com/sobre",
-                "https://www.energyexch.com/",
-                "https://www.energyexch.com/contact",
-                "https://www.energyexch.com/contact-us",
-                "https://www.energyexch.com/contacto",
-                "https://www.energyexch.com/contato",
-                "https://www.energyexch.com/about",
-                "https://www.energyexch.com/about-us",
-                "https://www.energyexch.com/sobre",
-                "https://www.cryptocraft.com/",
-                "https://www.cryptocraft.com/contact",
-                "https://www.cryptocraft.com/contact-us"
-              ],
-              "relatedLinks": [],
-              "decisionMakerLinks": [
-                "https://www.linkedin.com/company/fair-economy"
-              ],
-              "decisionMakers": [],
-              "pageTitle": "Forex Factory | Global markets for the smart money.",
-              "pageDescription": "Forex Factory connects traders to global financial markets with real-time data, charts, news, and the internet’s most trusted economic calendar for over 20 years.",
-              "pageText": "Forex Factory | Global markets for the smart money. Forums Trades News Calendar Market Brokers 5:16am Search User/Email: Password: Create Account Login Forums Trades News Calendar Market Brokers Forums Trades News Calendar Market Brokers Login Create Account 5:16am Traders Online 48,794 Page Layout Forex Trader Search Log In / Create Account User/Email: Password: Not registered yet? Forgot your password? Traders Online 48,794 Page Layout Forex Trader Forex Broker Activity Live Forex Spreads Live Gold Spreads Broker Guide Updates Majors About EUR/USD GBP/USD USD/JPY USD/CHF USD/CAD AUD/USD NZD/USD Gold/USD News / Latest Stories Stream Moderate Chinese inflation won’t stand in the way of a rate cut From think.ing.com | 16 min ago China's June CPI inflation slowed down to 1.0% year-on-year, down from 1.2% in May. This came in a hair lower than forecasts (market: 1.1%, ING: 1.1%), and marked a three-month low. The primary reason for the slowdown was non-food inflation, which fell 0.4pp in June to 1.5% YoY. Within non-food categories, we saw transportation fuel inflation drop sharply ... Family that founded egg empire pocketed $320M during alleged price-fixing scheme From nypost.com | 1 hr 1 min ago The family that founded the largest egg producer in the US pocketed about $320 million from selling part of its controlling stake in Cal-Maine Foods just weeks after federal investigators began probing an alleged scheme to manipulate egg prices that sent grocery bills soaring for millions. The Adams family, which controlled Mississippi-based Cal-Maine for ... US military completes another round of strikes against Iran From @diegobloomberg | 1 hr 8 min ago | 1 comment *US MILITARY COMPLETES ANOTHER ROUND OF STRIKES AGAINST IRAN China's producer inflation hits near 4-year high in June From finance.yahoo.com | 1 hr 46 min ago China's producer price inflation surged for a fourth straight month in June to its highest since July 2022, ​while consumer prices extended gains, official data showed on Thursday, indicating that cost pressures remained elevated for domestic ⁠manufacturers. The producer price index (PPI) rose 4.1% year-on-year, National Bureau ⁠of Statistics data showed, ... More News / Hot Story Minutes of the Federal Open Market Committee From federalreserve.gov | 10 hr ago | 151 comments The manager turned first to an overview of market developments during the intermeeting period. Asset prices were affected by a number of factors, including developments related to the conflict in the Middle East, continued solid real economic data, higher inflation data, and ongoing investment in artificial intelligence (AI). Optimism around a near-term resolution of the conflict in the Middle East and the announcement of a memorandum of understanding between the U.S. and Iran pushed the oil futures curve and near-term inflation compensation materially lower relative to levels from the time of the April FOMC meeting. Expected policy rates, Treasury yields, the U.S. dollar, and domestic equity prices all rose. Regarding monetary policy expectations, the manager observed that market participants and respondents to the Open Market Desk Survey of Market Expectations (Desk survey) generally expected no change in the target range of the federal funds rate at the June FOMC meeting. Market- and survey-based measures of expected policy rates moved higher over the intermeeting period. In the Desk survey, the median of the modal paths of the federal funds rate implied no changes in the target range through the beginning of 2027 and one rate cut in the second quarter of next year. Market pricing suggested that one rate hike was priced for mid-2027, but the manager noted that these measures were likely boosted, in part, by term premiums. The manager then discussed inflation expectations. He noted that optimism around the Iran conflict pushed market-based measures of expected inflation significantly lower over the period, leaving near-term inflation expectations only moderately higher than they were before the onset of the conflict. Longer-term inflation expectations remained well anchored near the Committee's 2 percent longer-run inflation objective. Fed: Officials saw the labor market remaining stable in the near term. *FED: A FEW SAW CASE FOR RAISING RATES AT JUNE FOMC MEEETING Fed Minutes: Fed staff forecast for inflation in 2026 and 2027 was higher than in April forecast, reflecting the Middle East war and effects of AI buildout. FOMC Minutes Show 'A Few' Fed Members Wanted To Hike In June, 'Majority' Fear Higher Inflation Today's FOMC minutes will be scrutinized for further insight into policymakers' appetite for additional rate hikes and the thinking behind the Committee's hawkish shift at last month's meeting. The minutes are an account of the June 17th meeting and therefore will not reflect subsequent developments, including the softer-than-expected June nonfarm payrolls report or Chair Warsh's appearance at the ECB's Sintra Forum. Since the last FOMC meeting (June 17th), the dollar has strengthened (on the hawkishness) and gold (and bitcoin) mirrored that with sizable declines. Stocks are flat, bond yields are higher (prices down), and oil remains lower, but accelerating in the last couple of days... More Today: Jul 9 Filter Date 5:16am Currency Impact Alerts Detail Actual Forecast Previous Graph 5:16am Actual Thu Jul 9 Thu Jul 9 12:01am GBP RICS House Price Balance -33% -31% -34% 12:50am JPY M2 Money Stock y/y 2.2% 2.4% 2.4% 2:30am CNY CPI y/y 1.0% 1.1% 1.2% CNY PPI y/y 4.1% 4.1% 3.9% 7:00am EUR German Trade Balance 14.9B 14.5B JPY Prelim Machine Tool Orders y/y 37.5% All Day EUR Eurogroup Meetings 12:30pm EUR ECB Monetary Policy Meeting Accounts 1:30pm USD Unemployment Claims 218K 215K 2:00pm USD FOMC Member Williams Speaks 3:00pm USD Existing Home Sales 4.19M 4.17M 3:30pm USD Natural Gas Storage 60B 87B 5:00pm CHF Gov Board Member Martin Speaks 6:01pm USD 30-y Bond Auction 5.02|2.3 All Day NZD Bank Holiday More Sessions Forums / Latest Replies Devihaan replied < 1 min ago Bro, the market will be unpredictable even though it looks predictable that's the beauty of it. I want to say one thing I will follow your Analysis and trade suggestions because I ... No attacks just gold trades/analysis canyouu replied 2 min ago one guy saw my analysis online few years back and wanted to learn and came to my place, that was initial stages of when I found market structure but I didn't know more than half ... No attacks just gold trades/analysis Striker5555 replied 3 min ago Brother actually its total confusing, I mean there is no proper template . If you or any seniors could share the Indicator and template it would be really helpful for new comers ... The Grail of the Knights of the Round Table 1hr replied 4 min ago This guy has got ahold of the best game early access video Potential Plays and Youtube heat sakaida1125 replied 9 min ago snb are literally just a bunch of rigid sysadmins tbh. no way they'll let the franc keep rallying and break the server balance. that 0.8000 handle is basically hardcoded into ... USD/CHF ZennithFool replied 10 min ago Guys, I saw one headline that said \" Gold dips as hosility in the middle east revives inflation concerns\" Isn't gold supposed to bull run when there is inflation? Can someone ... Gold with No Drama babytrader12 replied 11 min ago In sha allah No attacks just gold trades/analysis Gelubrin replied 13 min ago Did you like Ichimoku? It is really beautiful. EURUSD & GOLD Sidd04 replied 14 min ago Yup, it's true. That's why I have a lot of respect for Canyouu. Even though the last two weeks have been nothing but losses so far, it's not a big deal. We all manage our risk, ... No attacks just gold trades/analysis ThaoAnh replied 17 min ago image image Any pair which can be traded canyouu replied 18 min ago more than difficult No attacks just gold trades/analysis canyouu replied 20 min ago Paceluke welcome here and I'm glad you found me here , i couldn't say more because of the too much unnecessary rules there, i explain a lot of things here when people ask me ... No attacks just gold trades/analysis sakaida1125 replied 23 min ago ll that rigid fundamental stuff about fed rate hikes and treasury yields just got completely wiped out by trump's tariffs � it's like a forced system update from a rogue political ... Gold�s Recent Bearishness Indicative of a Larger Trend? mloistianto replied 25 min ago you know,.even if one day i reach a level where u are now. i probably doesnt have the courage to teach people. Its not easy to become good at trading. and its definitely harder to ... No attacks just gold trades/analysis Toboso01 replied 32 min ago Thursday Key Labels * DO: $62,238 | DP: $62,477 | WP: $61,756 News image Strategic Objectives * Bulls: Defend the macro Weekly Pivot (WP: $61,756) floor and aggressively reclaim ... Bitcoin trading calls More Forums / Most Replied 12H Gold with No Drama leads|Interactive Trading|61,929 replies ZennithFool replied 12 min ago Guys, I saw one headline that said \" Gold dips as hosility in the middle east revives ... No attacks just gold trades/analysis leads|Trading Discussion|5,378 replies Devihaan replied 2 min ago Bro, the market will be unpredictable even though it looks predictable that's the beauty of ... I am all for Gold leads|Interactive Trading|740 replies SleepCity replied 3 hr ago that looks really good, can i ask how you design that? EURUSD Exclusive leads|Interactive Trading|1,593 replies 255k replied 5 hr ago 1 minuta {image} EURUSD only leads|Interactive Trading|229,209 replies FirstWav3 replied 5 hr ago Holding shorts pays a premium currently. You don't have to hold over night either. Just be in ... John Ehlers Indicators leads|Platform Tech|62 replies heispark replied 3 hr ago It seems ChatGPT doesn't agree with you: ===================== The statement contains **a ... Nasdaq-Simple Intraday Strategy leads|Interactive Trading|4,883 replies ngonlip replied 10 ",
-              "contactConfidence": 90,
-              "contactQuality": "phone",
-              "lastDeepEnrichedAt": "2026-07-09T04:16:51.009Z",
-              "bestContact": "005261793429",
-              "bestContactType": "phone",
-              "bestContactSource": "https://www.forexfactory.com/",
-              "enrichmentAudit": {
-                "sourceDomain": "forexfactory.com",
-                "contactQuality": "phone",
-                "contactConfidence": 90,
-                "profileFirst": true,
-                "searchTrailUsed": false,
-                "websiteCandidates": [
-                  "https://www.metalsmine.com/",
-                  "https://www.energyexch.com/",
-                  "https://www.cryptocraft.com/",
-                  "https://www.faireconomy.com/",
-                  "https://resources.faireconomy.media/",
-                  "https://assets.faireconomy.media/",
-                  "https://assets.faireconomy.media/images/misc",
-                  "https://www.metalsmine.com/forums",
-                  "https://www.metalsmine.com/calendar",
-                  "https://www.metalsmine.com/market"
-                ],
-                "contactSources": [
-                  "https://www.forexfactory.com/",
-                  "https://www.metalsmine.com/",
-                  "https://www.metalsmine.com/contact",
-                  "https://www.metalsmine.com/contact-us",
-                  "https://www.metalsmine.com/contacto",
-                  "https://www.metalsmine.com/contato",
-                  "https://www.metalsmine.com/about",
-                  "https://www.metalsmine.com/about-us",
-                  "https://www.metalsmine.com/sobre",
-                  "https://www.energyexch.com/"
-                ],
-                "relatedEvidenceCount": 0,
-                "note": "Contacts are prioritized from the source profile and its discovered website/linkhub before any public-search trail evidence."
-              },
-              "leadType": "partner",
-              "segment": "Creator / Influencer",
-              "countries": [],
-              "country": "",
-              "languages": [
-                "English",
-                "Spanish",
-                "Portuguese"
-              ],
-              "evidence": [
-                "Contact path",
-                "Trading ICP",
-                "Public profile"
-              ],
-              "score": 78,
-              "priority": "A",
-              "outbound": {
-                "opener": "Vi Forex Factory connects traders to global financial markets with real-time data, charts, news, and the internet’s most trusted economic calendar for over 20 years. e parece haver uma ligação clara a contact path.",
-                "dm": "Olá, vi o teu trabalho ligado a trading/forex e pareceu-me que pode haver uma conversa interessante de parceria. Lidero Business Development e trabalho com parceiros, comunidades e afiliados em mercados globais. Faz sentido falarmos 15 minutos esta semana?",
-                "followUp": "Acho que há potencial para uma conversa objetiva: audiência/comunidade de trading, estrutura de parceria e crescimento com uma corretora regulada. Tens disponibilidade esta semana?"
-              },
-              "entityType": "social_profile",
-              "entityReject": false,
-              "entityRejectReason": "",
-              "companyName": "Forex Factory",
-              "companyKey": "domain:forexfactory.com",
-              "entitySignals": [
-                "Contact path",
-                "Trading ICP",
-                "Public profile"
-              ],
-              "officialProp": false,
-              "commercialScore": 100,
-              "commercialTier": "A",
-              "contactable": true,
-              "qualityStatus": "qualified"
-            },
+            "latestLead": null,
             "sourceStats": {
               "ecosystem": {
                 "searches": 1,
-                "raw": 10,
-                "qualified": 1,
+                "raw": 0,
+                "qualified": 0,
                 "saved": 0,
-                "discarded": 1,
-                "duplicates": 1,
+                "discarded": 0,
+                "duplicates": 0,
                 "errors": 0,
                 "providerErrors": 0,
-                "reasons": {
-                  "blocked_commercial_noise": 1
-                }
+                "reasons": {}
               }
             }
           },
-          "updatedAt": "2026-07-09T04:16:51.041Z"
+          "updatedAt": "2026-07-09T17:06:08.199Z"
         }
       },
       "enrichment-worker": {
         "exists": true,
-        "updatedAt": "2026-07-09T04:21:25.559Z",
-        "ageMs": 45882245,
+        "updatedAt": "2026-07-09T17:06:08.586Z",
+        "ageMs": 1240,
         "status": {
           "status": "running",
-          "phase": "idle",
+          "phase": "enriching",
           "options": {
             "delayMs": 4500,
             "idleMs": 9000,
@@ -1988,95 +722,81 @@
             "maxTrailQueries": 18,
             "trailLimit": 7
           },
-          "processed": 682,
-          "rejected": 7,
+          "processed": 0,
+          "rejected": 0,
           "errors": 0,
-          "idleCycles": 19,
+          "idleCycles": 0,
           "queue": {
-            "eligible": 102,
-            "dueNow": 0,
+            "eligible": 70,
+            "dueNow": 70,
             "never": 0,
-            "contactlessDue": 0,
-            "scheduledDue": 0,
+            "contactlessDue": 56,
+            "scheduledDue": 14,
             "rotationDue": 0,
-            "recentlyEnriched1h": 24,
-            "recentlyEnriched24h": 102,
-            "blockedRunning": 0,
+            "recentlyEnriched1h": 0,
+            "recentlyEnriched24h": 70,
+            "blockedRunning": 1,
             "blockedNoise": 0,
-            "oldestDeepAgeHours": 2.6
+            "oldestDeepAgeHours": 15.4
           },
-          "lastResult": {
-            "status": "stored",
-            "id": "23c571e9c81781b2",
-            "name": "Forex Manager Forex Trading System by Forex Trader upravliaychiy",
-            "dueReason": "contactless_due",
-            "at": "2026-07-09T04:18:32.914Z",
-            "emails": 0,
-            "links": 0,
-            "makers": 0,
-            "bestContact": ""
+          "current": {
+            "id": "ea9e014f6f428d8b",
+            "name": "Attending the Money Expo at the Jio Convention Centre ...",
+            "url": "https://www.linkedin.com/posts/deepjyoti-dutta-dd11022003_attending-the-money-expo-at-the-jio-convention-activity-7366762448424460289-CzkY",
+            "platform": "LinkedIn",
+            "dueReason": "contactless_due"
           },
-          "total": 116,
-          "updatedAt": "2026-07-09T04:21:25.559Z"
+          "updatedAt": "2026-07-09T17:06:08.586Z"
         }
       },
       "smart-enrichment-worker": {
         "exists": true,
-        "updatedAt": "2026-07-09T04:21:30.512Z",
-        "ageMs": 45877292,
+        "updatedAt": "2026-07-09T17:06:08.356Z",
+        "ageMs": 1470,
         "status": {
           "status": "running",
-          "phase": "idle",
-          "processed": 37,
-          "stored": 37,
+          "phase": "smart-enriching",
+          "processed": 0,
+          "stored": 0,
           "rejected": 0,
           "errors": 0,
-          "total": 116,
-          "lastResult": {
-            "status": "stored",
-            "id": "ab4ce23aee3e044f",
-            "name": "AU USD Gold Price Analysis & Live Chart",
-            "bucket": "tiktok",
-            "bestContact": "https://twitter.com/xquantify",
-            "contactLinks": 30,
-            "websites": 30,
-            "related": 0,
-            "hasDecisionContact": true,
-            "at": "2026-07-09T03:13:33.036Z"
+          "current": {
+            "id": "aab6e3425505871d",
+            "name": "Prices",
+            "url": "https://finviz.com/forex",
+            "platform": "Web",
+            "bucket": "telegram"
           },
-          "updatedAt": "2026-07-09T04:21:30.512Z"
+          "lastResult": null,
+          "updatedAt": "2026-07-09T17:06:08.356Z"
         }
       },
       "contact-gap-worker": {
         "exists": true,
-        "updatedAt": "2026-07-09T04:21:22.372Z",
-        "ageMs": 45885432,
+        "updatedAt": "2026-07-09T17:06:08.232Z",
+        "ageMs": 1594,
         "status": {
           "status": "running",
-          "phase": "idle",
-          "processed": 110,
-          "stored": 110,
+          "phase": "enriching-gap",
+          "processed": 0,
+          "stored": 0,
           "rejected": 0,
           "errors": 0,
-          "total": 116,
-          "lastResult": {
-            "status": "stored",
-            "id": "e60180b570b01b6d",
-            "name": "CFD – Como funciona - Ekonomista",
-            "bucket": "web",
-            "bestContact": "https://www.facebook.com/sharer.php?u=https://www.e-konomista.pt/seguranca-social-no-whatsapp/",
-            "contactLinks": 30,
-            "websites": 20,
-            "hasRealContact": true,
-            "at": "2026-07-09T04:13:40.716Z"
+          "current": {
+            "id": "b9875250ff0beebd",
+            "name": "Forex Fund Manager Forex System by Forex Trader supportfx",
+            "url": "https://www.myfxbook.com/members/supportfx/forex-fund-manager/3593761",
+            "bucket": "myfxbook",
+            "score": 234
           },
-          "updatedAt": "2026-07-09T04:21:22.372Z"
+          "lastResult": null,
+          "updatedAt": "2026-07-09T17:06:08.232Z"
         }
       },
       "lead-cleaner": {
         "exists": true,
         "updatedAt": "2026-07-09T17:06:07.108Z",
-        "ageMs": 696,
+        "ageMs": 2719,
         "status": {
           "status": "running",
           "phase": "waiting",
@@ -2102,7 +822,7 @@
       "qualified-exporter": {
         "exists": true,
         "updatedAt": "2026-07-09T17:06:07.656Z",
-        "ageMs": 148,
+        "ageMs": 2171,
         "status": {
           "status": "running",
           "intervalMs": 90000,
@@ -2142,7 +862,7 @@
       "ui-snapshot-worker": {
         "exists": true,
         "updatedAt": "2026-07-09T17:06:07.236Z",
-        "ageMs": 569,
+        "ageMs": 2591,
         "status": {
           "ok": true,
           "updatedAt": "2026-07-09T17:06:07.236Z",
@@ -2155,21 +875,21 @@
       },
       "cloud-logger-worker": {
         "exists": true,
-        "updatedAt": "2026-07-09T17:06:07.386Z",
-        "ageMs": 419,
+        "updatedAt": "2026-07-09T17:06:09.604Z",
+        "ageMs": 223,
         "status": {
           "status": "running",
           "phase": "started",
           "intervalMs": 600000,
-          "loop": true,
-          "once": false,
-          "updatedAt": "2026-07-09T17:06:07.386Z"
+          "loop": false,
+          "once": true,
+          "updatedAt": "2026-07-09T17:06:09.604Z"
         }
       },
       "supervisor": {
         "exists": true,
         "updatedAt": "2026-07-09T17:06:07.592Z",
-        "ageMs": 213,
+        "ageMs": 2235,
         "status": {
           "status": "running",
           "cycle": 1,
@@ -2361,120 +1081,59 @@
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.csv",
         "size": 67435,
         "updatedAt": "2026-07-09T17:06:07.531Z",
-        "ageMs": 274.7158203125
+        "ageMs": 2295.7158203125
       },
       "autopilot-qualified-contactable-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.csv",
         "size": 67435,
         "updatedAt": "2026-07-09T17:06:07.553Z",
-        "ageMs": 252.716552734375
+        "ageMs": 2274.716552734375
       },
       "autopilot-hot-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.csv",
         "size": 52934,
         "updatedAt": "2026-07-09T17:06:07.568Z",
-        "ageMs": 237.7080078125
+        "ageMs": 2259.7080078125
       },
       "autopilot-working-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
         "size": 96629,
-        "updatedAt": "2026-07-09T17:06:07.619Z",
-        "ageMs": 186.681640625
+        "updatedAt": "2026-07-09T17:06:08.872Z",
+        "ageMs": 955.58349609375
       },
       "autopilot-social-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
         "size": 50800,
-        "updatedAt": "2026-07-09T17:06:07.578Z",
-        "ageMs": 227.709716796875
+        "updatedAt": "2026-07-09T17:06:08.844Z",
+        "ageMs": 983.582763671875
       },
       "autopilot-linkedin-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
         "size": 48717,
-        "updatedAt": "2026-07-09T17:06:07.592Z",
-        "ageMs": 214.20068359375
+        "updatedAt": "2026-07-09T17:06:08.854Z",
+        "ageMs": 973.58203125
       },
       "autopilot-instagram-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
         "size": 482,
-        "updatedAt": "2026-07-09T17:06:07.582Z",
-        "ageMs": 224.200439453125
+        "updatedAt": "2026-07-09T17:06:08.848Z",
+        "ageMs": 979.58203125
       },
       "autopilot-x-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
         "size": 482,
-        "updatedAt": "2026-07-09T17:06:07.596Z",
-        "ageMs": 209.68701171875
+        "updatedAt": "2026-07-09T17:06:08.857Z",
+        "ageMs": 970.582763671875
       }
     },
-    "issues": [
-      {
-        "severity": "warning",
-        "code": "source-harvester_stale_status",
-        "message": "source-harvester status is stale."
-      },
-      {
-        "severity": "warning",
-        "code": "source-harvester-social_stale_status",
-        "message": "source-harvester-social status is stale."
-      },
-      {
-        "severity": "warning",
-        "code": "source-harvester-specialist_stale_status",
-        "message": "source-harvester-specialist status is stale."
-      },
-      {
-        "severity": "warning",
-        "code": "source-harvester-ecosystem_stale_status",
-        "message": "source-harvester-ecosystem status is stale."
-      },
-      {
-        "severity": "warning",
-        "code": "source-harvester-linkedin_stale_status",
-        "message": "source-harvester-linkedin status is stale."
-      },
-      {
-        "severity": "warning",
-        "code": "source-harvester-instagram_stale_status",
-        "message": "source-harvester-instagram status is stale."
-      },
-      {
-        "severity": "warning",
-        "code": "source-harvester-platforms_stale_status",
-        "message": "source-harvester-platforms status is stale."
-      },
-      {
-        "severity": "warning",
-        "code": "source-harvester-communities_stale_status",
-        "message": "source-harvester-communities status is stale."
-      },
-      {
-        "severity": "warning",
-        "code": "source-harvester-events_stale_status",
-        "message": "source-harvester-events status is stale."
-      },
-      {
-        "severity": "warning",
-        "code": "enrichment-worker_stale_status",
-        "message": "enrichment-worker status is stale."
-      },
-      {
-        "severity": "warning",
-        "code": "smart-enrichment-worker_stale_status",
-        "message": "smart-enrichment-worker status is stale."
-      },
-      {
-        "severity": "warning",
-        "code": "contact-gap-worker_stale_status",
-        "message": "contact-gap-worker status is stale."
-      }
-    ]
+    "issues": []
   },
   "quality": {
     "totals": {
@@ -2587,7 +1246,7 @@
       "status": "running",
       "phase": "started",
       "age": "0s",
-      "ageMs": 426,
+      "ageMs": 229,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -2613,24 +1272,20 @@
     {
       "name": "contact-gap-worker",
       "status": "running",
-      "phase": "idle",
-      "age": "12.7h",
-      "ageMs": 45885440,
+      "phase": "enriching-gap",
+      "age": "2s",
+      "ageMs": 1601,
       "cycle": null,
       "pid": null,
       "message": "",
-      "current": null,
-      "lastResult": {
-        "status": "stored",
-        "id": "e60180b570b01b6d",
-        "name": "CFD – Como funciona - Ekonomista",
-        "bucket": "web",
-        "bestContact": "https://www.facebook.com/sharer.php?u=https://www.e-konomista.pt/seguranca-social-no-whatsapp/",
-        "contactLinks": 30,
-        "websites": 20,
-        "hasRealContact": true,
-        "at": "2026-07-09T04:13:40.716Z"
+      "current": {
+        "id": "b9875250ff0beebd",
+        "name": "Forex Fund Manager Forex System by Forex Trader supportfx",
+        "url": "https://www.myfxbook.com/members/supportfx/forex-fund-manager/3593761",
+        "bucket": "myfxbook",
+        "score": 234
       },
+      "lastResult": null,
       "counts": {
         "raw": 0,
         "saved": 0,
@@ -2643,8 +1298,8 @@
         "contactable": null,
         "hot": null,
         "totalRemoved": null,
-        "processed": 110,
-        "stored": 110,
+        "processed": 0,
+        "stored": 0,
         "errors": 0
       }
     },
@@ -2652,8 +1307,8 @@
       "name": "engine-control",
       "status": "running",
       "phase": "started",
-      "age": "5s",
-      "ageMs": 5174,
+      "age": "7s",
+      "ageMs": 7195,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -2679,24 +1334,20 @@
     {
       "name": "enrichment-worker",
       "status": "running",
-      "phase": "idle",
-      "age": "12.7h",
-      "ageMs": 45882254,
+      "phase": "enriching",
+      "age": "1s",
+      "ageMs": 1247,
       "cycle": null,
       "pid": null,
       "message": "",
-      "current": null,
-      "lastResult": {
-        "status": "stored",
-        "id": "23c571e9c81781b2",
-        "name": "Forex Manager Forex Trading System by Forex Trader upravliaychiy",
-        "dueReason": "contactless_due",
-        "at": "2026-07-09T04:18:32.914Z",
-        "emails": 0,
-        "links": 0,
-        "makers": 0,
-        "bestContact": ""
+      "current": {
+        "id": "ea9e014f6f428d8b",
+        "name": "Attending the Money Expo at the Jio Convention Centre ...",
+        "url": "https://www.linkedin.com/posts/deepjyoti-dutta-dd11022003_attending-the-money-expo-at-the-jio-convention-activity-7366762448424460289-CzkY",
+        "platform": "LinkedIn",
+        "dueReason": "contactless_due"
       },
+      "lastResult": null,
       "counts": {
         "raw": 0,
         "saved": 0,
@@ -2709,7 +1360,7 @@
         "contactable": null,
         "hot": null,
         "totalRemoved": null,
-        "processed": 682,
+        "processed": 0,
         "stored": null,
         "errors": 0
       }
@@ -2718,8 +1369,8 @@
       "name": "lead-cleaner",
       "status": "running",
       "phase": "waiting",
-      "age": "1s",
-      "ageMs": 705,
+      "age": "3s",
+      "ageMs": 2725,
       "cycle": 1,
       "pid": null,
       "message": "",
@@ -2746,8 +1397,8 @@
       "name": "qualified-exporter",
       "status": "running",
       "phase": "n/a",
-      "age": "0s",
-      "ageMs": 157,
+      "age": "2s",
+      "ageMs": 2177,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -2773,25 +1424,20 @@
     {
       "name": "smart-enrichment-worker",
       "status": "running",
-      "phase": "idle",
-      "age": "12.7h",
-      "ageMs": 45877301,
+      "phase": "smart-enriching",
+      "age": "1s",
+      "ageMs": 1478,
       "cycle": null,
       "pid": null,
       "message": "",
-      "current": null,
-      "lastResult": {
-        "status": "stored",
-        "id": "ab4ce23aee3e044f",
-        "name": "AU USD Gold Price Analysis & Live Chart",
-        "bucket": "tiktok",
-        "bestContact": "https://twitter.com/xquantify",
-        "contactLinks": 30,
-        "websites": 30,
-        "related": 0,
-        "hasDecisionContact": true,
-        "at": "2026-07-09T03:13:33.036Z"
+      "current": {
+        "id": "aab6e3425505871d",
+        "name": "Prices",
+        "url": "https://finviz.com/forex",
+        "platform": "Web",
+        "bucket": "telegram"
       },
+      "lastResult": null,
       "counts": {
         "raw": 0,
         "saved": 0,
@@ -2804,8 +1450,8 @@
         "contactable": null,
         "hot": null,
         "totalRemoved": null,
-        "processed": 37,
-        "stored": 37,
+        "processed": 0,
+        "stored": 0,
         "errors": 0
       }
     },
@@ -2813,19 +1459,19 @@
       "name": "source-harvester",
       "status": "running",
       "phase": "scan",
-      "age": "12.9h",
-      "ageMs": 46409270,
+      "age": "2s",
+      "ageMs": 1636,
       "cycle": 1,
       "pid": null,
-      "message": "Saved qualified lead: Forex Factory",
+      "message": "Starting quality discovery with 120 queries",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 10,
+        "raw": 0,
         "saved": 0,
-        "discarded": 1,
-        "duplicates": 1,
-        "providerErrors": 9,
+        "discarded": 0,
+        "duplicates": 0,
+        "providerErrors": 0,
         "total": 0,
         "exported": 0,
         "working": null,
@@ -2841,18 +1487,18 @@
       "name": "source-harvester-communities",
       "status": "running",
       "phase": "scan",
-      "age": "12.9h",
-      "ageMs": 46326482,
+      "age": "2s",
+      "ageMs": 1633,
       "cycle": 1,
       "pid": null,
-      "message": "Saved qualified lead: Forex Factory",
+      "message": "Starting quality discovery with 116 queries",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 24,
-        "saved": 5,
-        "discarded": 8,
-        "duplicates": 1,
+        "raw": 0,
+        "saved": 0,
+        "discarded": 0,
+        "duplicates": 0,
         "providerErrors": 0,
         "total": 0,
         "exported": 0,
@@ -2869,19 +1515,19 @@
       "name": "source-harvester-ecosystem",
       "status": "running",
       "phase": "scan",
-      "age": "12.8h",
-      "ageMs": 45970289,
+      "age": "2s",
+      "ageMs": 1632,
       "cycle": 1,
       "pid": null,
-      "message": "Saved qualified lead: company murenamobile",
+      "message": "Starting quality discovery with 90 queries",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 47,
+        "raw": 0,
         "saved": 0,
-        "discarded": 38,
-        "duplicates": 8,
-        "providerErrors": 36,
+        "discarded": 0,
+        "duplicates": 0,
+        "providerErrors": 0,
         "total": 0,
         "exported": 0,
         "working": null,
@@ -2897,18 +1543,18 @@
       "name": "source-harvester-events",
       "status": "running",
       "phase": "scan",
-      "age": "12.8h",
-      "ageMs": 46156773,
+      "age": "2s",
+      "ageMs": 1635,
       "cycle": 1,
       "pid": null,
-      "message": "Saved qualified lead: Forex Factory",
+      "message": "Starting quality discovery with 120 queries",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 10,
+        "raw": 0,
         "saved": 0,
-        "discarded": 1,
-        "duplicates": 1,
+        "discarded": 0,
+        "duplicates": 0,
         "providerErrors": 0,
         "total": 0,
         "exported": 0,
@@ -2925,8 +1571,8 @@
       "name": "source-harvester-instagram",
       "status": "running",
       "phase": "scan",
-      "age": "12.9h",
-      "ageMs": 46270781,
+      "age": "2s",
+      "ageMs": 1638,
       "cycle": 1,
       "pid": null,
       "message": "Starting quality discovery with 45 queries",
@@ -2953,8 +1599,8 @@
       "name": "source-harvester-linkedin",
       "status": "running",
       "phase": "scan",
-      "age": "12.9h",
-      "ageMs": 46391461,
+      "age": "2s",
+      "ageMs": 1638,
       "cycle": 1,
       "pid": null,
       "message": "Starting quality discovery with 180 queries",
@@ -2981,18 +1627,18 @@
       "name": "source-harvester-platforms",
       "status": "running",
       "phase": "scan",
-      "age": "12.9h",
-      "ageMs": 46522989,
+      "age": "2s",
+      "ageMs": 1638,
       "cycle": 1,
       "pid": null,
-      "message": "Saved qualified lead: Myfxbook",
+      "message": "Starting quality discovery with 47 queries",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 2,
+        "raw": 0,
         "saved": 0,
         "discarded": 0,
-        "duplicates": 1,
+        "duplicates": 0,
         "providerErrors": 0,
         "total": 0,
         "exported": 0,
@@ -3009,8 +1655,8 @@
       "name": "source-harvester-social",
       "status": "running",
       "phase": "scan",
-      "age": "12.8h",
-      "ageMs": 45908382,
+      "age": "2s",
+      "ageMs": 1638,
       "cycle": 1,
       "pid": null,
       "message": "Starting quality discovery with 120 queries",
@@ -3037,19 +1683,19 @@
       "name": "source-harvester-specialist",
       "status": "running",
       "phase": "scan",
-      "age": "12.8h",
-      "ageMs": 46191386,
+      "age": "2s",
+      "ageMs": 1635,
       "cycle": 1,
       "pid": null,
-      "message": "Saved qualified lead: company murenamobile",
+      "message": "Starting quality discovery with 120 queries",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 9,
+        "raw": 0,
         "saved": 0,
-        "discarded": 4,
-        "duplicates": 1,
-        "providerErrors": 18,
+        "discarded": 0,
+        "duplicates": 0,
+        "providerErrors": 0,
         "total": 0,
         "exported": 0,
         "working": null,
@@ -3065,8 +1711,8 @@
       "name": "supervisor",
       "status": "running",
       "phase": "n/a",
-      "age": "0s",
-      "ageMs": 224,
+      "age": "2s",
+      "ageMs": 2244,
       "cycle": 1,
       "pid": null,
       "message": "",
@@ -3093,8 +1739,8 @@
       "name": "ui-snapshot-worker",
       "status": "unknown",
       "phase": "n/a",
-      "age": "1s",
-      "ageMs": 580,
+      "age": "3s",
+      "ageMs": 2600,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -3124,56 +1770,56 @@
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.csv",
       "size": 67435,
       "updatedAt": "2026-07-09T17:06:07.531Z",
-      "ageMs": 274.7158203125
+      "ageMs": 2295.7158203125
     },
     "autopilot-qualified-contactable-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.csv",
       "size": 67435,
       "updatedAt": "2026-07-09T17:06:07.553Z",
-      "ageMs": 252.716552734375
+      "ageMs": 2274.716552734375
     },
     "autopilot-hot-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.csv",
       "size": 52934,
       "updatedAt": "2026-07-09T17:06:07.568Z",
-      "ageMs": 237.7080078125
+      "ageMs": 2259.7080078125
     },
     "autopilot-working-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
       "size": 96629,
-      "updatedAt": "2026-07-09T17:06:07.619Z",
-      "ageMs": 186.681640625
+      "updatedAt": "2026-07-09T17:06:08.872Z",
+      "ageMs": 955.58349609375
     },
     "autopilot-social-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
       "size": 50800,
-      "updatedAt": "2026-07-09T17:06:07.578Z",
-      "ageMs": 227.709716796875
+      "updatedAt": "2026-07-09T17:06:08.844Z",
+      "ageMs": 983.582763671875
     },
     "autopilot-linkedin-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
       "size": 48717,
-      "updatedAt": "2026-07-09T17:06:07.592Z",
-      "ageMs": 214.20068359375
+      "updatedAt": "2026-07-09T17:06:08.854Z",
+      "ageMs": 973.58203125
     },
     "autopilot-instagram-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
       "size": 482,
-      "updatedAt": "2026-07-09T17:06:07.582Z",
-      "ageMs": 224.200439453125
+      "updatedAt": "2026-07-09T17:06:08.848Z",
+      "ageMs": 979.58203125
     },
     "autopilot-x-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
       "size": 482,
-      "updatedAt": "2026-07-09T17:06:07.596Z",
-      "ageMs": 209.68701171875
+      "updatedAt": "2026-07-09T17:06:08.857Z",
+      "ageMs": 970.582763671875
     }
   },
   "recentRuns": [
@@ -4253,20 +2899,20 @@
   "logs": {
     "source-harvester": {
       "out": [
-        "[source-harvester cycle 1] Starting quality discovery with 120 queries",
         "[source-harvester cycle 1] Saved qualified lead: Forex Factory",
         "[source-harvester cycle 1] Starting quality discovery with 120 queries",
         "[source-harvester cycle 1] Saved qualified lead: Forex Factory",
         "[source-harvester cycle 1] Starting quality discovery with 120 queries",
         "[source-harvester cycle 1] Saved qualified lead: Forex Factory",
         "[source-harvester cycle 1] Starting quality discovery with 120 queries",
-        "[source-harvester cycle 1] Saved qualified lead: Forex Factory"
+        "[source-harvester cycle 1] Saved qualified lead: Forex Factory",
+        "[source-harvester cycle 1] Starting quality discovery with 120 queries"
       ],
       "err": []
     },
     "source-harvester-social": {
       "out": [
-        "[source-harvester-social cycle 1] Saved qualified lead: Javie fx",
+        "[source-harvester-social cycle 1] Starting quality discovery with 120 queries",
         "[source-harvester-social cycle 1] Starting quality discovery with 120 queries",
         "[source-harvester-social cycle 1] Starting quality discovery with 120 queries",
         "[source-harvester-social cycle 1] Starting quality discovery with 120 queries",
@@ -4279,27 +2925,27 @@
     },
     "source-harvester-specialist": {
       "out": [
-        "[source-harvester-specialist cycle 1] Saved qualified lead: lilo org",
         "[source-harvester-specialist cycle 1] Saved qualified lead: company murenamobile",
         "[source-harvester-specialist cycle 1] Starting quality discovery with 120 queries",
         "[source-harvester-specialist cycle 1] Saved qualified lead: lilo org",
         "[source-harvester-specialist cycle 1] Saved qualified lead: company murenamobile",
         "[source-harvester-specialist cycle 1] Starting quality discovery with 120 queries",
         "[source-harvester-specialist cycle 1] Saved qualified lead: company murenamobile",
-        "[source-harvester-specialist cycle 1] Saved qualified lead: lilo org"
+        "[source-harvester-specialist cycle 1] Saved qualified lead: lilo org",
+        "[source-harvester-specialist cycle 1] Starting quality discovery with 120 queries"
       ],
       "err": []
     },
     "source-harvester-ecosystem": {
       "out": [
-        "[source-harvester-ecosystem cycle 1] Starting quality discovery with 90 queries",
         "[source-harvester-ecosystem cycle 1] Saved qualified lead: company murenamobile",
         "[source-harvester-ecosystem cycle 1] Saved qualified lead: Traders Trust",
         "[source-harvester-ecosystem cycle 1] Saved qualified lead: lilo org",
         "[source-harvester-ecosystem cycle 1] Starting quality discovery with 90 queries",
         "[source-harvester-ecosystem cycle 1] Saved qualified lead: Traders Trust",
         "[source-harvester-ecosystem cycle 1] Saved qualified lead: company murenamobile",
-        "[source-harvester-ecosystem cycle 1] Saved qualified lead: lilo org"
+        "[source-harvester-ecosystem cycle 1] Saved qualified lead: lilo org",
+        "[source-harvester-ecosystem cycle 1] Starting quality discovery with 90 queries"
       ],
       "err": []
     },
@@ -4331,53 +2977,53 @@
     },
     "source-harvester-platforms": {
       "out": [
-        "[source-harvester-platforms cycle 1] Saved qualified lead: Myfxbook",
         "[source-harvester-platforms cycle 1] Saved qualified lead: Longbow Fund Manager Live Forex System by Forex Trader ...",
         "[source-harvester-platforms cycle 1] Starting quality discovery with 47 queries",
         "[source-harvester-platforms cycle 1] Saved qualified lead: Myfxbook",
         "[source-harvester-platforms cycle 1] Saved qualified lead: Longbow Fund Manager Live Forex System by Forex Trader ...",
         "[source-harvester-platforms cycle 1] Starting quality discovery with 47 queries",
         "[source-harvester-platforms cycle 1] Saved qualified lead: Myfxbook",
-        "[source-harvester-platforms cycle 1] Saved qualified lead: Longbow Fund Manager Live Forex System by Forex Trader ..."
+        "[source-harvester-platforms cycle 1] Saved qualified lead: Longbow Fund Manager Live Forex System by Forex Trader ...",
+        "[source-harvester-platforms cycle 1] Starting quality discovery with 47 queries"
       ],
       "err": []
     },
     "source-harvester-communities": {
       "out": [
-        "[source-harvester-communities cycle 1] Saved qualified lead: Forex Factory",
         "[source-harvester-communities cycle 1] Starting quality discovery with 116 queries",
         "[source-harvester-communities cycle 1] Saved qualified lead: United",
         "[source-harvester-communities cycle 1] Saved qualified lead: View signalsforexf",
         "[source-harvester-communities cycle 1] Saved qualified lead: View VasilyTrading",
         "[source-harvester-communities cycle 1] Saved qualified lead: Daily Forex Signals",
         "[source-harvester-communities cycle 1] Saved qualified lead: Forex Signals",
-        "[source-harvester-communities cycle 1] Saved qualified lead: Forex Factory"
+        "[source-harvester-communities cycle 1] Saved qualified lead: Forex Factory",
+        "[source-harvester-communities cycle 1] Starting quality discovery with 116 queries"
       ],
       "err": []
     },
     "source-harvester-events": {
       "out": [
-        "[source-harvester-events cycle 1] Starting quality discovery with 120 queries",
         "[source-harvester-events cycle 1] Saved qualified lead: Forex Factory",
         "[source-harvester-events cycle 1] Starting quality discovery with 120 queries",
         "[source-harvester-events cycle 1] Saved qualified lead: Forex Factory",
         "[source-harvester-events cycle 1] Starting quality discovery with 120 queries",
         "[source-harvester-events cycle 1] Saved qualified lead: Forex Factory",
         "[source-harvester-events cycle 1] Starting quality discovery with 120 queries",
-        "[source-harvester-events cycle 1] Saved qualified lead: Forex Factory"
+        "[source-harvester-events cycle 1] Saved qualified lead: Forex Factory",
+        "[source-harvester-events cycle 1] Starting quality discovery with 120 queries"
       ],
       "err": []
     },
     "enrichment-worker": {
       "out": [
-        "[enrichment-worker] stored scheduled_due 64ce1120aad0d388 Mads The Trader | Instagram, TikTok | Linktree; emails=8; links=30; makers=0; best=cimuuuttt@issy.bellah",
-        "[enrichment-worker] stored scheduled_due 9a6d59b376be140a Trader Collin | Instagram | Linktree; emails=8; links=30; makers=0; best=fredagain@ericka.lifts",
         "[enrichment-worker] stored scheduled_due f18f6661663b6b93 Javie fx; emails=8; links=30; makers=0; best=bianchisilvia@carmel.ind.femenina",
         "[enrichment-worker] stored contactless_due b9875250ff0beebd Forex Fund Manager Forex System by Forex Trader supportfx; emails=0; links=0; makers=0; best=-",
         "[enrichment-worker] stored scheduled_due 509a413b30ca0482 Traders Corretora: Invista em Minicontratos, Ações, BDRs; emails=3; links=27; makers=0; best=atendimento@traders.com.br",
         "[enrichment-worker] stored contactless_due cd8d92e78feb3dc3 Nguyen Hang Hai Ha; emails=0; links=0; makers=0; best=-",
         "[enrichment-worker] stored contactless_due 4f0613f8f161d374 Gold Spot US Dollar; emails=0; links=0; makers=0; best=-",
-        "[enrichment-worker] stored contactless_due 23c571e9c81781b2 Forex Manager Forex Trading System by Forex Trader upravliaychiy; emails=0; links=0; makers=0; best=-"
+        "[enrichment-worker] stored contactless_due 23c571e9c81781b2 Forex Manager Forex Trading System by Forex Trader upravliaychiy; emails=0; links=0; makers=0; best=-",
+        "[enrichment-worker] Started with {\"delayMs\":4500,\"idleMs\":9000,\"staleHours\":8,\"hotStaleHours\":1.5,\"contactlessStaleHours\":1.5,\"rotationHours\":3,\"maxContactPages\":7,\"maxExternalWebsites\":6,\"maxTrailQueries\":18,\"trailLimit\":7}",
+        "[enrichment-worker] stored contactless_due ea9e014f6f428d8b Attending the Money Expo at the Jio Convention Centre ...; emails=0; links=0; makers=0; best=https://www.linkedin.com/posts/deepjyoti-dutta-dd11022003_attending-the-money-expo-at-the-jio-convention-activity-7366762448424460289-CzkY"
       ],
       "err": []
     },

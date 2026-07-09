@@ -1,6 +1,6 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-09T17:06:08.083Z
+Updated: 2026-07-09T17:06:10.064Z
 Health: OK
 
 ## Funnel
@@ -19,17 +19,16 @@ Sales-ready by bucket: {"web":2,"tiktok":2}
 Qualified by bucket: {"linkedin":20,"tiktok":2,"web":2}
 
 ## Sourcing / Workers
-Provider errors: 63
-Stale workers: contact-gap-worker, enrichment-worker, smart-enrichment-worker, source-harvester, source-harvester-communities, source-harvester-ecosystem, source-harvester-events, source-harvester-instagram, source-harvester-linkedin, source-harvester-platforms, source-harvester-social, source-harvester-specialist
-Issues: warning:source-harvester_stale_status, warning:source-harvester-social_stale_status, warning:source-harvester-specialist_stale_status, warning:source-harvester-ecosystem_stale_status, warning:source-harvester-linkedin_stale_status, warning:source-harvester-instagram_stale_status, warning:source-harvester-platforms_stale_status, warning:source-harvester-communities_stale_status, warning:source-harvester-events_stale_status, warning:enrichment-worker_stale_status, warning:smart-enrichment-worker_stale_status, warning:contact-gap-worker_stale_status
+Provider errors: 0
+Stale workers: none
+Issues: none
 
 ## Smart Enrichment
-Phase: idle
-Processed: 37
-Stored: 37
+Phase: smart-enriching
+Processed: 0
+Stored: 0
 Errors: 0
-Last: AU USD Gold Price Analysis & Live Chart
-Last best contact: https://twitter.com/xquantify
+Current: Prices
 
 ## Recent Errors
 ### qualified-exporter
