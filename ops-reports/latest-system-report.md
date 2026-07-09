@@ -1,11 +1,11 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-09T02:47:13.168Z
+Updated: 2026-07-09T02:57:16.068Z
 Health: OK
 
 ## Funnel
 Raw: 116
-Qualified: 26
+Qualified: 27
 Working: 43
 Contactable: 30
 Sales-ready: 5
@@ -16,21 +16,19 @@ A2 Strong: 5
 Platform contact leaks: 0
 High-value without real contact: 23
 Sales-ready by bucket: {"web":2,"tiktok":2,"ecosystem":1}
-Qualified by bucket: {"linkedin":21,"tiktok":2,"web":2,"ecosystem":1}
+Qualified by bucket: {"linkedin":21,"tiktok":2,"web":2,"ecosystem":1,"instagram":1}
 
 ## Sourcing / Workers
-Provider errors: 63
+Provider errors: 36
 Stale workers: engine-control
 Issues: none
 
 ## Smart Enrichment
-Phase: smart-enriching
-Processed: 35
-Stored: 35
+Phase: idle
+Processed: 36
+Stored: 36
 Errors: 0
-Current: Longbow Fund Manager Live Forex Trading System by Forex Trader ...
-Last: Forex Factory | Global markets for the smart money.
-Last best contact: aaron.rupar@threads.net
+Last: Longbow Fund Manager Live Forex Trading System by Forex Trader ...
 
 ## Recent Errors
 ### qualified-exporter
