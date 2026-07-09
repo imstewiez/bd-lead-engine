@@ -1,22 +1,22 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-09T17:56:25.617Z
+Updated: 2026-07-09T18:06:29.055Z
 Health: OK
 
 ## Funnel
 Raw: 126
-Qualified: 38
-Working: 55
-Contactable: 43
-Sales-ready: 9
+Qualified: 37
+Working: 56
+Contactable: 44
+Sales-ready: 10
 A1 Hot: 18
 A2 Strong: 8
 
 ## Quality
 Platform contact leaks: 0
 High-value without real contact: 20
-Sales-ready by bucket: {"mql5":5,"web":2,"tiktok":2}
-Qualified by bucket: {"linkedin":26,"mql5":5,"instagram":3,"tiktok":2,"web":2}
+Sales-ready by bucket: {"mql5":6,"web":2,"tiktok":2}
+Qualified by bucket: {"linkedin":25,"mql5":6,"tiktok":2,"web":2,"instagram":2}
 
 ## Sourcing / Workers
 Provider errors: 45
@@ -25,11 +25,11 @@ Issues: none
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 18
-Stored: 18
+Processed: 21
+Stored: 21
 Errors: 0
-Current: Forex Fund Manager Forex Trading System by Forex Trader supportfx
-Last: Fund Manager Forex Trading System by Forex Trader supportfx
+Current: Nguyen Hang Hai Ha - nguyenhanghaiha - Trader's profile
+Last: Gold Spot US Dollar
 
 ## Recent Errors
 ### qualified-exporter
