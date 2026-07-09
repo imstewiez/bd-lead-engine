@@ -1,6 +1,6 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-09T18:26:36.012Z
+Updated: 2026-07-09T18:44:41.724Z
 Health: OK
 
 ## Funnel
@@ -19,9 +19,9 @@ Sales-ready by bucket: {"mql5":6,"web":2,"tiktok":2}
 Qualified by bucket: {"linkedin":26,"mql5":6,"instagram":3,"tiktok":2,"web":2}
 
 ## Sourcing / Workers
-Provider errors: 27
-Stale workers: engine-control
-Issues: none
+Provider errors: 9
+Stale workers: engine-control, source-harvester, source-harvester-communities, source-harvester-ecosystem, source-harvester-events, source-harvester-instagram, source-harvester-linkedin, source-harvester-platforms, source-harvester-social
+Issues: warning:source-harvester_stale_status, warning:source-harvester-social_stale_status, warning:source-harvester-ecosystem_stale_status, warning:source-harvester-linkedin_stale_status, warning:source-harvester-instagram_stale_status, warning:source-harvester-platforms_stale_status, warning:source-harvester-communities_stale_status, warning:source-harvester-events_stale_status
 
 ## Smart Enrichment
 Phase: idle
