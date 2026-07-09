@@ -1,21 +1,21 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-09T18:54:45.140Z
+Updated: 2026-07-09T19:04:48.785Z
 Health: OK
 
 ## Funnel
-Raw: 127
+Raw: 131
 Qualified: 37
-Working: 56
-Contactable: 44
-Sales-ready: 10
-A1 Hot: 18
-A2 Strong: 8
+Working: 57
+Contactable: 45
+Sales-ready: 9
+A1 Hot: 19
+A2 Strong: 7
 
 ## Quality
-Platform contact leaks: 0
+Platform contact leaks: 3
 High-value without real contact: 20
-Sales-ready by bucket: {"mql5":6,"web":2,"tiktok":2}
+Sales-ready by bucket: {"mql5":5,"web":2,"tiktok":2}
 Qualified by bucket: {"linkedin":25,"mql5":6,"tiktok":2,"web":2,"instagram":2}
 
 ## Sourcing / Workers
