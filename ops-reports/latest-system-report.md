@@ -1,35 +1,34 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-09T22:59:50.346Z
+Updated: 2026-07-09T23:09:54.253Z
 Health: OK
 
 ## Funnel
-Raw: 129
-Qualified: 39
-Working: 56
-Contactable: 44
+Raw: 137
+Qualified: 38
+Working: 59
+Contactable: 45
 Sales-ready: 10
 A1 Hot: 18
-A2 Strong: 7
+A2 Strong: 9
 
 ## Quality
 Platform contact leaks: 0
-High-value without real contact: 20
-Sales-ready by bucket: {"mql5":6,"web":2,"tiktok":2}
-Qualified by bucket: {"linkedin":26,"mql5":6,"instagram":3,"tiktok":2,"web":2}
+High-value without real contact: 24
+Sales-ready by bucket: {"mql5":5,"web":2,"tiktok":2,"myfxbook":1}
+Qualified by bucket: {"linkedin":26,"mql5":5,"tiktok":2,"web":2,"instagram":2,"myfxbook":1}
 
 ## Sourcing / Workers
-Provider errors: 36
-Stale workers: cloud-logger-worker, contact-gap-worker, engine-control, source-harvester, source-harvester-communities, source-harvester-ecosystem, source-harvester-events, source-harvester-instagram, source-harvester-linkedin, source-harvester-platforms, source-harvester-social, source-harvester-specialist
-Issues: warning:source-harvester_stale_status, warning:source-harvester-social_stale_status, warning:source-harvester-specialist_stale_status, warning:source-harvester-ecosystem_stale_status, warning:source-harvester-linkedin_stale_status, warning:source-harvester-instagram_stale_status, warning:source-harvester-platforms_stale_status, warning:source-harvester-communities_stale_status, warning:source-harvester-events_stale_status, warning:contact-gap-worker_stale_status, warning:cloud-logger-worker_stale_status
+Provider errors: 26
+Stale workers: engine-control
+Issues: none
 
 ## Smart Enrichment
 Phase: idle
-Processed: 22
-Stored: 22
+Processed: 25
+Stored: 25
 Errors: 0
-Last: Nguyen Hang Hai Ha - nguyenhanghaiha - Trader's profile
-Last best contact: https://t.me/mql5dev
+Last: manager_mgmforexMGMFOREX-BTC Forex Trading System by Forex Trader manager ...
 
 ## Recent Errors
 ### qualified-exporter
