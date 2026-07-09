@@ -1,11 +1,11 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-09T19:24:56.141Z
+Updated: 2026-07-09T22:59:50.346Z
 Health: OK
 
 ## Funnel
 Raw: 129
-Qualified: 37
+Qualified: 39
 Working: 56
 Contactable: 44
 Sales-ready: 10
@@ -16,12 +16,12 @@ A2 Strong: 7
 Platform contact leaks: 0
 High-value without real contact: 20
 Sales-ready by bucket: {"mql5":6,"web":2,"tiktok":2}
-Qualified by bucket: {"linkedin":25,"mql5":6,"tiktok":2,"web":2,"instagram":2}
+Qualified by bucket: {"linkedin":26,"mql5":6,"instagram":3,"tiktok":2,"web":2}
 
 ## Sourcing / Workers
-Provider errors: 37
-Stale workers: engine-control
-Issues: none
+Provider errors: 36
+Stale workers: cloud-logger-worker, contact-gap-worker, engine-control, source-harvester, source-harvester-communities, source-harvester-ecosystem, source-harvester-events, source-harvester-instagram, source-harvester-linkedin, source-harvester-platforms, source-harvester-social, source-harvester-specialist
+Issues: warning:source-harvester_stale_status, warning:source-harvester-social_stale_status, warning:source-harvester-specialist_stale_status, warning:source-harvester-ecosystem_stale_status, warning:source-harvester-linkedin_stale_status, warning:source-harvester-instagram_stale_status, warning:source-harvester-platforms_stale_status, warning:source-harvester-communities_stale_status, warning:source-harvester-events_stale_status, warning:contact-gap-worker_stale_status, warning:cloud-logger-worker_stale_status
 
 ## Smart Enrichment
 Phase: idle
