@@ -1,34 +1,35 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-09T03:07:18.957Z
+Updated: 2026-07-09T03:17:21.970Z
 Health: OK
 
 ## Funnel
-Raw: 116
-Qualified: 27
-Working: 43
-Contactable: 30
-Sales-ready: 5
-A1 Hot: 15
-A2 Strong: 5
+Raw: 121
+Qualified: 29
+Working: 46
+Contactable: 33
+Sales-ready: 7
+A1 Hot: 17
+A2 Strong: 6
 
 ## Quality
 Platform contact leaks: 0
 High-value without real contact: 23
-Sales-ready by bucket: {"web":2,"tiktok":2,"ecosystem":1}
-Qualified by bucket: {"linkedin":21,"tiktok":2,"web":2,"ecosystem":1,"instagram":1}
+Sales-ready by bucket: {"web":2,"tiktok":2,"telegram":2,"ecosystem":1}
+Qualified by bucket: {"linkedin":21,"tiktok":2,"web":2,"telegram":2,"ecosystem":1,"instagram":1}
 
 ## Sourcing / Workers
-Provider errors: 54
+Provider errors: 18
 Stale workers: engine-control
 Issues: none
 
 ## Smart Enrichment
 Phase: idle
-Processed: 36
-Stored: 36
+Processed: 37
+Stored: 37
 Errors: 0
-Last: Longbow Fund Manager Live Forex Trading System by Forex Trader ...
+Last: AU USD Gold Price Analysis & Live Chart
+Last best contact: https://twitter.com/xquantify
 
 ## Recent Errors
 ### qualified-exporter
