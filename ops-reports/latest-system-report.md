@@ -1,11 +1,11 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-10T09:33:56.827Z
+Updated: 2026-07-10T09:44:01.459Z
 Health: OK
 
 ## Funnel
 Raw: 165
-Qualified: 40
+Qualified: 42
 Working: 70
 Contactable: 52
 Sales-ready: 11
@@ -13,23 +13,23 @@ A1 Hot: 18
 A2 Strong: 9
 
 ## Quality
-Platform contact leaks: 2
+Platform contact leaks: 0
 High-value without real contact: 36
 Sales-ready by bucket: {"mql5":5,"web":2,"x":2,"tiktok":2}
-Qualified by bucket: {"linkedin":25,"mql5":5,"x":3,"tiktok":2,"web":2,"instagram":2,"myfxbook":1}
+Qualified by bucket: {"linkedin":26,"mql5":5,"x":3,"instagram":3,"tiktok":2,"web":2,"myfxbook":1}
 
 ## Sourcing / Workers
-Provider errors: 36
+Provider errors: 27
 Stale workers: engine-control
 Issues: none
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 65
-Stored: 65
+Processed: 68
+Stored: 68
 Errors: 0
-Current: ) - Instagram
-Last: Myfxbook
+Current: calendar.forexfactory.com
+Last: Piggy Bank Forex Trading System by Forex Trader ForexManagerDBA
 
 ## Recent Errors
 ### qualified-exporter
