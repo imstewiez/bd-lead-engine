@@ -1,11 +1,11 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-10T05:52:26.675Z
+Updated: 2026-07-10T06:02:30.989Z
 Health: OK
 
 ## Funnel
 Raw: 140
-Qualified: 36
+Qualified: 38
 Working: 59
 Contactable: 45
 Sales-ready: 8
@@ -13,10 +13,10 @@ A1 Hot: 19
 A2 Strong: 6
 
 ## Quality
-Platform contact leaks: 3
+Platform contact leaks: 2
 High-value without real contact: 27
 Sales-ready by bucket: {"mql5":4,"web":2,"tiktok":2}
-Qualified by bucket: {"linkedin":25,"mql5":5,"tiktok":2,"web":2,"instagram":2}
+Qualified by bucket: {"linkedin":26,"mql5":5,"instagram":3,"tiktok":2,"web":2}
 
 ## Sourcing / Workers
 Provider errors: 36
@@ -25,11 +25,10 @@ Issues: none
 
 ## Smart Enrichment
 Phase: idle
-Processed: 49
-Stored: 49
+Processed: 50
+Stored: 50
 Errors: 0
-Last: Stanislav Tomilov - stanislav110685 - Trader's profile
-Last best contact: +31 10 669 0521
+Last: EUR/USD - Forex Factory
 
 ## Recent Errors
 ### qualified-exporter
