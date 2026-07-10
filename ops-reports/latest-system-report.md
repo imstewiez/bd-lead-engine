@@ -1,35 +1,35 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-10T16:45:42.583Z
+Updated: 2026-07-10T16:55:46.921Z
 Health: OK
 
 ## Funnel
 Raw: 170
-Qualified: 41
+Qualified: 44
 Working: 72
 Contactable: 54
-Sales-ready: 13
+Sales-ready: 14
 A1 Hot: 19
 A2 Strong: 10
 
 ## Quality
-Platform contact leaks: 2
+Platform contact leaks: 1
 High-value without real contact: 40
-Sales-ready by bucket: {"mql5":7,"web":2,"x":2,"tiktok":2}
-Qualified by bucket: {"linkedin":25,"mql5":7,"x":3,"tiktok":2,"web":2,"instagram":2}
+Sales-ready by bucket: {"mql5":8,"web":2,"x":2,"tiktok":2}
+Qualified by bucket: {"linkedin":26,"mql5":8,"x":3,"instagram":3,"tiktok":2,"web":2}
 
 ## Sourcing / Workers
-Provider errors: 18
+Provider errors: 27
 Stale workers: engine-control
 Issues: none
 
 ## Smart Enrichment
-Phase: smart-enriching
-Processed: 84
-Stored: 84
+Phase: idle
+Processed: 87
+Stored: 87
 Errors: 0
-Current: Forex Factory | Global markets for the smart money.
-Last: Forex Trading tools for Forex traders
+Last: Nguyen Hang Hai Ha - nguyenhanghaiha - Trader's profile
+Last best contact: https://t.me/mql5dev
 
 ## Recent Errors
 ### qualified-exporter
