@@ -1,35 +1,35 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-10T16:55:46.921Z
+Updated: 2026-07-10T17:05:51.570Z
 Health: OK
 
 ## Funnel
 Raw: 170
-Qualified: 44
-Working: 72
-Contactable: 54
+Qualified: 42
+Working: 73
+Contactable: 55
 Sales-ready: 14
 A1 Hot: 19
 A2 Strong: 10
 
 ## Quality
-Platform contact leaks: 1
+Platform contact leaks: 0
 High-value without real contact: 40
 Sales-ready by bucket: {"mql5":8,"web":2,"x":2,"tiktok":2}
-Qualified by bucket: {"linkedin":26,"mql5":8,"x":3,"instagram":3,"tiktok":2,"web":2}
+Qualified by bucket: {"linkedin":25,"mql5":8,"x":3,"tiktok":2,"web":2,"instagram":2}
 
 ## Sourcing / Workers
-Provider errors: 27
+Provider errors: 36
 Stale workers: engine-control
 Issues: none
 
 ## Smart Enrichment
 Phase: idle
-Processed: 87
-Stored: 87
+Processed: 91
+Stored: 91
 Errors: 0
-Last: Nguyen Hang Hai Ha - nguyenhanghaiha - Trader's profile
-Last best contact: https://t.me/mql5dev
+Last: ) / ...
+Last best contact: https://twitter.com/topfxbrokers
 
 ## Recent Errors
 ### qualified-exporter
