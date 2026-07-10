@@ -1,36 +1,35 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-10T02:00:57.290Z
+Updated: 2026-07-10T02:11:01.187Z
 Health: OK
 
 ## Funnel
 Raw: 138
 Qualified: 38
-Working: 60
-Contactable: 46
+Working: 61
+Contactable: 47
 Sales-ready: 11
 A1 Hot: 19
 A2 Strong: 8
 
 ## Quality
 Platform contact leaks: 1
-High-value without real contact: 23
-Sales-ready by bucket: {"mql5":5,"web":2,"myfxbook":2,"tiktok":2}
-Qualified by bucket: {"linkedin":25,"mql5":5,"tiktok":2,"web":2,"instagram":2,"myfxbook":2}
+High-value without real contact: 24
+Sales-ready by bucket: {"mql5":6,"web":2,"tiktok":2,"myfxbook":1}
+Qualified by bucket: {"linkedin":25,"mql5":6,"tiktok":2,"web":2,"instagram":2,"myfxbook":1}
 
 ## Sourcing / Workers
-Provider errors: 35
+Provider errors: 0
 Stale workers: engine-control
 Issues: none
 
 ## Smart Enrichment
-Phase: smart-enriching
-Processed: 44
-Stored: 44
+Phase: idle
+Processed: 48
+Stored: 48
 Errors: 0
-Current: Forex Fund Manager Forex Trading System by Forex Trader supportfx
-Last: Fund Manager Forex Trading System by Forex Trader supportfx
-Last best contact: +972559236022
+Last: Nguyen Hang Hai Ha - nguyenhanghaiha - Trader's profile
+Last best contact: https://t.me/mql5dev
 
 ## Recent Errors
 ### qualified-exporter
