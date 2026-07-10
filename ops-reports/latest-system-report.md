@@ -1,35 +1,35 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-10T09:44:01.459Z
+Updated: 2026-07-10T16:05:23.623Z
 Health: OK
 
 ## Funnel
 Raw: 165
-Qualified: 42
-Working: 70
-Contactable: 52
-Sales-ready: 11
-A1 Hot: 18
-A2 Strong: 9
+Qualified: 41
+Working: 71
+Contactable: 53
+Sales-ready: 10
+A1 Hot: 19
+A2 Strong: 8
 
 ## Quality
-Platform contact leaks: 0
-High-value without real contact: 36
-Sales-ready by bucket: {"mql5":5,"web":2,"x":2,"tiktok":2}
-Qualified by bucket: {"linkedin":26,"mql5":5,"x":3,"instagram":3,"tiktok":2,"web":2,"myfxbook":1}
+Platform contact leaks: 1
+High-value without real contact: 35
+Sales-ready by bucket: {"mql5":4,"web":2,"x":2,"tiktok":2}
+Qualified by bucket: {"linkedin":25,"mql5":5,"x":3,"tiktok":2,"web":2,"instagram":2,"myfxbook":2}
 
 ## Sourcing / Workers
-Provider errors: 27
-Stale workers: engine-control
-Issues: none
+Provider errors: 0
+Stale workers: cloud-logger-worker, engine-control, smart-enrichment-worker, supervisor
+Issues: warning:smart-enrichment-worker_stale_status, warning:cloud-logger-worker_stale_status
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 68
-Stored: 68
+Processed: 70
+Stored: 70
 Errors: 0
-Current: calendar.forexfactory.com
-Last: Piggy Bank Forex Trading System by Forex Trader ForexManagerDBA
+Current: MGMFOREX-BTC Forex Trading System by Forex Trader manager…
+Last: Forex Manager Forex Trading System by Forex Trader thierrybl
 
 ## Recent Errors
 ### qualified-exporter
