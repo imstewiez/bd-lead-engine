@@ -1,35 +1,35 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-10T16:05:23.623Z
+Updated: 2026-07-10T16:15:29.029Z
 Health: OK
 
 ## Funnel
-Raw: 165
+Raw: 170
 Qualified: 41
 Working: 71
 Contactable: 53
-Sales-ready: 10
+Sales-ready: 13
 A1 Hot: 19
-A2 Strong: 8
+A2 Strong: 12
 
 ## Quality
-Platform contact leaks: 1
-High-value without real contact: 35
-Sales-ready by bucket: {"mql5":4,"web":2,"x":2,"tiktok":2}
-Qualified by bucket: {"linkedin":25,"mql5":5,"x":3,"tiktok":2,"web":2,"instagram":2,"myfxbook":2}
+Platform contact leaks: 0
+High-value without real contact: 39
+Sales-ready by bucket: {"mql5":7,"web":2,"x":2,"tiktok":2}
+Qualified by bucket: {"linkedin":25,"mql5":7,"x":3,"tiktok":2,"web":2,"instagram":2}
 
 ## Sourcing / Workers
-Provider errors: 0
-Stale workers: cloud-logger-worker, engine-control, smart-enrichment-worker, supervisor
-Issues: warning:smart-enrichment-worker_stale_status, warning:cloud-logger-worker_stale_status
+Provider errors: 28
+Stale workers: engine-control
+Issues: none
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 70
-Stored: 70
+Processed: 74
+Stored: 74
 Errors: 0
-Current: MGMFOREX-BTC Forex Trading System by Forex Trader manager…
-Last: Forex Manager Forex Trading System by Forex Trader thierrybl
+Current: thierryblForex Manager Forex Trading System by Forex Trader thierrybl
+Last: Forex Manager Forex Trading System by Forex Trader upravliaychiy
 
 ## Recent Errors
 ### qualified-exporter
