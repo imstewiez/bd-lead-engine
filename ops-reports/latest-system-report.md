@@ -1,6 +1,6 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-10T02:31:09.165Z
+Updated: 2026-07-10T02:41:13.021Z
 Health: OK
 
 ## Funnel
@@ -19,17 +19,17 @@ Sales-ready by bucket: {"mql5":6,"web":2,"tiktok":2,"myfxbook":1}
 Qualified by bucket: {"linkedin":25,"mql5":6,"tiktok":2,"web":2,"instagram":2,"myfxbook":1}
 
 ## Sourcing / Workers
-Provider errors: 18
+Provider errors: 36
 Stale workers: engine-control
 Issues: none
 
 ## Smart Enrichment
 Phase: idle
-Processed: 48
-Stored: 48
+Processed: 49
+Stored: 49
 Errors: 0
-Last: Nguyen Hang Hai Ha - nguyenhanghaiha - Trader's profile
-Last best contact: https://t.me/mql5dev
+Last: Stanislav Tomilov - stanislav110685 - Trader's profile
+Last best contact: +31 10 669 0521
 
 ## Recent Errors
 ### qualified-exporter
