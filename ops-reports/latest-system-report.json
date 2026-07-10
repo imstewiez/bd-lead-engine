@@ -1,10 +1,10 @@
 {
   "ok": true,
-  "generatedAt": "2026-07-10T06:32:43.081Z",
+  "generatedAt": "2026-07-10T06:42:47.054Z",
   "summary": {
     "ok": true,
     "rawLeads": 140,
-    "qualified": 38,
+    "qualified": 36,
     "working": 59,
     "contactable": 45,
     "realDecisionContacts": 88,
@@ -19,16 +19,16 @@
     "websiteOnlyContacts": 0,
     "duplicateLike": 12,
     "uniqueKeys": 128,
-    "enrichmentDueNow": 28,
-    "enrichedLastHour": 55,
+    "enrichmentDueNow": 7,
+    "enrichedLastHour": 94,
     "enrichedLast24h": 128,
     "harvesters": 9,
-    "harvesterRawSeen": 6,
-    "harvesterSavedThisCycle": 0,
-    "providerErrors": 18,
-    "providerErrorsPerSaved": null,
+    "harvesterRawSeen": 81,
+    "harvesterSavedThisCycle": 2,
+    "providerErrors": 45,
+    "providerErrorsPerSaved": 22.5,
     "salesReadyYield": 0.057,
-    "salesReadyPerProviderError": 0.444,
+    "salesReadyPerProviderError": 0.178,
     "staleWorkers": [
       "engine-control"
     ],
@@ -36,10 +36,10 @@
   },
   "health": {
     "ok": true,
-    "updatedAt": "2026-07-10T06:32:42.163Z",
+    "updatedAt": "2026-07-10T06:42:46.209Z",
     "counts": {
       "raw": 140,
-      "qualified": 38,
+      "qualified": 36,
       "working": 59,
       "contactable": 45,
       "aLeads": 25,
@@ -58,12 +58,12 @@
       "contactless": 37,
       "neverDeep": 0,
       "eligible": 127,
-      "dueNow": 28,
+      "dueNow": 7,
       "rotationDue": 0,
-      "enrichedLastHour": 55,
+      "enrichedLastHour": 94,
       "enrichedLast24h": 128,
-      "oldestDeepAgeHours": 163,
-      "running": 0
+      "oldestDeepAgeHours": 163.2,
+      "running": 1
     },
     "tasks": {
       "source-harvester": {
@@ -71,11 +71,11 @@
         "running": true
       },
       "source-harvester-social": {
-        "pid": 22828,
+        "pid": 28404,
         "running": true
       },
       "source-harvester-specialist": {
-        "pid": 23936,
+        "pid": 2824,
         "running": true
       },
       "source-harvester-ecosystem": {
@@ -83,7 +83,7 @@
         "running": true
       },
       "source-harvester-linkedin": {
-        "pid": 34340,
+        "pid": 17332,
         "running": true
       },
       "source-harvester-instagram": {
@@ -91,7 +91,7 @@
         "running": true
       },
       "source-harvester-platforms": {
-        "pid": 10184,
+        "pid": 23064,
         "running": true
       },
       "source-harvester-communities": {
@@ -138,8 +138,8 @@
     "statuses": {
       "source-harvester": {
         "exists": true,
-        "updatedAt": "2026-07-10T06:21:44.020Z",
-        "ageMs": 658138,
+        "updatedAt": "2026-07-10T06:34:09.775Z",
+        "ageMs": 516430,
         "status": {
           "status": "running",
           "workerName": "source-harvester",
@@ -177,11 +177,91 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-10T06:21:44.007Z",
+          "heartbeatAt": "2026-07-10T06:34:09.774Z",
           "progress": {
-            "message": "Starting quality discovery with 120 queries",
+            "message": "Saved qualified lead: company murenamobile",
             "status": "running",
-            "latestLead": null,
+            "latestLead": {
+              "id": "0164ff87a4821946",
+              "source": "qwant",
+              "sourceIntent": "partner",
+              "query": "\"Forex Expo Dubai\" \"attending\" \"introducing broker\"",
+              "url": "https://www.linkedin.com/company/murenamobile",
+              "domain": "linkedin.com",
+              "platform": "LinkedIn",
+              "title": "company murenamobile",
+              "name": "company murenamobile",
+              "snippet": "Extracted candidate for \"Forex Expo Dubai\" \"attending\" \"introducing broker\"",
+              "fetchStatus": "skipped-social-or-platform",
+              "sourceQuery": "\"Forex Expo Dubai\" \"attending\" \"introducing broker\"",
+              "emails": [],
+              "socialLinks": [],
+              "contactLinks": [],
+              "websiteLinks": [],
+              "phoneNumbers": [],
+              "forms": [],
+              "contactSources": [],
+              "relatedLinks": [],
+              "decisionMakerLinks": [],
+              "decisionMakers": [],
+              "contactConfidence": 74,
+              "contactQuality": "social",
+              "lastDeepEnrichedAt": "2026-07-10T06:34:09.749Z",
+              "bestContact": "https://www.linkedin.com/company/murenamobile",
+              "bestContactType": "social",
+              "bestContactSource": "https://www.linkedin.com/company/murenamobile",
+              "enrichmentAudit": {
+                "sourceDomain": "linkedin.com",
+                "contactQuality": "social",
+                "contactConfidence": 74,
+                "profileFirst": true,
+                "searchTrailUsed": false,
+                "websiteCandidates": [],
+                "contactSources": [],
+                "relatedEvidenceCount": 0,
+                "note": "Contacts are prioritized from the source profile and its discovered website/linkhub before any public-search trail evidence."
+              },
+              "leadType": "partner",
+              "segment": "Event / Expo",
+              "countries": [
+                "UAE"
+              ],
+              "country": "UAE",
+              "languages": [
+                "English"
+              ],
+              "evidence": [
+                "Introducing broker",
+                "Event/expo footprint",
+                "Contact path",
+                "Trading ICP",
+                "Public profile",
+                "Company/partner path"
+              ],
+              "score": 64,
+              "priority": "A",
+              "outbound": {
+                "opener": "I saw Extracted candidate for \"Forex Expo Dubai\" \"attending\" \"introducing broker\" and there seems to be a clear angle around introducing broker.",
+                "dm": "Hi, I came across your work around trading/forex and thought there may be an interesting partnership conversation. I lead Business Development and work with partners, communities, and affiliates across global markets. Would a 15-minute call this week make sense?",
+                "followUp": "I think there is a concrete angle to explore: trading audience/community, partnership structure, and growth with a regulated broker. Do you have availability this week?"
+              },
+              "entityType": "social_profile",
+              "entityReject": false,
+              "entityRejectReason": "",
+              "companyName": "company murenamobile",
+              "companyKey": "linkedin:company:murenamobile",
+              "entitySignals": [
+                "Contact path",
+                "Trading ICP",
+                "Public profile",
+                "Company/partner path"
+              ],
+              "officialProp": false,
+              "commercialScore": 95,
+              "commercialTier": "A",
+              "contactable": true,
+              "qualityStatus": "qualified"
+            },
             "sourceStats": {
               "linkedin": {
                 "searches": 1,
@@ -191,18 +271,106 @@
                 "discarded": 0,
                 "duplicates": 0,
                 "errors": 0,
+                "providerErrors": 9,
+                "reasons": {
+                  "provider_errors": 1
+                }
+              },
+              "instagram": {
+                "searches": 1,
+                "raw": 10,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 10,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "blocked_commercial_noise": 8,
+                  "hard_rejected": 2
+                }
+              },
+              "x": {
+                "searches": 1,
+                "raw": 5,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 5,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "blocked_commercial_noise": 5
+                }
+              },
+              "telegram": {
+                "searches": 1,
+                "raw": 10,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 10,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {}
+              },
+              "discord": {
+                "searches": 1,
+                "raw": 10,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 10,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {}
+              },
+              "facebook_threads": {
+                "searches": 1,
+                "raw": 0,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 9,
+                "reasons": {
+                  "provider_errors": 1
+                }
+              },
+              "forum": {
+                "searches": 1,
+                "raw": 0,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 9,
+                "reasons": {
+                  "provider_errors": 1
+                }
+              },
+              "ecosystem": {
+                "searches": 1,
+                "raw": 10,
+                "qualified": 2,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 9,
+                "errors": 0,
                 "providerErrors": 0,
                 "reasons": {}
               }
             }
           },
-          "updatedAt": "2026-07-10T06:21:44.020Z"
+          "updatedAt": "2026-07-10T06:34:09.775Z"
         }
       },
       "source-harvester-social": {
         "exists": true,
-        "updatedAt": "2026-07-10T06:19:43.046Z",
-        "ageMs": 779113,
+        "updatedAt": "2026-07-10T06:34:54.114Z",
+        "ageMs": 472092,
         "status": {
           "status": "running",
           "workerName": "source-harvester-social",
@@ -240,7 +408,7 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-10T06:19:43.032Z",
+          "heartbeatAt": "2026-07-10T06:34:54.099Z",
           "progress": {
             "message": "Starting quality discovery with 120 queries",
             "status": "running",
@@ -259,13 +427,13 @@
               }
             }
           },
-          "updatedAt": "2026-07-10T06:19:43.046Z"
+          "updatedAt": "2026-07-10T06:34:54.114Z"
         }
       },
       "source-harvester-specialist": {
         "exists": true,
-        "updatedAt": "2026-07-10T06:22:58.714Z",
-        "ageMs": 583445,
+        "updatedAt": "2026-07-10T06:38:57.396Z",
+        "ageMs": 228810,
         "status": {
           "status": "running",
           "workerName": "source-harvester-specialist",
@@ -303,90 +471,11 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-10T06:22:58.713Z",
+          "heartbeatAt": "2026-07-10T06:38:57.382Z",
           "progress": {
-            "message": "Saved qualified lead: company murenamobile",
+            "message": "Starting quality discovery with 120 queries",
             "status": "running",
-            "latestLead": {
-              "id": "0164ff87a4821946",
-              "source": "qwant",
-              "sourceIntent": "specialist",
-              "query": "\"signal seller\" \"forex\" \"telegram\" United Kingdom",
-              "url": "https://www.linkedin.com/company/murenamobile",
-              "domain": "linkedin.com",
-              "platform": "LinkedIn",
-              "title": "company murenamobile",
-              "name": "company murenamobile",
-              "snippet": "Extracted candidate for \"signal seller\" \"forex\" \"telegram\" United Kingdom",
-              "fetchStatus": "skipped-social-or-platform",
-              "sourceQuery": "\"signal seller\" \"forex\" \"telegram\" United Kingdom",
-              "emails": [],
-              "socialLinks": [],
-              "contactLinks": [],
-              "websiteLinks": [],
-              "phoneNumbers": [],
-              "forms": [],
-              "contactSources": [],
-              "relatedLinks": [],
-              "decisionMakerLinks": [],
-              "decisionMakers": [],
-              "contactConfidence": 74,
-              "contactQuality": "social",
-              "lastDeepEnrichedAt": "2026-07-10T06:22:58.686Z",
-              "bestContact": "https://www.linkedin.com/company/murenamobile",
-              "bestContactType": "social",
-              "bestContactSource": "https://www.linkedin.com/company/murenamobile",
-              "enrichmentAudit": {
-                "sourceDomain": "linkedin.com",
-                "contactQuality": "social",
-                "contactConfidence": 74,
-                "profileFirst": true,
-                "searchTrailUsed": false,
-                "websiteCandidates": [],
-                "contactSources": [],
-                "relatedEvidenceCount": 0,
-                "note": "Contacts are prioritized from the source profile and its discovered website/linkhub before any public-search trail evidence."
-              },
-              "leadType": "partner",
-              "segment": "Community",
-              "countries": [
-                "United Kingdom"
-              ],
-              "country": "United Kingdom",
-              "languages": [
-                "English"
-              ],
-              "evidence": [
-                "Community/audience",
-                "Contact path",
-                "Trading ICP",
-                "Public profile",
-                "Company/partner path"
-              ],
-              "score": 57,
-              "priority": "A",
-              "outbound": {
-                "opener": "I saw Extracted candidate for \"signal seller\" \"forex\" \"telegram\" United Kingdom and there seems to be a clear angle around community/audience.",
-                "dm": "Hi, I came across your work around trading/forex and thought there may be an interesting partnership conversation. I lead Business Development and work with partners, communities, and affiliates across global markets. Would a 15-minute call this week make sense?",
-                "followUp": "I think there is a concrete angle to explore: trading audience/community, partnership structure, and growth with a regulated broker. Do you have availability this week?"
-              },
-              "entityType": "social_profile",
-              "entityReject": false,
-              "entityRejectReason": "",
-              "companyName": "company murenamobile",
-              "companyKey": "linkedin:company:murenamobile",
-              "entitySignals": [
-                "Contact path",
-                "Trading ICP",
-                "Public profile",
-                "Company/partner path"
-              ],
-              "officialProp": false,
-              "commercialScore": 99,
-              "commercialTier": "A",
-              "contactable": true,
-              "qualityStatus": "qualified"
-            },
+            "latestLead": null,
             "sourceStats": {
               "linkedin": {
                 "searches": 1,
@@ -396,47 +485,18 @@
                 "discarded": 0,
                 "duplicates": 0,
                 "errors": 0,
-                "providerErrors": 9,
-                "reasons": {
-                  "provider_errors": 1
-                }
-              },
-              "x": {
-                "searches": 1,
-                "raw": 0,
-                "qualified": 0,
-                "saved": 0,
-                "discarded": 0,
-                "duplicates": 0,
-                "errors": 0,
-                "providerErrors": 9,
-                "reasons": {
-                  "provider_errors": 1
-                }
-              },
-              "telegram": {
-                "searches": 1,
-                "raw": 6,
-                "qualified": 2,
-                "saved": 0,
-                "discarded": 4,
-                "duplicates": 1,
-                "errors": 0,
                 "providerErrors": 0,
-                "reasons": {
-                  "blocked_commercial_noise": 3,
-                  "hard_rejected": 1
-                }
+                "reasons": {}
               }
             }
           },
-          "updatedAt": "2026-07-10T06:22:58.714Z"
+          "updatedAt": "2026-07-10T06:38:57.396Z"
         }
       },
       "source-harvester-ecosystem": {
         "exists": true,
-        "updatedAt": "2026-07-10T06:26:47.831Z",
-        "ageMs": 354328,
+        "updatedAt": "2026-07-10T06:34:46.060Z",
+        "ageMs": 480146,
         "status": {
           "status": "running",
           "workerName": "source-harvester-ecosystem",
@@ -474,11 +534,93 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-10T06:26:47.819Z",
+          "heartbeatAt": "2026-07-10T06:34:46.059Z",
           "progress": {
-            "message": "Starting quality discovery with 90 queries",
+            "message": "Saved qualified lead: company murenamobile",
             "status": "running",
-            "latestLead": null,
+            "latestLead": {
+              "id": "0164ff87a4821946",
+              "source": "qwant",
+              "sourceIntent": "recruitment",
+              "query": "\"business development manager\" \"forex broker\" Spain",
+              "url": "https://www.linkedin.com/company/murenamobile",
+              "domain": "linkedin.com",
+              "platform": "LinkedIn",
+              "title": "company murenamobile",
+              "name": "company murenamobile",
+              "snippet": "Extracted candidate for \"business development manager\" \"forex broker\" Spain",
+              "fetchStatus": "skipped-social-or-platform",
+              "sourceQuery": "\"business development manager\" \"forex broker\" Spain",
+              "emails": [],
+              "socialLinks": [],
+              "contactLinks": [],
+              "websiteLinks": [],
+              "phoneNumbers": [],
+              "forms": [],
+              "contactSources": [],
+              "relatedLinks": [],
+              "decisionMakerLinks": [],
+              "decisionMakers": [],
+              "contactConfidence": 74,
+              "contactQuality": "social",
+              "lastDeepEnrichedAt": "2026-07-10T06:34:46.034Z",
+              "bestContact": "https://www.linkedin.com/company/murenamobile",
+              "bestContactType": "social",
+              "bestContactSource": "https://www.linkedin.com/company/murenamobile",
+              "enrichmentAudit": {
+                "sourceDomain": "linkedin.com",
+                "contactQuality": "social",
+                "contactConfidence": 74,
+                "profileFirst": true,
+                "searchTrailUsed": false,
+                "websiteCandidates": [],
+                "contactSources": [],
+                "relatedEvidenceCount": 0,
+                "note": "Contacts are prioritized from the source profile and its discovered website/linkhub before any public-search trail evidence."
+              },
+              "leadType": "recruitment",
+              "segment": "Unclear",
+              "countries": [
+                "Spain"
+              ],
+              "country": "Spain",
+              "languages": [
+                "English",
+                "Portuguese"
+              ],
+              "evidence": [
+                "Recruitment profile",
+                "Decision maker",
+                "Contact path",
+                "Trading ICP",
+                "Public profile",
+                "Company/partner path"
+              ],
+              "score": 48,
+              "priority": "A",
+              "outbound": {
+                "opener": "Vi o teu percurso ligado a brokers/BD e pareceu-me relevante para expansão comercial em Spain.",
+                "dm": "Olá, vi o teu perfil e o teu percurso em brokerage/partnerships chamou-me a atenção. Lidero Business Development e estou a mapear talento comercial forte para crescimento internacional. Faz sentido termos uma conversa curta esta semana?",
+                "followUp": "Acho que pode haver fit pelo teu background em recruitment profile. Se fizer sentido, trocamos 15 minutos e vemos se há espaço para colaborar."
+              },
+              "entityType": "decision_maker",
+              "entityReject": false,
+              "entityRejectReason": "",
+              "companyName": "company murenamobile",
+              "companyKey": "linkedin:company:murenamobile",
+              "entitySignals": [
+                "Decision maker",
+                "Contact path",
+                "Trading ICP",
+                "Public profile",
+                "Company/partner path"
+              ],
+              "officialProp": false,
+              "commercialScore": 100,
+              "commercialTier": "A",
+              "contactable": true,
+              "qualityStatus": "qualified"
+            },
             "sourceStats": {
               "linkedin": {
                 "searches": 1,
@@ -488,18 +630,75 @@
                 "discarded": 0,
                 "duplicates": 0,
                 "errors": 0,
+                "providerErrors": 9,
+                "reasons": {
+                  "provider_errors": 1
+                }
+              },
+              "telegram": {
+                "searches": 1,
+                "raw": 8,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 8,
+                "duplicates": 0,
+                "errors": 0,
                 "providerErrors": 0,
-                "reasons": {}
+                "reasons": {
+                  "hard_rejected": 7,
+                  "blocked_commercial_noise": 1
+                }
+              },
+              "discord": {
+                "searches": 1,
+                "raw": 8,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 8,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "blocked_commercial_noise": 7,
+                  "hard_rejected": 1
+                }
+              },
+              "ecosystem": {
+                "searches": 1,
+                "raw": 0,
+                "qualified": 0,
+                "saved": 0,
+                "discarded": 0,
+                "duplicates": 0,
+                "errors": 0,
+                "providerErrors": 9,
+                "reasons": {
+                  "provider_errors": 1
+                }
+              },
+              "recruitment": {
+                "searches": 1,
+                "raw": 8,
+                "qualified": 2,
+                "saved": 0,
+                "discarded": 6,
+                "duplicates": 1,
+                "errors": 0,
+                "providerErrors": 0,
+                "reasons": {
+                  "hard_rejected": 3,
+                  "blocked_commercial_noise": 3
+                }
               }
             }
           },
-          "updatedAt": "2026-07-10T06:26:47.831Z"
+          "updatedAt": "2026-07-10T06:34:46.060Z"
         }
       },
       "source-harvester-linkedin": {
         "exists": true,
-        "updatedAt": "2026-07-10T06:19:43.046Z",
-        "ageMs": 779113,
+        "updatedAt": "2026-07-10T06:34:54.123Z",
+        "ageMs": 472083,
         "status": {
           "status": "running",
           "workerName": "source-harvester-linkedin",
@@ -537,7 +736,7 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-10T06:19:43.032Z",
+          "heartbeatAt": "2026-07-10T06:34:54.108Z",
           "progress": {
             "message": "Starting quality discovery with 180 queries",
             "status": "running",
@@ -556,13 +755,13 @@
               }
             }
           },
-          "updatedAt": "2026-07-10T06:19:43.046Z"
+          "updatedAt": "2026-07-10T06:34:54.123Z"
         }
       },
       "source-harvester-instagram": {
         "exists": true,
-        "updatedAt": "2026-07-10T06:31:52.012Z",
-        "ageMs": 50148,
+        "updatedAt": "2026-07-10T06:33:41.317Z",
+        "ageMs": 544889,
         "status": {
           "status": "running",
           "workerName": "source-harvester-instagram",
@@ -600,32 +799,113 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-10T06:31:51.995Z",
+          "heartbeatAt": "2026-07-10T06:33:41.316Z",
           "progress": {
-            "message": "Starting quality discovery with 45 queries",
+            "message": "Saved qualified lead: reel DF0ScImI Tf",
             "status": "running",
-            "latestLead": null,
+            "latestLead": {
+              "id": "013172676a477445",
+              "source": "bing",
+              "sourceIntent": "partner",
+              "query": "\"forex trader\" \"whatsapp\" Portugal",
+              "url": "https://www.instagram.com/reel/DF0ScImI_Tf/",
+              "domain": "instagram.com",
+              "platform": "Instagram",
+              "title": "reel DF0ScImI Tf",
+              "name": "reel DF0ScImI Tf",
+              "snippet": "Feb 8, 2025 · 60K likes, 112 comments - muhammadafkar_fx on February 8, 2025: \"No Doubt ️ Join My Trading Whatsapp Community ️ Free Forex Signals & Educations Link In Bio …",
+              "fetchStatus": "skipped-social-or-platform",
+              "sourceQuery": "site:instagram.com \"forex trader\" \"whatsapp\" Portugal",
+              "emails": [],
+              "socialLinks": [],
+              "contactLinks": [],
+              "websiteLinks": [],
+              "phoneNumbers": [],
+              "forms": [],
+              "contactSources": [],
+              "relatedLinks": [],
+              "decisionMakerLinks": [],
+              "decisionMakers": [],
+              "trailSearched": true,
+              "contactConfidence": 15,
+              "contactQuality": "no-contact-yet",
+              "lastDeepEnrichedAt": "2026-07-10T06:33:41.294Z",
+              "bestContact": "",
+              "bestContactType": "",
+              "bestContactSource": "",
+              "enrichmentAudit": {
+                "sourceDomain": "instagram.com",
+                "contactQuality": "no-contact-yet",
+                "contactConfidence": 15,
+                "profileFirst": true,
+                "searchTrailUsed": true,
+                "websiteCandidates": [],
+                "contactSources": [],
+                "relatedEvidenceCount": 0,
+                "note": "Contacts are prioritized from the source profile and its discovered website/linkhub before any public-search trail evidence."
+              },
+              "leadType": "partner",
+              "segment": "Community",
+              "countries": [],
+              "country": "",
+              "languages": [
+                "English",
+                "Spanish",
+                "Portuguese"
+              ],
+              "evidence": [
+                "Community/audience",
+                "Contact path",
+                "Trading ICP",
+                "Public profile"
+              ],
+              "score": 49,
+              "priority": "B",
+              "outbound": {
+                "opener": "Vi Feb 8, 2025 · 60K likes, 112 comments - muhammadafkar_fx on February 8, 2025: \"No Doubt ️ Join My Trading Whatsapp Community ️ Free Forex Signals & Educations Link In Bio … e parece haver uma ligação clara a community/audience.",
+                "dm": "Olá, vi o teu trabalho ligado a trading/forex e pareceu-me que pode haver uma conversa interessante de parceria. Lidero Business Development e trabalho com parceiros, comunidades e afiliados em mercados globais. Faz sentido falarmos 15 minutos esta semana?",
+                "followUp": "Acho que há potencial para uma conversa objetiva: audiência/comunidade de trading, estrutura de parceria e crescimento com uma corretora regulada. Tens disponibilidade esta semana?"
+              },
+              "entityType": "social_profile",
+              "entityReject": false,
+              "entityRejectReason": "",
+              "companyName": "reel DF0ScImI Tf",
+              "companyKey": "profile:instagram.com:reel",
+              "entitySignals": [
+                "Contact path",
+                "Trading ICP",
+                "Public profile"
+              ],
+              "officialProp": false,
+              "commercialScore": 75,
+              "commercialTier": "B",
+              "contactable": false,
+              "qualityStatus": "qualified"
+            },
             "sourceStats": {
               "instagram": {
                 "searches": 1,
-                "raw": 0,
-                "qualified": 0,
-                "saved": 0,
-                "discarded": 0,
-                "duplicates": 0,
+                "raw": 12,
+                "qualified": 8,
+                "saved": 2,
+                "discarded": 3,
+                "duplicates": 5,
                 "errors": 0,
                 "providerErrors": 0,
-                "reasons": {}
+                "reasons": {
+                  "blocked_commercial_noise": 2,
+                  "hard_rejected": 1
+                }
               }
             }
           },
-          "updatedAt": "2026-07-10T06:31:52.012Z"
+          "updatedAt": "2026-07-10T06:33:41.317Z"
         }
       },
       "source-harvester-platforms": {
         "exists": true,
-        "updatedAt": "2026-07-10T06:22:44.658Z",
-        "ageMs": 597502,
+        "updatedAt": "2026-07-10T06:37:56.854Z",
+        "ageMs": 289352,
         "status": {
           "status": "running",
           "workerName": "source-harvester-platforms",
@@ -665,7 +945,7 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-10T06:22:44.642Z",
+          "heartbeatAt": "2026-07-10T06:37:56.841Z",
           "progress": {
             "message": "Starting quality discovery with 47 queries",
             "status": "running",
@@ -684,13 +964,13 @@
               }
             }
           },
-          "updatedAt": "2026-07-10T06:22:44.658Z"
+          "updatedAt": "2026-07-10T06:37:56.854Z"
         }
       },
       "source-harvester-communities": {
         "exists": true,
         "updatedAt": "2026-07-10T06:28:49.166Z",
-        "ageMs": 232994,
+        "ageMs": 837040,
         "status": {
           "status": "running",
           "workerName": "source-harvester-communities",
@@ -753,7 +1033,7 @@
       "source-harvester-events": {
         "exists": true,
         "updatedAt": "2026-07-10T06:31:52.011Z",
-        "ageMs": 50149,
+        "ageMs": 654195,
         "status": {
           "status": "running",
           "workerName": "source-harvester-events",
@@ -815,8 +1095,8 @@
       },
       "enrichment-worker": {
         "exists": true,
-        "updatedAt": "2026-07-10T06:32:38.315Z",
-        "ageMs": 3846,
+        "updatedAt": "2026-07-10T06:42:36.183Z",
+        "ageMs": 10024,
         "status": {
           "status": "running",
           "phase": "enriching",
@@ -832,7 +1112,7 @@
             "maxTrailQueries": 18,
             "trailLimit": 7
           },
-          "processed": 720,
+          "processed": 763,
           "rejected": 7,
           "errors": 0,
           "idleCycles": 0,
@@ -843,26 +1123,26 @@
             "contactlessDue": 1,
             "scheduledDue": 0,
             "rotationDue": 0,
-            "recentlyEnriched1h": 54,
+            "recentlyEnriched1h": 95,
             "recentlyEnriched24h": 128,
             "blockedRunning": 0,
             "blockedNoise": 0,
             "oldestDeepAgeHours": 1.5
           },
           "current": {
-            "id": "5f3f5edccdf52fde",
-            "name": "Introductory",
-            "url": "https://uk.linkedin.com/in/fx-introductory-525932234",
-            "platform": "LinkedIn",
+            "id": "1d7760a53cec1e38",
+            "name": "CFDs",
+            "url": "http://hub.deriv.com/",
+            "platform": "Web",
             "dueReason": "contactless_due"
           },
-          "updatedAt": "2026-07-10T06:32:38.315Z"
+          "updatedAt": "2026-07-10T06:42:36.183Z"
         }
       },
       "smart-enrichment-worker": {
         "exists": true,
-        "updatedAt": "2026-07-10T06:32:28.700Z",
-        "ageMs": 13461,
+        "updatedAt": "2026-07-10T06:42:40.796Z",
+        "ageMs": 5411,
         "status": {
           "status": "running",
           "phase": "idle",
@@ -883,13 +1163,13 @@
             "hasDecisionContact": false,
             "at": "2026-07-10T05:57:42.675Z"
           },
-          "updatedAt": "2026-07-10T06:32:28.700Z"
+          "updatedAt": "2026-07-10T06:42:40.796Z"
         }
       },
       "contact-gap-worker": {
         "exists": true,
-        "updatedAt": "2026-07-10T06:32:26.114Z",
-        "ageMs": 16047,
+        "updatedAt": "2026-07-10T06:42:42.481Z",
+        "ageMs": 3726,
         "status": {
           "status": "running",
           "phase": "idle",
@@ -909,20 +1189,20 @@
             "hasRealContact": false,
             "at": "2026-07-10T06:18:41.435Z"
           },
-          "updatedAt": "2026-07-10T06:32:26.114Z"
+          "updatedAt": "2026-07-10T06:42:42.481Z"
         }
       },
       "lead-cleaner": {
         "exists": true,
-        "updatedAt": "2026-07-10T06:32:15.364Z",
-        "ageMs": 26798,
+        "updatedAt": "2026-07-10T06:41:17.102Z",
+        "ageMs": 89105,
         "status": {
           "status": "running",
           "phase": "waiting",
-          "cycle": 389,
+          "cycle": 395,
           "intervalMs": 90000,
           "limit": 1000,
-          "totalRemoved": 79,
+          "totalRemoved": 81,
           "errors": 0,
           "lastRun": {
             "ok": true,
@@ -935,13 +1215,13 @@
             "sample": [],
             "exported": null
           },
-          "updatedAt": "2026-07-10T06:32:15.364Z"
+          "updatedAt": "2026-07-10T06:41:17.102Z"
         }
       },
       "qualified-exporter": {
         "exists": true,
-        "updatedAt": "2026-07-10T06:31:18.299Z",
-        "ageMs": 83863,
+        "updatedAt": "2026-07-10T06:41:55.778Z",
+        "ageMs": 50429,
         "status": {
           "status": "running",
           "intervalMs": 90000,
@@ -964,56 +1244,56 @@
             "workingJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.json",
             "researchCsvPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.csv",
             "researchJsonPath": "C:\\Users\\steve\\bd-lead-engine\\autopilot-research-sources.json",
-            "exported": 38,
+            "exported": 36,
             "working": 59,
             "researchSources": 29,
-            "contactable": 38,
+            "contactable": 36,
             "hot": 25,
-            "social": 30,
-            "instagram": 3,
-            "linkedin": 26,
+            "social": 28,
+            "instagram": 2,
+            "linkedin": 25,
             "x": 0,
             "total": 140
           },
-          "updatedAt": "2026-07-10T06:31:18.299Z"
+          "updatedAt": "2026-07-10T06:41:55.778Z"
         }
       },
       "ui-snapshot-worker": {
         "exists": true,
-        "updatedAt": "2026-07-10T06:32:29.877Z",
-        "ageMs": 12285,
+        "updatedAt": "2026-07-10T06:42:44.437Z",
+        "ageMs": 1771,
         "status": {
           "ok": true,
-          "updatedAt": "2026-07-10T06:32:29.877Z",
+          "updatedAt": "2026-07-10T06:42:44.437Z",
           "total": 111,
           "rawTotal": 140,
           "rejectedTotal": 29,
-          "buildMs": 238,
+          "buildMs": 219,
           "qualityGate": "commercial-noise-policy-v3"
         }
       },
       "cloud-logger-worker": {
         "exists": true,
-        "updatedAt": "2026-07-10T06:22:41.375Z",
-        "ageMs": 600787,
+        "updatedAt": "2026-07-10T06:32:45.414Z",
+        "ageMs": 600794,
         "status": {
           "status": "running",
           "phase": "waiting",
           "intervalMs": 600000,
-          "cycles": 59,
+          "cycles": 60,
           "errors": 0,
           "lastResult": {
             "summary": {
-              "at": "2026-07-10T06:22:39.184Z",
+              "at": "2026-07-10T06:32:43.081Z",
               "ok": true,
               "raw": 140,
-              "qualified": 36,
+              "qualified": 38,
               "working": 59,
               "contactable": 45,
-              "salesReady": 9,
+              "salesReady": 8,
               "a1Hot": 18,
               "a2Strong": 7,
-              "platformContactLeaks": 0,
+              "platformContactLeaks": 1,
               "highValueNoContact": 27,
               "providerErrors": 18,
               "staleWorkers": [
@@ -1032,33 +1312,33 @@
               "salesReadyByBucket": {
                 "mql5": 5,
                 "web": 2,
-                "tiktok": 2
+                "tiktok": 1
               },
               "qualifiedByBucket": {
-                "linkedin": 25,
+                "linkedin": 26,
                 "mql5": 5,
+                "instagram": 3,
                 "tiktok": 2,
-                "web": 2,
-                "instagram": 2
+                "web": 2
               }
             },
             "git": {
               "ok": true,
               "committed": true,
               "pushed": true,
-              "commit": "[main 450e1f6] ops: update engine cloud report 2026-07-10T06:22:39.434Z\n 3 files changed, 294 insertions(+), 419 deletions(-)\n"
+              "commit": "[main 81d561c] ops: update engine cloud report 2026-07-10T06:32:43.393Z\n 3 files changed, 373 insertions(+), 487 deletions(-)\n"
             }
           },
-          "updatedAt": "2026-07-10T06:22:41.375Z"
+          "updatedAt": "2026-07-10T06:32:45.414Z"
         }
       },
       "supervisor": {
         "exists": true,
-        "updatedAt": "2026-07-10T06:31:52.167Z",
-        "ageMs": 49996,
+        "updatedAt": "2026-07-10T06:42:00.057Z",
+        "ageMs": 46151,
         "status": {
           "status": "running",
-          "cycle": 576,
+          "cycle": 586,
           "intervalMs": 60000,
           "ensured": [
             {
@@ -1068,12 +1348,12 @@
             },
             {
               "name": "source-harvester-social",
-              "pid": 22828,
+              "pid": 28404,
               "status": "running"
             },
             {
               "name": "source-harvester-specialist",
-              "pid": 23936,
+              "pid": 2824,
               "status": "running"
             },
             {
@@ -1083,17 +1363,17 @@
             },
             {
               "name": "source-harvester-linkedin",
-              "pid": 34340,
+              "pid": 17332,
               "status": "running"
             },
             {
               "name": "source-harvester-instagram",
               "pid": 24236,
-              "status": "started"
+              "status": "running"
             },
             {
               "name": "source-harvester-platforms",
-              "pid": 10184,
+              "pid": 23064,
               "status": "running"
             },
             {
@@ -1104,7 +1384,7 @@
             {
               "name": "source-harvester-events",
               "pid": 16544,
-              "status": "started"
+              "status": "running"
             },
             {
               "name": "enrichment-worker",
@@ -1147,7 +1427,7 @@
             "ok": true,
             "counts": {
               "raw": 140,
-              "qualified": 38,
+              "qualified": 36,
               "working": 59,
               "contactable": 45,
               "aLeads": 25,
@@ -1162,16 +1442,16 @@
               "contactless": 37,
               "neverDeep": 0,
               "eligible": 127,
-              "dueNow": 28,
+              "dueNow": 9,
               "rotationDue": 0,
-              "enrichedLastHour": 48,
+              "enrichedLastHour": 93,
               "enrichedLast24h": 128,
-              "oldestDeepAgeHours": 163,
+              "oldestDeepAgeHours": 163.2,
               "running": 0
             },
             "issues": []
           },
-          "updatedAt": "2026-07-10T06:31:52.167Z"
+          "updatedAt": "2026-07-10T06:42:00.057Z"
         }
       }
     },
@@ -1179,58 +1459,58 @@
       "autopilot-qualified-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.csv",
-        "size": 108561,
-        "updatedAt": "2026-07-10T06:31:18.073Z",
-        "ageMs": 84089.62841796875
+        "size": 106123,
+        "updatedAt": "2026-07-10T06:41:55.598Z",
+        "ageMs": 50609.69189453125
       },
       "autopilot-qualified-contactable-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.csv",
-        "size": 108561,
-        "updatedAt": "2026-07-10T06:31:18.122Z",
-        "ageMs": 84040.6259765625
+        "size": 106123,
+        "updatedAt": "2026-07-10T06:41:55.636Z",
+        "ageMs": 50571.68896484375
       },
       "autopilot-hot-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.csv",
         "size": 76900,
-        "updatedAt": "2026-07-10T06:31:18.155Z",
-        "ageMs": 84008.12133789062
+        "updatedAt": "2026-07-10T06:41:55.667Z",
+        "ageMs": 50541.181396484375
       },
       "autopilot-working-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
-        "size": 152676,
-        "updatedAt": "2026-07-10T06:32:39.190Z",
-        "ageMs": 2972.86767578125
+        "size": 154071,
+        "updatedAt": "2026-07-10T06:42:31.192Z",
+        "ageMs": 15016.485107421875
       },
       "autopilot-social-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
-        "size": 67814,
-        "updatedAt": "2026-07-10T06:32:39.117Z",
-        "ageMs": 3045.8720703125
+        "size": 65376,
+        "updatedAt": "2026-07-10T06:42:31.137Z",
+        "ageMs": 15070.998046875
       },
       "autopilot-linkedin-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
-        "size": 62183,
-        "updatedAt": "2026-07-10T06:32:39.128Z",
-        "ageMs": 3034.87353515625
+        "size": 60832,
+        "updatedAt": "2026-07-10T06:42:31.150Z",
+        "ageMs": 15057.99462890625
       },
       "autopilot-instagram-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
-        "size": 4029,
-        "updatedAt": "2026-07-10T06:32:39.121Z",
-        "ageMs": 3041.871826171875
+        "size": 2942,
+        "updatedAt": "2026-07-10T06:42:31.140Z",
+        "ageMs": 15068.994384765625
       },
       "autopilot-x-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
         "size": 482,
-        "updatedAt": "2026-07-10T06:32:39.132Z",
-        "ageMs": 3030.872314453125
+        "updatedAt": "2026-07-10T06:42:31.152Z",
+        "ageMs": 15056.9931640625
       }
     },
     "issues": []
@@ -1238,8 +1518,8 @@
   "quality": {
     "totals": {
       "raw": 140,
-      "exportQualified": 40,
-      "qualified": 38,
+      "exportQualified": 38,
+      "qualified": 36,
       "working": 59,
       "realDecisionContacts": 88,
       "salesReady": 8,
@@ -1265,11 +1545,11 @@
       "forum": 1
     },
     "qualifiedByBucket": {
-      "linkedin": 26,
+      "linkedin": 25,
       "mql5": 5,
-      "instagram": 3,
       "tiktok": 2,
-      "web": 2
+      "web": 2,
+      "instagram": 2
     },
     "workingByBucket": {
       "linkedin": 29,
@@ -1478,23 +1758,23 @@
       "status": "running",
       "phase": "waiting",
       "age": "10m",
-      "ageMs": 600795,
+      "ageMs": 600801,
       "cycle": null,
       "pid": null,
       "message": "",
       "current": null,
       "lastResult": {
         "summary": {
-          "at": "2026-07-10T06:22:39.184Z",
+          "at": "2026-07-10T06:32:43.081Z",
           "ok": true,
           "raw": 140,
-          "qualified": 36,
+          "qualified": 38,
           "working": 59,
           "contactable": 45,
-          "salesReady": 9,
+          "salesReady": 8,
           "a1Hot": 18,
           "a2Strong": 7,
-          "platformContactLeaks": 0,
+          "platformContactLeaks": 1,
           "highValueNoContact": 27,
           "providerErrors": 18,
           "staleWorkers": [
@@ -1513,21 +1793,21 @@
           "salesReadyByBucket": {
             "mql5": 5,
             "web": 2,
-            "tiktok": 2
+            "tiktok": 1
           },
           "qualifiedByBucket": {
-            "linkedin": 25,
+            "linkedin": 26,
             "mql5": 5,
+            "instagram": 3,
             "tiktok": 2,
-            "web": 2,
-            "instagram": 2
+            "web": 2
           }
         },
         "git": {
           "ok": true,
           "committed": true,
           "pushed": true,
-          "commit": "[main 450e1f6] ops: update engine cloud report 2026-07-10T06:22:39.434Z\n 3 files changed, 294 insertions(+), 419 deletions(-)\n"
+          "commit": "[main 81d561c] ops: update engine cloud report 2026-07-10T06:32:43.393Z\n 3 files changed, 373 insertions(+), 487 deletions(-)\n"
         }
       },
       "counts": {
@@ -1551,8 +1831,8 @@
       "name": "contact-gap-worker",
       "status": "running",
       "phase": "idle",
-      "age": "16s",
-      "ageMs": 16056,
+      "age": "4s",
+      "ageMs": 3734,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -1589,8 +1869,8 @@
       "name": "engine-control",
       "status": "done",
       "phase": "done",
-      "age": "13.4h",
-      "ageMs": 48389872,
+      "age": "13.6h",
+      "ageMs": 48993917,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -1617,16 +1897,16 @@
       "name": "enrichment-worker",
       "status": "running",
       "phase": "enriching",
-      "age": "4s",
-      "ageMs": 3856,
+      "age": "10s",
+      "ageMs": 10033,
       "cycle": null,
       "pid": null,
       "message": "",
       "current": {
-        "id": "5f3f5edccdf52fde",
-        "name": "Introductory",
-        "url": "https://uk.linkedin.com/in/fx-introductory-525932234",
-        "platform": "LinkedIn",
+        "id": "1d7760a53cec1e38",
+        "name": "CFDs",
+        "url": "http://hub.deriv.com/",
+        "platform": "Web",
         "dueReason": "contactless_due"
       },
       "lastResult": null,
@@ -1642,7 +1922,7 @@
         "contactable": null,
         "hot": null,
         "totalRemoved": null,
-        "processed": 720,
+        "processed": 763,
         "stored": null,
         "errors": 0
       }
@@ -1651,9 +1931,9 @@
       "name": "lead-cleaner",
       "status": "running",
       "phase": "waiting",
-      "age": "27s",
-      "ageMs": 26807,
-      "cycle": 389,
+      "age": "1m",
+      "ageMs": 89114,
+      "cycle": 395,
       "pid": null,
       "message": "",
       "current": null,
@@ -1669,7 +1949,7 @@
         "working": null,
         "contactable": null,
         "hot": null,
-        "totalRemoved": 79,
+        "totalRemoved": 81,
         "processed": null,
         "stored": null,
         "errors": 0
@@ -1679,8 +1959,8 @@
       "name": "qualified-exporter",
       "status": "running",
       "phase": "n/a",
-      "age": "1m",
-      "ageMs": 83872,
+      "age": "50s",
+      "ageMs": 50438,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -1693,9 +1973,9 @@
         "duplicates": 0,
         "providerErrors": 0,
         "total": 140,
-        "exported": 38,
+        "exported": 36,
         "working": 59,
-        "contactable": 38,
+        "contactable": 36,
         "hot": 25,
         "totalRemoved": null,
         "processed": null,
@@ -1707,8 +1987,8 @@
       "name": "smart-enrichment-worker",
       "status": "running",
       "phase": "idle",
-      "age": "13s",
-      "ageMs": 13472,
+      "age": "5s",
+      "ageMs": 5420,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -1746,19 +2026,19 @@
       "name": "source-harvester",
       "status": "running",
       "phase": "scan",
-      "age": "11m",
-      "ageMs": 658154,
+      "age": "9m",
+      "ageMs": 516444,
       "cycle": 1,
       "pid": null,
-      "message": "Starting quality discovery with 120 queries",
+      "message": "Saved qualified lead: company murenamobile",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 0,
+        "raw": 45,
         "saved": 0,
-        "discarded": 0,
-        "duplicates": 0,
-        "providerErrors": 0,
+        "discarded": 15,
+        "duplicates": 29,
+        "providerErrors": 27,
         "total": 0,
         "exported": 0,
         "working": null,
@@ -1774,8 +2054,8 @@
       "name": "source-harvester-communities",
       "status": "running",
       "phase": "scan",
-      "age": "4m",
-      "ageMs": 233006,
+      "age": "14m",
+      "ageMs": 837051,
       "cycle": 1,
       "pid": null,
       "message": "Starting quality discovery with 116 queries",
@@ -1802,19 +2082,19 @@
       "name": "source-harvester-ecosystem",
       "status": "running",
       "phase": "scan",
-      "age": "6m",
-      "ageMs": 354341,
+      "age": "8m",
+      "ageMs": 480157,
       "cycle": 1,
       "pid": null,
-      "message": "Starting quality discovery with 90 queries",
+      "message": "Saved qualified lead: company murenamobile",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 0,
+        "raw": 24,
         "saved": 0,
-        "discarded": 0,
-        "duplicates": 0,
-        "providerErrors": 0,
+        "discarded": 22,
+        "duplicates": 1,
+        "providerErrors": 18,
         "total": 0,
         "exported": 0,
         "working": null,
@@ -1830,8 +2110,8 @@
       "name": "source-harvester-events",
       "status": "running",
       "phase": "scan",
-      "age": "50s",
-      "ageMs": 50161,
+      "age": "11m",
+      "ageMs": 654206,
       "cycle": 1,
       "pid": null,
       "message": "Starting quality discovery with 120 queries",
@@ -1858,18 +2138,18 @@
       "name": "source-harvester-instagram",
       "status": "running",
       "phase": "scan",
-      "age": "50s",
-      "ageMs": 50160,
+      "age": "9m",
+      "ageMs": 544900,
       "cycle": 1,
       "pid": null,
-      "message": "Starting quality discovery with 45 queries",
+      "message": "Saved qualified lead: reel DF0ScImI Tf",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 0,
-        "saved": 0,
-        "discarded": 0,
-        "duplicates": 0,
+        "raw": 12,
+        "saved": 2,
+        "discarded": 3,
+        "duplicates": 5,
         "providerErrors": 0,
         "total": 0,
         "exported": 0,
@@ -1886,8 +2166,8 @@
       "name": "source-harvester-linkedin",
       "status": "running",
       "phase": "scan",
-      "age": "13m",
-      "ageMs": 779127,
+      "age": "8m",
+      "ageMs": 472095,
       "cycle": 1,
       "pid": null,
       "message": "Starting quality discovery with 180 queries",
@@ -1914,8 +2194,8 @@
       "name": "source-harvester-platforms",
       "status": "running",
       "phase": "scan",
-      "age": "10m",
-      "ageMs": 597515,
+      "age": "5m",
+      "ageMs": 289364,
       "cycle": 1,
       "pid": null,
       "message": "Starting quality discovery with 47 queries",
@@ -1942,8 +2222,8 @@
       "name": "source-harvester-social",
       "status": "running",
       "phase": "scan",
-      "age": "13m",
-      "ageMs": 779127,
+      "age": "8m",
+      "ageMs": 472104,
       "cycle": 1,
       "pid": null,
       "message": "Starting quality discovery with 120 queries",
@@ -1970,19 +2250,19 @@
       "name": "source-harvester-specialist",
       "status": "running",
       "phase": "scan",
-      "age": "10m",
-      "ageMs": 583459,
+      "age": "4m",
+      "ageMs": 228822,
       "cycle": 1,
       "pid": null,
-      "message": "Saved qualified lead: company murenamobile",
+      "message": "Starting quality discovery with 120 queries",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 6,
+        "raw": 0,
         "saved": 0,
-        "discarded": 4,
-        "duplicates": 1,
-        "providerErrors": 18,
+        "discarded": 0,
+        "duplicates": 0,
+        "providerErrors": 0,
         "total": 0,
         "exported": 0,
         "working": null,
@@ -1998,9 +2278,9 @@
       "name": "supervisor",
       "status": "running",
       "phase": "n/a",
-      "age": "50s",
-      "ageMs": 50007,
-      "cycle": 576,
+      "age": "46s",
+      "ageMs": 46162,
+      "cycle": 586,
       "pid": null,
       "message": "",
       "current": null,
@@ -2026,8 +2306,8 @@
       "name": "ui-snapshot-worker",
       "status": "unknown",
       "phase": "n/a",
-      "age": "12s",
-      "ageMs": 12297,
+      "age": "2s",
+      "ageMs": 1782,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -2055,58 +2335,58 @@
     "autopilot-qualified-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.csv",
-      "size": 108561,
-      "updatedAt": "2026-07-10T06:31:18.073Z",
-      "ageMs": 84089.62841796875
+      "size": 106123,
+      "updatedAt": "2026-07-10T06:41:55.598Z",
+      "ageMs": 50609.69189453125
     },
     "autopilot-qualified-contactable-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.csv",
-      "size": 108561,
-      "updatedAt": "2026-07-10T06:31:18.122Z",
-      "ageMs": 84040.6259765625
+      "size": 106123,
+      "updatedAt": "2026-07-10T06:41:55.636Z",
+      "ageMs": 50571.68896484375
     },
     "autopilot-hot-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.csv",
       "size": 76900,
-      "updatedAt": "2026-07-10T06:31:18.155Z",
-      "ageMs": 84008.12133789062
+      "updatedAt": "2026-07-10T06:41:55.667Z",
+      "ageMs": 50541.181396484375
     },
     "autopilot-working-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
-      "size": 152676,
-      "updatedAt": "2026-07-10T06:32:39.190Z",
-      "ageMs": 2972.86767578125
+      "size": 154071,
+      "updatedAt": "2026-07-10T06:42:31.192Z",
+      "ageMs": 15016.485107421875
     },
     "autopilot-social-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
-      "size": 67814,
-      "updatedAt": "2026-07-10T06:32:39.117Z",
-      "ageMs": 3045.8720703125
+      "size": 65376,
+      "updatedAt": "2026-07-10T06:42:31.137Z",
+      "ageMs": 15070.998046875
     },
     "autopilot-linkedin-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
-      "size": 62183,
-      "updatedAt": "2026-07-10T06:32:39.128Z",
-      "ageMs": 3034.87353515625
+      "size": 60832,
+      "updatedAt": "2026-07-10T06:42:31.150Z",
+      "ageMs": 15057.99462890625
     },
     "autopilot-instagram-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
-      "size": 4029,
-      "updatedAt": "2026-07-10T06:32:39.121Z",
-      "ageMs": 3041.871826171875
+      "size": 2942,
+      "updatedAt": "2026-07-10T06:42:31.140Z",
+      "ageMs": 15068.994384765625
     },
     "autopilot-x-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
       "size": 482,
-      "updatedAt": "2026-07-10T06:32:39.132Z",
-      "ageMs": 3030.872314453125
+      "updatedAt": "2026-07-10T06:42:31.152Z",
+      "ageMs": 15056.9931640625
     }
   },
   "recentRuns": [
@@ -3281,6 +3561,17 @@
   ],
   "pruneHistory": [
     {
+      "at": "2026-07-10T06:33:45.469Z",
+      "reason": "lead-cleaner",
+      "removed": 2,
+      "before": 142,
+      "after": 140,
+      "byReason": {
+        "generic_platform_page": 2
+      },
+      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-10T06-33-45-468Z.json"
+    },
+    {
       "at": "2026-07-10T06:17:13.516Z",
       "reason": "lead-cleaner",
       "removed": 2,
@@ -3325,17 +3616,6 @@
         "generic_platform_page": 1
       },
       "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-10T05-54-38-569Z.json"
-    },
-    {
-      "at": "2026-07-10T05:42:36.951Z",
-      "reason": "lead-cleaner",
-      "removed": 2,
-      "before": 142,
-      "after": 140,
-      "byReason": {
-        "generic_platform_page": 2
-      },
-      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-10T05-42-36-949Z.json"
     }
   ],
   "cleanupHistory": [
@@ -3424,8 +3704,8 @@
         "[source-harvester cycle 1] Starting quality discovery with 120 queries",
         "[source-harvester cycle 1] Starting quality discovery with 120 queries",
         "[source-harvester cycle 1] Starting quality discovery with 120 queries",
-        "[source-harvester cycle 1] Starting quality discovery with 120 queries",
-        "[source-harvester cycle 1] Starting quality discovery with 120 queries"
+        "[source-harvester cycle 1] Saved qualified lead: company murenamobile",
+        "[source-harvester cycle 1] Saved qualified lead: lilo org"
       ],
       "err": []
     },
@@ -3444,27 +3724,27 @@
     },
     "source-harvester-specialist": {
       "out": [
-        "[source-harvester-specialist cycle 1] Saved qualified lead: lilo org",
         "[source-harvester-specialist cycle 1] Saved qualified lead: company murenamobile",
         "[source-harvester-specialist cycle 1] Starting quality discovery with 120 queries",
         "[source-harvester-specialist cycle 1] Saved qualified lead: company murenamobile",
         "[source-harvester-specialist cycle 1] Saved qualified lead: lilo org",
         "[source-harvester-specialist cycle 1] Starting quality discovery with 120 queries",
         "[source-harvester-specialist cycle 1] Saved qualified lead: company murenamobile",
-        "[source-harvester-specialist cycle 1] Saved qualified lead: lilo org"
+        "[source-harvester-specialist cycle 1] Saved qualified lead: lilo org",
+        "[source-harvester-specialist cycle 1] Starting quality discovery with 120 queries"
       ],
       "err": []
     },
     "source-harvester-ecosystem": {
       "out": [
-        "[source-harvester-ecosystem cycle 1] Saved qualified lead: NVDA Stock Price Prediction 2026 2031 AI Forecast",
-        "[source-harvester-ecosystem cycle 1] Starting quality discovery with 90 queries",
         "[source-harvester-ecosystem cycle 1] Saved qualified lead: company murenamobile",
         "[source-harvester-ecosystem cycle 1] Saved qualified lead: lilo org",
         "[source-harvester-ecosystem cycle 1] Starting quality discovery with 90 queries",
         "[source-harvester-ecosystem cycle 1] Saved qualified lead: company murenamobile",
         "[source-harvester-ecosystem cycle 1] Saved qualified lead: lilo org",
-        "[source-harvester-ecosystem cycle 1] Starting quality discovery with 90 queries"
+        "[source-harvester-ecosystem cycle 1] Starting quality discovery with 90 queries",
+        "[source-harvester-ecosystem cycle 1] Saved qualified lead: company murenamobile",
+        "[source-harvester-ecosystem cycle 1] Saved qualified lead: lilo org"
       ],
       "err": []
     },
@@ -3483,14 +3763,14 @@
     },
     "source-harvester-instagram": {
       "out": [
+        "[source-harvester-instagram cycle 1] Saved qualified lead: Instagram",
         "[source-harvester-instagram cycle 1] Saved qualified lead: Instagram photos and videos",
         "[source-harvester-instagram cycle 1] Saved qualified lead: reel DAlCzlgRTQe",
         "[source-harvester-instagram cycle 1] Saved qualified lead: Forex Trader",
         "[source-harvester-instagram cycle 1] Saved qualified lead: GWATAVRI'S FOREX EXP",
         "[source-harvester-instagram cycle 1] Saved qualified lead: reel DF0ScImI Tf",
         "[source-harvester-instagram cycle 1] Saved qualified lead: Instagram",
-        "[source-harvester-instagram cycle 1] Saved qualified lead: Abdullah Ghafoor",
-        "[source-harvester-instagram cycle 1] Starting quality discovery with 45 queries"
+        "[source-harvester-instagram cycle 1] Saved qualified lead: Abdullah Ghafoor"
       ],
       "err": []
     },
@@ -3535,14 +3815,14 @@
     },
     "enrichment-worker": {
       "out": [
-        "[enrichment-worker] stored contactless_due 1f55a5b242cb42ae vikopo our recommendOur recommend broker for forex; emails=0; links=0; makers=0; best=https://www.linkedin.com/posts/vikopo_our-recommend-broker-forex-forextrading-activity-7145695697076453376-xoc0",
-        "[enrichment-worker] stored contactless_due d02cc2930e643b95 Shinde; emails=0; links=0; makers=0; best=https://in.linkedin.com/in/atul-shinde-9753461a",
-        "[enrichment-worker] stored contactless_due f3b555a49f98a8a1 Globex Forex Broker; emails=0; links=0; makers=0; best=https://www.linkedin.com/in/globex-forex-broker-15116517b/",
-        "[enrichment-worker] stored contactless_due 170a01ab8f4d7a85 uptrader forex crm forChoosing the Forex CRM for Your Business Model; emails=0; links=0; makers=0; best=https://www.linkedin.com/posts/uptrader_forex-crm-for-different-business-models-activity-7472557053270614016-1Mor",
-        "[enrichment-worker] stored contactless_due 98302ee40a9755f1 Forex CRM & Solutions; emails=0; links=0; makers=0; best=https://www.linkedin.com/company/uptrader",
-        "[enrichment-worker] stored contactless_due c4978337d577b16a Sakshi Mishra; emails=0; links=0; makers=0; best=https://in.linkedin.com/in/sakshi-mishra-23b4b2373",
-        "[enrichment-worker] stored contactless_due fa6fcbe800c644d2 SYED RAFI; emails=0; links=0; makers=0; best=https://www.linkedin.com/in/bridgingforex/",
-        "[enrichment-worker] stored contactless_due 5f3f5edccdf52fde Introductory; emails=0; links=0; makers=0; best=https://uk.linkedin.com/in/fx-introductory-525932234"
+        "[enrichment-worker] stored contactless_due 81268c4e781bb0bd makeinforex › videos#forex Trust me….. #motivation | Makein Forex - Facebook; emails=0; links=0; makers=0; best=-",
+        "[enrichment-worker] stored contactless_due 4a82217c9908f74e Manager Forex Trading System by Forex Trader thierrybl - Myfxbook.com; emails=0; links=0; makers=0; best=-",
+        "[enrichment-worker] stored contactless_due 1e4f41cb458ed32a luis barata forex trader videoEstados Unidos na o pausam tarifas a China; emails=0; links=0; makers=0; best=-",
+        "[enrichment-worker] stored contactless_due c48332de9826e704 ricogotmotion videoSpend a Day with Forex Trader Rico South Africa; emails=0; links=0; makers=0; best=-",
+        "[enrichment-worker] stored contactless_due 72ce797bd0b52be0 ricogotwav videoDay in the Life South African Forex Trader Rico; emails=0; links=0; makers=0; best=-",
+        "[enrichment-worker] stored contactless_due 7b145d6e96fd9852 Access Financial and Start; emails=0; links=0; makers=0; best=-",
+        "[enrichment-worker] stored contactless_due 27c702d583cf2f29 video Forex ForexTrader ForexEducation PriceAction ...; emails=0; links=0; makers=0; best=-",
+        "[enrichment-worker] stored contactless_due 182b4aacc2690cce us30 heavens videoYoung FX Trader Making Waves in the Forex Industry; emails=0; links=0; makers=0; best=-"
       ],
       "err": []
     },
@@ -3556,27 +3836,27 @@
     },
     "lead-cleaner": {
       "out": [
-        "[lead-cleaner] 2026-07-10T05:08:02.987Z removed=2 totalRemoved=67",
         "[lead-cleaner] 2026-07-10T05:24:35.036Z removed=1 totalRemoved=68",
         "[lead-cleaner] 2026-07-10T05:26:05.995Z removed=1 totalRemoved=69",
         "[lead-cleaner] 2026-07-10T05:42:37.823Z removed=2 totalRemoved=71",
         "[lead-cleaner] 2026-07-10T05:54:39.785Z removed=2 totalRemoved=73",
         "[lead-cleaner] 2026-07-10T05:56:11.081Z removed=1 totalRemoved=74",
         "[lead-cleaner] 2026-07-10T05:59:12.362Z removed=3 totalRemoved=77",
-        "[lead-cleaner] 2026-07-10T06:17:14.390Z removed=2 totalRemoved=79"
+        "[lead-cleaner] 2026-07-10T06:17:14.390Z removed=2 totalRemoved=79",
+        "[lead-cleaner] 2026-07-10T06:33:46.594Z removed=2 totalRemoved=81"
       ],
       "err": []
     },
     "qualified-exporter": {
       "out": [
-        "[qualified-exporter] 2026-07-10T06:20:41.226Z total=140 qualified=36 contactable=36 hot=25 social=28 instagram=2 linkedin=25 x=0",
-        "[qualified-exporter] 2026-07-10T06:22:12.125Z total=140 qualified=36 contactable=36 hot=25 social=28 instagram=2 linkedin=25 x=0",
-        "[qualified-exporter] 2026-07-10T06:23:43.052Z total=140 qualified=38 contactable=38 hot=25 social=30 instagram=3 linkedin=26 x=0",
-        "[qualified-exporter] 2026-07-10T06:25:14.032Z total=140 qualified=38 contactable=38 hot=25 social=30 instagram=3 linkedin=26 x=0",
-        "[qualified-exporter] 2026-07-10T06:26:45.152Z total=140 qualified=38 contactable=38 hot=25 social=30 instagram=3 linkedin=26 x=0",
-        "[qualified-exporter] 2026-07-10T06:28:16.197Z total=140 qualified=38 contactable=38 hot=25 social=30 instagram=3 linkedin=26 x=0",
-        "[qualified-exporter] 2026-07-10T06:29:47.288Z total=140 qualified=38 contactable=38 hot=25 social=30 instagram=3 linkedin=26 x=0",
-        "[qualified-exporter] 2026-07-10T06:31:18.298Z total=140 qualified=38 contactable=38 hot=25 social=30 instagram=3 linkedin=26 x=0"
+        "[qualified-exporter] 2026-07-10T06:31:18.298Z total=140 qualified=38 contactable=38 hot=25 social=30 instagram=3 linkedin=26 x=0",
+        "[qualified-exporter] 2026-07-10T06:32:49.331Z total=140 qualified=38 contactable=38 hot=25 social=30 instagram=3 linkedin=26 x=0",
+        "[qualified-exporter] 2026-07-10T06:34:20.502Z total=140 qualified=37 contactable=37 hot=26 social=29 instagram=2 linkedin=26 x=0",
+        "[qualified-exporter] 2026-07-10T06:35:51.534Z total=140 qualified=36 contactable=36 hot=25 social=28 instagram=2 linkedin=25 x=0",
+        "[qualified-exporter] 2026-07-10T06:37:22.649Z total=140 qualified=36 contactable=36 hot=25 social=28 instagram=2 linkedin=25 x=0",
+        "[qualified-exporter] 2026-07-10T06:38:53.772Z total=140 qualified=36 contactable=36 hot=25 social=28 instagram=2 linkedin=25 x=0",
+        "[qualified-exporter] 2026-07-10T06:40:24.970Z total=140 qualified=36 contactable=36 hot=25 social=28 instagram=2 linkedin=25 x=0",
+        "[qualified-exporter] 2026-07-10T06:41:55.778Z total=140 qualified=36 contactable=36 hot=25 social=28 instagram=2 linkedin=25 x=0"
       ],
       "err": [
         "[qualified-exporter] 2026-07-05T22:54:39.472Z SyntaxError: Unterminated string in JSON at position 521902 (line 9214 column 21)",
@@ -3589,14 +3869,14 @@
     },
     "ui-snapshot-worker": {
       "out": [
-        "[ui-snapshot] ok total=111 rejected=29 buildMs=242",
-        "[ui-snapshot] ok total=111 rejected=29 buildMs=320",
-        "[ui-snapshot] ok total=111 rejected=29 buildMs=237",
-        "[ui-snapshot] ok total=111 rejected=29 buildMs=314",
-        "[ui-snapshot] ok total=111 rejected=29 buildMs=222",
-        "[ui-snapshot] ok total=111 rejected=29 buildMs=266",
-        "[ui-snapshot] ok total=111 rejected=29 buildMs=238",
-        "[ui-snapshot] ok total=111 rejected=29 buildMs=266"
+        "[ui-snapshot] ok total=111 rejected=29 buildMs=225",
+        "[ui-snapshot] ok total=111 rejected=29 buildMs=230",
+        "[ui-snapshot] ok total=111 rejected=29 buildMs=209",
+        "[ui-snapshot] ok total=111 rejected=29 buildMs=211",
+        "[ui-snapshot] ok total=111 rejected=29 buildMs=206",
+        "[ui-snapshot] ok total=111 rejected=29 buildMs=205",
+        "[ui-snapshot] ok total=111 rejected=29 buildMs=208",
+        "[ui-snapshot] ok total=111 rejected=29 buildMs=219"
       ],
       "err": [
         "[ui-snapshot] Error: EPERM: operation not permitted, rename 'C:\\Users\\steve\\bd-lead-engine\\public\\ui-dashboard.json.31880.1783310997093.tmp' -> 'C:\\Users\\steve\\bd-lead-engine\\public\\ui-dashboard.json'",
@@ -3612,14 +3892,14 @@
     },
     "supervisor": {
       "out": [
-        "[supervisor] 2026-07-10T06:24:46.504Z cycle=569 ok=true raw=140 working=59 a=25",
-        "[supervisor] 2026-07-10T06:25:47.196Z cycle=570 ok=true raw=140 working=59 a=25",
-        "[supervisor] 2026-07-10T06:26:48.042Z cycle=571 ok=true raw=140 working=59 a=25",
-        "[supervisor] 2026-07-10T06:27:48.907Z cycle=572 ok=true raw=140 working=59 a=25",
-        "[supervisor] 2026-07-10T06:28:49.776Z cycle=573 ok=true raw=140 working=59 a=25",
-        "[supervisor] 2026-07-10T06:29:50.440Z cycle=574 ok=true raw=140 working=59 a=25",
-        "[supervisor] 2026-07-10T06:30:51.293Z cycle=575 ok=true raw=140 working=59 a=25",
-        "[supervisor] 2026-07-10T06:31:52.168Z cycle=576 ok=true raw=140 working=59 a=25"
+        "[supervisor] 2026-07-10T06:34:54.607Z cycle=579 ok=true raw=140 working=59 a=25",
+        "[supervisor] 2026-07-10T06:35:55.451Z cycle=580 ok=true raw=140 working=59 a=25",
+        "[supervisor] 2026-07-10T06:36:56.273Z cycle=581 ok=true raw=140 working=59 a=25",
+        "[supervisor] 2026-07-10T06:37:57.097Z cycle=582 ok=true raw=140 working=59 a=25",
+        "[supervisor] 2026-07-10T06:38:57.897Z cycle=583 ok=true raw=140 working=59 a=25",
+        "[supervisor] 2026-07-10T06:39:58.615Z cycle=584 ok=true raw=140 working=59 a=25",
+        "[supervisor] 2026-07-10T06:40:59.472Z cycle=585 ok=true raw=140 working=59 a=25",
+        "[supervisor] 2026-07-10T06:42:00.057Z cycle=586 ok=true raw=140 working=59 a=25"
       ],
       "err": []
     },
