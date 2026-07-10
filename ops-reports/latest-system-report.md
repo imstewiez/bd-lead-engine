@@ -1,35 +1,35 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-10T16:15:29.029Z
+Updated: 2026-07-10T16:25:33.922Z
 Health: OK
 
 ## Funnel
 Raw: 170
 Qualified: 41
-Working: 71
-Contactable: 53
+Working: 72
+Contactable: 54
 Sales-ready: 13
 A1 Hot: 19
-A2 Strong: 12
+A2 Strong: 10
 
 ## Quality
 Platform contact leaks: 0
-High-value without real contact: 39
+High-value without real contact: 40
 Sales-ready by bucket: {"mql5":7,"web":2,"x":2,"tiktok":2}
 Qualified by bucket: {"linkedin":25,"mql5":7,"x":3,"tiktok":2,"web":2,"instagram":2}
 
 ## Sourcing / Workers
-Provider errors: 28
+Provider errors: 15
 Stale workers: engine-control
 Issues: none
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 74
-Stored: 74
+Processed: 77
+Stored: 77
 Errors: 0
-Current: thierryblForex Manager Forex Trading System by Forex Trader thierrybl
-Last: Forex Manager Forex Trading System by Forex Trader upravliaychiy
+Current: Myfxbook
+Last: manager_mgmforexMGMFOREX-BTC Forex Trading System by Forex Trader manager ...
 
 ## Recent Errors
 ### qualified-exporter
