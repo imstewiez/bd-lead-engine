@@ -1,11 +1,11 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-11T01:50:07.327Z
+Updated: 2026-07-11T02:00:11.733Z
 Health: OK
 
 ## Funnel
 Raw: 173
-Qualified: 45
+Qualified: 46
 Working: 73
 Contactable: 56
 Sales-ready: 14
@@ -16,7 +16,7 @@ A2 Strong: 12
 Platform contact leaks: 1
 High-value without real contact: 42
 Sales-ready by bucket: {"mql5":7,"web":2,"x":2,"tiktok":2,"instagram":1}
-Qualified by bucket: {"linkedin":25,"mql5":8,"instagram":4,"x":3,"tiktok":2,"web":2,"telegram":1}
+Qualified by bucket: {"linkedin":26,"mql5":8,"instagram":4,"x":3,"tiktok":2,"web":2,"telegram":1}
 
 ## Sourcing / Workers
 Provider errors: 45
@@ -24,12 +24,11 @@ Stale workers: engine-control
 Issues: none
 
 ## Smart Enrichment
-Phase: smart-enriching
-Processed: 130
-Stored: 129
+Phase: idle
+Processed: 134
+Stored: 133
 Errors: 0
-Current: Piggy Bank Forex Trading System by Forex Trader ForexManagerDBA
-Last: Stanislav Tomilov - stanislav110685 - Trader's profile
+Last: Forex Manager Forex Trading System by Forex Trader thierrybl
 
 ## Recent Errors
 ### qualified-exporter
