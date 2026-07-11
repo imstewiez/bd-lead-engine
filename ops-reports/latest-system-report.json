@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "generatedAt": "2026-07-11T03:40:56.136Z",
+  "generatedAt": "2026-07-11T18:58:45.856Z",
   "summary": {
     "ok": true,
     "rawLeads": 173,
@@ -19,24 +19,37 @@
     "websiteOnlyContacts": 0,
     "duplicateLike": 12,
     "uniqueKeys": 161,
-    "enrichmentDueNow": 4,
-    "enrichedLastHour": 103,
+    "enrichmentDueNow": 157,
+    "enrichedLastHour": 2,
     "enrichedLast24h": 161,
     "harvesters": 9,
-    "harvesterRawSeen": 50,
+    "harvesterRawSeen": 0,
     "harvesterSavedThisCycle": 0,
-    "providerErrors": 27,
+    "providerErrors": 0,
     "providerErrorsPerSaved": null,
     "salesReadyYield": 0.075,
-    "salesReadyPerProviderError": 0.481,
+    "salesReadyPerProviderError": null,
     "staleWorkers": [
+      "cloud-logger-worker",
+      "contact-gap-worker",
       "engine-control"
     ],
-    "issues": []
+    "issues": [
+      {
+        "severity": "warning",
+        "code": "contact-gap-worker_stale_status",
+        "message": "contact-gap-worker status is stale."
+      },
+      {
+        "severity": "warning",
+        "code": "cloud-logger-worker_stale_status",
+        "message": "cloud-logger-worker status is stale."
+      }
+    ]
   },
   "health": {
     "ok": true,
-    "updatedAt": "2026-07-11T03:40:54.923Z",
+    "updatedAt": "2026-07-11T18:58:43.583Z",
     "counts": {
       "raw": 173,
       "qualified": 43,
@@ -58,48 +71,48 @@
       "contactless": 50,
       "neverDeep": 0,
       "eligible": 159,
-      "dueNow": 4,
-      "rotationDue": 0,
-      "enrichedLastHour": 103,
+      "dueNow": 157,
+      "rotationDue": 108,
+      "enrichedLastHour": 2,
       "enrichedLast24h": 161,
-      "oldestDeepAgeHours": 184.2,
+      "oldestDeepAgeHours": 199.5,
       "running": 1
     },
     "tasks": {
       "source-harvester": {
-        "pid": 11564,
+        "pid": 3392,
         "running": true
       },
       "source-harvester-social": {
-        "pid": 6252,
+        "pid": 14056,
         "running": true
       },
       "source-harvester-specialist": {
-        "pid": 19416,
+        "pid": 37636,
         "running": true
       },
       "source-harvester-ecosystem": {
-        "pid": 36572,
+        "pid": 26316,
         "running": true
       },
       "source-harvester-linkedin": {
-        "pid": 34544,
+        "pid": 31772,
         "running": true
       },
       "source-harvester-instagram": {
-        "pid": 21980,
+        "pid": 37024,
         "running": true
       },
       "source-harvester-platforms": {
-        "pid": 33060,
+        "pid": 23856,
         "running": true
       },
       "source-harvester-communities": {
-        "pid": 14252,
+        "pid": 4024,
         "running": true
       },
       "source-harvester-events": {
-        "pid": 18676,
+        "pid": 31160,
         "running": true
       },
       "enrichment-worker": {
@@ -138,8 +151,8 @@
     "statuses": {
       "source-harvester": {
         "exists": true,
-        "updatedAt": "2026-07-11T03:34:48.420Z",
-        "ageMs": 366499,
+        "updatedAt": "2026-07-11T18:58:39.549Z",
+        "ageMs": 4025,
         "status": {
           "status": "running",
           "workerName": "source-harvester",
@@ -177,150 +190,11 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-11T03:34:48.419Z",
+          "heartbeatAt": "2026-07-11T18:58:39.519Z",
           "progress": {
-            "message": "Saved qualified lead: Mercado Forex o que é como funciona e quais os riscos",
+            "message": "Starting quality discovery with 120 queries",
             "status": "running",
-            "latestLead": {
-              "id": "f36accd5a270a222",
-              "source": "bing-rss",
-              "sourceIntent": "partner",
-              "query": "\"forex\" \"Instagram\" \"trader\" Latin America",
-              "url": "https://www.cgd.pt/Site/Saldo-Positivo/o-banco-e-eu/Pages/mercado-forex.aspx",
-              "domain": "cgd.pt",
-              "platform": "Web",
-              "title": "Mercado Forex: o que é, como funciona e quais os riscos",
-              "name": "Mercado Forex: o que é, como funciona e quais os riscos",
-              "snippet": "O Mercado Forex tem como base o valor das moedas. Saiba como funciona e perceba os riscos deste tipo de investimento.",
-              "pageTitle": "Mercado Forex: o que é, como funciona e quais os riscos",
-              "pageDescription": "O Mercado Forex tem como base o valor das moedas. Saiba como funciona e perceba os riscos deste tipo de investimento.",
-              "pageText": "Saldo PositivoGuiasTemasO Banco e EuCasa e FamíliaFormação e TecnologiaTrabalhoNegóciosLeis e ImpostosProteçãoMobilidadeSustentabilidadeOs Contos do SebastiãoDicas by SPArquivoO Banco e EuCasa e FamíliaFormação e TecnologiaTrabalhoNegóciosLeis e ImpostosProteçãoMobilidadeSustentabilidadeOs Contos do SebastiãoSaldo PositivoGuiasTemasO Banco e EuCasa e FamíliaFormação e TecnologiaTrabalhoNegóciosLeis e ImpostosProteçãoMobilidadeSustentabilidadeOs Contos do SebastiãoDicas by SPArquivoO Banco e EuCasa e FamíliaFormação e TecnologiaTrabalhoNegóciosLeis e ImpostosProteçãoMobilidadeSustentabilidadeOs Contos do SebastiãoMercado Forex: o que é, como funciona e quais os riscosO Banco e EuSe já teve contacto com este mercado mas nunca chegou a arriscar, conheça as suas especificidades e entenda os seus riscos. 28-07-2020O Mercado Forex tem como base o valor das moedas. Saiba como funciona e perceba os riscos deste tipo de investimento.Se chegou até este artigo, mesmo não sendo um investidor, é provável que já tenha ouvido falar do Mercado Forex e dos ganhos que podem ser obtidos através desse sistema. No entanto, mesmo para quem já tem algum conhecimento sobre o mercado de capitais, a forma como funciona pode levantar algumas dúvidas. E, como veremos, alguns alertas relativamente a riscos.A sua complexidade, o facto de não ser regulamentado e o considerável grau de risco associado a este tipo de investimento fazem com que o Mercado Forex seja ainda uma incógnita para a maior parte dos pequenos investidores.O facto de existirem plataformas de negociação e particulares que anunciam os seus serviços nesta área, apesar de não estarem autorizados a exercer esta atividade, faz aumentar o risco. Atraídos pela perspetiva de ganhos fáceis, muitos negociam em plataformas não autorizadas. Ao fazê-lo, não só perdem o direito a reclamar e a tentar reaver o valor investido, como acabam envolvidos em esquemas de pirâmide, ilegais em Portugal. Leia Também: Produtos Financeiros Complexos: o que são? O que é ?Forex é a abreviatura de “Foreign Exchange Market”, isto é, numa explicação simples, um mercado de divisas estrangeiras. As transações feitas através do Forex não envolvem ações, mas sim moedas (incluindo criptomoedas), que são sempre negociadas aos pares, trocando o valor de uma pelo valor de outra. Por exemplo, trocando euros por dólares norte-americanos. Falamos de um mercado mundial descentralizado, sem uma sede física, que cresceu bastante com a generalização do uso da internet, permitindo que corretores, bancos e até particulares tivessem acesso a esta forma de negociação. Atualmente, em termos de volume de negócios, é o maior mercado do mundo, movimentando cerca de 6,6 triliões de dólares por dia, de acordo com o último relatório do BIS -Bank for International Settlements. Os principais investidores e participantes deste mercado são os grandes bancos internacionais, incluindo bancos centrais, instituições financeiras como seguradoras e entidades de crédito, especuladores, corporações comerciais e particulares. O Mercado Forex é dividido por níveis de acesso, determinado pela quantidade de dinheiro que os investidores estão a negociar, por isso o mercado interbancário é o que responde por mais de 50% de todas as transações. Leia Também: Opinião: A incontornável Blockchain Como funciona o Mercado ForexSe já trocou dinheiro, sabe certamente que o valor é variável e que, se trocar dinheiro num dia pode “perder dinheiro” em relação ao dia anterior. Por exemplo, se hoje o euro estiver a valer 0,85 libras, e comprar mil libras, pagará 1.176,47 euros. Daqui a uma semana, se o euro sofrer uma valorização e passar a valer 0,90 libras, por exemplo, iria pagar por mil libras 1.109,02€, ou seja, teve uma perda de 67,45€ numa semana. Imagine esse cenário com avultados valores.Simplificando, é nisto que está baseado o Mercado Forex, num sistema de transação de câmbios. No Forex são negociados pares de divisas. Por exemplo, EUR/USD ou EUR/GBP. O valor destes pares é determinado por diversos fatores a que é necessário estar atento para saber se vai comprar ou vender.Se acredita, por exemplo, que o euro vai valorizar face ao dólar, deve comprar um par EUR/USD. Se a perspetiva é que o dólar valorize face ao euro, deve optar por vender.No primeiro caso está na chamada posição de compra, isto é, quer comprar euros e vender dólares, que é a divisa secundária. No segundo caso, e uma vez que quer vender a divisa base (o euro), está numa posição de venda.Quem investe em Forex procura ganhar dinheiro com estas flutuações, isto é, vai receber de acordo com as diferenças de valorização das moedas em que investe. Leia Também: Serviços de informação bancária: funcionalidade e segurança Outra das diferenças do Mercado Forex em relação aos outros investimentos são os horários. Quando o mercado fecha em Nova Iorque está a abrir em Sidney, o que significa que este mercado está quase sempre aberto, funcionando 24 horas por dia, exceto aos fins-de-semana.Se por um lado, isto permite uma rápida resposta por parte dos investidores, por outro implica uma atenção redobrada, já que as condições do mercado podem ser alteradas muito rapidamente.As decisões dos bancos centrais, eventos políticos, sociais e económicos, relatórios de entidades económicas ou sociais (como a OCDE ou o FMI) influenciam o valor das moedas e, por vezes, de uma forma rápida e imprevisível. Por isso, este é um investimento complexo. Leia Também: Os 12 mandamentos do investidor Quem pode investir no Mercado Forex? Teoricamente, qualquer pessoa pode investir, até porque não é necessário que o investidor tenha disponível todo o valor envolvido na operação. Isto não significa que se possa ganhar dinheiro sem investir, ou que não seja necessário cumprir determinados requisitos.O primeiro é ter uma conta aberta num intermediário financeiro e este tem de estar autorizado pela Comissão de Mercado de Valores Mobiliários (CMVM) a prestar este tipo de serviços. Se tem dúvidas, pode consultar no site da CMVM a lista de entidades autorizadas, assim como os alertas sobre intermediação financeira não autorizada.Os intermediários cobram, obviamente, comissões, e tendo em conta a complexidade do mercado, é importante escolher uma entidade com boa reputação e que possa aconselhar sobre os investimentos.O Mercado Forex envolve grandes instituições financeiras e grandes investidores privados, pelo que, se pretende mesmo entrar neste mundo, é necessário conhecer as regras e os riscos.A liquidez elevada e o facto de ser um mercado “over-the-counter\" (OTC), ou seja, fora da Bolsa, surgem muitas vezes como fatores apelativos. No entanto, os mercados OTC não têm o mesmo nível de transparência dos mercados regulamentados, pelo que o risco aumenta. O mercado OTC, ou mercado de balcãoNos mercados OTC o nível de transparência é inferior ao dos mercados regulamentados, pelo que o risco é maior.Em Portugal, só há três mercados regulamentados registados junto da CMVM: a Euronext Lisbon, o Mercado de Futuros e Opções, e o Mercado de derivados OMIP.Assim, qualquer transação de contratos de derivados não efetuada nestes três mercados é considerada uma transação em mercado OTC e não está sujeita às normas de transparência dos outros mercados. Leia Também: Obrigações: taxa fixa ou variável Os principais riscosPor todos estes motivos, investir no Mercado Forex não é aconselhável a qualquer tipo de investidor. Quem tem um perfil mais conservador e não gosta de correr riscos dificilmente optará por este tipo de investimentos.A CMVM, nas suas recomendações sobre produtos financeiros complexos, alerta para alguns riscos relacionados com este mercado. Leia Também: Investir na bolsa: Como começar e executar Riscos financeirosEntre os riscos financeiros estão o de perda total ou parcial do capital investido, o facto de a remuneração não ser garantida e os próprios riscos associados às taxas de câmbio, que, como já foi referido, estão dependentes de uma série de fatores que não podem ser controlados pelo investidor. Além disso, estas taxas podem sofrer alterações bruscas, que nem sempre permitem uma reação atempada.Se é verdade que os retornos positivos podem ser multiplicados, o mesmo se aplica às perdas, e exatamente na mesma proporção, pelo que não é aconselhável investir tudo de uma só vez.Um dos grandes perigos é a chamada alavancagem, ou seja, a forma como os intermediários financeiros permitem multiplicar o dinheiro investido mesmo que o investidor não disponha desse capital.Vejamos um exemplo dado pela Deco. Imagine que intermediário financeiro indica um rácio de 100:1. Isto quer dizer que pode alavancar 100 vezes o seu capital e que com um investimento de 1.000 euros pode ficar exposto a uma posição de 100.000 euros.Se negociasse um lote EUR/USD a 1,0560, isto queria dizer que estaria a comprar 100 mil euros e a vender 105.600 dólares. No final do dia, fecha a sua posição a 1,0660, o que lhe permitiria ganhar 1.000 dólares ou 938 euros. Porém, se estivesse a investir com um rácio de 100:1, e com margem exigida de apenas de 1.000 dólares, poderia quase duplicar essa margem.No entanto, se o euro não tivesse valorizado face ao dólar e tivesse perdido na mesma proporção, teria perdido praticamente todo o seu capital. Em situações extremas é possível que a perda seja superior ao capital investido, avisa a Deco.Por isso, pode optar por investir sem alavancagem, usando o rácio de 1:1. Assim investe apenas o que tem e, embora ganhe menos, também terá perdas de menor impacte. Leia Também: Opinião – Como aplicar o meu Dinheiro? Riscos não financeirosOs riscos não financeiros dizem respeito à própria complexidade do produto, que faz com que se possa perder dinheiro sem perceber o cenário que terá levado a essa perda.Ou seja, enquanto, por exemplo num investimento imobiliário o investidor percebe claramente a desvalorização do mercado e as razões que podem ter levado à perda, no Mercado Forex, e porque é um produto complexo, pode ser difícil ",
-              "emails": [],
-              "socialLinks": [
-                "https://www.facebook.com/saldopositivo/"
-              ],
-              "contactLinks": [
-                "https://www.cmvm.pt/pt/SDI/IntermediariosFinanceiros/anexos/Pages/Alertas-sobre-Intermedia%C3%A7%C3%A3o-Financeira-N%C3%A3o-Autorizada.aspx",
-                "https://www.facebook.com/saldopositivo/"
-              ],
-              "fetchStatus": "deep-ok",
-              "sourceQuery": "\"forex\" \"Instagram\" \"trader\" Latin America",
-              "websiteLinks": [
-                "https://www.cgd.pt/Site/Saldo-Positivo/",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Guias",
-                "https://www.cgd.pt/Site/Saldo-Positivo/o-banco-e-eu/Pages/mercado-forex.aspx",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=O+Banco+e+Eu",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=Casa+e+Fam%C3%ADlia",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=Forma%C3%A7%C3%A3o+e+Tecnologia",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=Trabalho",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=Neg%C3%B3cios",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=Leis+e+Impostos",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=Prote%C3%A7%C3%A3o",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=Mobilidade",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=Sustentabilidade",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=Os+Contos+do+Sebasti%C3%A3o",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Dabox",
-                "https://www.cgd.pt/Site/Saldo-Positivo/o-banco-e-eu/Pages/produtos-financeiros-complexos.aspx",
-                "https://www.bis.org/statistics/rpfx19_fx.htm",
-                "https://www.cgd.pt/Site/Saldo-Positivo/o-banco-e-eu/Pages/Blockchain.aspx",
-                "https://www.cgd.pt/Site/Saldo-Positivo/o-banco-e-eu/Pages/servicos-informacao-bancaria.aspx",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Dicas-by-DABOX/Pages/dicas-para-investidor.aspx",
-                "https://web3.cmvm.pt/sdi/ifs/app/pesquisa_nome.cfm?nome=&src=shp",
-                "https://player.vimeo.com/video/",
-                "https://vimeo.com/",
-                "http://player.vimeo.com/",
-                "https://player.vimeo.com/",
-                "https://cmvm.matomo.cloud/",
-                "https://cdn.matomo.cloud/cmvm.matomo.cloud/",
-                "https://player.vimeo.com/api/",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Saldo-Positivo.aspx",
-                "https://www.cgd.pt/Site/Saldo-Positivo/casa-e-familia/Pages/reagir-picos-calor.aspx",
-                "https://www.cgd.pt/Site/Saldo-Positivo/leis-e-impostos/Pages/como-pagar-menos-impostos.aspx"
-              ],
-              "phoneNumbers": [],
-              "forms": [],
-              "contactSources": [
-                "https://www.cgd.pt/Site/Saldo-Positivo/o-banco-e-eu/Pages/mercado-forex.aspx",
-                "https://investidor.cmvm.pt/PInvestidor/Content?Input=E437E5BA5329F08A31270A03409DAD3A59F5C0DAA476F0D7F8CF2ECCD33F6FB2",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Saldo-Positivo.aspx",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Guias",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=O+Banco+e+Eu",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=Casa+e+Fam%C3%ADlia"
-              ],
-              "relatedLinks": [],
-              "decisionMakerLinks": [],
-              "decisionMakers": [],
-              "contactConfidence": 74,
-              "contactQuality": "social",
-              "lastDeepEnrichedAt": "2026-07-11T03:34:48.390Z",
-              "bestContact": "https://www.facebook.com/saldopositivo/",
-              "bestContactType": "social",
-              "bestContactSource": "https://www.facebook.com/saldopositivo/",
-              "enrichmentAudit": {
-                "sourceDomain": "cgd.pt",
-                "contactQuality": "social",
-                "contactConfidence": 74,
-                "profileFirst": true,
-                "searchTrailUsed": false,
-                "websiteCandidates": [
-                  "https://www.cgd.pt/Site/Saldo-Positivo/",
-                  "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Guias",
-                  "https://www.cgd.pt/Site/Saldo-Positivo/o-banco-e-eu/Pages/mercado-forex.aspx",
-                  "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=O+Banco+e+Eu",
-                  "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=Casa+e+Fam%C3%ADlia",
-                  "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=Forma%C3%A7%C3%A3o+e+Tecnologia",
-                  "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=Trabalho",
-                  "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=Neg%C3%B3cios",
-                  "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=Leis+e+Impostos",
-                  "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=Prote%C3%A7%C3%A3o"
-                ],
-                "contactSources": [
-                  "https://www.cgd.pt/Site/Saldo-Positivo/o-banco-e-eu/Pages/mercado-forex.aspx",
-                  "https://investidor.cmvm.pt/PInvestidor/Content?Input=E437E5BA5329F08A31270A03409DAD3A59F5C0DAA476F0D7F8CF2ECCD33F6FB2",
-                  "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Saldo-Positivo.aspx",
-                  "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Guias",
-                  "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=O+Banco+e+Eu",
-                  "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=Casa+e+Fam%C3%ADlia"
-                ],
-                "relatedEvidenceCount": 0,
-                "note": "Contacts are prioritized from the source profile and its discovered website/linkhub before any public-search trail evidence."
-              },
-              "leadType": "research",
-              "segment": "Unclear",
-              "countries": [
-                "Portugal"
-              ],
-              "country": "Portugal",
-              "languages": [
-                "Portuguese"
-              ],
-              "evidence": [
-                "Broker background",
-                "Contact path",
-                "Trading ICP"
-              ],
-              "score": 21,
-              "priority": "B",
-              "outbound": {
-                "opener": "Vi O Mercado Forex tem como base o valor das moedas. e parece haver uma ligação clara a broker background.",
-                "dm": "Olá, vi o teu trabalho ligado a trading/forex e pareceu-me que pode haver uma conversa interessante de parceria. Lidero Business Development e trabalho com parceiros, comunidades e afiliados em mercados globais. Faz sentido falarmos 15 minutos esta semana?",
-                "followUp": "Acho que há potencial para uma conversa objetiva: audiência/comunidade de trading, estrutura de parceria e crescimento com uma corretora regulada. Tens disponibilidade esta semana?"
-              },
-              "entityType": "company",
-              "entityReject": false,
-              "entityRejectReason": "",
-              "companyName": "Mercado Forex o que é como funciona e quais os riscos",
-              "companyKey": "domain:cgd.pt",
-              "entitySignals": [
-                "Contact path",
-                "Trading ICP"
-              ],
-              "officialProp": false,
-              "commercialScore": 75,
-              "commercialTier": "B",
-              "contactable": true,
-              "qualityStatus": "qualified"
-            },
+            "latestLead": null,
             "sourceStats": {
               "linkedin": {
                 "searches": 1,
@@ -330,34 +204,18 @@
                 "discarded": 0,
                 "duplicates": 0,
                 "errors": 0,
-                "providerErrors": 9,
-                "reasons": {
-                  "provider_errors": 1
-                }
-              },
-              "instagram": {
-                "searches": 1,
-                "raw": 10,
-                "qualified": 1,
-                "saved": 0,
-                "discarded": 4,
-                "duplicates": 1,
-                "errors": 0,
                 "providerErrors": 0,
-                "reasons": {
-                  "blocked_commercial_noise": 3,
-                  "hard_rejected": 1
-                }
+                "reasons": {}
               }
             }
           },
-          "updatedAt": "2026-07-11T03:34:48.420Z"
+          "updatedAt": "2026-07-11T18:58:39.549Z"
         }
       },
       "source-harvester-social": {
         "exists": true,
-        "updatedAt": "2026-07-11T03:31:02.448Z",
-        "ageMs": 592472,
+        "updatedAt": "2026-07-11T18:58:39.640Z",
+        "ageMs": 3935,
         "status": {
           "status": "running",
           "workerName": "source-harvester-social",
@@ -395,7 +253,7 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-11T03:31:02.430Z",
+          "heartbeatAt": "2026-07-11T18:58:39.614Z",
           "progress": {
             "message": "Starting quality discovery with 120 queries",
             "status": "running",
@@ -414,13 +272,13 @@
               }
             }
           },
-          "updatedAt": "2026-07-11T03:31:02.448Z"
+          "updatedAt": "2026-07-11T18:58:39.640Z"
         }
       },
       "source-harvester-specialist": {
         "exists": true,
-        "updatedAt": "2026-07-11T03:38:08.964Z",
-        "ageMs": 165956,
+        "updatedAt": "2026-07-11T18:58:39.552Z",
+        "ageMs": 4023,
         "status": {
           "status": "running",
           "workerName": "source-harvester-specialist",
@@ -458,7 +316,7 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-11T03:38:08.952Z",
+          "heartbeatAt": "2026-07-11T18:58:39.519Z",
           "progress": {
             "message": "Starting quality discovery with 120 queries",
             "status": "running",
@@ -477,13 +335,13 @@
               }
             }
           },
-          "updatedAt": "2026-07-11T03:38:08.964Z"
+          "updatedAt": "2026-07-11T18:58:39.552Z"
         }
       },
       "source-harvester-ecosystem": {
         "exists": true,
-        "updatedAt": "2026-07-11T03:29:21.699Z",
-        "ageMs": 693221,
+        "updatedAt": "2026-07-11T18:58:39.518Z",
+        "ageMs": 4058,
         "status": {
           "status": "running",
           "workerName": "source-harvester-ecosystem",
@@ -521,89 +379,11 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-11T03:29:21.698Z",
+          "heartbeatAt": "2026-07-11T18:58:39.490Z",
           "progress": {
-            "message": "Saved qualified lead: lilo org",
+            "message": "Starting quality discovery with 90 queries",
             "status": "running",
-            "latestLead": {
-              "id": "4f62eb3d6135f961",
-              "source": "qwant",
-              "sourceIntent": "ecosystem",
-              "query": "\"Traders Fair\" \"Latin America\" \"forex\"",
-              "url": "https://www.instagram.com/lilo__org/",
-              "domain": "instagram.com",
-              "platform": "Instagram",
-              "title": "lilo org",
-              "name": "lilo org",
-              "snippet": "Extracted candidate for \"Traders Fair\" \"Latin America\" \"forex\"",
-              "fetchStatus": "skipped-social-or-platform",
-              "sourceQuery": "\"Traders Fair\" \"Latin America\" \"forex\"",
-              "emails": [],
-              "socialLinks": [],
-              "contactLinks": [],
-              "websiteLinks": [],
-              "phoneNumbers": [],
-              "forms": [],
-              "contactSources": [],
-              "relatedLinks": [],
-              "decisionMakerLinks": [],
-              "decisionMakers": [],
-              "contactConfidence": 74,
-              "contactQuality": "social",
-              "lastDeepEnrichedAt": "2026-07-11T03:29:21.663Z",
-              "bestContact": "https://www.instagram.com/lilo__org/",
-              "bestContactType": "social",
-              "bestContactSource": "https://www.instagram.com/lilo__org/",
-              "enrichmentAudit": {
-                "sourceDomain": "instagram.com",
-                "contactQuality": "social",
-                "contactConfidence": 74,
-                "profileFirst": true,
-                "searchTrailUsed": false,
-                "websiteCandidates": [],
-                "contactSources": [],
-                "relatedEvidenceCount": 0,
-                "note": "Contacts are prioritized from the source profile and its discovered website/linkhub before any public-search trail evidence."
-              },
-              "leadType": "partner",
-              "segment": "Event / Expo",
-              "countries": [
-                "LatAm"
-              ],
-              "country": "LatAm",
-              "languages": [
-                "English",
-                "Portuguese"
-              ],
-              "evidence": [
-                "Event/expo footprint",
-                "Contact path",
-                "Trading ICP",
-                "Public profile"
-              ],
-              "score": 78,
-              "priority": "A",
-              "outbound": {
-                "opener": "Vi Extracted candidate for \"Traders Fair\" \"Latin America\" \"forex\" e parece haver uma ligação clara a event/expo footprint.",
-                "dm": "Olá, vi o teu trabalho ligado a trading/forex e pareceu-me que pode haver uma conversa interessante de parceria. Lidero Business Development e trabalho com parceiros, comunidades e afiliados em mercados globais. Faz sentido falarmos 15 minutos esta semana?",
-                "followUp": "Acho que há potencial para uma conversa objetiva: audiência/comunidade de trading, estrutura de parceria e crescimento com uma corretora regulada. Tens disponibilidade esta semana?"
-              },
-              "entityType": "social_profile",
-              "entityReject": false,
-              "entityRejectReason": "",
-              "companyName": "lilo org",
-              "companyKey": "profile:instagram.com:lilo__org",
-              "entitySignals": [
-                "Contact path",
-                "Trading ICP",
-                "Public profile"
-              ],
-              "officialProp": false,
-              "commercialScore": 89,
-              "commercialTier": "A",
-              "contactable": true,
-              "qualityStatus": "qualified"
-            },
+            "latestLead": null,
             "sourceStats": {
               "linkedin": {
                 "searches": 1,
@@ -613,86 +393,18 @@
                 "discarded": 0,
                 "duplicates": 0,
                 "errors": 0,
-                "providerErrors": 9,
-                "reasons": {
-                  "provider_errors": 1
-                }
-              },
-              "telegram": {
-                "searches": 1,
-                "raw": 8,
-                "qualified": 0,
-                "saved": 0,
-                "discarded": 8,
-                "duplicates": 0,
-                "errors": 0,
-                "providerErrors": 0,
-                "reasons": {
-                  "hard_rejected": 7,
-                  "blocked_commercial_noise": 1
-                }
-              },
-              "discord": {
-                "searches": 1,
-                "raw": 8,
-                "qualified": 0,
-                "saved": 0,
-                "discarded": 8,
-                "duplicates": 0,
-                "errors": 0,
-                "providerErrors": 0,
-                "reasons": {
-                  "blocked_commercial_noise": 6,
-                  "hard_rejected": 2
-                }
-              },
-              "ecosystem": {
-                "searches": 1,
-                "raw": 0,
-                "qualified": 0,
-                "saved": 0,
-                "discarded": 0,
-                "duplicates": 0,
-                "errors": 0,
-                "providerErrors": 9,
-                "reasons": {
-                  "provider_errors": 1
-                }
-              },
-              "recruitment": {
-                "searches": 1,
-                "raw": 8,
-                "qualified": 1,
-                "saved": 0,
-                "discarded": 7,
-                "duplicates": 1,
-                "errors": 0,
-                "providerErrors": 0,
-                "reasons": {
-                  "hard_rejected": 4,
-                  "blocked_commercial_noise": 3
-                }
-              },
-              "web": {
-                "searches": 1,
-                "raw": 6,
-                "qualified": 1,
-                "saved": 0,
-                "discarded": 0,
-                "duplicates": 6,
-                "errors": 0,
                 "providerErrors": 0,
                 "reasons": {}
               }
             }
           },
-          "updatedAt": "2026-07-11T03:29:21.699Z"
+          "updatedAt": "2026-07-11T18:58:39.518Z"
         }
       },
       "source-harvester-linkedin": {
         "exists": true,
-        "updatedAt": "2026-07-11T03:31:02.459Z",
-        "ageMs": 592461,
+        "updatedAt": "2026-07-11T18:58:39.549Z",
+        "ageMs": 4028,
         "status": {
           "status": "running",
           "workerName": "source-harvester-linkedin",
@@ -730,7 +442,7 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-11T03:31:02.445Z",
+          "heartbeatAt": "2026-07-11T18:58:39.509Z",
           "progress": {
             "message": "Starting quality discovery with 180 queries",
             "status": "running",
@@ -749,13 +461,13 @@
               }
             }
           },
-          "updatedAt": "2026-07-11T03:31:02.459Z"
+          "updatedAt": "2026-07-11T18:58:39.549Z"
         }
       },
       "source-harvester-instagram": {
         "exists": true,
-        "updatedAt": "2026-07-11T03:26:59.156Z",
-        "ageMs": 835764,
+        "updatedAt": "2026-07-11T18:58:39.895Z",
+        "ageMs": 3682,
         "status": {
           "status": "running",
           "workerName": "source-harvester-instagram",
@@ -793,7 +505,7 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-11T03:26:59.145Z",
+          "heartbeatAt": "2026-07-11T18:58:39.860Z",
           "progress": {
             "message": "Starting quality discovery with 45 queries",
             "status": "running",
@@ -812,13 +524,13 @@
               }
             }
           },
-          "updatedAt": "2026-07-11T03:26:59.156Z"
+          "updatedAt": "2026-07-11T18:58:39.895Z"
         }
       },
       "source-harvester-platforms": {
         "exists": true,
-        "updatedAt": "2026-07-11T03:35:06.734Z",
-        "ageMs": 348186,
+        "updatedAt": "2026-07-11T18:58:40.043Z",
+        "ageMs": 3534,
         "status": {
           "status": "running",
           "workerName": "source-harvester-platforms",
@@ -858,7 +570,7 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-11T03:35:06.723Z",
+          "heartbeatAt": "2026-07-11T18:58:39.988Z",
           "progress": {
             "message": "Starting quality discovery with 47 queries",
             "status": "running",
@@ -877,13 +589,13 @@
               }
             }
           },
-          "updatedAt": "2026-07-11T03:35:06.734Z"
+          "updatedAt": "2026-07-11T18:58:40.043Z"
         }
       },
       "source-harvester-communities": {
         "exists": true,
-        "updatedAt": "2026-07-11T03:39:09.880Z",
-        "ageMs": 105041,
+        "updatedAt": "2026-07-11T18:58:40.852Z",
+        "ageMs": 2726,
         "status": {
           "status": "running",
           "workerName": "source-harvester-communities",
@@ -921,7 +633,7 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-11T03:39:09.868Z",
+          "heartbeatAt": "2026-07-11T18:58:40.828Z",
           "progress": {
             "message": "Starting quality discovery with 116 queries",
             "status": "running",
@@ -940,13 +652,13 @@
               }
             }
           },
-          "updatedAt": "2026-07-11T03:39:09.880Z"
+          "updatedAt": "2026-07-11T18:58:40.852Z"
         }
       },
       "source-harvester-events": {
         "exists": true,
-        "updatedAt": "2026-07-11T03:30:13.618Z",
-        "ageMs": 641303,
+        "updatedAt": "2026-07-11T18:58:40.855Z",
+        "ageMs": 2723,
         "status": {
           "status": "running",
           "workerName": "source-harvester-events",
@@ -984,179 +696,35 @@
             "total": 0,
             "exported": 0
           },
-          "heartbeatAt": "2026-07-11T03:30:13.617Z",
+          "heartbeatAt": "2026-07-11T18:58:40.834Z",
           "progress": {
-            "message": "Saved qualified lead: Mercado Forex o que é como funciona e quais os riscos",
+            "message": "Starting quality discovery with 120 queries",
             "status": "running",
-            "latestLead": {
-              "id": "f36accd5a270a222",
-              "source": "bing-rss",
-              "sourceIntent": "ecosystem",
-              "query": "\"forex expo\" \"sponsors\" Argentina",
-              "url": "https://www.cgd.pt/Site/Saldo-Positivo/o-banco-e-eu/Pages/mercado-forex.aspx",
-              "domain": "cgd.pt",
-              "platform": "Web",
-              "title": "Mercado Forex: o que é, como funciona e quais os riscos",
-              "name": "Mercado Forex: o que é, como funciona e quais os riscos",
-              "snippet": "O Mercado Forex tem como base o valor das moedas. Saiba como funciona e perceba os riscos deste tipo de investimento.",
-              "pageTitle": "Mercado Forex: o que é, como funciona e quais os riscos",
-              "pageDescription": "O Mercado Forex tem como base o valor das moedas. Saiba como funciona e perceba os riscos deste tipo de investimento.",
-              "pageText": "Saldo PositivoGuiasTemasO Banco e EuCasa e FamíliaFormação e TecnologiaTrabalhoNegóciosLeis e ImpostosProteçãoMobilidadeSustentabilidadeOs Contos do SebastiãoDicas by SPArquivoO Banco e EuCasa e FamíliaFormação e TecnologiaTrabalhoNegóciosLeis e ImpostosProteçãoMobilidadeSustentabilidadeOs Contos do SebastiãoSaldo PositivoGuiasTemasO Banco e EuCasa e FamíliaFormação e TecnologiaTrabalhoNegóciosLeis e ImpostosProteçãoMobilidadeSustentabilidadeOs Contos do SebastiãoDicas by SPArquivoO Banco e EuCasa e FamíliaFormação e TecnologiaTrabalhoNegóciosLeis e ImpostosProteçãoMobilidadeSustentabilidadeOs Contos do SebastiãoMercado Forex: o que é, como funciona e quais os riscosO Banco e EuSe já teve contacto com este mercado mas nunca chegou a arriscar, conheça as suas especificidades e entenda os seus riscos. 28-07-2020O Mercado Forex tem como base o valor das moedas. Saiba como funciona e perceba os riscos deste tipo de investimento.Se chegou até este artigo, mesmo não sendo um investidor, é provável que já tenha ouvido falar do Mercado Forex e dos ganhos que podem ser obtidos através desse sistema. No entanto, mesmo para quem já tem algum conhecimento sobre o mercado de capitais, a forma como funciona pode levantar algumas dúvidas. E, como veremos, alguns alertas relativamente a riscos.A sua complexidade, o facto de não ser regulamentado e o considerável grau de risco associado a este tipo de investimento fazem com que o Mercado Forex seja ainda uma incógnita para a maior parte dos pequenos investidores.O facto de existirem plataformas de negociação e particulares que anunciam os seus serviços nesta área, apesar de não estarem autorizados a exercer esta atividade, faz aumentar o risco. Atraídos pela perspetiva de ganhos fáceis, muitos negociam em plataformas não autorizadas. Ao fazê-lo, não só perdem o direito a reclamar e a tentar reaver o valor investido, como acabam envolvidos em esquemas de pirâmide, ilegais em Portugal. Leia Também: Produtos Financeiros Complexos: o que são? O que é ?Forex é a abreviatura de “Foreign Exchange Market”, isto é, numa explicação simples, um mercado de divisas estrangeiras. As transações feitas através do Forex não envolvem ações, mas sim moedas (incluindo criptomoedas), que são sempre negociadas aos pares, trocando o valor de uma pelo valor de outra. Por exemplo, trocando euros por dólares norte-americanos. Falamos de um mercado mundial descentralizado, sem uma sede física, que cresceu bastante com a generalização do uso da internet, permitindo que corretores, bancos e até particulares tivessem acesso a esta forma de negociação. Atualmente, em termos de volume de negócios, é o maior mercado do mundo, movimentando cerca de 6,6 triliões de dólares por dia, de acordo com o último relatório do BIS -Bank for International Settlements. Os principais investidores e participantes deste mercado são os grandes bancos internacionais, incluindo bancos centrais, instituições financeiras como seguradoras e entidades de crédito, especuladores, corporações comerciais e particulares. O Mercado Forex é dividido por níveis de acesso, determinado pela quantidade de dinheiro que os investidores estão a negociar, por isso o mercado interbancário é o que responde por mais de 50% de todas as transações. Leia Também: Opinião: A incontornável Blockchain Como funciona o Mercado ForexSe já trocou dinheiro, sabe certamente que o valor é variável e que, se trocar dinheiro num dia pode “perder dinheiro” em relação ao dia anterior. Por exemplo, se hoje o euro estiver a valer 0,85 libras, e comprar mil libras, pagará 1.176,47 euros. Daqui a uma semana, se o euro sofrer uma valorização e passar a valer 0,90 libras, por exemplo, iria pagar por mil libras 1.109,02€, ou seja, teve uma perda de 67,45€ numa semana. Imagine esse cenário com avultados valores.Simplificando, é nisto que está baseado o Mercado Forex, num sistema de transação de câmbios. No Forex são negociados pares de divisas. Por exemplo, EUR/USD ou EUR/GBP. O valor destes pares é determinado por diversos fatores a que é necessário estar atento para saber se vai comprar ou vender.Se acredita, por exemplo, que o euro vai valorizar face ao dólar, deve comprar um par EUR/USD. Se a perspetiva é que o dólar valorize face ao euro, deve optar por vender.No primeiro caso está na chamada posição de compra, isto é, quer comprar euros e vender dólares, que é a divisa secundária. No segundo caso, e uma vez que quer vender a divisa base (o euro), está numa posição de venda.Quem investe em Forex procura ganhar dinheiro com estas flutuações, isto é, vai receber de acordo com as diferenças de valorização das moedas em que investe. Leia Também: Serviços de informação bancária: funcionalidade e segurança Outra das diferenças do Mercado Forex em relação aos outros investimentos são os horários. Quando o mercado fecha em Nova Iorque está a abrir em Sidney, o que significa que este mercado está quase sempre aberto, funcionando 24 horas por dia, exceto aos fins-de-semana.Se por um lado, isto permite uma rápida resposta por parte dos investidores, por outro implica uma atenção redobrada, já que as condições do mercado podem ser alteradas muito rapidamente.As decisões dos bancos centrais, eventos políticos, sociais e económicos, relatórios de entidades económicas ou sociais (como a OCDE ou o FMI) influenciam o valor das moedas e, por vezes, de uma forma rápida e imprevisível. Por isso, este é um investimento complexo. Leia Também: Os 12 mandamentos do investidor Quem pode investir no Mercado Forex? Teoricamente, qualquer pessoa pode investir, até porque não é necessário que o investidor tenha disponível todo o valor envolvido na operação. Isto não significa que se possa ganhar dinheiro sem investir, ou que não seja necessário cumprir determinados requisitos.O primeiro é ter uma conta aberta num intermediário financeiro e este tem de estar autorizado pela Comissão de Mercado de Valores Mobiliários (CMVM) a prestar este tipo de serviços. Se tem dúvidas, pode consultar no site da CMVM a lista de entidades autorizadas, assim como os alertas sobre intermediação financeira não autorizada.Os intermediários cobram, obviamente, comissões, e tendo em conta a complexidade do mercado, é importante escolher uma entidade com boa reputação e que possa aconselhar sobre os investimentos.O Mercado Forex envolve grandes instituições financeiras e grandes investidores privados, pelo que, se pretende mesmo entrar neste mundo, é necessário conhecer as regras e os riscos.A liquidez elevada e o facto de ser um mercado “over-the-counter\" (OTC), ou seja, fora da Bolsa, surgem muitas vezes como fatores apelativos. No entanto, os mercados OTC não têm o mesmo nível de transparência dos mercados regulamentados, pelo que o risco aumenta. O mercado OTC, ou mercado de balcãoNos mercados OTC o nível de transparência é inferior ao dos mercados regulamentados, pelo que o risco é maior.Em Portugal, só há três mercados regulamentados registados junto da CMVM: a Euronext Lisbon, o Mercado de Futuros e Opções, e o Mercado de derivados OMIP.Assim, qualquer transação de contratos de derivados não efetuada nestes três mercados é considerada uma transação em mercado OTC e não está sujeita às normas de transparência dos outros mercados. Leia Também: Obrigações: taxa fixa ou variável Os principais riscosPor todos estes motivos, investir no Mercado Forex não é aconselhável a qualquer tipo de investidor. Quem tem um perfil mais conservador e não gosta de correr riscos dificilmente optará por este tipo de investimentos.A CMVM, nas suas recomendações sobre produtos financeiros complexos, alerta para alguns riscos relacionados com este mercado. Leia Também: Investir na bolsa: Como começar e executar Riscos financeirosEntre os riscos financeiros estão o de perda total ou parcial do capital investido, o facto de a remuneração não ser garantida e os próprios riscos associados às taxas de câmbio, que, como já foi referido, estão dependentes de uma série de fatores que não podem ser controlados pelo investidor. Além disso, estas taxas podem sofrer alterações bruscas, que nem sempre permitem uma reação atempada.Se é verdade que os retornos positivos podem ser multiplicados, o mesmo se aplica às perdas, e exatamente na mesma proporção, pelo que não é aconselhável investir tudo de uma só vez.Um dos grandes perigos é a chamada alavancagem, ou seja, a forma como os intermediários financeiros permitem multiplicar o dinheiro investido mesmo que o investidor não disponha desse capital.Vejamos um exemplo dado pela Deco. Imagine que intermediário financeiro indica um rácio de 100:1. Isto quer dizer que pode alavancar 100 vezes o seu capital e que com um investimento de 1.000 euros pode ficar exposto a uma posição de 100.000 euros.Se negociasse um lote EUR/USD a 1,0560, isto queria dizer que estaria a comprar 100 mil euros e a vender 105.600 dólares. No final do dia, fecha a sua posição a 1,0660, o que lhe permitiria ganhar 1.000 dólares ou 938 euros. Porém, se estivesse a investir com um rácio de 100:1, e com margem exigida de apenas de 1.000 dólares, poderia quase duplicar essa margem.No entanto, se o euro não tivesse valorizado face ao dólar e tivesse perdido na mesma proporção, teria perdido praticamente todo o seu capital. Em situações extremas é possível que a perda seja superior ao capital investido, avisa a Deco.Por isso, pode optar por investir sem alavancagem, usando o rácio de 1:1. Assim investe apenas o que tem e, embora ganhe menos, também terá perdas de menor impacte. Leia Também: Opinião – Como aplicar o meu Dinheiro? Riscos não financeirosOs riscos não financeiros dizem respeito à própria complexidade do produto, que faz com que se possa perder dinheiro sem perceber o cenário que terá levado a essa perda.Ou seja, enquanto, por exemplo num investimento imobiliário o investidor percebe claramente a desvalorização do mercado e as razões que podem ter levado à perda, no Mercado Forex, e porque é um produto complexo, pode ser difícil ",
-              "emails": [],
-              "socialLinks": [
-                "https://www.facebook.com/saldopositivo/"
-              ],
-              "contactLinks": [
-                "https://www.cmvm.pt/pt/SDI/IntermediariosFinanceiros/anexos/Pages/Alertas-sobre-Intermedia%C3%A7%C3%A3o-Financeira-N%C3%A3o-Autorizada.aspx",
-                "https://www.facebook.com/saldopositivo/"
-              ],
-              "fetchStatus": "deep-ok",
-              "sourceQuery": "\"forex expo\" \"sponsors\" Argentina",
-              "websiteLinks": [
-                "https://www.cgd.pt/Site/Saldo-Positivo/",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Guias",
-                "https://www.cgd.pt/Site/Saldo-Positivo/o-banco-e-eu/Pages/mercado-forex.aspx",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=O+Banco+e+Eu",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=Casa+e+Fam%C3%ADlia",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=Forma%C3%A7%C3%A3o+e+Tecnologia",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=Trabalho",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=Neg%C3%B3cios",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=Leis+e+Impostos",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=Prote%C3%A7%C3%A3o",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=Mobilidade",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=Sustentabilidade",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=Os+Contos+do+Sebasti%C3%A3o",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Dabox",
-                "https://www.cgd.pt/Site/Saldo-Positivo/o-banco-e-eu/Pages/produtos-financeiros-complexos.aspx",
-                "https://www.bis.org/statistics/rpfx19_fx.htm",
-                "https://www.cgd.pt/Site/Saldo-Positivo/o-banco-e-eu/Pages/Blockchain.aspx",
-                "https://www.cgd.pt/Site/Saldo-Positivo/o-banco-e-eu/Pages/servicos-informacao-bancaria.aspx",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Dicas-by-DABOX/Pages/dicas-para-investidor.aspx",
-                "https://web3.cmvm.pt/sdi/ifs/app/pesquisa_nome.cfm?nome=&src=shp",
-                "https://player.vimeo.com/video/",
-                "https://vimeo.com/",
-                "http://player.vimeo.com/",
-                "https://player.vimeo.com/",
-                "https://cmvm.matomo.cloud/",
-                "https://cdn.matomo.cloud/cmvm.matomo.cloud/",
-                "https://player.vimeo.com/api/",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Saldo-Positivo.aspx",
-                "https://www.cgd.pt/Site/Saldo-Positivo/casa-e-familia/Pages/reagir-picos-calor.aspx",
-                "https://www.cgd.pt/Site/Saldo-Positivo/leis-e-impostos/Pages/como-pagar-menos-impostos.aspx"
-              ],
-              "phoneNumbers": [],
-              "forms": [],
-              "contactSources": [
-                "https://www.cgd.pt/Site/Saldo-Positivo/o-banco-e-eu/Pages/mercado-forex.aspx",
-                "https://investidor.cmvm.pt/PInvestidor/Content?Input=E437E5BA5329F08A31270A03409DAD3A59F5C0DAA476F0D7F8CF2ECCD33F6FB2",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Saldo-Positivo.aspx",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Guias",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=O+Banco+e+Eu",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=Casa+e+Fam%C3%ADlia",
-                "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=Forma%C3%A7%C3%A3o+e+Tecnologia"
-              ],
-              "relatedLinks": [],
-              "decisionMakerLinks": [],
-              "decisionMakers": [],
-              "contactConfidence": 74,
-              "contactQuality": "social",
-              "lastDeepEnrichedAt": "2026-07-11T03:30:13.576Z",
-              "bestContact": "https://www.facebook.com/saldopositivo/",
-              "bestContactType": "social",
-              "bestContactSource": "https://www.facebook.com/saldopositivo/",
-              "enrichmentAudit": {
-                "sourceDomain": "cgd.pt",
-                "contactQuality": "social",
-                "contactConfidence": 74,
-                "profileFirst": true,
-                "searchTrailUsed": false,
-                "websiteCandidates": [
-                  "https://www.cgd.pt/Site/Saldo-Positivo/",
-                  "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Guias",
-                  "https://www.cgd.pt/Site/Saldo-Positivo/o-banco-e-eu/Pages/mercado-forex.aspx",
-                  "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=O+Banco+e+Eu",
-                  "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=Casa+e+Fam%C3%ADlia",
-                  "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=Forma%C3%A7%C3%A3o+e+Tecnologia",
-                  "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=Trabalho",
-                  "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=Neg%C3%B3cios",
-                  "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=Leis+e+Impostos",
-                  "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=Prote%C3%A7%C3%A3o"
-                ],
-                "contactSources": [
-                  "https://www.cgd.pt/Site/Saldo-Positivo/o-banco-e-eu/Pages/mercado-forex.aspx",
-                  "https://investidor.cmvm.pt/PInvestidor/Content?Input=E437E5BA5329F08A31270A03409DAD3A59F5C0DAA476F0D7F8CF2ECCD33F6FB2",
-                  "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Saldo-Positivo.aspx",
-                  "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Guias",
-                  "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=O+Banco+e+Eu",
-                  "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=Casa+e+Fam%C3%ADlia",
-                  "https://www.cgd.pt/Site/Saldo-Positivo/Pages/Resultado.aspx?flt=Tema&sel=Forma%C3%A7%C3%A3o+e+Tecnologia"
-                ],
-                "relatedEvidenceCount": 0,
-                "note": "Contacts are prioritized from the source profile and its discovered website/linkhub before any public-search trail evidence."
-              },
-              "leadType": "partner",
-              "segment": "Unclear",
-              "countries": [
-                "Portugal"
-              ],
-              "country": "Portugal",
-              "languages": [
-                "Portuguese"
-              ],
-              "evidence": [
-                "Broker background",
-                "Contact path",
-                "Trading ICP"
-              ],
-              "score": 45,
-              "priority": "A",
-              "outbound": {
-                "opener": "Vi O Mercado Forex tem como base o valor das moedas. e parece haver uma ligação clara a broker background.",
-                "dm": "Olá, vi o teu trabalho ligado a trading/forex e pareceu-me que pode haver uma conversa interessante de parceria. Lidero Business Development e trabalho com parceiros, comunidades e afiliados em mercados globais. Faz sentido falarmos 15 minutos esta semana?",
-                "followUp": "Acho que há potencial para uma conversa objetiva: audiência/comunidade de trading, estrutura de parceria e crescimento com uma corretora regulada. Tens disponibilidade esta semana?"
-              },
-              "entityType": "company",
-              "entityReject": false,
-              "entityRejectReason": "",
-              "companyName": "Mercado Forex o que é como funciona e quais os riscos",
-              "companyKey": "domain:cgd.pt",
-              "entitySignals": [
-                "Contact path",
-                "Trading ICP"
-              ],
-              "officialProp": false,
-              "commercialScore": 91,
-              "commercialTier": "A",
-              "contactable": true,
-              "qualityStatus": "qualified"
-            },
+            "latestLead": null,
             "sourceStats": {
               "ecosystem": {
                 "searches": 1,
-                "raw": 10,
-                "qualified": 1,
+                "raw": 0,
+                "qualified": 0,
                 "saved": 0,
-                "discarded": 4,
-                "duplicates": 1,
+                "discarded": 0,
+                "duplicates": 0,
                 "errors": 0,
                 "providerErrors": 0,
-                "reasons": {
-                  "blocked_commercial_noise": 3,
-                  "hard_rejected": 1
-                }
+                "reasons": {}
               }
             }
           },
-          "updatedAt": "2026-07-11T03:30:13.618Z"
+          "updatedAt": "2026-07-11T18:58:40.855Z"
         }
       },
       "enrichment-worker": {
         "exists": true,
-        "updatedAt": "2026-07-11T03:40:45.511Z",
-        "ageMs": 9410,
+        "updatedAt": "2026-07-11T18:58:37.878Z",
+        "ageMs": 5700,
         "status": {
           "status": "running",
-          "phase": "idle",
+          "phase": "enriching",
           "options": {
             "delayMs": 4500,
             "idleMs": 9000,
@@ -1169,50 +737,51 @@
             "maxTrailQueries": 18,
             "trailLimit": 7
           },
-          "processed": 2122,
+          "processed": 2123,
           "rejected": 17,
           "errors": 0,
-          "idleCycles": 1,
+          "idleCycles": 0,
           "queue": {
-            "eligible": 160,
-            "dueNow": 0,
+            "eligible": 161,
+            "dueNow": 161,
             "never": 0,
-            "contactlessDue": 0,
-            "scheduledDue": 0,
+            "contactlessDue": 124,
+            "scheduledDue": 37,
             "rotationDue": 0,
-            "recentlyEnriched1h": 104,
-            "recentlyEnriched24h": 160,
-            "blockedRunning": 1,
+            "recentlyEnriched1h": 0,
+            "recentlyEnriched24h": 161,
+            "blockedRunning": 0,
             "blockedNoise": 0,
-            "oldestDeepAgeHours": 1.8
+            "oldestDeepAgeHours": 17.1
           },
-          "lastResult": {
-            "status": "stored",
-            "id": "fe749ac34d2df01f",
-            "name": "Traders Trust | Corretor Forex e CFD Premiado | Alavancagem 1:3000",
-            "dueReason": "scheduled_due",
-            "at": "2026-07-11T03:40:40.480Z",
-            "emails": 0,
-            "links": 21,
-            "makers": 0,
-            "bestContact": "https://www.facebook.com/traderstrustofficial"
+          "current": {
+            "id": "7e7c9cef9fb6da4f",
+            "name": "Forex Expo on LinkedIn: Forex Expo Dubai",
+            "url": "https://cy.linkedin.com/posts/theforexexpo_forex-expo-dubai-activity-7029345311932178432-I_to",
+            "platform": "LinkedIn",
+            "dueReason": "contactless_due"
           },
-          "total": 173,
-          "updatedAt": "2026-07-11T03:40:45.511Z"
+          "updatedAt": "2026-07-11T18:58:37.878Z"
         }
       },
       "smart-enrichment-worker": {
         "exists": true,
-        "updatedAt": "2026-07-11T03:40:42.141Z",
-        "ageMs": 12780,
+        "updatedAt": "2026-07-11T18:58:39.064Z",
+        "ageMs": 4515,
         "status": {
           "status": "running",
-          "phase": "idle",
+          "phase": "smart-enriching",
           "processed": 134,
           "stored": 133,
           "rejected": 1,
           "errors": 0,
-          "total": 173,
+          "current": {
+            "id": "64460c636f534e23",
+            "name": "Forex Trading tools for Forex traders",
+            "url": "https://www.myfxbook.com/",
+            "platform": "Myfxbook",
+            "bucket": "instagram"
+          },
           "lastResult": {
             "status": "stored",
             "id": "8518e456c136071f",
@@ -1225,13 +794,13 @@
             "hasDecisionContact": false,
             "at": "2026-07-11T01:59:15.548Z"
           },
-          "updatedAt": "2026-07-11T03:40:42.141Z"
+          "updatedAt": "2026-07-11T18:58:39.064Z"
         }
       },
       "contact-gap-worker": {
         "exists": true,
         "updatedAt": "2026-07-11T03:39:07.427Z",
-        "ageMs": 107494,
+        "ageMs": 55176152,
         "status": {
           "status": "running",
           "phase": "enriching-gap",
@@ -1262,15 +831,15 @@
       },
       "lead-cleaner": {
         "exists": true,
-        "updatedAt": "2026-07-11T03:40:01.735Z",
-        "ageMs": 53187,
+        "updatedAt": "2026-07-11T18:58:38.915Z",
+        "ageMs": 4665,
         "status": {
           "status": "running",
           "phase": "waiting",
-          "cycle": 985,
+          "cycle": 987,
           "intervalMs": 90000,
           "limit": 1000,
-          "totalRemoved": 264,
+          "totalRemoved": 268,
           "errors": 0,
           "lastRun": {
             "ok": true,
@@ -1283,13 +852,13 @@
             "sample": [],
             "exported": null
           },
-          "updatedAt": "2026-07-11T03:40:01.735Z"
+          "updatedAt": "2026-07-11T18:58:38.915Z"
         }
       },
       "qualified-exporter": {
         "exists": true,
-        "updatedAt": "2026-07-11T03:40:17.009Z",
-        "ageMs": 37913,
+        "updatedAt": "2026-07-11T18:58:41.180Z",
+        "ageMs": 2400,
         "status": {
           "status": "running",
           "intervalMs": 90000,
@@ -1323,47 +892,47 @@
             "x": 3,
             "total": 173
           },
-          "updatedAt": "2026-07-11T03:40:17.009Z"
+          "updatedAt": "2026-07-11T18:58:41.180Z"
         }
       },
       "ui-snapshot-worker": {
         "exists": true,
-        "updatedAt": "2026-07-11T03:40:51.319Z",
-        "ageMs": 3603,
+        "updatedAt": "2026-07-11T18:58:37.599Z",
+        "ageMs": 5981,
         "status": {
           "ok": true,
-          "updatedAt": "2026-07-11T03:40:51.319Z",
+          "updatedAt": "2026-07-11T18:58:37.599Z",
           "total": 142,
           "rawTotal": 173,
           "rejectedTotal": 31,
-          "buildMs": 294,
+          "buildMs": 397,
           "qualityGate": "commercial-noise-policy-v3"
         }
       },
       "cloud-logger-worker": {
         "exists": true,
-        "updatedAt": "2026-07-11T03:30:53.846Z",
-        "ageMs": 601076,
+        "updatedAt": "2026-07-11T03:40:58.064Z",
+        "ageMs": 55065517,
         "status": {
           "status": "running",
           "phase": "waiting",
           "intervalMs": 600000,
-          "cycles": 148,
+          "cycles": 149,
           "errors": 0,
           "lastResult": {
             "summary": {
-              "at": "2026-07-11T03:30:51.740Z",
+              "at": "2026-07-11T03:40:56.136Z",
               "ok": true,
               "raw": 173,
               "qualified": 43,
-              "working": 72,
-              "contactable": 55,
+              "working": 71,
+              "contactable": 54,
               "salesReady": 13,
               "a1Hot": 20,
               "a2Strong": 12,
               "platformContactLeaks": 1,
               "highValueNoContact": 42,
-              "providerErrors": 45,
+              "providerErrors": 27,
               "staleWorkers": [
                 "engine-control"
               ],
@@ -1398,65 +967,65 @@
               "ok": true,
               "committed": true,
               "pushed": true,
-              "commit": "[main 6e583ab] ops: update engine cloud report 2026-07-11T03:30:52.006Z\n 3 files changed, 722 insertions(+), 299 deletions(-)\n"
+              "commit": "[main 62a86f3] ops: update engine cloud report 2026-07-11T03:40:56.394Z\n 3 files changed, 271 insertions(+), 537 deletions(-)\n"
             }
           },
-          "updatedAt": "2026-07-11T03:30:53.846Z"
+          "updatedAt": "2026-07-11T03:40:58.064Z"
         }
       },
       "supervisor": {
         "exists": true,
-        "updatedAt": "2026-07-11T03:40:11.431Z",
-        "ageMs": 43491,
+        "updatedAt": "2026-07-11T18:58:42.364Z",
+        "ageMs": 1218,
         "status": {
           "status": "running",
-          "cycle": 1460,
+          "cycle": 1462,
           "intervalMs": 60000,
           "ensured": [
             {
               "name": "source-harvester",
-              "pid": 11564,
-              "status": "running"
+              "pid": 3392,
+              "status": "started"
             },
             {
               "name": "source-harvester-social",
-              "pid": 6252,
-              "status": "running"
+              "pid": 14056,
+              "status": "started"
             },
             {
               "name": "source-harvester-specialist",
-              "pid": 19416,
-              "status": "running"
+              "pid": 37636,
+              "status": "started"
             },
             {
               "name": "source-harvester-ecosystem",
-              "pid": 36572,
-              "status": "running"
+              "pid": 26316,
+              "status": "started"
             },
             {
               "name": "source-harvester-linkedin",
-              "pid": 34544,
-              "status": "running"
+              "pid": 31772,
+              "status": "started"
             },
             {
               "name": "source-harvester-instagram",
-              "pid": 21980,
-              "status": "running"
+              "pid": 37024,
+              "status": "started"
             },
             {
               "name": "source-harvester-platforms",
-              "pid": 33060,
-              "status": "running"
+              "pid": 23856,
+              "status": "started"
             },
             {
               "name": "source-harvester-communities",
-              "pid": 14252,
-              "status": "running"
+              "pid": 4024,
+              "status": "started"
             },
             {
               "name": "source-harvester-events",
-              "pid": 18676,
-              "status": "running"
+              "pid": 31160,
+              "status": "started"
             },
             {
               "name": "enrichment-worker",
@@ -1514,16 +1083,27 @@
               "contactless": 50,
               "neverDeep": 0,
               "eligible": 159,
-              "dueNow": 4,
-              "rotationDue": 0,
-              "enrichedLastHour": 109,
+              "dueNow": 157,
+              "rotationDue": 108,
+              "enrichedLastHour": 2,
               "enrichedLast24h": 161,
-              "oldestDeepAgeHours": 184.2,
-              "running": 2
+              "oldestDeepAgeHours": 199.5,
+              "running": 1
             },
-            "issues": []
+            "issues": [
+              {
+                "severity": "warning",
+                "code": "contact-gap-worker_stale_status",
+                "message": "contact-gap-worker status is stale."
+              },
+              {
+                "severity": "warning",
+                "code": "cloud-logger-worker_stale_status",
+                "message": "cloud-logger-worker status is stale."
+              }
+            ]
           },
-          "updatedAt": "2026-07-11T03:40:11.431Z"
+          "updatedAt": "2026-07-11T18:58:42.364Z"
         }
       }
     },
@@ -1532,60 +1112,71 @@
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.csv",
         "size": 145200,
-        "updatedAt": "2026-07-11T03:40:16.764Z",
-        "ageMs": 38159.06201171875
+        "updatedAt": "2026-07-11T18:58:40.642Z",
+        "ageMs": 2940.3623046875
       },
       "autopilot-qualified-contactable-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.csv",
         "size": 145200,
-        "updatedAt": "2026-07-11T03:40:16.816Z",
-        "ageMs": 38107.060546875
+        "updatedAt": "2026-07-11T18:58:40.769Z",
+        "ageMs": 2813.48681640625
       },
       "autopilot-hot-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.csv",
         "size": 109728,
-        "updatedAt": "2026-07-11T03:40:16.859Z",
-        "ageMs": 38064.05908203125
+        "updatedAt": "2026-07-11T18:58:40.870Z",
+        "ageMs": 2711.87841796875
       },
       "autopilot-working-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
-        "size": 209870,
-        "updatedAt": "2026-07-11T03:40:40.423Z",
-        "ageMs": 14499.55078125
+        "size": 209814,
+        "updatedAt": "2026-07-11T18:58:41.070Z",
+        "ageMs": 2511.8857421875
       },
       "autopilot-social-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
         "size": 82834,
-        "updatedAt": "2026-07-11T03:40:40.350Z",
-        "ageMs": 14573.056396484375
+        "updatedAt": "2026-07-11T18:58:40.908Z",
+        "ageMs": 2674.022705078125
       },
       "autopilot-linkedin-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
         "size": 60926,
-        "updatedAt": "2026-07-11T03:40:40.361Z",
-        "ageMs": 14562.05810546875
+        "updatedAt": "2026-07-11T18:58:40.926Z",
+        "ageMs": 2655.754638671875
       },
       "autopilot-instagram-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
         "size": 4737,
-        "updatedAt": "2026-07-11T03:40:40.355Z",
-        "ageMs": 14568.057861328125
+        "updatedAt": "2026-07-11T18:58:40.916Z",
+        "ageMs": 2667.469970703125
       },
       "autopilot-x-leads.csv": {
         "exists": true,
         "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
         "size": 16050,
-        "updatedAt": "2026-07-11T03:40:40.368Z",
-        "ageMs": 14555.058349609375
+        "updatedAt": "2026-07-11T18:58:40.941Z",
+        "ageMs": 2641.51025390625
       }
     },
-    "issues": []
+    "issues": [
+      {
+        "severity": "warning",
+        "code": "contact-gap-worker_stale_status",
+        "message": "contact-gap-worker status is stale."
+      },
+      {
+        "severity": "warning",
+        "code": "cloud-logger-worker_stale_status",
+        "message": "cloud-logger-worker status is stale."
+      }
+    ]
   },
   "quality": {
     "totals": {
@@ -1832,26 +1423,26 @@
       "name": "cloud-logger-worker",
       "status": "running",
       "phase": "waiting",
-      "age": "10m",
-      "ageMs": 601084,
+      "age": "15.3h",
+      "ageMs": 55065534,
       "cycle": null,
       "pid": null,
       "message": "",
       "current": null,
       "lastResult": {
         "summary": {
-          "at": "2026-07-11T03:30:51.740Z",
+          "at": "2026-07-11T03:40:56.136Z",
           "ok": true,
           "raw": 173,
           "qualified": 43,
-          "working": 72,
-          "contactable": 55,
+          "working": 71,
+          "contactable": 54,
           "salesReady": 13,
           "a1Hot": 20,
           "a2Strong": 12,
           "platformContactLeaks": 1,
           "highValueNoContact": 42,
-          "providerErrors": 45,
+          "providerErrors": 27,
           "staleWorkers": [
             "engine-control"
           ],
@@ -1886,7 +1477,7 @@
           "ok": true,
           "committed": true,
           "pushed": true,
-          "commit": "[main 6e583ab] ops: update engine cloud report 2026-07-11T03:30:52.006Z\n 3 files changed, 722 insertions(+), 299 deletions(-)\n"
+          "commit": "[main 62a86f3] ops: update engine cloud report 2026-07-11T03:40:56.394Z\n 3 files changed, 271 insertions(+), 537 deletions(-)\n"
         }
       },
       "counts": {
@@ -1910,8 +1501,8 @@
       "name": "contact-gap-worker",
       "status": "running",
       "phase": "enriching-gap",
-      "age": "2m",
-      "ageMs": 107503,
+      "age": "15.3h",
+      "ageMs": 55176172,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -1954,8 +1545,8 @@
       "name": "engine-control",
       "status": "done",
       "phase": "done",
-      "age": "34.6h",
-      "ageMs": 124482631,
+      "age": "49.9h",
+      "ageMs": 179551301,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -1981,24 +1572,20 @@
     {
       "name": "enrichment-worker",
       "status": "running",
-      "phase": "idle",
-      "age": "9s",
-      "ageMs": 9419,
+      "phase": "enriching",
+      "age": "6s",
+      "ageMs": 5722,
       "cycle": null,
       "pid": null,
       "message": "",
-      "current": null,
-      "lastResult": {
-        "status": "stored",
-        "id": "fe749ac34d2df01f",
-        "name": "Traders Trust | Corretor Forex e CFD Premiado | Alavancagem 1:3000",
-        "dueReason": "scheduled_due",
-        "at": "2026-07-11T03:40:40.480Z",
-        "emails": 0,
-        "links": 21,
-        "makers": 0,
-        "bestContact": "https://www.facebook.com/traderstrustofficial"
+      "current": {
+        "id": "7e7c9cef9fb6da4f",
+        "name": "Forex Expo on LinkedIn: Forex Expo Dubai",
+        "url": "https://cy.linkedin.com/posts/theforexexpo_forex-expo-dubai-activity-7029345311932178432-I_to",
+        "platform": "LinkedIn",
+        "dueReason": "contactless_due"
       },
+      "lastResult": null,
       "counts": {
         "raw": 0,
         "saved": 0,
@@ -2011,7 +1598,7 @@
         "contactable": null,
         "hot": null,
         "totalRemoved": null,
-        "processed": 2122,
+        "processed": 2123,
         "stored": null,
         "errors": 0
       }
@@ -2020,9 +1607,9 @@
       "name": "lead-cleaner",
       "status": "running",
       "phase": "waiting",
-      "age": "53s",
-      "ageMs": 53196,
-      "cycle": 985,
+      "age": "5s",
+      "ageMs": 4685,
+      "cycle": 987,
       "pid": null,
       "message": "",
       "current": null,
@@ -2038,7 +1625,7 @@
         "working": null,
         "contactable": null,
         "hot": null,
-        "totalRemoved": 264,
+        "totalRemoved": 268,
         "processed": null,
         "stored": null,
         "errors": 0
@@ -2048,8 +1635,8 @@
       "name": "qualified-exporter",
       "status": "running",
       "phase": "n/a",
-      "age": "38s",
-      "ageMs": 37922,
+      "age": "2s",
+      "ageMs": 2421,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -2075,13 +1662,19 @@
     {
       "name": "smart-enrichment-worker",
       "status": "running",
-      "phase": "idle",
-      "age": "13s",
-      "ageMs": 12790,
+      "phase": "smart-enriching",
+      "age": "5s",
+      "ageMs": 4537,
       "cycle": null,
       "pid": null,
       "message": "",
-      "current": null,
+      "current": {
+        "id": "64460c636f534e23",
+        "name": "Forex Trading tools for Forex traders",
+        "url": "https://www.myfxbook.com/",
+        "platform": "Myfxbook",
+        "bucket": "instagram"
+      },
       "lastResult": {
         "status": "stored",
         "id": "8518e456c136071f",
@@ -2115,19 +1708,19 @@
       "name": "source-harvester",
       "status": "running",
       "phase": "scan",
-      "age": "6m",
-      "ageMs": 366513,
+      "age": "4s",
+      "ageMs": 4066,
       "cycle": 1,
       "pid": null,
-      "message": "Saved qualified lead: Mercado Forex o que é como funciona e quais os riscos",
+      "message": "Starting quality discovery with 120 queries",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 10,
+        "raw": 0,
         "saved": 0,
-        "discarded": 4,
-        "duplicates": 1,
-        "providerErrors": 9,
+        "discarded": 0,
+        "duplicates": 0,
+        "providerErrors": 0,
         "total": 0,
         "exported": 0,
         "working": null,
@@ -2143,8 +1736,8 @@
       "name": "source-harvester-communities",
       "status": "running",
       "phase": "scan",
-      "age": "2m",
-      "ageMs": 105051,
+      "age": "3s",
+      "ageMs": 2750,
       "cycle": 1,
       "pid": null,
       "message": "Starting quality discovery with 116 queries",
@@ -2171,19 +1764,19 @@
       "name": "source-harvester-ecosystem",
       "status": "running",
       "phase": "scan",
-      "age": "12m",
-      "ageMs": 693233,
+      "age": "4s",
+      "ageMs": 4092,
       "cycle": 1,
       "pid": null,
-      "message": "Saved qualified lead: lilo org",
+      "message": "Starting quality discovery with 90 queries",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 30,
+        "raw": 0,
         "saved": 0,
-        "discarded": 23,
-        "duplicates": 7,
-        "providerErrors": 18,
+        "discarded": 0,
+        "duplicates": 0,
+        "providerErrors": 0,
         "total": 0,
         "exported": 0,
         "working": null,
@@ -2199,18 +1792,18 @@
       "name": "source-harvester-events",
       "status": "running",
       "phase": "scan",
-      "age": "11m",
-      "ageMs": 641314,
+      "age": "3s",
+      "ageMs": 2756,
       "cycle": 1,
       "pid": null,
-      "message": "Saved qualified lead: Mercado Forex o que é como funciona e quais os riscos",
+      "message": "Starting quality discovery with 120 queries",
       "current": null,
       "lastResult": null,
       "counts": {
-        "raw": 10,
+        "raw": 0,
         "saved": 0,
-        "discarded": 4,
-        "duplicates": 1,
+        "discarded": 0,
+        "duplicates": 0,
         "providerErrors": 0,
         "total": 0,
         "exported": 0,
@@ -2227,8 +1820,8 @@
       "name": "source-harvester-instagram",
       "status": "running",
       "phase": "scan",
-      "age": "14m",
-      "ageMs": 835776,
+      "age": "4s",
+      "ageMs": 3717,
       "cycle": 1,
       "pid": null,
       "message": "Starting quality discovery with 45 queries",
@@ -2255,8 +1848,8 @@
       "name": "source-harvester-linkedin",
       "status": "running",
       "phase": "scan",
-      "age": "10m",
-      "ageMs": 592473,
+      "age": "4s",
+      "ageMs": 4064,
       "cycle": 1,
       "pid": null,
       "message": "Starting quality discovery with 180 queries",
@@ -2283,8 +1876,8 @@
       "name": "source-harvester-platforms",
       "status": "running",
       "phase": "scan",
-      "age": "6m",
-      "ageMs": 348198,
+      "age": "4s",
+      "ageMs": 3570,
       "cycle": 1,
       "pid": null,
       "message": "Starting quality discovery with 47 queries",
@@ -2311,8 +1904,8 @@
       "name": "source-harvester-social",
       "status": "running",
       "phase": "scan",
-      "age": "10m",
-      "ageMs": 592485,
+      "age": "4s",
+      "ageMs": 3974,
       "cycle": 1,
       "pid": null,
       "message": "Starting quality discovery with 120 queries",
@@ -2339,8 +1932,8 @@
       "name": "source-harvester-specialist",
       "status": "running",
       "phase": "scan",
-      "age": "3m",
-      "ageMs": 165969,
+      "age": "4s",
+      "ageMs": 4062,
       "cycle": 1,
       "pid": null,
       "message": "Starting quality discovery with 120 queries",
@@ -2367,9 +1960,9 @@
       "name": "supervisor",
       "status": "running",
       "phase": "n/a",
-      "age": "44s",
-      "ageMs": 43502,
-      "cycle": 1460,
+      "age": "1s",
+      "ageMs": 1251,
+      "cycle": 1462,
       "pid": null,
       "message": "",
       "current": null,
@@ -2395,8 +1988,8 @@
       "name": "ui-snapshot-worker",
       "status": "unknown",
       "phase": "n/a",
-      "age": "4s",
-      "ageMs": 3614,
+      "age": "6s",
+      "ageMs": 6017,
       "cycle": null,
       "pid": null,
       "message": "",
@@ -2425,57 +2018,57 @@
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-leads.csv",
       "size": 145200,
-      "updatedAt": "2026-07-11T03:40:16.764Z",
-      "ageMs": 38159.06201171875
+      "updatedAt": "2026-07-11T18:58:40.642Z",
+      "ageMs": 2940.3623046875
     },
     "autopilot-qualified-contactable-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-qualified-contactable-leads.csv",
       "size": 145200,
-      "updatedAt": "2026-07-11T03:40:16.816Z",
-      "ageMs": 38107.060546875
+      "updatedAt": "2026-07-11T18:58:40.769Z",
+      "ageMs": 2813.48681640625
     },
     "autopilot-hot-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-hot-leads.csv",
       "size": 109728,
-      "updatedAt": "2026-07-11T03:40:16.859Z",
-      "ageMs": 38064.05908203125
+      "updatedAt": "2026-07-11T18:58:40.870Z",
+      "ageMs": 2711.87841796875
     },
     "autopilot-working-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-working-leads.csv",
-      "size": 209870,
-      "updatedAt": "2026-07-11T03:40:40.423Z",
-      "ageMs": 14499.55078125
+      "size": 209814,
+      "updatedAt": "2026-07-11T18:58:41.070Z",
+      "ageMs": 2511.8857421875
     },
     "autopilot-social-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-social-leads.csv",
       "size": 82834,
-      "updatedAt": "2026-07-11T03:40:40.350Z",
-      "ageMs": 14573.056396484375
+      "updatedAt": "2026-07-11T18:58:40.908Z",
+      "ageMs": 2674.022705078125
     },
     "autopilot-linkedin-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-linkedin-leads.csv",
       "size": 60926,
-      "updatedAt": "2026-07-11T03:40:40.361Z",
-      "ageMs": 14562.05810546875
+      "updatedAt": "2026-07-11T18:58:40.926Z",
+      "ageMs": 2655.754638671875
     },
     "autopilot-instagram-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-instagram-leads.csv",
       "size": 4737,
-      "updatedAt": "2026-07-11T03:40:40.355Z",
-      "ageMs": 14568.057861328125
+      "updatedAt": "2026-07-11T18:58:40.916Z",
+      "ageMs": 2667.469970703125
     },
     "autopilot-x-leads.csv": {
       "exists": true,
       "path": "C:\\Users\\steve\\bd-lead-engine\\autopilot-x-leads.csv",
       "size": 16050,
-      "updatedAt": "2026-07-11T03:40:40.368Z",
-      "ageMs": 14555.058349609375
+      "updatedAt": "2026-07-11T18:58:40.941Z",
+      "ageMs": 2641.51025390625
     }
   },
   "recentRuns": [
@@ -3802,6 +3395,17 @@
   ],
   "pruneHistory": [
     {
+      "at": "2026-07-11T03:41:31.839Z",
+      "reason": "lead-cleaner",
+      "removed": 4,
+      "before": 177,
+      "after": 173,
+      "byReason": {
+        "official_telegram_page": 4
+      },
+      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-11T03-41-31-837Z.json"
+    },
+    {
       "at": "2026-07-11T03:21:59.256Z",
       "reason": "lead-cleaner",
       "removed": 4,
@@ -3844,17 +3448,6 @@
         "official_telegram_page": 4
       },
       "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-11T02-17-21-279Z.json"
-    },
-    {
-      "at": "2026-07-11T01:56:18.677Z",
-      "reason": "lead-cleaner",
-      "removed": 4,
-      "before": 177,
-      "after": 173,
-      "byReason": {
-        "official_telegram_page": 4
-      },
-      "backupPath": "C:\\Users\\steve\\bd-lead-engine\\data\\leads.prune-backup-2026-07-11T01-56-18-676Z.json"
     }
   ],
   "cleanupHistory": [
@@ -3937,14 +3530,14 @@
   "logs": {
     "source-harvester": {
       "out": [
-        "[source-harvester cycle 1] Starting quality discovery with 120 queries",
         "[source-harvester cycle 1] Saved qualified lead: Mercado Forex o que é como funciona e quais os riscos",
         "[source-harvester cycle 1] Starting quality discovery with 120 queries",
         "[source-harvester cycle 1] Saved qualified lead: Mercado Forex o que é como funciona e quais os riscos",
         "[source-harvester cycle 1] Starting quality discovery with 120 queries",
         "[source-harvester cycle 1] Saved qualified lead: Mercado Forex o que é como funciona e quais os riscos",
         "[source-harvester cycle 1] Starting quality discovery with 120 queries",
-        "[source-harvester cycle 1] Saved qualified lead: Mercado Forex o que é como funciona e quais os riscos"
+        "[source-harvester cycle 1] Saved qualified lead: Mercado Forex o que é como funciona e quais os riscos",
+        "[source-harvester cycle 1] Starting quality discovery with 120 queries"
       ],
       "err": []
     },
@@ -3963,27 +3556,27 @@
     },
     "source-harvester-specialist": {
       "out": [
-        "[source-harvester-specialist cycle 1] Saved qualified lead: lilo org",
         "[source-harvester-specialist cycle 1] Starting quality discovery with 120 queries",
         "[source-harvester-specialist cycle 1] Saved qualified lead: company murenamobile",
         "[source-harvester-specialist cycle 1] Saved qualified lead: lilo org",
         "[source-harvester-specialist cycle 1] Starting quality discovery with 120 queries",
         "[source-harvester-specialist cycle 1] Saved qualified lead: company murenamobile",
         "[source-harvester-specialist cycle 1] Saved qualified lead: lilo org",
+        "[source-harvester-specialist cycle 1] Starting quality discovery with 120 queries",
         "[source-harvester-specialist cycle 1] Starting quality discovery with 120 queries"
       ],
       "err": []
     },
     "source-harvester-ecosystem": {
       "out": [
-        "[source-harvester-ecosystem cycle 1] Saved qualified lead: company murenamobile",
         "[source-harvester-ecosystem cycle 1] Saved qualified lead: lilo org",
         "[source-harvester-ecosystem cycle 1] Starting quality discovery with 90 queries",
         "[source-harvester-ecosystem cycle 1] Saved qualified lead: company murenamobile",
         "[source-harvester-ecosystem cycle 1] Saved qualified lead: lilo org",
         "[source-harvester-ecosystem cycle 1] Starting quality discovery with 90 queries",
         "[source-harvester-ecosystem cycle 1] Saved qualified lead: company murenamobile",
-        "[source-harvester-ecosystem cycle 1] Saved qualified lead: lilo org"
+        "[source-harvester-ecosystem cycle 1] Saved qualified lead: lilo org",
+        "[source-harvester-ecosystem cycle 1] Starting quality discovery with 90 queries"
       ],
       "err": []
     },
@@ -4019,49 +3612,49 @@
         "[source-harvester-platforms cycle 1] Starting quality discovery with 47 queries",
         "[source-harvester-platforms cycle 1] Starting quality discovery with 47 queries",
         "[source-harvester-platforms cycle 1] Starting quality discovery with 47 queries",
-        "[source-harvester-platforms cycle 1] Starting quality discovery with 47 queries",
-        "[source-harvester-platforms cycle 1] Starting quality discovery with 47 queries",
-        "[source-harvester-platforms cycle 1] Starting quality discovery with 47 queries",
-        "[source-harvester-platforms cycle 1] Starting quality discovery with 47 queries"
+        "[source-harvester-platforms cycle 1] Saved qualified lead: thierryblForex Manager Forex System by Forex Trader thierrybl",
+        "[source-harvester-platforms cycle 1] Saved qualified lead: Forex Manager Forex System by Forex Trader upravliaychiy",
+        "[source-harvester-platforms cycle 1] Saved qualified lead: manager mgmforexMGMFOREX BTC Forex System by Forex Trader manager ...",
+        "[source-harvester-platforms cycle 1] Saved qualified lead: ProsperityAlgoLongbow Fund Manager Live Forex System by Forex ..."
       ],
       "err": []
     },
     "source-harvester-communities": {
       "out": [
+        "[source-harvester-communities cycle 1] Saved qualified lead: Daily Forex Signals",
         "[source-harvester-communities cycle 1] Saved qualified lead: Mercado Forex o que é como funciona e quais os riscos",
         "[source-harvester-communities cycle 1] Starting quality discovery with 116 queries",
         "[source-harvester-communities cycle 1] Saved qualified lead: View signalsforexf",
         "[source-harvester-communities cycle 1] Saved qualified lead: View VasilyTrading",
         "[source-harvester-communities cycle 1] Saved qualified lead: Forex Signals",
         "[source-harvester-communities cycle 1] Saved qualified lead: Daily Forex Signals",
-        "[source-harvester-communities cycle 1] Saved qualified lead: Mercado Forex o que é como funciona e quais os riscos",
         "[source-harvester-communities cycle 1] Starting quality discovery with 116 queries"
       ],
       "err": []
     },
     "source-harvester-events": {
       "out": [
-        "[source-harvester-events cycle 1] Starting quality discovery with 120 queries",
         "[source-harvester-events cycle 1] Saved qualified lead: Mercado Forex o que é como funciona e quais os riscos",
         "[source-harvester-events cycle 1] Starting quality discovery with 120 queries",
         "[source-harvester-events cycle 1] Saved qualified lead: Mercado Forex o que é como funciona e quais os riscos",
         "[source-harvester-events cycle 1] Starting quality discovery with 120 queries",
         "[source-harvester-events cycle 1] Saved qualified lead: Mercado Forex o que é como funciona e quais os riscos",
         "[source-harvester-events cycle 1] Starting quality discovery with 120 queries",
-        "[source-harvester-events cycle 1] Saved qualified lead: Mercado Forex o que é como funciona e quais os riscos"
+        "[source-harvester-events cycle 1] Saved qualified lead: Mercado Forex o que é como funciona e quais os riscos",
+        "[source-harvester-events cycle 1] Starting quality discovery with 120 queries"
       ],
       "err": []
     },
     "enrichment-worker": {
       "out": [
-        "[enrichment-worker] stored scheduled_due 7494335404a46ba3 2025; emails=0; links=30; makers=0; best=https://www.facebook.com/forexteam",
-        "[enrichment-worker] stored scheduled_due 5a2b688f32f7b3a8 Forex Factory | Global markets for the smart money.; emails=0; links=0; makers=0; best=-",
         "[enrichment-worker] stored contactless_due 4fb26c68447b9bc5 Peace Army forexpeacearmy.com › forums › commerce zone- services offers, news & discussions › financial company comparisons and discussions Discuss - Forex-MegaDroid.com | Page 104 | Forex Peace Army - Your Forex Trading Forum; emails=0; links=0; makers=0; best=-",
         "[enrichment-worker] stored contactless_due 136ec57018434bf7 calendar.forexfactory.com; emails=0; links=0; makers=0; best=-",
         "[enrichment-worker] stored contactless_due 1fc247aca444bdcc Forex Peace Army - Your Forex Trading Forum; emails=0; links=0; makers=0; best=-",
         "[enrichment-worker] stored scheduled_due d3bc8f5ad105d505 Forex Expo Dubai 2025 Conference to Feature 150 FX and; emails=0; links=2; makers=0; best=https://twitter.com/hubfxco",
         "[enrichment-worker] stored contactless_due d20910aeda1975a7 reel DAlCzlgRTQe; emails=0; links=0; makers=0; best=-",
-        "[enrichment-worker] stored scheduled_due fe749ac34d2df01f Traders Trust | Corretor Forex e CFD Premiado | Alavancagem 1:3000; emails=0; links=21; makers=0; best=https://www.facebook.com/traderstrustofficial"
+        "[enrichment-worker] stored scheduled_due fe749ac34d2df01f Traders Trust | Corretor Forex e CFD Premiado | Alavancagem 1:3000; emails=0; links=21; makers=0; best=https://www.facebook.com/traderstrustofficial",
+        "[enrichment-worker] stored contactless_due 019db5a6a9ba0d00 Peace Army forexpeacearmy.com › forums › commerce zone- services offers, news & discussions › company articles What is Valetax and what does Valetax do? | Forex Peace Army - Your Forex Trading Forum; emails=0; links=0; makers=0; best=-",
+        "[enrichment-worker] stored contactless_due 7e7c9cef9fb6da4f Forex Expo on LinkedIn: Forex Expo Dubai; emails=0; links=0; makers=0; best=https://cy.linkedin.com/posts/theforexexpo_forex-expo-dubai-activity-7029345311932178432-I_to"
       ],
       "err": []
     },
@@ -4075,27 +3668,27 @@
     },
     "lead-cleaner": {
       "out": [
-        "[lead-cleaner] 2026-07-11T00:51:41.852Z removed=4 totalRemoved=236",
         "[lead-cleaner] 2026-07-11T01:14:14.709Z removed=4 totalRemoved=240",
         "[lead-cleaner] 2026-07-11T01:35:17.288Z removed=4 totalRemoved=244",
         "[lead-cleaner] 2026-07-11T01:56:19.859Z removed=4 totalRemoved=248",
         "[lead-cleaner] 2026-07-11T02:17:22.505Z removed=4 totalRemoved=252",
         "[lead-cleaner] 2026-07-11T02:38:25.105Z removed=4 totalRemoved=256",
         "[lead-cleaner] 2026-07-11T03:00:57.796Z removed=4 totalRemoved=260",
-        "[lead-cleaner] 2026-07-11T03:22:00.483Z removed=4 totalRemoved=264"
+        "[lead-cleaner] 2026-07-11T03:22:00.483Z removed=4 totalRemoved=264",
+        "[lead-cleaner] 2026-07-11T03:41:32.999Z removed=4 totalRemoved=268"
       ],
       "err": []
     },
     "qualified-exporter": {
       "out": [
-        "[qualified-exporter] 2026-07-11T03:29:38.587Z total=173 qualified=43 contactable=43 hot=32 social=31 instagram=2 linkedin=25 x=3",
-        "[qualified-exporter] 2026-07-11T03:31:09.813Z total=173 qualified=43 contactable=43 hot=32 social=31 instagram=2 linkedin=25 x=3",
         "[qualified-exporter] 2026-07-11T03:32:41.028Z total=173 qualified=43 contactable=43 hot=32 social=31 instagram=2 linkedin=25 x=3",
         "[qualified-exporter] 2026-07-11T03:34:12.276Z total=173 qualified=43 contactable=43 hot=32 social=31 instagram=2 linkedin=25 x=3",
         "[qualified-exporter] 2026-07-11T03:35:43.530Z total=173 qualified=43 contactable=43 hot=32 social=31 instagram=2 linkedin=25 x=3",
         "[qualified-exporter] 2026-07-11T03:37:14.705Z total=173 qualified=43 contactable=43 hot=32 social=31 instagram=2 linkedin=25 x=3",
         "[qualified-exporter] 2026-07-11T03:38:45.848Z total=173 qualified=43 contactable=43 hot=32 social=31 instagram=2 linkedin=25 x=3",
-        "[qualified-exporter] 2026-07-11T03:40:17.008Z total=173 qualified=43 contactable=43 hot=32 social=31 instagram=2 linkedin=25 x=3"
+        "[qualified-exporter] 2026-07-11T03:40:17.008Z total=173 qualified=43 contactable=43 hot=32 social=31 instagram=2 linkedin=25 x=3",
+        "[qualified-exporter] 2026-07-11T03:41:48.157Z total=173 qualified=43 contactable=43 hot=32 social=31 instagram=2 linkedin=25 x=3",
+        "[qualified-exporter] 2026-07-11T18:58:41.179Z total=173 qualified=43 contactable=43 hot=32 social=31 instagram=2 linkedin=25 x=3"
       ],
       "err": [
         "[qualified-exporter] 2026-07-05T22:54:39.472Z SyntaxError: Unterminated string in JSON at position 521902 (line 9214 column 21)",
@@ -4108,14 +3701,14 @@
     },
     "ui-snapshot-worker": {
       "out": [
-        "[ui-snapshot] ok total=142 rejected=31 buildMs=290",
-        "[ui-snapshot] ok total=142 rejected=31 buildMs=291",
-        "[ui-snapshot] ok total=142 rejected=31 buildMs=290",
-        "[ui-snapshot] ok total=142 rejected=31 buildMs=281",
-        "[ui-snapshot] ok total=142 rejected=31 buildMs=288",
-        "[ui-snapshot] ok total=142 rejected=31 buildMs=290",
-        "[ui-snapshot] ok total=142 rejected=31 buildMs=291",
-        "[ui-snapshot] ok total=142 rejected=31 buildMs=294"
+        "[ui-snapshot] ok total=142 rejected=31 buildMs=294",
+        "[ui-snapshot] ok total=142 rejected=31 buildMs=292",
+        "[ui-snapshot] ok total=146 rejected=31 buildMs=300",
+        "[ui-snapshot] ok total=146 rejected=31 buildMs=304",
+        "[ui-snapshot] ok total=142 rejected=31 buildMs=289",
+        "[ui-snapshot] ok total=142 rejected=31 buildMs=276",
+        "[ui-snapshot] ok total=142 rejected=31 buildMs=279",
+        "[ui-snapshot] ok total=142 rejected=31 buildMs=397"
       ],
       "err": [
         "[ui-snapshot] Error: EPERM: operation not permitted, rename 'C:\\Users\\steve\\bd-lead-engine\\public\\ui-dashboard.json.31880.1783310997093.tmp' -> 'C:\\Users\\steve\\bd-lead-engine\\public\\ui-dashboard.json'",
@@ -4131,14 +3724,14 @@
     },
     "supervisor": {
       "out": [
-        "[supervisor] 2026-07-11T03:33:05.173Z cycle=1453 ok=true raw=173 working=72 a=32",
-        "[supervisor] 2026-07-11T03:34:06.053Z cycle=1454 ok=true raw=173 working=72 a=32",
         "[supervisor] 2026-07-11T03:35:07.018Z cycle=1455 ok=true raw=173 working=71 a=32",
         "[supervisor] 2026-07-11T03:36:07.908Z cycle=1456 ok=true raw=173 working=71 a=32",
         "[supervisor] 2026-07-11T03:37:08.771Z cycle=1457 ok=true raw=173 working=71 a=32",
         "[supervisor] 2026-07-11T03:38:09.684Z cycle=1458 ok=true raw=173 working=71 a=32",
         "[supervisor] 2026-07-11T03:39:10.579Z cycle=1459 ok=true raw=173 working=71 a=32",
-        "[supervisor] 2026-07-11T03:40:11.431Z cycle=1460 ok=true raw=173 working=71 a=32"
+        "[supervisor] 2026-07-11T03:40:11.431Z cycle=1460 ok=true raw=173 working=71 a=32",
+        "[supervisor] 2026-07-11T03:41:12.315Z cycle=1461 ok=true raw=173 working=71 a=32",
+        "[supervisor] 2026-07-11T18:58:42.364Z cycle=1462 ok=true raw=173 working=71 a=32 issues=contact-gap-worker_stale_status,cloud-logger-worker_stale_status"
       ],
       "err": []
     },

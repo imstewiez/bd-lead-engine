@@ -1,6 +1,6 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-11T03:40:56.136Z
+Updated: 2026-07-11T18:58:45.856Z
 Health: OK
 
 ## Funnel
@@ -19,15 +19,16 @@ Sales-ready by bucket: {"mql5":6,"web":2,"x":2,"tiktok":2,"instagram":1}
 Qualified by bucket: {"linkedin":25,"mql5":7,"x":3,"instagram":3,"tiktok":2,"web":2,"telegram":1}
 
 ## Sourcing / Workers
-Provider errors: 27
-Stale workers: engine-control
-Issues: none
+Provider errors: 0
+Stale workers: cloud-logger-worker, contact-gap-worker, engine-control
+Issues: warning:contact-gap-worker_stale_status, warning:cloud-logger-worker_stale_status
 
 ## Smart Enrichment
-Phase: idle
+Phase: smart-enriching
 Processed: 134
 Stored: 133
 Errors: 0
+Current: Forex Trading tools for Forex traders
 Last: Forex Manager Forex Trading System by Forex Trader thierrybl
 
 ## Recent Errors
