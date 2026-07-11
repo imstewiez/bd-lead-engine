@@ -1,11 +1,11 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-11T19:29:00.458Z
+Updated: 2026-07-11T19:39:05.076Z
 Health: OK
 
 ## Funnel
 Raw: 176
-Qualified: 47
+Qualified: 46
 Working: 73
 Contactable: 55
 Sales-ready: 15
@@ -13,24 +13,23 @@ A1 Hot: 20
 A2 Strong: 12
 
 ## Quality
-Platform contact leaks: 1
+Platform contact leaks: 2
 High-value without real contact: 41
 Sales-ready by bucket: {"mql5":6,"web":2,"x":2,"myfxbook":2,"tiktok":2,"instagram":1}
-Qualified by bucket: {"linkedin":26,"mql5":7,"instagram":4,"x":3,"tiktok":2,"web":2,"myfxbook":2,"telegram":1}
+Qualified by bucket: {"linkedin":25,"mql5":7,"instagram":4,"x":3,"tiktok":2,"web":2,"myfxbook":2,"telegram":1}
 
 ## Sourcing / Workers
-Provider errors: 18
+Provider errors: 36
 Stale workers: engine-control
 Issues: none
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 148
-Stored: 146
+Processed: 151
+Stored: 149
 Errors: 0
-Current: Myfxbook
-Last: AU USD Gold Price Analysis & Live Chart
-Last best contact: https://twitter.com/xquantify
+Current: Manager Forex Trading System by Forex Trader upravliaychiy
+Last: Manager Forex Trading System by Forex Trader thierrybl - Myfxbook.com
 
 ## Recent Errors
 ### qualified-exporter
