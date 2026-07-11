@@ -1,36 +1,36 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-11T19:08:51.307Z
+Updated: 2026-07-11T19:18:55.988Z
 Health: OK
 
 ## Funnel
 Raw: 176
-Qualified: 44
-Working: 72
-Contactable: 54
-Sales-ready: 14
+Qualified: 45
+Working: 73
+Contactable: 55
+Sales-ready: 15
 A1 Hot: 20
 A2 Strong: 12
 
 ## Quality
 Platform contact leaks: 1
-High-value without real contact: 42
-Sales-ready by bucket: {"mql5":6,"web":2,"x":2,"tiktok":2,"instagram":1,"myfxbook":1}
-Qualified by bucket: {"linkedin":25,"mql5":7,"instagram":3,"x":3,"tiktok":2,"web":2,"telegram":1,"myfxbook":1}
+High-value without real contact: 41
+Sales-ready by bucket: {"mql5":6,"web":2,"x":2,"myfxbook":2,"tiktok":2,"instagram":1}
+Qualified by bucket: {"linkedin":25,"mql5":7,"instagram":3,"x":3,"tiktok":2,"web":2,"myfxbook":2,"telegram":1}
 
 ## Sourcing / Workers
-Provider errors: 20
+Provider errors: 13
 Stale workers: engine-control
 Issues: none
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 140
-Stored: 138
+Processed: 144
+Stored: 142
 Errors: 0
-Current: ) - Instagram
-Last: ) on X
-Last best contact: https://twitter.com/forex_tradera?lang=en
+Current: MGMFOREX-BTC Forex Trading System by Forex Trader manager…
+Last: ) / ...
+Last best contact: https://twitter.com/topfxbrokers
 
 ## Recent Errors
 ### qualified-exporter
