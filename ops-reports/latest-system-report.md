@@ -1,35 +1,36 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-11T18:58:45.856Z
+Updated: 2026-07-11T19:08:51.307Z
 Health: OK
 
 ## Funnel
-Raw: 173
-Qualified: 43
-Working: 71
+Raw: 176
+Qualified: 44
+Working: 72
 Contactable: 54
-Sales-ready: 13
+Sales-ready: 14
 A1 Hot: 20
 A2 Strong: 12
 
 ## Quality
 Platform contact leaks: 1
 High-value without real contact: 42
-Sales-ready by bucket: {"mql5":6,"web":2,"x":2,"tiktok":2,"instagram":1}
-Qualified by bucket: {"linkedin":25,"mql5":7,"x":3,"instagram":3,"tiktok":2,"web":2,"telegram":1}
+Sales-ready by bucket: {"mql5":6,"web":2,"x":2,"tiktok":2,"instagram":1,"myfxbook":1}
+Qualified by bucket: {"linkedin":25,"mql5":7,"instagram":3,"x":3,"tiktok":2,"web":2,"telegram":1,"myfxbook":1}
 
 ## Sourcing / Workers
-Provider errors: 0
-Stale workers: cloud-logger-worker, contact-gap-worker, engine-control
-Issues: warning:contact-gap-worker_stale_status, warning:cloud-logger-worker_stale_status
+Provider errors: 20
+Stale workers: engine-control
+Issues: none
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 134
-Stored: 133
+Processed: 140
+Stored: 138
 Errors: 0
-Current: Forex Trading tools for Forex traders
-Last: Forex Manager Forex Trading System by Forex Trader thierrybl
+Current: ) - Instagram
+Last: ) on X
+Last best contact: https://twitter.com/forex_tradera?lang=en
 
 ## Recent Errors
 ### qualified-exporter
