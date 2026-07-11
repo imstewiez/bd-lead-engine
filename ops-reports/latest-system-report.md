@@ -1,11 +1,11 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-11T22:10:17.103Z
+Updated: 2026-07-11T22:20:21.658Z
 Health: OK
 
 ## Funnel
 Raw: 176
-Qualified: 43
+Qualified: 44
 Working: 71
 Contactable: 53
 Sales-ready: 13
@@ -16,7 +16,7 @@ A2 Strong: 12
 Platform contact leaks: 1
 High-value without real contact: 43
 Sales-ready by bucket: {"mql5":6,"web":2,"x":2,"tiktok":2,"instagram":1}
-Qualified by bucket: {"linkedin":25,"mql5":7,"instagram":3,"x":3,"tiktok":2,"web":2,"telegram":1}
+Qualified by bucket: {"linkedin":25,"mql5":7,"instagram":4,"x":3,"tiktok":2,"web":2,"telegram":1}
 
 ## Sourcing / Workers
 Provider errors: 36
@@ -25,11 +25,10 @@ Issues: none
 
 ## Smart Enrichment
 Phase: idle
-Processed: 166
-Stored: 164
+Processed: 167
+Stored: 165
 Errors: 0
-Last: Nguyen Hang Hai Ha - nguyenhanghaiha - Trader's profile
-Last best contact: https://t.me/mql5dev
+Last: ricogotwav videoDay in the Life South African Forex Trader Rico
 
 ## Recent Errors
 ### qualified-exporter
