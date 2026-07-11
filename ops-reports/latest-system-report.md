@@ -1,35 +1,36 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-11T00:49:40.386Z
+Updated: 2026-07-11T00:59:44.932Z
 Health: OK
 
 ## Funnel
 Raw: 173
-Qualified: 43
+Qualified: 45
 Working: 72
 Contactable: 55
-Sales-ready: 13
+Sales-ready: 14
 A1 Hot: 20
 A2 Strong: 12
 
 ## Quality
 Platform contact leaks: 1
 High-value without real contact: 42
-Sales-ready by bucket: {"mql5":6,"web":2,"x":2,"tiktok":2,"instagram":1}
-Qualified by bucket: {"linkedin":25,"mql5":7,"x":3,"instagram":3,"tiktok":2,"web":2,"telegram":1}
+Sales-ready by bucket: {"mql5":7,"web":2,"x":2,"tiktok":2,"instagram":1}
+Qualified by bucket: {"linkedin":25,"mql5":8,"instagram":4,"x":3,"tiktok":2,"web":2,"telegram":1}
 
 ## Sourcing / Workers
-Provider errors: 18
+Provider errors: 45
 Stale workers: engine-control
 Issues: none
 
 ## Smart Enrichment
-Phase: idle
-Processed: 115
-Stored: 115
+Phase: smart-enriching
+Processed: 119
+Stored: 119
 Errors: 0
-Last: Forex Trading tools for Forex traders
-Last best contact: kundekonsulent@forexvaluta.dk
+Current: ) / X
+Last: ) on X
+Last best contact: https://twitter.com/forex_tradera?lang=en
 
 ## Recent Errors
 ### qualified-exporter
