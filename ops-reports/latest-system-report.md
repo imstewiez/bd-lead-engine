@@ -1,34 +1,35 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-10T23:59:15.334Z
+Updated: 2026-07-11T00:09:21.915Z
 Health: OK
 
 ## Funnel
-Raw: 173
-Qualified: 45
-Working: 71
-Contactable: 54
-Sales-ready: 12
-A1 Hot: 20
-A2 Strong: 12
+Raw: 177
+Qualified: 47
+Working: 74
+Contactable: 57
+Sales-ready: 14
+A1 Hot: 22
+A2 Strong: 13
 
 ## Quality
 Platform contact leaks: 2
 High-value without real contact: 42
-Sales-ready by bucket: {"mql5":6,"web":2,"x":2,"instagram":1,"tiktok":1}
-Qualified by bucket: {"linkedin":26,"mql5":7,"instagram":4,"x":3,"tiktok":2,"web":2,"telegram":1}
+Sales-ready by bucket: {"mql5":6,"web":2,"x":2,"telegram":2,"instagram":1,"tiktok":1}
+Qualified by bucket: {"linkedin":26,"mql5":7,"instagram":4,"x":3,"telegram":3,"tiktok":2,"web":2}
 
 ## Sourcing / Workers
-Provider errors: 45
+Provider errors: 9
 Stale workers: engine-control
 Issues: none
 
 ## Smart Enrichment
-Phase: idle
-Processed: 102
-Stored: 102
+Phase: smart-enriching
+Processed: 103
+Stored: 103
 Errors: 0
-Last: Forex Manager Forex Trading System by Forex Trader thierrybl
+Current: MGM VSA EA V4.00 Forex Trading System by Forex Trader manager…
+Last: MGMFOREX-BTC Forex Trading System by Forex Trader manager…
 
 ## Recent Errors
 ### qualified-exporter
