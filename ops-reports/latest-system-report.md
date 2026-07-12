@@ -1,6 +1,6 @@
 # BD Lead Engine Cloud Report
 
-Updated: 2026-07-12T03:02:41.396Z
+Updated: 2026-07-12T03:12:46.581Z
 Health: OK
 
 ## Funnel
@@ -13,23 +13,24 @@ A1 Hot: 20
 A2 Strong: 12
 
 ## Quality
-Platform contact leaks: 1
+Platform contact leaks: 3
 High-value without real contact: 43
 Sales-ready by bucket: {"mql5":6,"web":2,"x":2,"tiktok":2,"instagram":1}
 Qualified by bucket: {"linkedin":26,"mql5":7,"instagram":4,"x":3,"tiktok":2,"web":2,"telegram":1}
 
 ## Sourcing / Workers
-Provider errors: 45
+Provider errors: 28
 Stale workers: engine-control
 Issues: none
 
 ## Smart Enrichment
 Phase: smart-enriching
-Processed: 167
-Stored: 165
+Processed: 173
+Stored: 170
 Errors: 0
-Current: Forex Trading tools for Forex traders
-Last: ricogotwav videoDay in the Life South African Forex Trader Rico
+Current: ) - Instagram
+Last: ) on X
+Last best contact: https://twitter.com/forex_tradera?lang=en
 
 ## Recent Errors
 ### qualified-exporter
